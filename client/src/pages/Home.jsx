@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-      <h1>Welcome to EventEase</h1>
+      
     </div>
   );
 };

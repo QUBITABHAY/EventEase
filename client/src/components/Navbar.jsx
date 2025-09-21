@@ -1,26 +1,25 @@
+
 import React from 'react';
-import { Button } from "@/components/ui/button";
+import PillNav from './PillNav';
 
 const Navbar = () => {
-    return (
-        <nav className="border-b">
-            <div className="flex h-16 items-center px-4">
-                <div className="flex items-center space-x-4">
-                    <h1 className="text-xl font-semibold">EventEase</h1>
-                </div>
-                <div className="ml-auto flex items-center space-x-4">
-                    <Button variant="ghost">Home</Button>
-                    <Button variant="ghost">About</Button>
-                    <Button variant="ghost">Services</Button>
-                    <Button variant="ghost">Contact</Button>
-                    <Button variant="outline">Sign In</Button>
-                </div>
-            </div>
-        </nav>
-    );
+  return (
+    <PillNav
+      items={[
+        { label: 'Home', href: '/' },
+        { label: 'About', href: '/about' },
+        { label: 'Services', href: '/services' },
+        { label: 'Contact', href: '/contact' }
+      ]}
+      activeHref="/"
+      className="custom-nav"
+      ease="power2.easeOut"
+      baseColor="#000000"
+      pillColor="#ffffff"
+      hoveredPillTextColor="#ffffff"
+      pillTextColor="#000000"
+    />
+  );
 };
 
 export default Navbar;
-
-        
-

@@ -63,7 +63,11 @@ const PillNav = ({
         tlRefs.current[index]?.kill();
         const tl = gsap.timeline({ paused: true });
 
-        tl.to(circle, { scale: 1.2, xPercent: -50, duration: 2, ease, overwrite: 'auto' }, 0);
+        tl.to(
+          circle,
+          { scale: 1.2, xPercent: -50, duration: 2, ease, overwrite: 'auto' },
+          0
+        );
 
         if (label) {
           tl.to(label, { y: -(h + 8), duration: 2, ease, overwrite: 'auto' }, 0);
@@ -174,18 +178,14 @@ const PillNav = ({
     if (menu) {
       if (newState) {
         gsap.set(menu, { visibility: 'visible' });
-        gsap.fromTo(
-          menu,
-          { opacity: 0, y: 10, scaleY: 1 },
-          {
-            opacity: 1,
-            y: 0,
-            scaleY: 1,
-            duration: 0.3,
-            ease,
-            transformOrigin: 'top center'
-          }
-        );
+        gsap.fromTo(menu, { opacity: 0, y: 10, scaleY: 1 }, {
+          opacity: 1,
+          y: 0,
+          scaleY: 1,
+          duration: 0.3,
+          ease,
+          transformOrigin: 'top center'
+        });
       } else {
         gsap.to(menu, {
           opacity: 0,
@@ -226,12 +226,12 @@ const PillNav = ({
   };
 
   return (
-    <div className="absolute top-[1em] z-[1000] w-full left-0 md:w-auto md:left-auto">
+    <div
+      className="absolute top-[1em] z-[1000] w-full left-1/2 -translate-x-1/2 md:w-auto">
       <nav
         className={`w-full md:w-max flex items-center justify-between md:justify-start box-border px-4 md:px-0 ${className}`}
         aria-label="Primary"
-        style={cssVars}
-      >
+        style={cssVars}>
         {isRouterLink(items?.[0]?.href) ? (
           <Link
             to={items[0].href}
@@ -246,9 +246,12 @@ const PillNav = ({
               width: 'var(--nav-h)',
               height: 'var(--nav-h)',
               background: 'var(--base, #000)'
-            }}
-          >
-            <img src={logo} alt={logoAlt} ref={logoImgRef} className="w-full h-full object-cover block" />
+            }}>
+            <img
+              src={logo}
+              alt={logoAlt}
+              ref={logoImgRef}
+              className="w-full h-full object-cover block" />
           </Link>
         ) : (
           <a
@@ -263,9 +266,12 @@ const PillNav = ({
               width: 'var(--nav-h)',
               height: 'var(--nav-h)',
               background: 'var(--base, #000)'
-            }}
-          >
-            <img src={logo} alt={logoAlt} ref={logoImgRef} className="w-full h-full object-cover block" />
+            }}>
+            <img
+              src={logo}
+              alt={logoAlt}
+              ref={logoImgRef}
+              className="w-full h-full object-cover block" />
           </a>
         )}
 
@@ -275,13 +281,11 @@ const PillNav = ({
           style={{
             height: 'var(--nav-h)',
             background: 'var(--base, #000)'
-          }}
-        >
+          }}>
           <ul
             role="menubar"
             className="list-none flex items-stretch m-0 p-[3px] h-full"
-            style={{ gap: 'var(--pill-gap)' }}
-          >
+            style={{ gap: 'var(--pill-gap)' }}>
             {items.map((item, i) => {
               const isActive = activeHref === item.href;
 
@@ -303,13 +307,11 @@ const PillNav = ({
                     aria-hidden="true"
                     ref={el => {
                       circleRefs.current[i] = el;
-                    }}
-                  />
+                    }} />
                   <span className="label-stack relative inline-block leading-[1] z-[2]">
                     <span
                       className="pill-label relative z-[2] inline-block leading-[1]"
-                      style={{ willChange: 'transform' }}
-                    >
+                      style={{ willChange: 'transform' }}>
                       {item.label}
                     </span>
                     <span
@@ -318,8 +320,7 @@ const PillNav = ({
                         color: 'var(--hover-text, #fff)',
                         willChange: 'transform, opacity'
                       }}
-                      aria-hidden="true"
-                    >
+                      aria-hidden="true">
                       {item.label}
                     </span>
                   </span>
@@ -327,8 +328,7 @@ const PillNav = ({
                     <span
                       className="absolute left-1/2 -bottom-[6px] -translate-x-1/2 w-3 h-3 rounded-full z-[4]"
                       style={{ background: 'var(--base, #000)' }}
-                      aria-hidden="true"
-                    />
+                      aria-hidden="true" />
                   )}
                 </>
               );
@@ -346,8 +346,7 @@ const PillNav = ({
                       style={pillStyle}
                       aria-label={item.ariaLabel || item.label}
                       onMouseEnter={() => handleEnter(i)}
-                      onMouseLeave={() => handleLeave(i)}
-                    >
+                      onMouseLeave={() => handleLeave(i)}>
                       {PillContent}
                     </Link>
                   ) : (
@@ -358,8 +357,7 @@ const PillNav = ({
                       style={pillStyle}
                       aria-label={item.ariaLabel || item.label}
                       onMouseEnter={() => handleEnter(i)}
-                      onMouseLeave={() => handleLeave(i)}
-                    >
+                      onMouseLeave={() => handleLeave(i)}>
                       {PillContent}
                     </a>
                   )}
@@ -379,27 +377,22 @@ const PillNav = ({
             width: 'var(--nav-h)',
             height: 'var(--nav-h)',
             background: 'var(--base, #000)'
-          }}
-        >
+          }}>
           <span
             className="hamburger-line w-4 h-0.5 rounded origin-center transition-all duration-[10ms] ease-[cubic-bezier(0.25,0.1,0.25,1)]"
-            style={{ background: 'var(--pill-bg, #fff)' }}
-          />
+            style={{ background: 'var(--pill-bg, #fff)' }} />
           <span
             className="hamburger-line w-4 h-0.5 rounded origin-center transition-all duration-[10ms] ease-[cubic-bezier(0.25,0.1,0.25,1)]"
-            style={{ background: 'var(--pill-bg, #fff)' }}
-          />
+            style={{ background: 'var(--pill-bg, #fff)' }} />
         </button>
       </nav>
-
       <div
         ref={mobileMenuRef}
         className="md:hidden absolute top-[3em] left-4 right-4 rounded-[27px] shadow-[0_8px_32px_rgba(0,0,0,0.12)] z-[998] origin-top"
         style={{
           ...cssVars,
           background: 'var(--base, #f0f0f0)'
-        }}
-      >
+        }}>
         <ul className="list-none m-0 p-[3px] flex flex-col gap-[3px]">
           {items.map(item => {
             const defaultStyle = {
@@ -427,8 +420,7 @@ const PillNav = ({
                     style={defaultStyle}
                     onMouseEnter={hoverIn}
                     onMouseLeave={hoverOut}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
+                    onClick={() => setIsMobileMenuOpen(false)}>
                     {item.label}
                   </Link>
                 ) : (
@@ -438,8 +430,7 @@ const PillNav = ({
                     style={defaultStyle}
                     onMouseEnter={hoverIn}
                     onMouseLeave={hoverOut}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
+                    onClick={() => setIsMobileMenuOpen(false)}>
                     {item.label}
                   </a>
                 )}
