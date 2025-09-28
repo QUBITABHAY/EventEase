@@ -4,9 +4,9 @@
 
 EventEase is a cutting-edge, full-stack event management platform built with modern web technologies. Designed to streamline event creation, management, and attendee engagement, EventEase transforms how organizations handle events from conception to completion.
 
-[![React](https://img.shields.io/badge/React-18.2.0-61DAFB?style=for-the-badge&logo=react)](https://reactjs.org/)
+[![Astro](https://img.shields.io/badge/Astro-Latest-FF5D01?style=for-the-badge&logo=astro)](https://astro.build/)
 [![Node.js](https://img.shields.io/badge/Node.js-Latest-339933?style=for-the-badge&logo=node.js)](https://nodejs.org/)
-[![Vite](https://img.shields.io/badge/Vite-7.1.6-646CFF?style=for-the-badge&logo=vite)](https://vitejs.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Latest-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4.17-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 [![Prisma](https://img.shields.io/badge/Prisma-Latest-2D3748?style=for-the-badge&logo=prisma)](https://www.prisma.io/)
 
@@ -15,13 +15,13 @@ EventEase is a cutting-edge, full-stack event management platform built with mod
 ## ✨ Key Features
 
 ### 🎯 **Smart Event Management**
-- **Intuitive Dashboard**: Modern, responsive interface built with React and shadcn/ui
+- **Intuitive Dashboard**: Modern, responsive interface built with Astro and component libraries
 - **Real-time Updates**: Live event statistics and attendee management
 - **Advanced Analytics**: Comprehensive insights and reporting tools
 
 ### 🚀 **Modern Technology Stack**
-- **Lightning Fast**: Powered by Vite for instant hot module replacement
-- **Type-Safe**: Built with modern JavaScript and component libraries
+- **Lightning Fast**: Powered by Astro for optimal performance and build times
+- **Type-Safe**: Built with TypeScript for enhanced developer experience
 - **Responsive Design**: Mobile-first approach with Tailwind CSS
 - **Database Agnostic**: Prisma ORM for seamless database operations
 
@@ -31,10 +31,10 @@ EventEase is a cutting-edge, full-stack event management platform built with mod
 - **Role-Based Access**: Granular permission system for different user types
 
 ### 📱 **User Experience First**
-- **Animated Navigation**: Smooth pill-style navigation with GSAP animations
-- **Component Library**: Consistent UI using shadcn/ui components
+- **Static-First Performance**: Astro's islands architecture for optimal loading
+- **Component Integration**: Seamless integration of React components when needed
 - **Accessibility**: WCAG compliant design patterns
-- **Progressive Web App**: Mobile app-like experience
+- **SEO Optimized**: Built-in SEO features with Astro's static generation
 
 ---
 
@@ -42,12 +42,12 @@ EventEase is a cutting-edge, full-stack event management platform built with mod
 
 ### **Frontend**
 ```
-├── React 18.2.0          # Component-based UI framework
-├── Vite 7.1.6            # Next-generation build tool
+├── Astro                 # Static site generator with islands architecture
+├── TypeScript            # Type-safe JavaScript superset
 ├── Tailwind CSS 3.4.17   # Utility-first CSS framework
-├── shadcn/ui             # High-quality component library
+├── React Components      # Interactive components when needed
 ├── GSAP                  # Animation library
-└── React Router DOM      # Client-side routing
+└── Astro Routing         # File-based routing system
 ```
 
 ### **Backend**
@@ -97,7 +97,7 @@ cp .env.example .env
 npx prisma migrate dev
 
 # 6. Start development servers
-# Terminal 1: Client (React + Vite)
+# Terminal 1: Client (Astro)
 cd client && npm run dev
 
 # Terminal 2: Server (Node.js + Express)
@@ -115,10 +115,11 @@ cd server && npm run dev
 
 ```
 EventEase/
-├── client/                 # React frontend
+├── client/                 # Astro frontend
 │   ├── src/
-│   │   ├── components/     # Reusable UI components
-│   │   ├── pages/          # Route components
+│   │   ├── components/     # Reusable UI components (Astro & React)
+│   │   ├── pages/          # Route pages (file-based routing)
+│   │   ├── layouts/        # Page layouts
 │   │   ├── lib/            # Utility functions
 │   │   └── assets/         # Static resources
 │   ├── public/             # Public assets
@@ -140,13 +141,14 @@ EventEase/
 
 ## 🎨 Component Library & Design System
 
-EventEase uses a modern component library approach:
+EventEase uses a modern component architecture approach:
 
-- **shadcn/ui**: Pre-built, customizable components
+- **Astro Components**: Static-first component system
+- **React Islands**: Interactive components when needed
 - **Tailwind CSS**: Utility-first styling
-- **Custom Components**: PillNav with GSAP animations
+- **GSAP Animations**: Smooth animations and transitions
 - **Responsive Design**: Mobile-first approach
-- **Dark/Light Mode**: Theme switching support
+- **TypeScript**: Full type safety across components
 
 ---
 
@@ -154,12 +156,12 @@ EventEase uses a modern component library approach:
 
 ### **Available Scripts**
 
-**Client (React + Vite)**
+**Client (Astro)**
 ```bash
 npm run dev          # Start development server
 npm run build        # Build for production
 npm run preview      # Preview production build
-npm run lint         # Run ESLint
+npm run astro        # Run Astro CLI commands
 ```
 
 **Server (Node.js)**
@@ -175,16 +177,16 @@ npm run studio       # Open Prisma Studio
 ## 🌟 Advanced Features
 
 ### **Performance Optimizations**
-- **Code Splitting**: Automatic route-based code splitting
-- **Tree Shaking**: Eliminate unused code
+- **Islands Architecture**: Only hydrate interactive components
+- **Static Generation**: Pre-built pages for optimal performance
 - **Asset Optimization**: Automatic image and asset optimization
-- **Caching Strategies**: Optimized caching for better performance
+- **Zero JavaScript**: Minimal client-side JavaScript by default
 
 ### **Developer Experience**
-- **Hot Module Replacement**: Instant updates during development
-- **TypeScript Ready**: Easy TypeScript integration
-- **Component Documentation**: Storybook integration ready
-- **Testing Framework**: Jest and React Testing Library setup
+- **Fast Refresh**: Instant updates during development
+- **TypeScript First**: Built-in TypeScript support
+- **File-based Routing**: Intuitive page creation
+- **Component Islands**: Mix static and interactive seamlessly
 
 ---
 
@@ -229,8 +231,8 @@ cd server && npm run build
 ## 📈 Roadmap & Future Enhancements
 
 ### **Phase 1: Core Features** ✅
-- [x] Modern React frontend with Vite
-- [x] Component library integration
+- [x] Modern Astro frontend with TypeScript
+- [x] Component architecture setup
 - [x] Responsive design system
 - [x] Backend API foundation
 
