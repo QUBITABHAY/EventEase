@@ -13,3 +13,76 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id           Int           @id @default(autoincrement())
+  name         String
+  email        String        @unique
+  password     String
+  role         Role          @default(USER)
+  college      String?
+  year         String?
+  interest     String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  events       Event[]
+  registrations Registration[]
+  reviews      Review[]
+}
+
+model Event {
+  id            Int            @id @default(autoincrement())
+  title         String
+  description   String
+  category      String
+  organizerId   Int
+  date          DateTime
+  startTime     DateTime
+  endTime       DateTime
+  venue         String
+  posterUrl     String?
+  price         Float          @default(0)
+  capacity      Int
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  organizer     User           @relation(fields: [organizerId], references: [id])
+  registrations Registration[]
+  reviews       Review[]
+}
+
+model Registration {
+  id             Int             @id @default(autoincrement())
+  userId         Int
+  eventId        Int
+  ticketId       String          @unique
+  qrCodeUrl      String
+  paymentStatus  PaymentStatus   @default(PENDING)
+  checkedIn      Boolean         @default(false)
+  createdAt      DateTime        @default(now())
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  event          Event           @relation(fields: [eventId], references: [id], onDelete: Cascade)
+}
+
+model Review {
+  id         Int       @id @default(autoincrement())
+  userId     Int
+  eventId    Int
+  rating     Int
+  feedback   String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  event      Event     @relation(fields: [eventId], references: [id], onDelete: Cascade)
+}
+
+enum Role {
+  USER
+  ORGANIZER
+  ADMIN
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
