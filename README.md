@@ -108,6 +108,7 @@ cd server && npm run dev
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:5000
 - **Database Studio**: http://localhost:5555 (run `npx prisma studio`)
+- **ER Diagram**: (run `npx serve dist/`)
 
 ---
 
