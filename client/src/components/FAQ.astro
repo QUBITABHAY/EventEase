@@ -1,0 +1,148 @@
+---
+const faqs = [
+  {
+    question: "What exactly is EventEase?",
+    answer: "Think of us as your event planning best friend! We help you organize everything from small meetups to big conferences. Registration, ticketing, analytics - it's all here, working together smoothly."
+  },
+  {
+    question: "Can I try it before I buy?",
+    answer: "Absolutely! Take EventEase for a 14-day test drive with full access to everything. No credit card needed, no strings attached. We're confident you'll love it!"
+  },
+  {
+    question: "What kinds of events work with EventEase?",
+    answer: "All of them! Whether you're planning a workshop, conference, webinar, party, or community meetup - if it involves people gathering, we've got you covered."
+  },
+  {
+    question: "Is my information safe with you?",
+    answer: "Your trust means everything to us. We use bank-level encryption and follow strict security standards to keep your data locked down tight. Your information stays yours."
+  },
+  {
+    question: "Does it work with my other tools?",
+    answer: "Great question! We play nice with Google Calendar, popular payment services, and email platforms. And we're always adding more friends to the mix."
+  },
+  {
+    question: "What if I need help?",
+    answer: "We're here for you 24/7! Reach out via email or chat anytime. Need extra love? Our premium plans include priority support and your own dedicated helper."
+  }
+];
+---
+
+<section id="faq" class="faq section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Questions? We've Got You Covered</h2>
+      <p class="section-description">
+        Here are the answers to what people usually ask us. Don't see yours? Just reach out!
+      </p>
+    </div>
+
+    <div class="faq-list">
+      {faqs.map((faq, index) => (
+        <div class="faq-item">
+          <button class="faq-question" data-index={index}>
+            <span>{faq.question}</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>{faq.answer}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .faq-list {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .faq-item {
+    background: white;
+    border-radius: 0;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .faq-item:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  .faq-question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    background: white;
+    border: none;
+    text-align: left;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .faq-question:hover {
+    color: var(--primary-color);
+  }
+
+  .faq-icon {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--primary-color);
+    transition: transform 0.3s ease;
+  }
+
+  .faq-item.active .faq-icon {
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .faq-item.active .faq-answer {
+    max-height: 500px;
+  }
+
+  .faq-answer p {
+    padding: 0 1.5rem 1.5rem;
+    color: var(--text-light);
+    line-height: 1.6;
+  }
+</style>
+
+<script>
+  const faqQuestions = document.querySelectorAll('.faq-question');
+
+  faqQuestions.forEach((question) => {
+    question.addEventListener('click', () => {
+      const faqItem = question.closest('.faq-item');
+      const isActive = faqItem?.classList.contains('active');
+
+      // Close all other items
+      document.querySelectorAll('.faq-item').forEach((item) => {
+        item.classList.remove('active');
+      });
+
+      // Toggle current item
+      if (!isActive) {
+        faqItem?.classList.add('active');
+      }
+    });
+  });
+</script>
