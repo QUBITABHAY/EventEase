@@ -1,83 +1,24 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import Features from '../components/Features.astro';
+import Testimonials from '../components/Testimonials.astro';
+import FAQ from '../components/FAQ.astro';
+import Contact from '../components/Contact.astro';
+import CTA from '../components/CTA.astro';
+import Footer from '../components/Footer.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>EventEase - Event Management Made Simple</title>
-	</head>
-	<body>
-		<div class="hero-section">
-			<h1>EventEase</h1>
-			<p>Your Premier Event Management Solution</p>
-		</div>
-	</body>
-</html>
-
-<style>
-	* {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-	}
-
-	body {
-		font-family: 'Arial', sans-serif;
-		height: 100vh;
-		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-		background-attachment: fixed;
-		overflow: hidden;
-	}
-
-	body::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background-image: 
-			radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-			radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-			radial-gradient(circle at 40% 80%, rgba(120, 119, 198, 0.2) 0%, transparent 50%);
-		pointer-events: none;
-	}
-
-	.hero-section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		height: 100vh;
-		text-align: center;
-		position: relative;
-		z-index: 1;
-	}
-
-	h1 {
-		font-size: 4rem;
-		color: white;
-		margin-bottom: 1rem;
-		text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-		font-weight: bold;
-	}
-
-	p {
-		font-size: 1.5rem;
-		color: rgba(255, 255, 255, 0.9);
-		text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-	}
-
-	@media (max-width: 768px) {
-		h1 {
-			font-size: 2.5rem;
-		}
-		p {
-			font-size: 1.2rem;
-		}
-	}
-</style>
+<Layout title="EventEase - Smart Event Management Platform">
+  <Navbar />
+  <main>
+    <Hero />
+    <Features />
+    <Testimonials />
+    <FAQ />
+    <Contact />
+    <CTA />
+  </main>
+  <Footer />
+</Layout>

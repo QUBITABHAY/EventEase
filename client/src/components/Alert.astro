@@ -1,0 +1,98 @@
+---
+interface Props {
+  type?: 'info' | 'success' | 'warning' | 'error';
+  message: string;
+  dismissible?: boolean;
+}
+
+const { type = 'info', message, dismissible = true } = Astro.props;
+
+const icons = {
+  info: 'i',
+  success: '✓',
+  warning: '!',
+  error: '✗'
+};
+---
+
+<div class={`alert alert-${type}`} role="alert">
+  <span class="alert-icon">{icons[type]}</span>
+  <span class="alert-message">{message}</span>
+  {dismissible && (
+    <button class="alert-close" aria-label="Close alert">×</button>
+  )}
+</div>
+
+<style>
+  .alert {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-radius: 0;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .alert-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .alert-message {
+    flex: 1;
+    font-weight: 500;
+  }
+
+  .alert-close {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0;
+    transition: background 0.3s ease;
+  }
+
+  .alert-close:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  .alert-info {
+    background: #ebf8ff;
+    color: #2c5282;
+    border: 1px solid #bee3f8;
+  }
+
+  .alert-success {
+    background: #f0fff4;
+    color: #22543d;
+    border: 1px solid #c6f6d5;
+  }
+
+  .alert-warning {
+    background: #fffaf0;
+    color: #7c2d12;
+    border: 1px solid #feebc8;
+  }
+
+  .alert-error {
+    background: #fff5f5;
+    color: #742a2a;
+    border: 1px solid #fed7d7;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.alert-close').forEach((button) => {
+    button.addEventListener('click', () => {
+      const alert = button.closest('.alert');
+      alert?.remove();
+    });
+  });
+</script>
