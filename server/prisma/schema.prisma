@@ -16,13 +16,12 @@ datasource db {
 
 model User {
   id           Int           @id @default(autoincrement())
-  name         String
+  firstName    String
+  lastName     String
   email        String        @unique
+  phone        String        @unique
   password     String
   role         Role          @default(USER)
-  college      String?
-  year         String?
-  interest     String?
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   events       Event[]
@@ -78,7 +77,7 @@ model Review {
 enum Role {
   USER
   ORGANIZER
-  ADMIN
+  BOTH
 }
 
 enum PaymentStatus {

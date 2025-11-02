@@ -9,13 +9,17 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "createER": "npx @liam-hq/cli init && npx @liam-hq/cli erd build --input prisma/schema.prisma --format prisma",
-    "showER": "npx serve dist/"
+    "createER": "npx @liam-hq/cli init",
+    "showER": "npx @liam-hq/cli erd build --input prisma/schema.prisma --format prisma && npx serve dist/"
   },
   "dependencies": {
     "@prisma/client": "^6.16.2",
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "nodemon": "^3.1.10",
     "prisma": "^6.16.2"
   }
