@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
   res.send("Hello form Server");
 });
 
-import routes from "./routes/index.js";
+import routes from "./src/routes/index.js";
 app.use(routes);
 
 app.listen(port, () => {
