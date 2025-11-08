@@ -1,5 +1,32 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import Dashboardsidebar from '../components/dashboardsidebar.astro';
+---
+
+<Layout title="Login - EventEase">
+    <Dashboardsidebar />
+    <main>
+        <h1>Dashboard</h1>
+    </main>
+    
+</Layout>
+
+<style>
+    main{
+        margin-left: 200px;
+        padding: 20px;
+        min-height: 100vh;
+        background-color: #f5f5f5;
+        transition: margin-left 0.3s ease;
+
+        @media (max-width: 768px) {
+            margin-left: 0;
+        }
+        }
+    </style>
+
+    
 
 // In a real implementation, you would fetch user data from your API
 // For now, we'll use placeholder data
