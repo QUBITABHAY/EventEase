@@ -51,6 +51,17 @@ const { title, description = "EventEase - Smart Event Management Platform" } = A
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+
+
+
+  --primary-color: #3b82f6; /* Primary blue */
+  --primary-hover-color: #2563eb; /* Darker blue for hover */
+  --secondary-color: #60a5fa; /* Lighter blue */
+  --secondary-hover-color: #3b82f6; /* Slightly darker blue for hover */
+  --background-color: #f0f9ff; /* Light blue background */
+  --text-color: #1e293b; /* Dark blue text */
+  --text-secondary-color: #64748b; /* Muted blue-gray text */
+
   }
 
   body {
@@ -102,14 +113,14 @@ const { title, description = "EventEase - Smart Event Management Platform" } = A
   .btn {
     display: inline-block;
     padding: 0.75rem 1.5rem;
-    border-radius: 0;
+    border-radius: 8px;
     font-family: 'Inter', sans-serif;
     font-weight: 600;
     font-size: 0.9375rem;
-    letter-spacing: 0.025em;
+    letter-spacing: 0;
     transition: all 0.3s ease;
     text-align: center;
-    text-transform: uppercase;
+    text-transform: none;
   }
 
   .btn-primary {
@@ -134,12 +145,16 @@ const { title, description = "EventEase - Smart Event Management Platform" } = A
   }
 
   .section {
-    padding: 4rem 0;
+    padding: 5rem 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 
   @media (max-width: 768px) {
     .section {
-      padding: 2rem 0;
+      padding: 3rem 0;
     }
   }
 </style>

@@ -3,21 +3,18 @@ const testimonials = [
   {
     name: "Aditya",
     role: "Event Manager, TechCorp",
-    image: "",
     rating: 5,
     text: "EventEase has completely transformed how we manage our corporate events. The analytics dashboard is incredibly insightful!"
   },
   {
     name: "Abhay",
     role: "University Event Coordinator",
-    image: "",
     rating: 5,
     text: "Managing university events has never been easier. The platform is intuitive and our students love the registration process."
   },
   {
     name: "Yashveer",
     role: "Community Organizer",
-    image: "",
     rating: 5,
     text: "As a freelancer, I needed an affordable solution. EventEase provides enterprise features at a fraction of the cost!"
   }
@@ -37,6 +34,9 @@ const testimonials = [
       {testimonials.map((testimonial) => (
         <div class="testimonial-card">
           <div class="testimonial-header">
+            <div class="testimonial-avatar">
+              <span class="avatar-initial">{testimonial.name.charAt(0)}</span>
+            </div>
             <div class="testimonial-info">
               <h3 class="testimonial-name">{testimonial.name}</h3>
               <p class="testimonial-role">{testimonial.role}</p>
@@ -60,6 +60,28 @@ const testimonials = [
     margin-bottom: 3rem;
   }
 
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg,rgb(20, 80, 184),rgb(13, 148, 119));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .section-description {
+    font-size: 1.125rem;
+    color: #6b7280;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .testimonials {
+    background: #f9fafb;
+  }
+
   .testimonials-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -68,26 +90,43 @@ const testimonials = [
 
   .testimonial-card {
     background: white;
-    padding: 2rem;
-    border-radius: 0;
-    box-shadow: var(--shadow-md);
-    transition: all 0.3s ease;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid #e5e7eb;
   }
 
   .testimonial-card:hover {
     transform: translateY(-8px);
-    box-shadow: var(--shadow-xl);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border-color:rgb(20, 140, 184);
   }
 
   .testimonial-header {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
   }
 
   .testimonial-avatar {
-    display: none;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg,rgb(20, 75, 184), #0d9488);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+  }
+
+  .avatar-initial {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
   }
 
   .testimonial-info {
@@ -97,13 +136,13 @@ const testimonials = [
   .testimonial-name {
     font-size: 1.125rem;
     font-weight: 600;
-    color: var(--text-dark);
+    color: #1f2937;
     margin-bottom: 0.25rem;
   }
 
   .testimonial-role {
     font-size: 0.875rem;
-    color: var(--text-light);
+    color: #6b7280;
   }
 
   .testimonial-rating {
@@ -118,7 +157,7 @@ const testimonials = [
   }
 
   .testimonial-text {
-    color: var(--text-dark);
+    color: #1f2937;
     line-height: 1.6;
     font-style: italic;
   }

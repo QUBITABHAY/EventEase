@@ -1,0 +1,221 @@
+---
+const featuredEvents = [
+  {
+    title: "Tech Summit 2024",
+    description: "Annual tech conference focusing on innovation and trends.",
+    category: "Tech Summit",
+    gradient: "linear-gradient(135deg, #5eead4, #2dd4bf)"
+  },
+  {
+    title: "AI and Machine Learning Workshop",
+    description: "Hands-on workshop exploring the latest in AI and machine learning.",
+    category: "AI",
+    gradient: "linear-gradient(135deg, #374151, #1f2937)"
+  },
+  {
+    title: "Cybersecurity in the Digital Age",
+    description: "Seminar on cybersecurity best practices and emerging threats.",
+    category: "Cybersecurity",
+    gradient: "linear-gradient(135deg, #1e3a8a, #1e40af)"
+  },
+  {
+    title: "Cloud Innovation Forum",
+    description: "Explore cloud transformation strategies and success stories.",
+    category: "Cloud",
+    gradient: "linear-gradient(135deg, #9333ea, #7e22ce)"
+  }
+];
+---
+
+<section class="hero-events-section">
+  <div class="hero-events">
+    <div class="hero-events-header">
+      <h2 class="hero-events-title">Featured Events</h2>
+      <p class="hero-events-subtitle">Discover exciting tech events happening near you</p>
+    </div>
+
+    <div class="hero-events-wrapper">
+      <button class="scroll-btn left" aria-label="Scroll left">‹</button>
+
+      <div class="hero-events-grid" id="scroll-container">
+        {featuredEvents.map((event) => (
+          <div class="hero-event-card">
+            <div class="hero-event-image" style={`background: ${event.gradient}`}>
+              <div class="hero-event-category">{event.category}</div>
+            </div>
+            <div class="hero-event-content">
+              <h3 class="hero-event-title">{event.title}</h3>
+              <p class="hero-event-description">{event.description}</p>
+              <a href="#events" class="hero-event-link">
+                Learn More
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <button class="scroll-btn right" aria-label="Scroll right">›</button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-events-section {
+    padding: 40px 20px;
+    color: #fff;
+    background: transparent;
+  }
+
+  .hero-events-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .hero-events-title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .hero-events-subtitle {
+    font-size: 18px;
+    color: #d1d5db;
+  }
+
+  .hero-events-wrapper {
+    position: relative;
+  }
+
+  /* Arrows */
+  .scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s;
+    z-index: 2;
+  }
+
+  .scroll-btn:hover {
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  .scroll-btn.left {
+    left: -10px;
+  }
+
+  .scroll-btn.right {
+    right: -10px;
+  }
+
+  /* Scroll container */
+  .hero-events-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    gap: 20px;
+    padding: 10px 0;
+  }
+
+  .hero-event-card {
+    flex: 0 0 300px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    scroll-snap-align: start;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .hero-event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .hero-event-image {
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .hero-event-category {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+
+  .hero-event-content {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .hero-event-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .hero-event-description {
+    font-size: 16px;
+    color: #d1d5db;
+    margin-bottom: 15px;
+  }
+
+  .hero-event-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #6ee7b7;
+    text-decoration: none;
+  }
+
+  .hero-event-link:hover {
+    color: var(--primary-color);
+  }
+
+  .hero-events-grid::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .hero-events-grid::-webkit-scrollbar-thumb {
+    background: #6ee7b7;
+    border-radius: 4px;
+  }
+
+  @media (max-width: 768px) {
+    .scroll-btn {
+      display: none;
+    }
+
+    .hero-event-card {
+      flex: 0 0 85%;
+    }
+  }
+
+
+
+.hero-event-card {
+  background: rgba(59, 130, 246, 0.1); /* Transparent blue */
+  border: 1px solid var(--primary-color);
+}
+
+
+
+
+
+</style>
+

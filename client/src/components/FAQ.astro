@@ -5,10 +5,6 @@ const faqs = [
     answer: "Think of us as your event planning best friend! We help you organize everything from small meetups to big conferences. Registration, ticketing, analytics - it's all here, working together smoothly."
   },
   {
-    question: "Can I try it before I buy?",
-    answer: "Absolutely! Take EventEase for a 14-day test drive with full access to everything. No credit card needed, no strings attached. We're confident you'll love it!"
-  },
-  {
     question: "What kinds of events work with EventEase?",
     answer: "All of them! Whether you're planning a workshop, conference, webinar, party, or community meetup - if it involves people gathering, we've got you covered."
   },
@@ -58,6 +54,24 @@ const faqs = [
     margin-bottom: 3rem;
   }
 
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg,rgb(20, 108, 184), #0d9488);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .section-description {
+    font-size: 1.125rem;
+    color: #6b7280;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
   .faq-list {
     max-width: 800px;
     margin: 0 auto;
@@ -66,16 +80,27 @@ const faqs = [
     gap: 1rem;
   }
 
+  .faq {
+    background: white;
+  }
+
   .faq-item {
     background: white;
-    border-radius: 0;
-    box-shadow: var(--shadow-sm);
+    border-radius: 12px;
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     overflow: hidden;
     transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
   }
 
   .faq-item:hover {
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    border-color:rgb(20, 121, 184);
+  }
+
+  .faq-item.active {
+    border-color:rgb(20, 102, 184);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
 
   .faq-question {
@@ -89,24 +114,38 @@ const faqs = [
     text-align: left;
     font-size: 1.125rem;
     font-weight: 600;
-    color: var(--text-dark);
+    color: #1f2937;
     cursor: pointer;
     transition: all 0.3s ease;
+    gap: 1rem;
   }
 
   .faq-question:hover {
-    color: var(--primary-color);
+    color:rgb(20, 102, 184);
+  }
+
+  .faq-item.active .faq-question {
+    color:rgb(20, 108, 184);
   }
 
   .faq-icon {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     font-weight: 300;
-    color: var(--primary-color);
-    transition: transform 0.3s ease;
+    color:rgb(20, 99, 184);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(20, 184, 166, 0.1);
+    border-radius: 50%;
   }
 
   .faq-item.active .faq-icon {
     transform: rotate(45deg);
+    background: rgba(20, 140, 184, 0.2);
   }
 
   .faq-answer {
@@ -121,7 +160,7 @@ const faqs = [
 
   .faq-answer p {
     padding: 0 1.5rem 1.5rem;
-    color: var(--text-light);
+    color: #6b7280;
     line-height: 1.6;
   }
 </style>

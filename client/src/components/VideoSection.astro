@@ -1,0 +1,98 @@
+---
+---
+
+<section class="video-section section">
+  <div class="container">
+    <h2 class="section-title">Learn how EventEase works</h2>
+    <div class="video-container">
+      <div class="video-placeholder">
+        <button class="play-button" aria-label="Play video">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="white">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .video-section {
+    background: white;
+    padding: 4rem 0;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 2.5rem;
+    text-align: left;
+  }
+
+  .video-container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .video-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .video-placeholder:hover {
+    transform: scale(1.02);
+    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.3);
+  }
+
+  .play-button {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 3px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+  }
+
+  .play-button:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .play-button svg {
+    margin-left: 4px;
+  }
+
+  @media (max-width: 768px) {
+    .section-title {
+      font-size: 2rem;
+    }
+
+    .play-button {
+      width: 64px;
+      height: 64px;
+    }
+
+    .play-button svg {
+      width: 32px;
+      height: 32px;
+    }
+  }
+</style>
+
