@@ -12,46 +12,61 @@ import { featuredEvents } from "../../dummyData.js";
     </div>
 
     <div class="hero-events-wrapper">
-      <button class="scroll-btn left" aria-label="Scroll left">‹</button>
 
-      <div class="hero-events-grid" id="scroll-container">
+      <div class="hero-events-container">
+        <div class="hero-events-carousel" id="carousel-container">
+          {
+            featuredEvents.map((event, index) => (
+              <div class="hero-event-card" data-index={index}>
+                <div
+                  class="hero-event-image"
+                  style={`background: ${event.gradient}`}
+                >
+                  <div class="hero-event-category">{event.category}</div>
+                </div>
+                <div class="hero-event-content">
+                  <h3 class="hero-event-title">{event.title}</h3>
+                  <p class="hero-event-description">{event.description}</p>
+                  <a href="#events" class="hero-event-link">
+                    Learn More
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="carousel-indicators" id="indicators">
         {
-          featuredEvents.map((event) => (
-            <div class="hero-event-card">
-              <div
-                class="hero-event-image"
-                style={`background: ${event.gradient}`}
-              >
-                <div class="hero-event-category">{event.category}</div>
-              </div>
-              <div class="hero-event-content">
-                <h3 class="hero-event-title">{event.title}</h3>
-                <p class="hero-event-description">{event.description}</p>
-                <a href="#events" class="hero-event-link">
-                  Learn More
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </a>
-              </div>
-            </div>
+          featuredEvents.map((_, index) => (
+            <button
+              class={`indicator ${index === 0 ? 'active' : ''}`}
+              data-index={index}
+              aria-label={`Go to event ${index + 1}`}
+            />
           ))
         }
       </div>
-
-      <button class="scroll-btn right" aria-label="Scroll right">›</button>
     </div>
   </div>
 </section>
 
 <style>
+  :root {
+    --card-height: 420px;
+  }
+
   .hero-events-section {
     padding: 40px 20px;
     color: #fff;
@@ -60,145 +75,211 @@ import { featuredEvents } from "../../dummyData.js";
 
   .hero-events-header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 26px;
   }
 
   .hero-events-title {
     font-size: 32px;
-    font-weight: bold;
-    margin-bottom: 10px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    margin-bottom: 8px;
   }
 
   .hero-events-subtitle {
-    font-size: 18px;
+    font-size: 16px;
     color: #d1d5db;
   }
 
   .hero-events-wrapper {
     position: relative;
+    max-width: clamp(320px, 90vw, 720px);
+    margin: 0 auto;
   }
 
-  /* Arrows */
-  .scroll-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    border: none;
-    color: #fff;
-    font-size: 2rem;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background 0.3s;
-    z-index: 2;
+  .hero-events-container {
+    overflow: hidden;
+    position: relative;
+    height: var(--card-height);
+    border-radius: 16px;
   }
 
-  .scroll-btn:hover {
-    background: rgba(0, 0, 0, 0.7);
-  }
-
-  .scroll-btn.left {
-    left: -10px;
-  }
-
-  .scroll-btn.right {
-    right: -10px;
-  }
-
-  /* Scroll container */
-  .hero-events-grid {
+  .hero-events-carousel {
     display: flex;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    scroll-snap-type: x mandatory;
-    gap: 20px;
-    padding: 10px 0;
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
   }
 
   .hero-event-card {
-    flex: 0 0 300px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    scroll-snap-align: start;
+    flex: 0 0 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: rgba(17, 25, 40, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
     overflow: hidden;
-    transition:
-      transform 0.3s,
-      box-shadow 0.3s;
+    backdrop-filter: saturate(140%) blur(14px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
   .hero-event-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
   }
 
   .hero-event-image {
-    height: 150px;
+    position: relative;
+    height: 54%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #fff;
-    font-weight: bold;
+    font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 1px;
   }
 
   .hero-event-category {
-    background: rgba(0, 0, 0, 0.5);
-    padding: 5px 10px;
-    border-radius: 5px;
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: rgba(0, 0, 0, 0.45);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(6px);
   }
 
   .hero-event-content {
-    padding: 20px;
+    flex: 1;
+    padding: 22px 24px 20px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .hero-event-title {
     font-size: 22px;
-    font-weight: bold;
+    font-weight: 800;
     margin-bottom: 10px;
   }
 
   .hero-event-description {
-    font-size: 16px;
+    font-size: 15px;
     color: #d1d5db;
-    margin-bottom: 15px;
+    margin-bottom: 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .hero-event-link {
+    margin-top: auto;
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
     color: #6ee7b7;
     text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    border: 1px solid rgba(110, 231, 183, 0.35);
+    padding: 8px 14px;
+    border-radius: 10px;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
   }
 
   .hero-event-link:hover {
-    color: var(--primary-color);
+    background: rgba(110, 231, 183, 0.12);
+    color: #a7f3d0;
+    transform: translateY(-2px);
   }
 
-  .hero-events-grid::-webkit-scrollbar {
+  .carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .indicator {
+    width: 26px;
     height: 8px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    padding: 0;
   }
 
-  .hero-events-grid::-webkit-scrollbar-thumb {
+  .indicator.active {
     background: #6ee7b7;
-    border-radius: 4px;
+    width: 38px;
+  }
+
+  .indicator:hover {
+    background: rgba(255, 255, 255, 0.5);
   }
 
   @media (max-width: 768px) {
-    .scroll-btn {
-      display: none;
-    }
+    :root { --card-height: 380px; }
 
-    .hero-event-card {
-      flex: 0 0 85%;
-    }
-  }
+    .hero-events-title { font-size: 26px; }
+    .hero-events-subtitle { font-size: 15px; }
 
-  .hero-event-card {
-    background: rgba(59, 130, 246, 0.1); /* Transparent blue */
-    border: 1px solid var(--primary-color);
+    .hero-event-content { padding: 18px; }
+    .hero-event-title { font-size: 20px; }
+    .hero-event-description { font-size: 14px; }
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const carousel = document.getElementById("carousel-container");
+    const indicators = document.querySelectorAll(".indicator");
+    
+    if (!carousel) return;
+
+    let currentIndex = 0;
+    const totalCards = indicators.length;
+
+    function updateCarousel() {
+      if (!carousel) return;
+      const offset = -currentIndex * 100;
+      carousel.style.transform = `translateX(${offset}%)`;
+
+      indicators.forEach((indicator, index) => {
+        if (index === currentIndex) {
+          indicator.classList.add("active");
+        } else {
+          indicator.classList.remove("active");
+        }
+      });
+    }
+
+    function goToSlide(index) {
+      currentIndex = Math.max(0, Math.min(index, totalCards - 1));
+      updateCarousel();
+    }
+
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener("click", () => {
+        goToSlide(index);
+      });
+    });
+
+    setInterval(() => {
+      if (currentIndex < totalCards - 1) {
+        goToSlide(currentIndex + 1);
+      } else {
+        goToSlide(0);
+      }
+    }, 5000);
+    
+    updateCarousel();
+  });
+</script>
