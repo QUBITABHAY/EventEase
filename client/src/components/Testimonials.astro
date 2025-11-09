@@ -1,24 +1,5 @@
 ---
-const testimonials = [
-  {
-    name: "Aditya",
-    role: "Event Manager, TechCorp",
-    rating: 5,
-    text: "EventEase has completely transformed how we manage our corporate events. The analytics dashboard is incredibly insightful!"
-  },
-  {
-    name: "Abhay",
-    role: "University Event Coordinator",
-    rating: 5,
-    text: "Managing university events has never been easier. The platform is intuitive and our students love the registration process."
-  },
-  {
-    name: "Yashveer",
-    role: "Community Organizer",
-    rating: 5,
-    text: "As a freelancer, I needed an affordable solution. EventEase provides enterprise features at a fraction of the cost!"
-  }
-];
+import { testimonials } from "../../dummyData.js";
 ---
 
 <section class="testimonials section">
@@ -31,25 +12,27 @@ const testimonials = [
     </div>
 
     <div class="testimonials-grid">
-      {testimonials.map((testimonial) => (
-        <div class="testimonial-card">
-          <div class="testimonial-header">
-            <div class="testimonial-avatar">
-              <span class="avatar-initial">{testimonial.name.charAt(0)}</span>
+      {
+        testimonials.map((testimonial) => (
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="testimonial-avatar">
+                <span class="avatar-initial">{testimonial.name.charAt(0)}</span>
+              </div>
+              <div class="testimonial-info">
+                <h3 class="testimonial-name">{testimonial.name}</h3>
+                <p class="testimonial-role">{testimonial.role}</p>
+              </div>
             </div>
-            <div class="testimonial-info">
-              <h3 class="testimonial-name">{testimonial.name}</h3>
-              <p class="testimonial-role">{testimonial.role}</p>
+            <div class="testimonial-rating">
+              {Array.from({ length: testimonial.rating }).map(() => (
+                <span class="star">★</span>
+              ))}
             </div>
+            <p class="testimonial-text">"{testimonial.text}"</p>
           </div>
-          <div class="testimonial-rating">
-            {Array.from({ length: testimonial.rating }).map(() => (
-              <span class="star">★</span>
-            ))}
-          </div>
-          <p class="testimonial-text">"{testimonial.text}"</p>
-        </div>
-      ))}
+        ))
+      }
     </div>
   </div>
 </section>
@@ -65,7 +48,7 @@ const testimonials = [
     font-weight: 700;
     color: #1f2937;
     margin-bottom: 1rem;
-    background: linear-gradient(135deg,rgb(20, 80, 184),rgb(13, 148, 119));
+    background: linear-gradient(135deg, rgb(20, 80, 184), rgb(13, 148, 119));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -92,15 +75,19 @@ const testimonials = [
     background: white;
     padding: 2.5rem;
     border-radius: 16px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid #e5e7eb;
   }
 
   .testimonial-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    border-color:rgb(20, 140, 184);
+    box-shadow:
+      0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border-color: rgb(20, 140, 184);
   }
 
   .testimonial-header {
@@ -114,7 +101,7 @@ const testimonials = [
     width: 56px;
     height: 56px;
     border-radius: 50%;
-    background: linear-gradient(135deg,rgb(20, 75, 184), #0d9488);
+    background: linear-gradient(135deg, rgb(20, 75, 184), #0d9488);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -126,7 +113,7 @@ const testimonials = [
     color: white;
     font-size: 1.5rem;
     font-weight: 700;
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
   }
 
   .testimonial-info {

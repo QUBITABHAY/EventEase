@@ -1,60 +1,49 @@
 ---
-const featuredEvents = [
-  {
-    title: "Tech Summit 2024",
-    description: "Annual tech conference focusing on innovation and trends.",
-    category: "Tech Summit",
-    gradient: "linear-gradient(135deg, #5eead4, #2dd4bf)"
-  },
-  {
-    title: "AI and Machine Learning Workshop",
-    description: "Hands-on workshop exploring the latest in AI and machine learning.",
-    category: "AI",
-    gradient: "linear-gradient(135deg, #374151, #1f2937)"
-  },
-  {
-    title: "Cybersecurity in the Digital Age",
-    description: "Seminar on cybersecurity best practices and emerging threats.",
-    category: "Cybersecurity",
-    gradient: "linear-gradient(135deg, #1e3a8a, #1e40af)"
-  },
-  {
-    title: "Cloud Innovation Forum",
-    description: "Explore cloud transformation strategies and success stories.",
-    category: "Cloud",
-    gradient: "linear-gradient(135deg, #9333ea, #7e22ce)"
-  }
-];
+import { featuredEvents } from "../../dummyData.js";
 ---
 
 <section class="hero-events-section">
   <div class="hero-events">
     <div class="hero-events-header">
       <h2 class="hero-events-title">Featured Events</h2>
-      <p class="hero-events-subtitle">Discover exciting tech events happening near you</p>
+      <p class="hero-events-subtitle">
+        Discover exciting tech events happening near you
+      </p>
     </div>
 
     <div class="hero-events-wrapper">
       <button class="scroll-btn left" aria-label="Scroll left">‹</button>
 
       <div class="hero-events-grid" id="scroll-container">
-        {featuredEvents.map((event) => (
-          <div class="hero-event-card">
-            <div class="hero-event-image" style={`background: ${event.gradient}`}>
-              <div class="hero-event-category">{event.category}</div>
+        {
+          featuredEvents.map((event) => (
+            <div class="hero-event-card">
+              <div
+                class="hero-event-image"
+                style={`background: ${event.gradient}`}
+              >
+                <div class="hero-event-category">{event.category}</div>
+              </div>
+              <div class="hero-event-content">
+                <h3 class="hero-event-title">{event.title}</h3>
+                <p class="hero-event-description">{event.description}</p>
+                <a href="#events" class="hero-event-link">
+                  Learn More
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
             </div>
-            <div class="hero-event-content">
-              <h3 class="hero-event-title">{event.title}</h3>
-              <p class="hero-event-description">{event.description}</p>
-              <a href="#events" class="hero-event-link">
-                Learn More
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-              </a>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
 
       <button class="scroll-btn right" aria-label="Scroll right">›</button>
@@ -134,7 +123,9 @@ const featuredEvents = [
     border-radius: 10px;
     scroll-snap-align: start;
     overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition:
+      transform 0.3s,
+      box-shadow 0.3s;
   }
 
   .hero-event-card:hover {
@@ -206,16 +197,8 @@ const featuredEvents = [
     }
   }
 
-
-
-.hero-event-card {
-  background: rgba(59, 130, 246, 0.1); /* Transparent blue */
-  border: 1px solid var(--primary-color);
-}
-
-
-
-
-
+  .hero-event-card {
+    background: rgba(59, 130, 246, 0.1); /* Transparent blue */
+    border: 1px solid var(--primary-color);
+  }
 </style>
-

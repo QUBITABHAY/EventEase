@@ -4,10 +4,11 @@ interface Props {
   description?: string;
 }
 
-const { title, description = "EventEase - Smart Event Management Platform" } = Astro.props;
+const { title, description = "EventEase - Smart Event Management Platform" } =
+  Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -15,12 +16,15 @@ const { title, description = "EventEase - Smart Event Management Platform" } = A
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    
+
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
     <title>{title}</title>
   </head>
   <body>
@@ -52,55 +56,48 @@ const { title, description = "EventEase - Smart Event Management Platform" } = A
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 
+    --primary-color: #3b82f6; /* Primary blue */
+    --primary-hover-color: #2563eb; /* Darker blue for hover */
+    --secondary-color: #60a5fa; /* Lighter blue */
+    --secondary-hover-color: #3b82f6; /* Slightly darker blue for hover */
+    --background-color: #f0f9ff; /* Light blue background */
+    --text-color: #1e293b; /* Dark blue text */
+    --text-secondary-color: #64748b; /* Muted blue-gray text */
 
+    --clr-accent-400: #2563eb; /* Dark blue */
+    --clr-accent-300: #3b82f6; /* Medium blue */
+    --clr-accent-200: #60a5fa; /* Light blue */
+    --clr-accent-100: #93c5fd; /* Very light blue */
 
-  --primary-color: #3b82f6; /* Primary blue */
-  --primary-hover-color: #2563eb; /* Darker blue for hover */
-  --secondary-color: #60a5fa; /* Lighter blue */
-  --secondary-hover-color: #3b82f6; /* Slightly darker blue for hover */
-  --background-color: #f0f9ff; /* Light blue background */
-  --text-color: #1e293b; /* Dark blue text */
-  --text-secondary-color: #64748b; /* Muted blue-gray text */
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --text-primary: #111827;
+    --text-secondary: #6b7280;
+    --border-color: #e5e7eb;
+    --card-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+      0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --card-hover-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --category-bg: #eef2ff;
+    --category-text: #4f46e5;
 
-
-
-
-
-  --clr-accent-400: #2563eb; /* Dark blue */
-  --clr-accent-300: #3b82f6; /* Medium blue */
-  --clr-accent-200: #60a5fa; /* Light blue */
-  --clr-accent-100: #93c5fd; /* Very light blue */
-
-
-
-
-  --primary: #4f46e5;
-  --primary-hover: #4338ca;
-  --text-primary: #111827;
-  --text-secondary: #6b7280;
-  --border-color: #e5e7eb;
-  --card-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  --card-hover-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --category-bg: #eef2ff;
-  --category-text: #4f46e5;
-
-
-
-
-
-      --bg:rgb(239, 240, 242);
-      --panel:rgb(229, 232, 237);
-      --card: #1f2225;
-      --muted:rgb(32, 36, 40);
-      --text:rgb(8, 10, 11);
-      --accent:rgb(26, 96, 133); /* tech blue */
-      --glass: rgba(19, 16, 16, 0.03);
-
-
+    --bg: rgb(239, 240, 242);
+    --panel: rgb(229, 232, 237);
+    --card: #1f2225;
+    --muted: rgb(32, 36, 40);
+    --text: rgb(8, 10, 11);
+    --accent: rgb(26, 96, 133); /* tech blue */
+    --glass: rgba(19, 16, 16, 0.03);
   }
 
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family:
+      "Inter",
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      sans-serif;
     line-height: 1.6;
     color: var(--text-dark);
     background-color: var(--bg-light);
@@ -109,8 +106,13 @@ const { title, description = "EventEase - Smart Event Management Platform" } = A
     -moz-osx-font-smoothing: grayscale;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', Georgia, serif;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Playfair Display", Georgia, serif;
     font-weight: 800;
     line-height: 1.2;
     letter-spacing: -0.02em;
@@ -128,7 +130,9 @@ const { title, description = "EventEase - Smart Event Management Platform" } = A
     font-family: inherit;
   }
 
-  input, textarea, select {
+  input,
+  textarea,
+  select {
     font-family: inherit;
     outline: none;
   }
@@ -149,7 +153,7 @@ const { title, description = "EventEase - Smart Event Management Platform" } = A
     display: inline-block;
     padding: 0.75rem 1.5rem;
     border-radius: 8px;
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
     font-weight: 600;
     font-size: 0.9375rem;
     letter-spacing: 0;
@@ -159,7 +163,11 @@ const { title, description = "EventEase - Smart Event Management Platform" } = A
   }
 
   .btn-primary {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(
+      135deg,
+      var(--primary-color),
+      var(--secondary-color)
+    );
     color: white;
   }
 

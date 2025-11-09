@@ -24,23 +24,26 @@ model User {
 }
 
 model Event {
-  id            Int            @id @default(autoincrement())
-  title         String
-  description   String
-  category      String
-  organizerId   Int
-  date          DateTime
-  startTime     DateTime
-  endTime       DateTime
-  venue         String
-  posterUrl     String?
-  price         Float          @default(0)
-  capacity      Int
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  organizer     User           @relation(fields: [organizerId], references: [id])
-  registrations Registration[]
-  reviews       Review[]
+  id               Int            @id @default(autoincrement())
+  title            String
+  description      String
+  longDescription  String
+  category         String
+  organizerId      Int
+  date             DateTime
+  startTime        DateTime
+  endTime          DateTime
+  venue            String
+  posterUrl        String?
+  price            Float          @default(0)
+  prizePool        Float?
+  prizeDescription String?
+  capacity         Int
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  organizer        User           @relation(fields: [organizerId], references: [id])
+  registrations    Registration[]
+  reviews          Review[]
 
   @@index([organizerId], map: "Event_organizerId_fkey")
 }
