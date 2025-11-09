@@ -1,0 +1,572 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+/*
+  Sample events array — structure matches your Prisma Event model fields.
+  Replace with a fetch from your API/Prisma when ready.
+*/
+const events = [
+  {
+    id: 1,
+    title: "Cloud Run Hackathon",
+    description: "Build serverless, scalable systems using Cloud Run and modern tooling.",
+    category: "Machine Learning/AI",
+    organizer: { name: "Google" },
+    startTime: new Date("2025-10-06T09:00:00").toISOString(),
+    endTime: new Date("2025-11-10T17:00:00").toISOString(),
+    venue: "Online",
+    posterUrl: "/images/cloudrun.png",
+    price: 0,
+    capacity: 5000,
+  },
+  {
+    id: 2,
+    title: "Chroma Awards: AI Film, Music & Games",
+    description: "Celebrate creative uses of AI in film, music videos and games.",
+    category: "Creative AI",
+    organizer: { name: "ElevenLabs" },
+    startTime: new Date("2025-08-31T10:00:00").toISOString(),
+    endTime: new Date("2025-11-18T18:00:00").toISOString(),
+    venue: "Online",
+    posterUrl: "/images/chroma.png",
+    price: 0,
+    capacity: 4000,
+  },
+  {
+    id: 3,
+    title: "Rift Rewind Hackathon",
+    description: "Build fast multiplayer backends and realtime game systems.",
+    category: "Gaming",
+    organizer: { name: "Amazon" },
+    startTime: new Date("2025-09-15T09:00:00").toISOString(),
+    endTime: new Date("2025-11-10T17:00:00").toISOString(),
+    venue: "In-person",
+    posterUrl: "/images/rift.png",
+    price: 10.0,
+    capacity: 1500,
+  },
+  {
+    id: 4,
+    title: "Cloud Security Sprint",
+    description: "Hands-on secure-by-design patterns for cloud-native apps.",
+    category: "Cybersecurity",
+    organizer: { name: "SecureCorp" },
+    startTime: new Date("2025-11-20T09:00:00").toISOString(),
+    endTime: new Date("2025-11-22T17:00:00").toISOString(),
+    venue: "In-person",
+    posterUrl: "/images/security.png",
+    price: 49.99,
+    capacity: 300,
+  },
+  {
+    id: 5,
+    title: "Cloud Run Hackathon",
+    description: "Build serverless, scalable systems using Cloud Run and modern tooling.",
+    category: "Machine Learning/AI",
+    organizer: { name: "Google" },
+    startTime: new Date("2025-10-06T09:00:00").toISOString(),
+    endTime: new Date("2025-11-10T17:00:00").toISOString(),
+    venue: "Online",
+    posterUrl: "/images/cloudrun.png",
+    price: 0,
+    capacity: 5000,
+  },
+  {
+    id: 6,
+    title: "Chroma Awards: AI Film, Music & Games",
+    description: "Celebrate creative uses of AI in film, music videos and games.",
+    category: "Creative AI",
+    organizer: { name: "ElevenLabs" },
+    startTime: new Date("2025-08-31T10:00:00").toISOString(),
+    endTime: new Date("2025-11-18T18:00:00").toISOString(),
+    venue: "Online",
+    posterUrl: "/images/chroma.png",
+    price: 0,
+    capacity: 4000,
+  },
+  {
+    id: 7,
+    title: "Rift Rewind Hackathon",
+    description: "Build fast multiplayer backends and realtime game systems.",
+    category: "Gaming",
+    organizer: { name: "Amazon" },
+    startTime: new Date("2025-09-15T09:00:00").toISOString(),
+    endTime: new Date("2025-11-10T17:00:00").toISOString(),
+    venue: "In-person",
+    posterUrl: "/images/rift.png",
+    price: 10.0,
+    capacity: 1500,
+  }
+];
+---
+
+<Layout title="Tech Events">
+
+
+    <div class="section-header">
+      <h2 class="section-title">Explore Events</h2>
+      <p class="section-description">
+        Trusted by thousands of event organizers worldwide
+      </p>
+    </div>
+
+  <div class="page">
+  
+    <!-- Sidebar (filters + sorting) -->
+    <aside class="sidebar">
+      <h2 class="sidebar-title">Filters</h2>
+
+      <div class="control">
+        <label class="control-label">Search</label>
+        <input id="searchInput" class="input" placeholder="Search title or venue" />
+      </div>
+
+      <div class="control">
+        <label class="control-label">Category</label>
+        <div class="checkbox-grid">
+          <label><input type="checkbox" class="filter-category" value="Machine Learning/AI" /> Machine Learning/AI</label>
+          <label><input type="checkbox" class="filter-category" value="Creative AI" /> Creative AI</label>
+          <label><input type="checkbox" class="filter-category" value="Gaming" /> Gaming</label>
+          <label><input type="checkbox" class="filter-category" value="Cybersecurity" /> Cybersecurity</label>
+        </div>
+      </div>
+
+      <div class="control">
+        <label class="control-label">Price</label>
+        <label><input type="checkbox" class="filter-price" value="free" /> Free</label>
+        <label><input type="checkbox" class="filter-price" value="paid" /> Paid</label>
+      </div>
+
+      <div class="control">
+        <label class="control-label">Date</label>
+        <label><input type="checkbox" class="filter-date" value="upcoming" /> Upcoming</label>
+        <label><input type="checkbox" class="filter-date" value="past" /> Past</label>
+      </div>
+
+      <div class="control">
+        <label class="control-label">Sort</label>
+        <select id="sortSelect" class="select">
+          <option value="latest">Latest (soonest start)</option>
+          <option value="oldest">Oldest</option>
+          <option value="price-asc">Price: Low → High</option>
+          <option value="price-desc">Price: High → Low</option>
+        </select>
+      </div>
+
+      <div class="control">
+        <button id="resetBtn" class="btn-secondary">Reset filters</button>
+      </div>
+    </aside>
+
+    <!-- Events list -->
+    <main class="events" id="eventsList">
+      <!-- Cards rendered server-side; JS will filter/sort them on the client -->
+      {events.map(event => {
+        // data-* attributes used by the client filtering code
+        const startISO = event.startTime;
+        const endISO = event.endTime;
+        const price = Number(event.price ?? 0);
+        return (
+          <article class="card" data-id={event.id}
+            data-title={event.title}
+            data-category={event.category}
+            data-venue={event.venue}
+            data-start={startISO}
+            data-end={endISO}
+            data-price={price}>
+            <div class="card-left">
+              <img src={event.posterUrl} alt={event.title} class="poster" />
+            </div>
+
+            <div class="card-center">
+              <header class="card-header">
+                <h3 class="card-title">{event.title}</h3>
+                <div class="meta-line">
+                  <span class="meta-pill">{event.category}</span>
+                  <span class="meta-muted">·</span>
+                  <span class="meta-muted">{event.venue}</span>
+                </div>
+              </header>
+
+              <p class="card-desc">{event.description}</p>
+
+              <div class="card-bottom">
+                <div class="left-info">
+                  <div class="when">
+                    <svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10h5v5H7z"/></svg>
+                    <span class="when-text">{new Date(event.startTime).toLocaleDateString()}</span>
+                    <span class="dash">—</span>
+                    <span class="when-text">{new Date(event.endTime).toLocaleDateString()}</span>
+                  </div>
+                </div>
+
+                <div class="right-actions">
+                  <div class="price">{event.price === 0 ? "Free" : `$${event.price.toFixed(2)}`}</div>
+                  <a class="btn-primary" href={`/events/${event.id}`}>View Details</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-right">
+              <div class="organizer">{event.organizer?.name ?? "Organizer"}</div>
+              <div class="capacity">{event.capacity?.toLocaleString() ?? "—"} seats</div>
+              <a class="btn-ghost" href={`/events/${event.id}`}>Register</a>
+            </div>
+          </article>
+        )
+      })}
+    </main>
+  </div>
+
+  <!-- Client-side filtering & sorting -->
+  <script>
+    (() => {
+      // helper
+      const q = (sel, root = document) => root.querySelector(sel);
+      const qa = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+      const eventsList = q('#eventsList');
+      const cards = qa('.card', eventsList);
+
+      const searchInput = q('#searchInput');
+      const categoryChecks = qa('.filter-category');
+      const priceChecks = qa('.filter-price');
+      const dateChecks = qa('.filter-date');
+      const sortSelect = q('#sortSelect');
+      const resetBtn = q('#resetBtn');
+
+      // parse checkboxes to arrays
+      const selected = {
+        categories: [],
+        prices: [],
+        dates: [],
+        search: '',
+      };
+
+      function updateSelected() {
+        selected.categories = categoryChecks.filter(c => c.checked).map(c => c.value);
+        selected.prices = priceChecks.filter(c => c.checked).map(c => c.value);
+        selected.dates = dateChecks.filter(c => c.checked).map(c => c.value);
+        selected.search = searchInput.value.trim().toLowerCase();
+      }
+
+      function isUpcoming(startISO) {
+        return new Date(startISO) >= new Date();
+      }
+
+      function matchesCard(card) {
+        // title/venue search
+        if (selected.search) {
+          const title = (card.dataset.title || '').toLowerCase();
+          const venue = (card.dataset.venue || '').toLowerCase();
+          if (!title.includes(selected.search) && !venue.includes(selected.search)) return false;
+        }
+
+        // category
+        if (selected.categories.length > 0) {
+          if (!selected.categories.includes(card.dataset.category)) return false;
+        }
+
+        // price (free / paid)
+        if (selected.prices.length > 0) {
+          const isFree = Number(card.dataset.price) === 0;
+          if (selected.prices.includes('free') && !isFree) return false;
+          if (selected.prices.includes('paid') && isFree) return false;
+        }
+
+        // date (upcoming / past)
+        if (selected.dates.length > 0) {
+          const start = card.dataset.start;
+          const upcoming = isUpcoming(start);
+          if (selected.dates.includes('upcoming') && !upcoming) return false;
+          if (selected.dates.includes('past') && upcoming) return false;
+        }
+
+        return true;
+      }
+
+      function applyFiltersAndSort() {
+        updateSelected();
+
+        // Filter
+        let visible = cards.filter(c => {
+          const ok = matchesCard(c);
+          c.style.display = ok ? 'grid' : 'none';
+          return ok;
+        });
+
+        // Sort
+        const sortMode = sortSelect.value;
+        visible.sort((a, b) => {
+          if (sortMode === 'latest') {
+            // soonest start first
+            return new Date(a.dataset.start) - new Date(b.dataset.start);
+          } else if (sortMode === 'oldest') {
+            return new Date(b.dataset.start) - new Date(a.dataset.start);
+          } else if (sortMode === 'price-asc') {
+            return Number(a.dataset.price) - Number(b.dataset.price);
+          } else if (sortMode === 'price-desc') {
+            return Number(b.dataset.price) - Number(a.dataset.price);
+          }
+          return 0;
+        });
+
+        // Re-append in new order (keeps DOM nodes)
+        visible.forEach(node => eventsList.appendChild(node));
+      }
+
+      // Event listeners
+      searchInput.addEventListener('input', () => applyFiltersAndSort());
+      categoryChecks.forEach(cb => cb.addEventListener('change', () => applyFiltersAndSort()));
+      priceChecks.forEach(cb => cb.addEventListener('change', () => applyFiltersAndSort()));
+      dateChecks.forEach(cb => cb.addEventListener('change', () => applyFiltersAndSort()));
+      sortSelect.addEventListener('change', () => applyFiltersAndSort());
+
+      resetBtn.addEventListener('click', () => {
+        // reset inputs
+        searchInput.value = '';
+        categoryChecks.forEach(cb => cb.checked = false);
+        priceChecks.forEach(cb => cb.checked = false);
+        dateChecks.forEach(cb => cb.checked = false);
+        sortSelect.value = 'latest';
+        applyFiltersAndSort();
+      });
+
+      // initial sort
+      applyFiltersAndSort();
+    })();
+  </script>
+
+  <style>
+    
+
+    /* page wrapper */
+    .page {
+      max-width: 1200px;
+      margin: 28px auto;
+      padding: 24px;
+      display: flex;
+      gap: 20px;
+      color: var(--text);
+      background: linear-gradient(180deg, rgba(13, 202, 231, 0.02), transparent);
+      border-radius: 12px;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 260px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(164, 153, 153, 0.4);
+      padding: 18px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(177, 187, 189, 0.6);
+      position: sticky;
+      top: 22px;
+      height: fit-content;
+      min-height: 200px;
+    }
+
+    .sidebar-title {
+      margin: 0 0 22px 0;
+      font-size: 1.15rem;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .control { margin-bottom: 14px; }
+    .control-label { display:block; margin-bottom:8px; color:var(--muted); font-size:0.9rem; }
+
+    .input, .select {
+      width: 100%;
+      padding: 8px 10px;
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,0.03);
+      color: var(--text);
+      border-radius: 8px;
+      outline: none;
+      font-size: 0.95rem;
+    }
+
+    .input::placeholder { color: rgba(35, 36, 37, 0.45); }
+
+    .checkbox-grid label {
+      display:block;
+      padding:6px 0;
+      color:var(--muted);
+      font-size:0.92rem;
+      cursor: pointer;
+    }
+
+    input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      margin-right: 8px;
+      accent-color: var(--accent);
+    }
+
+    .btn-secondary {
+      width: 100%;
+      padding: 8px 10px;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid rgba(12, 11, 11, 0.04);
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    /* EVENTS LIST */
+    .events {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      min-width: 0; /* prevent overflow */
+    }
+
+    .card {
+      display: grid;
+      grid-template-columns: 140px 1fr 180px;
+      gap: 18px;
+      align-items: start;
+      background: linear-gradient(180deg, rgba(13, 125, 162, 0.04), rgba(134, 182, 177, 0.05));
+      border: 1px solid rgba(47,157,246,0.25);
+      border-left: 4px solid rgba(22, 135, 216, 0.4);
+      padding: 14px;
+      border-radius: 6px;
+      transition: transform .18s cubic-bezier(.2,.9,.2,1), box-shadow .18s;
+      min-height: 250px;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 40px rgba(47,157,246,0.08);
+      border-color: rgba(47,157,246,0.25);
+    border-left: 4px solid rgba(22, 83, 216, 0.4);
+    }
+
+    .card-left, .card-center, .card-right { min-height: 1px; }
+
+    .poster {
+      width: 100%;
+      height: 100%;
+      max-height: 140px;
+      object-fit: cover;
+      border-radius: 8px;
+      display:block;
+      background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(0,0,0,0.05));
+      border: 1px solid rgba(255,255,255,0.02);
+    }
+
+    .card-title {
+      margin: 0 0 6px 0;
+      color: var(--text);
+      font-size: 1.15rem;
+      line-height: 1.2;
+      font-weight: 700;
+      word-break: break-word;
+    }
+
+    .meta-line { display:flex; gap:8px; align-items:center; color:var(--muted); font-size:0.9rem; margin-bottom:18px; }
+    .meta-pill {
+      background: rgba(47,157,246,0.08);
+      color: var(--accent);
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-weight:600;
+      font-size: 0.82rem;
+    }
+
+    .card-desc {
+      margin: 0 0 10px 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 100%;
+    }
+
+    .card-bottom { display:flex; justify-content:space-between; gap: 12px; align-items:center; margin-top:6px; flex-wrap:wrap; }
+    .when { display:flex; gap:8px; align-items:center; color:var(--muted); font-size:0.9rem; }
+    .icon { width:16px; height:16px; opacity:0.9; color:var(--muted); }
+
+    .when-text { font-size:0.9rem; color:var(--muted); }
+
+    .right-actions { display:flex; align-items:center; gap:12px; }
+
+    .price { color: var(--text); background: rgba(255,255,255,0.02); padding:6px 10px; border-radius:8px; font-weight:600; font-size:0.95rem; }
+
+    .btn-primary {
+      text-decoration:none;
+      background: linear-gradient(90deg, var(--accent), #1da1f2);
+      color: #031023;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-weight: 700;
+      box-shadow: 0 6px 20px rgba(47,157,246,0.10);
+      transition: transform .14s ease, box-shadow .14s;
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(47,157,246,0.16); }
+
+    /* RIGHT COLUMN (organizer + register) */
+    .card-right {
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:8px;
+      color: var(--muted);
+    }
+
+    .organizer { background: rgba(255,255,255,0.02); padding:6px 10px; border-radius:999px; color:var(--accent); font-weight:700; font-size:0.9rem; }
+    .capacity { font-size:0.9rem; color:var(--muted); }
+
+    .btn-ghost {
+      text-decoration:none;
+      padding:8px 12px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,0.04);
+      color:var(--text);
+      background: transparent;
+      font-weight:600;
+    }
+    .btn-ghost:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.5); transform: translateY(-3px); }
+
+    .section-header {
+    text-align: center;
+    margin: 3rem;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg,rgb(20, 80, 184),rgb(13, 148, 141));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .section-description {
+    font-size: 1.125rem;
+    color: #6b7280;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+    /* responsive */
+    @media (max-width: 960px) {
+      .page { padding: 16px; gap: 12px; }
+      .sidebar { width: 100%; position: relative; top: auto; }
+      .card { grid-template-columns: 1fr; }
+      .card-right { align-items: flex-start; border-top: 1px dashed rgba(255,255,255,0.02); padding-top: 12px; margin-top: 6px; }
+    }
+
+    @media (max-width: 520px) {
+      .card { gap: 12px; padding: 12px; }
+      .card-title { font-size: 1rem; }
+      .price { font-size: 0.9rem; }
+      .btn-primary, .btn-ghost { padding: 7px 10px; font-size: 0.9rem; }
+    }
+
+    html, body { background: var(--bg); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+  </style>
+</Layout>

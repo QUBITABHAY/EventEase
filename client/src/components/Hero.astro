@@ -34,7 +34,7 @@ import HeroFeaturedEvents from './HeroFeaturedEvents.astro';
 
       <div class="explore-events">
 
-        <a href="/events" class="btn btn-explore btn-large">
+        <a href="/exploreEvents" class="btn btn-explore btn-large">
           Explore Events
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -58,7 +58,7 @@ import HeroFeaturedEvents from './HeroFeaturedEvents.astro';
     padding: 0; /* Remove default padding */
     text-align: center;
     color: #fff;
-    background: url('/banner1.png') no-repeat center center;
+    background: url('/banner5.png') no-repeat center center;
     background-size: cover; /* Ensures the image covers the entire section */
     background-attachment: fixed; /* Optional: Makes the background fixed for a parallax effect */
     position: relative;
@@ -185,6 +185,17 @@ import HeroFeaturedEvents from './HeroFeaturedEvents.astro';
     transition: color 0.3s ease;
   }
 
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translate(-50%, 0); /* Default position */
+  }
+  40% {
+    transform: translate(-50%, -10px); /* Move up */
+  }
+  60% {
+    transform: translate(-50%, -5px); /* Slightly lower bounce */
+  }
+}
   .hero-scroll:hover {
     color: white;
   }
