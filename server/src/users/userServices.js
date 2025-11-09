@@ -38,17 +38,17 @@ export const loginUserService = async (data) => {
   try {
     let { email, password } = data;
 
-    const checkDetil = await prisma.user.findUnique({
+    const checkDetail = await prisma.user.findUnique({
       where: {
         email: email,
       },
     });
 
-    if (!checkDetil) {
+    if (!checkDetail) {
       return { status: 401, message: "Invalid credentials" };
     }
 
-    const checkPassword = await bcrypt.compare(password, checkDetil.password);
+    const checkPassword = await bcrypt.compare(password, checkDetail.password);
 
     if (!checkPassword) {
       return { status: 401, message: "Invalid credentials" };
@@ -57,7 +57,7 @@ export const loginUserService = async (data) => {
     return {
       status: 200,
       message: "Login successful",
-      user: { id: checkDetil.id, email: checkDetil.email, role: checkDetil.role },
+      user: { id: checkDetail.id, email: checkDetail.email, role: checkDetail.role },
     };
   } catch (error) {
     console.log(error);
@@ -116,13 +116,13 @@ export const updateUserService = async (data) => {
   try {
     const { newName, email, newPassword, newRole } = data;
 
-    const checkDetil = await prisma.user.findUnique({
+    const checkDetail = await prisma.user.findUnique({
       where: {
         email,
       },
     });
 
-    if (!checkDetil) {
+    if (!checkDetail) {
       return {
         status: 401,
         message: "Invalid credential"
@@ -131,7 +131,7 @@ export const updateUserService = async (data) => {
 
     const data = await prisma.user.update({
       where: {
-        id: checkDetil.id,
+        id: checkDetail.id,
       },
 
       data: {
@@ -158,17 +158,17 @@ export const deleteUserService = async (data) => {
   try {
     const { email, password } = data;
 
-    const checkDetil = await prisma.user.findUnique({
+    const checkDetail = await prisma.user.findUnique({
       where: {
         email,
       },
     });
 
-    if (!checkDetil) {
+    if (!checkDetail) {
       return { status: 401, message: "Invalid credential" };
     }
 
-    const checkPassword = await bcrypt.compare(password, checkDetil.password);
+    const checkPassword = await bcrypt.compare(password, checkDetail.password);
 
     if (!checkPassword) {
       return { status: 401, message: "Invalid credential" };

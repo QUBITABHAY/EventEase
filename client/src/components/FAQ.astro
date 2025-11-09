@@ -2,28 +2,29 @@
 const faqs = [
   {
     question: "What exactly is EventEase?",
-    answer: "Think of us as your event planning best friend! We help you organize everything from small meetups to big conferences. Registration, ticketing, analytics - it's all here, working together smoothly."
-  },
-  {
-    question: "Can I try it before I buy?",
-    answer: "Absolutely! Take EventEase for a 14-day test drive with full access to everything. No credit card needed, no strings attached. We're confident you'll love it!"
+    answer:
+      "Think of us as your event planning best friend! We help you organize everything from small meetups to big conferences. Registration, ticketing, analytics - it's all here, working together smoothly.",
   },
   {
     question: "What kinds of events work with EventEase?",
-    answer: "All of them! Whether you're planning a workshop, conference, webinar, party, or community meetup - if it involves people gathering, we've got you covered."
+    answer:
+      "All of them! Whether you're planning a workshop, conference, webinar, party, or community meetup - if it involves people gathering, we've got you covered.",
   },
   {
     question: "Is my information safe with you?",
-    answer: "Your trust means everything to us. We use bank-level encryption and follow strict security standards to keep your data locked down tight. Your information stays yours."
+    answer:
+      "Your trust means everything to us. We use bank-level encryption and follow strict security standards to keep your data locked down tight. Your information stays yours.",
   },
   {
     question: "Does it work with my other tools?",
-    answer: "Great question! We play nice with Google Calendar, popular payment services, and email platforms. And we're always adding more friends to the mix."
+    answer:
+      "Great question! We play nice with Google Calendar, popular payment services, and email platforms. And we're always adding more friends to the mix.",
   },
   {
     question: "What if I need help?",
-    answer: "We're here for you 24/7! Reach out via email or chat anytime. Need extra love? Our premium plans include priority support and your own dedicated helper."
-  }
+    answer:
+      "We're here for you 24/7! Reach out via email or chat anytime. Need extra love? Our premium plans include priority support and your own dedicated helper.",
+  },
 ];
 ---
 
@@ -32,22 +33,25 @@ const faqs = [
     <div class="section-header">
       <h2 class="section-title">Questions? We've Got You Covered</h2>
       <p class="section-description">
-        Here are the answers to what people usually ask us. Don't see yours? Just reach out!
+        Here are the answers to what people usually ask us. Don't see yours?
+        Just reach out!
       </p>
     </div>
 
     <div class="faq-list">
-      {faqs.map((faq, index) => (
-        <div class="faq-item">
-          <button class="faq-question" data-index={index}>
-            <span>{faq.question}</span>
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>{faq.answer}</p>
+      {
+        faqs.map((faq, index) => (
+          <div class="faq-item">
+            <button class="faq-question" data-index={index}>
+              <span>{faq.question}</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>{faq.answer}</p>
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      }
     </div>
   </div>
 </section>
@@ -58,6 +62,24 @@ const faqs = [
     margin-bottom: 3rem;
   }
 
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, rgb(20, 108, 184), #0d9488);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .section-description {
+    font-size: 1.125rem;
+    color: #6b7280;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
   .faq-list {
     max-width: 800px;
     margin: 0 auto;
@@ -66,16 +88,31 @@ const faqs = [
     gap: 1rem;
   }
 
+  .faq {
+    background: white;
+  }
+
   .faq-item {
     background: white;
-    border-radius: 0;
-    box-shadow: var(--shadow-sm);
+    border-radius: 12px;
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     overflow: hidden;
     transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
   }
 
   .faq-item:hover {
-    box-shadow: var(--shadow-md);
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    border-color: rgb(20, 121, 184);
+  }
+
+  .faq-item.active {
+    border-color: rgb(20, 102, 184);
+    box-shadow:
+      0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
 
   .faq-question {
@@ -89,24 +126,38 @@ const faqs = [
     text-align: left;
     font-size: 1.125rem;
     font-weight: 600;
-    color: var(--text-dark);
+    color: #1f2937;
     cursor: pointer;
     transition: all 0.3s ease;
+    gap: 1rem;
   }
 
   .faq-question:hover {
-    color: var(--primary-color);
+    color: rgb(20, 102, 184);
+  }
+
+  .faq-item.active .faq-question {
+    color: rgb(20, 108, 184);
   }
 
   .faq-icon {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     font-weight: 300;
-    color: var(--primary-color);
-    transition: transform 0.3s ease;
+    color: rgb(20, 99, 184);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(20, 184, 166, 0.1);
+    border-radius: 50%;
   }
 
   .faq-item.active .faq-icon {
     transform: rotate(45deg);
+    background: rgba(20, 140, 184, 0.2);
   }
 
   .faq-answer {
@@ -121,27 +172,27 @@ const faqs = [
 
   .faq-answer p {
     padding: 0 1.5rem 1.5rem;
-    color: var(--text-light);
+    color: #6b7280;
     line-height: 1.6;
   }
 </style>
 
 <script>
-  const faqQuestions = document.querySelectorAll('.faq-question');
+  const faqQuestions = document.querySelectorAll(".faq-question");
 
   faqQuestions.forEach((question) => {
-    question.addEventListener('click', () => {
-      const faqItem = question.closest('.faq-item');
-      const isActive = faqItem?.classList.contains('active');
+    question.addEventListener("click", () => {
+      const faqItem = question.closest(".faq-item");
+      const isActive = faqItem?.classList.contains("active");
 
       // Close all other items
-      document.querySelectorAll('.faq-item').forEach((item) => {
-        item.classList.remove('active');
+      document.querySelectorAll(".faq-item").forEach((item) => {
+        item.classList.remove("active");
       });
 
       // Toggle current item
       if (!isActive) {
-        faqItem?.classList.add('active');
+        faqItem?.classList.add("active");
       }
     });
   });

@@ -1,16 +1,22 @@
 ---
+
 ---
 
 <section class="cta section">
   <div class="container">
     <div class="cta-content">
-      <h2 class="cta-title">Let's Create Something Amazing Together</h2>
+      <h2 class="cta-title">
+        Let's create and attend Something Amazing Together
+      </h2>
       <p class="cta-description">
-        Join our community of passionate event creators who are making every gathering special. 
-        We're here to help you succeed, every step of the way.
+        Join our community of passionate event creators and attendees who are
+        making every gathering special. We're here to help you succeed, every
+        step of the way.
       </p>
       <div class="cta-actions">
-        <a href="/register" class="btn btn-primary btn-large">Get Started for Free</a>
+        <a href="/register" class="btn btn-primary btn-large"
+          >Get Started for Free</a
+        >
         <a href="#contact" class="btn btn-secondary btn-large">Chat with Us</a>
       </div>
     </div>
@@ -19,22 +25,9 @@
 
 <style>
   .cta {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background: #f9fafb;
     position: relative;
     overflow: hidden;
-  }
-
-  .cta::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-      radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
-    pointer-events: none;
   }
 
   .cta-content {
@@ -49,14 +42,13 @@
   .cta-title {
     font-size: 2.5rem;
     font-weight: 700;
-    color: white;
+    color: #1f2937;
     margin-bottom: 1rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   .cta-description {
     font-size: 1.25rem;
-    color: rgba(255, 255, 255, 0.95);
+    color: #6b7280;
     margin-bottom: 2rem;
     line-height: 1.6;
   }
@@ -69,28 +61,37 @@
   }
 
   .btn-large {
-    padding: 1rem 2rem;
+    padding: 1rem 2.5rem;
     font-size: 1.125rem;
+    border-radius: 8px;
+    text-transform: none;
+    letter-spacing: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
   }
 
   .cta-actions .btn-primary {
-    background: white;
-    color: var(--primary-color);
+    background: linear-gradient(135deg, rgb(20, 129, 184), rgb(20, 167, 190));
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
 
   .cta-actions .btn-primary:hover {
-    background: var(--bg-light);
+    background: linear-gradient(135deg, rgb(13, 94, 148), rgb(20, 167, 190));
     transform: translateY(-2px);
+    box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.15);
   }
 
   .cta-actions .btn-secondary {
-    background: transparent;
-    border: 2px solid white;
-    color: white;
+    background: white;
+    color: rgb(20, 129, 184);
+    border: 2px solidrgb(20, 129, 184);
   }
 
   .cta-actions .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgb(20, 132, 184);
+    color: white;
   }
 
   @media (max-width: 768px) {
