@@ -27,24 +27,26 @@ const faqs = [
 ];
 ---
 
-<section id="faq" class="faq section">
-  <div class="container">
-    <div class="section-header">
-      <h2 class="section-title">Questions? We've Got You Covered</h2>
-      <p class="section-description">
+<section id="faq" class="py-16 md:py-24 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4 bg-linear-to-r from-blue-500 to-blue-800 bg-clip-text text-transparent">
+        Questions? We've Got You Covered
+      </h2>
+      <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
         Here are the answers to what people usually ask us. Don't see yours? Just reach out!
       </p>
     </div>
 
-    <div class="faq-list">
-      {faqs.map((faq, index) => (
-        <div class="faq-item">
-          <button class="faq-question" data-index={index}>
-            <span>{faq.question}</span>
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>{faq.answer}</p>
+    <div class="max-w-4xl mx-auto space-y-4">
+      {faqs.map((faq) => (
+        <div class="collapse collapse-plus bg-white shadow-md hover:shadow-lg transition-shadow">
+          <input type="radio" name="faq-accordion" />
+          <div class="collapse-title text-xl font-semibold text-gray-900">
+            {faq.question}
+          </div>
+          <div class="collapse-content">
+            <p class="text-gray-600 leading-relaxed">{faq.answer}</p>
           </div>
         </div>
       ))}
@@ -52,97 +54,3 @@ const faqs = [
   </div>
 </section>
 
-<style>
-  .section-header {
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-
-  .faq-list {
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .faq-item {
-    background: white;
-    border-radius: 0;
-    box-shadow: var(--shadow-sm);
-    overflow: hidden;
-    transition: all 0.3s ease;
-  }
-
-  .faq-item:hover {
-    box-shadow: var(--shadow-md);
-  }
-
-  .faq-question {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem;
-    background: white;
-    border: none;
-    text-align: left;
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: var(--text-dark);
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .faq-question:hover {
-    color: var(--primary-color);
-  }
-
-  .faq-icon {
-    font-size: 1.5rem;
-    font-weight: 300;
-    color: var(--primary-color);
-    transition: transform 0.3s ease;
-  }
-
-  .faq-item.active .faq-icon {
-    transform: rotate(45deg);
-  }
-
-  .faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-  }
-
-  .faq-item.active .faq-answer {
-    max-height: 500px;
-  }
-
-  .faq-answer p {
-    padding: 0 1.5rem 1.5rem;
-    color: var(--text-light);
-    line-height: 1.6;
-  }
-</style>
-
-<script>
-  const faqQuestions = document.querySelectorAll('.faq-question');
-
-  faqQuestions.forEach((question) => {
-    question.addEventListener('click', () => {
-      const faqItem = question.closest('.faq-item');
-      const isActive = faqItem?.classList.contains('active');
-
-      // Close all other items
-      document.querySelectorAll('.faq-item').forEach((item) => {
-        item.classList.remove('active');
-      });
-
-      // Toggle current item
-      if (!isActive) {
-        faqItem?.classList.add('active');
-      }
-    });
-  });
-</script>

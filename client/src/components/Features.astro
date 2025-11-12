@@ -33,91 +33,26 @@ const features = [
 ];
 ---
 
-<section id="features" class="features section">
-  <div class="container">
-    <div class="section-header">
-      <h2 class="section-title">Built with You in Mind</h2>
-      <p class="section-description">
+<section id="features" class="py-16 md:py-24 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4 bg-linear-to-r from-blue-500 to-blue-800 bg-clip-text text-transparent">
+        Built with You in Mind
+      </h2>
+      <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
         Everything you need to create events that people actually want to attend
-      </p>
       </p>
     </div>
 
-    <div class="features-grid">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {features.map((feature) => (
-        <div class="feature-card">
-          <h3 class="feature-title">{feature.title}</h3>
-          <p class="feature-description">{feature.description}</p>
+        <div class="card bg-white shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-blue-500">
+          <div class="card-body">
+            <h3 class="card-title text-2xl font-semibold text-gray-900">{feature.title}</h3>
+            <p class="text-gray-600 leading-relaxed">{feature.description}</p>
+          </div>
         </div>
       ))}
     </div>
   </div>
 </section>
-
-<style>
-  .section-header {
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-
-  .section-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    margin-bottom: 1rem;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .section-description {
-    font-size: 1.125rem;
-    color: var(--text-light);
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-  }
-
-  .feature-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 0;
-    box-shadow: var(--shadow-md);
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-  }
-
-  .feature-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-xl);
-    border-color: var(--primary-color);
-  }
-
-  .feature-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--text-dark);
-    margin-bottom: 0.75rem;
-  }
-
-  .feature-description {
-    color: var(--text-light);
-    line-height: 1.6;
-  }
-
-  @media (max-width: 768px) {
-    .section-title {
-      font-size: 2rem;
-    }
-
-    .features-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
