@@ -2,280 +2,134 @@
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="footer">
-  <div class="footer-glow"></div>
-  <div class="footer-grid-bg"></div>
-
-  <div class="container footer-container">
-    <div class="footer-main">
-      <div class="footer-brand">
-        <h2 class="brand-name">EventEase</h2>
-        <p class="brand-tagline">Making events unforgettable</p>
-      </div>
-
-      <nav class="footer-nav">
-        <a href="/" class="nav-item">Home</a>
-        <a href="#features" class="nav-item">Features</a>
-        <a href="#faq" class="nav-item">FAQ</a>
-        <a href="#contact" class="nav-item">Contact</a>
-      </nav>
-
-      <div class="footer-social">
-        <a href="#" class="social-icon" aria-label="Twitter">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
-            ></path>
-          </svg>
-        </a>
-        <a href="#" class="social-icon" aria-label="GitHub">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-            ></path>
-          </svg>
-        </a>
-        <a href="#" class="social-icon" aria-label="LinkedIn">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
-            ></path>
-          </svg>
-        </a>
-      </div>
+<footer
+    class="relative bg-slate-900 text-slate-200 pt-16 pb-8 mt-24 overflow-hidden"
+>
+    <div
+        class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-linear-to-r from-transparent via-blue-500/50 to-transparent"
+    >
     </div>
 
-    <div class="footer-bottom">
-      <p class="copyright">
-        &copy; {currentYear} EventEase. All rights reserved.
-      </p>
-      <div class="footer-links">
-        <a href="#privacy">Privacy</a>
-        <span class="separator">·</span>
-        <a href="#terms">Terms</a>
-        <span class="separator">·</span>
-        <a href="#cookies">Cookies</a>
-      </div>
+    <div
+        class="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.03)_1px,transparent_1px)] bg-size-[50px_50px] opacity-50"
+    >
     </div>
-  </div>
+
+    <div class="container mx-auto px-4 relative z-10">
+        <div
+            class="flex flex-col lg:flex-row justify-between items-center lg:items-center gap-8 lg:gap-12 py-8 border-b border-white/5 mb-8"
+        >
+            <div class="shrink-0 text-center lg:text-left">
+                <h2
+                    class="font-serif text-3xl font-extrabold bg-linear-to-r from-blue-400 to-blue-200 bg-clip-text text-transparent tracking-tight mb-1"
+                >
+                    EventEase
+                </h2>
+                <p class="text-sm text-slate-400">
+                    Making events unforgettable
+                </p>
+            </div>
+
+            <nav
+                class="flex flex-col lg:flex-row gap-4 lg:gap-10 text-center lg:text-left"
+            >
+                <a
+                    href="/"
+                    class="relative text-slate-300 font-medium hover:text-blue-400 transition-colors duration-300 group"
+                >
+                    Home
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-linear-to-r from-blue-400 to-blue-600 group-hover:w-full transition-all duration-300"
+                    ></span>
+                </a>
+                <a
+                    href="#features"
+                    class="relative text-slate-300 font-medium hover:text-blue-400 transition-colors duration-300 group"
+                >
+                    Features
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-linear-to-r from-blue-400 to-blue-600 group-hover:w-full transition-all duration-300"
+                    ></span>
+                </a>
+                <a
+                    href="#faq"
+                    class="relative text-slate-300 font-medium hover:text-blue-400 transition-colors duration-300 group"
+                >
+                    FAQ
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-linear-to-r from-blue-400 to-blue-600 group-hover:w-full transition-all duration-300"
+                    ></span>
+                </a>
+                <a
+                    href="#contact"
+                    class="relative text-slate-300 font-medium hover:text-blue-400 transition-colors duration-300 group"
+                >
+                    Contact
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-linear-to-r from-blue-400 to-blue-600 group-hover:w-full transition-all duration-300"
+                    ></span>
+                </a>
+            </nav>
+
+            <div class="flex gap-3">
+                <a
+                    href="#"
+                    class="relative w-11 h-11 flex items-center justify-center bg-white/5 border border-white/10 text-slate-400 hover:text-blue-400 hover:border-blue-400/30 hover:-translate-y-1 transition-all duration-300 overflow-hidden group text-lg font-bold"
+                    aria-label="Twitter"
+                >
+                    <span
+                        class="absolute inset-0 bg-linear-to-br from-blue-500/10 to-blue-300/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    ></span>
+                    <span class="relative z-10">𝕏</span>
+                </a>
+                <a
+                    href="#"
+                    class="relative w-11 h-11 flex items-center justify-center bg-white/5 border border-white/10 text-slate-400 hover:text-blue-400 hover:border-blue-400/30 hover:-translate-y-1 transition-all duration-300 overflow-hidden group text-lg font-bold"
+                    aria-label="GitHub"
+                >
+                    <span
+                        class="absolute inset-0 bg-linear-to-br from-blue-500/10 to-blue-300/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    ></span>
+                    <span class="relative z-10">GH</span>
+                </a>
+                <a
+                    href="#"
+                    class="relative w-11 h-11 flex items-center justify-center bg-white/5 border border-white/10 text-slate-400 hover:text-blue-400 hover:border-blue-400/30 hover:-translate-y-1 transition-all duration-300 overflow-hidden group text-lg font-bold"
+                    aria-label="LinkedIn"
+                >
+                    <span
+                        class="absolute inset-0 bg-linear-to-br from-blue-500/10 to-blue-300/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    ></span>
+                    <span class="relative z-10">in</span>
+                </a>
+            </div>
+        </div>
+
+        <div
+            class="flex flex-col lg:flex-row justify-between items-center gap-4 pt-8 text-sm"
+        >
+            <p class="text-slate-500">
+                &copy; {currentYear} EventEase. All rights reserved.
+            </p>
+            <div class="flex items-center gap-6">
+                <a
+                    href="#privacy"
+                    class="text-slate-400 hover:text-blue-400 font-medium transition-colors"
+                    >Privacy</a
+                >
+                <span class="text-slate-700 select-none">·</span>
+                <a
+                    href="#terms"
+                    class="text-slate-400 hover:text-blue-400 font-medium transition-colors"
+                    >Terms</a
+                >
+                <span class="text-slate-700 select-none">·</span>
+                <a
+                    href="#cookies"
+                    class="text-slate-400 hover:text-blue-400 font-medium transition-colors"
+                    >Cookies</a
+                >
+            </div>
+        </div>
+    </div>
 </footer>
-
-<style>
-  .footer {
-    position: relative;
-    background: #374151;
-    color: #e5e7eb;
-    padding: 4rem 0 2rem;
-    margin-top: 6rem;
-    overflow: hidden;
-  }
-
-  .footer-glow {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(59, 130, 246, 0.5),
-      transparent
-    );
-  }
-
-  .footer-grid-bg {
-    position: absolute;
-    inset: 0;
-    background-image: linear-gradient(
-        rgba(59, 130, 246, 0.03) 1px,
-        transparent 1px
-      ),
-      linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
-    background-size: 50px 50px;
-    opacity: 0.5;
-  }
-
-  .footer-container {
-    position: relative;
-    z-index: 1;
-  }
-
-  .footer-main {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2rem 0;
-    gap: 3rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    margin-bottom: 2rem;
-  }
-
-  .footer-brand {
-    flex-shrink: 0;
-  }
-
-  .brand-name {
-    font-family: "Playfair Display", Georgia, serif;
-    font-size: 1.75rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 0.25rem;
-    letter-spacing: -0.02em;
-  }
-
-  .brand-tagline {
-    font-size: 0.875rem;
-    color: #94a3b8;
-    font-weight: 400;
-  }
-
-  .footer-nav {
-    display: flex;
-    gap: 2.5rem;
-    flex-wrap: wrap;
-  }
-
-  .nav-item {
-    font-family: "Inter", sans-serif;
-    font-size: 0.9375rem;
-    font-weight: 500;
-    color: #cbd5e1;
-    position: relative;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .nav-item::after {
-    content: "";
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, #60a5fa, #3b82f6);
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .nav-item:hover {
-    color: #60a5fa;
-  }
-
-  .nav-item:hover::after {
-    width: 100%;
-  }
-
-  .footer-social {
-    display: flex;
-    gap: 0.75rem;
-  }
-
-  .social-icon {
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    color: #94a3b8;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .social-icon::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      135deg,
-      rgba(59, 130, 246, 0.1),
-      rgba(147, 197, 253, 0.1)
-    );
-    opacity: 0;
-    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .social-icon:hover {
-    border-color: rgba(96, 165, 250, 0.3);
-    color: #60a5fa;
-    transform: translateY(-3px);
-  }
-
-  .social-icon:hover::before {
-    opacity: 1;
-  }
-
-  .footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 2rem;
-    font-size: 0.875rem;
-    gap: 2rem;
-  }
-
-  .copyright {
-    color: #64748b;
-    font-weight: 400;
-  }
-
-  .footer-links {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-  }
-
-  .footer-links a {
-    color: #94a3b8;
-    font-weight: 500;
-    transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .footer-links a:hover {
-    color: #60a5fa;
-  }
-
-  .separator {
-    color: #334155;
-    user-select: none;
-  }
-
-  @media (max-width: 968px) {
-    .footer {
-      padding: 3rem 0 1.5rem;
-      margin-top: 4rem;
-    }
-
-    .footer-main {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 2rem;
-    }
-
-    .footer-nav {
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .footer-bottom {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1rem;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .footer-social {
-      order: -1;
-    }
-
-    .nav-item {
-      font-size: 1rem;
-    }
-  }
-</style>
