@@ -2,156 +2,49 @@
 import { testimonials } from "../../dummyData.js";
 ---
 
-<section class="testimonials section">
-  <div class="container">
-    <div class="section-header">
-      <h2 class="section-title">What Our Users Say</h2>
-      <p class="section-description">
-        Trusted by thousands of event organizers worldwide
-      </p>
+<section class="py-16 md:py-24 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2
+                class="font-serif text-4xl md:text-5xl font-bold mb-4 bg-linear-to-r from-blue-500 to-blue-800 bg-clip-text text-transparent"
+            >
+                What Our Users Say
+            </h2>
+            <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+                Trusted by thousands of event organizers worldwide
+            </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {
+                testimonials.map((testimonial) => (
+                    <div class="card bg-white shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                        <div class="card-body">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="flex-1">
+                                    <h3 class="text-xl font-semibold text-gray-900">
+                                        {testimonial.name}
+                                    </h3>
+                                    <p class="text-sm text-gray-500">
+                                        {testimonial.role}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex gap-1 mb-4">
+                                {Array.from({ length: testimonial.rating }).map(
+                                    () => (
+                                        <span class="text-yellow-400 text-xl">
+                                            ★
+                                        </span>
+                                    ),
+                                )}
+                            </div>
+                            <p class="text-gray-700 leading-relaxed italic">
+                                "{testimonial.text}"
+                            </p>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
     </div>
-
-    <div class="testimonials-grid">
-      {
-        testimonials.map((testimonial) => (
-          <div class="testimonial-card">
-            <div class="testimonial-header">
-              <div class="testimonial-avatar">
-                <span class="avatar-initial">{testimonial.name.charAt(0)}</span>
-              </div>
-              <div class="testimonial-info">
-                <h3 class="testimonial-name">{testimonial.name}</h3>
-                <p class="testimonial-role">{testimonial.role}</p>
-              </div>
-            </div>
-            <div class="testimonial-rating">
-              {Array.from({ length: testimonial.rating }).map(() => (
-                <span class="star">★</span>
-              ))}
-            </div>
-            <p class="testimonial-text">"{testimonial.text}"</p>
-          </div>
-        ))
-      }
-    </div>
-  </div>
 </section>
-
-<style>
-  .section-header {
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-
-  .section-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #1f2937;
-    margin-bottom: 1rem;
-    background: linear-gradient(135deg, rgb(20, 80, 184), rgb(13, 148, 119));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .section-description {
-    font-size: 1.125rem;
-    color: #6b7280;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  .testimonials {
-    background: #f9fafb;
-  }
-
-  .testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-  }
-
-  .testimonial-card {
-    background: white;
-    padding: 2.5rem;
-    border-radius: 16px;
-    box-shadow:
-      0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid #e5e7eb;
-  }
-
-  .testimonial-card:hover {
-    transform: translateY(-8px);
-    box-shadow:
-      0 20px 25px -5px rgba(0, 0, 0, 0.1),
-      0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    border-color: rgb(20, 140, 184);
-  }
-
-  .testimonial-header {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .testimonial-avatar {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, rgb(20, 75, 184), #0d9488);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
-  }
-
-  .avatar-initial {
-    color: white;
-    font-size: 1.5rem;
-    font-weight: 700;
-    font-family: "Inter", sans-serif;
-  }
-
-  .testimonial-info {
-    flex: 1;
-  }
-
-  .testimonial-name {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #1f2937;
-    margin-bottom: 0.25rem;
-  }
-
-  .testimonial-role {
-    font-size: 0.875rem;
-    color: #6b7280;
-  }
-
-  .testimonial-rating {
-    display: flex;
-    gap: 0.25rem;
-    margin-bottom: 1rem;
-  }
-
-  .star {
-    font-size: 1.25rem;
-    color: #fbbf24;
-  }
-
-  .testimonial-text {
-    color: #1f2937;
-    line-height: 1.6;
-    font-style: italic;
-  }
-
-  @media (max-width: 768px) {
-    .testimonials-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>

@@ -12,7 +12,6 @@ import { featuredEvents } from "../../dummyData.js";
     </div>
 
     <div class="hero-events-wrapper">
-
       <div class="hero-events-container">
         <div class="hero-events-carousel" id="carousel-container">
           {
@@ -51,7 +50,7 @@ import { featuredEvents } from "../../dummyData.js";
         {
           featuredEvents.map((_, index) => (
             <button
-              class={`indicator ${index === 0 ? 'active' : ''}`}
+              class={`indicator ${index === 0 ? "active" : ""}`}
               data-index={index}
               aria-label={`Go to event ${index + 1}`}
             />
@@ -64,7 +63,7 @@ import { featuredEvents } from "../../dummyData.js";
 
 <style>
   :root {
-    --card-height: 420px;
+    --card-height: 370px;
   }
 
   .hero-events-section {
@@ -92,7 +91,7 @@ import { featuredEvents } from "../../dummyData.js";
 
   .hero-events-wrapper {
     position: relative;
-    max-width: clamp(320px, 90vw, 720px);
+    max-width: clamp(220px, 60vw, 520px);
     margin: 0 auto;
   }
 
@@ -120,7 +119,9 @@ import { featuredEvents } from "../../dummyData.js";
     overflow: hidden;
     backdrop-filter: saturate(140%) blur(14px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
   }
 
   .hero-event-card:hover {
@@ -189,7 +190,10 @@ import { featuredEvents } from "../../dummyData.js";
     border: 1px solid rgba(110, 231, 183, 0.35);
     padding: 8px 14px;
     border-radius: 10px;
-    transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+    transition:
+      background 0.25s ease,
+      color 0.25s ease,
+      transform 0.25s ease;
   }
 
   .hero-event-link:hover {
@@ -226,22 +230,34 @@ import { featuredEvents } from "../../dummyData.js";
   }
 
   @media (max-width: 768px) {
-    :root { --card-height: 380px; }
+    :root {
+      --card-height: 380px;
+    }
 
-    .hero-events-title { font-size: 26px; }
-    .hero-events-subtitle { font-size: 15px; }
+    .hero-events-title {
+      font-size: 26px;
+    }
+    .hero-events-subtitle {
+      font-size: 15px;
+    }
 
-    .hero-event-content { padding: 18px; }
-    .hero-event-title { font-size: 20px; }
-    .hero-event-description { font-size: 14px; }
+    .hero-event-content {
+      padding: 18px;
+    }
+    .hero-event-title {
+      font-size: 20px;
+    }
+    .hero-event-description {
+      font-size: 14px;
+    }
   }
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener("DOMContentLoaded", () => {
     const carousel = document.getElementById("carousel-container");
     const indicators = document.querySelectorAll(".indicator");
-    
+
     if (!carousel) return;
 
     let currentIndex = 0;
@@ -279,7 +295,7 @@ import { featuredEvents } from "../../dummyData.js";
         goToSlide(0);
       }
     }, 5000);
-    
+
     updateCarousel();
   });
 </script>
