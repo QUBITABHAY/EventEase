@@ -2,64 +2,134 @@
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="relative bg-slate-900 text-slate-200 pt-16 pb-8 mt-24 overflow-hidden">
-  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-linear-to-r from-transparent via-blue-500/50 to-transparent"></div>
-  
-  <div class="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.03)_1px,transparent_1px)] bg-size-[50px_50px] opacity-50"></div>
-  
-  <div class="container mx-auto px-4 relative z-10">
-    <div class="flex flex-col lg:flex-row justify-between items-center lg:items-center gap-8 lg:gap-12 py-8 border-b border-white/5 mb-8">
-      <div class="shrink-0 text-center lg:text-left">
-        <h2 class="font-serif text-3xl font-extrabold bg-linear-to-r from-blue-400 to-blue-200 bg-clip-text text-transparent tracking-tight mb-1">
-          EventEase
-        </h2>
-        <p class="text-sm text-slate-400">Making events unforgettable</p>
-      </div>
-
-      <nav class="flex flex-col lg:flex-row gap-4 lg:gap-10 text-center lg:text-left">
-        <a href="/" class="relative text-slate-300 font-medium hover:text-blue-400 transition-colors duration-300 group">
-          Home
-          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-linear-to-r from-blue-400 to-blue-600 group-hover:w-full transition-all duration-300"></span>
-        </a>
-        <a href="#features" class="relative text-slate-300 font-medium hover:text-blue-400 transition-colors duration-300 group">
-          Features
-          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-linear-to-r from-blue-400 to-blue-600 group-hover:w-full transition-all duration-300"></span>
-        </a>
-        <a href="#faq" class="relative text-slate-300 font-medium hover:text-blue-400 transition-colors duration-300 group">
-          FAQ
-          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-linear-to-r from-blue-400 to-blue-600 group-hover:w-full transition-all duration-300"></span>
-        </a>
-        <a href="#contact" class="relative text-slate-300 font-medium hover:text-blue-400 transition-colors duration-300 group">
-          Contact
-          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-linear-to-r from-blue-400 to-blue-600 group-hover:w-full transition-all duration-300"></span>
-        </a>
-      </nav>
-
-      <div class="flex gap-3">
-        <a href="#" class="relative w-11 h-11 flex items-center justify-center bg-white/5 border border-white/10 text-slate-400 hover:text-blue-400 hover:border-blue-400/30 hover:-translate-y-1 transition-all duration-300 overflow-hidden group text-lg font-bold" aria-label="Twitter">
-          <span class="absolute inset-0 bg-linear-to-br from-blue-500/10 to-blue-300/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-          <span class="relative z-10">𝕏</span>
-        </a>
-        <a href="#" class="relative w-11 h-11 flex items-center justify-center bg-white/5 border border-white/10 text-slate-400 hover:text-blue-400 hover:border-blue-400/30 hover:-translate-y-1 transition-all duration-300 overflow-hidden group text-lg font-bold" aria-label="GitHub">
-          <span class="absolute inset-0 bg-linear-to-br from-blue-500/10 to-blue-300/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-          <span class="relative z-10">GH</span>
-        </a>
-        <a href="#" class="relative w-11 h-11 flex items-center justify-center bg-white/5 border border-white/10 text-slate-400 hover:text-blue-400 hover:border-blue-400/30 hover:-translate-y-1 transition-all duration-300 overflow-hidden group text-lg font-bold" aria-label="LinkedIn">
-          <span class="absolute inset-0 bg-linear-to-br from-blue-500/10 to-blue-300/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-          <span class="relative z-10">in</span>
-        </a>
-      </div>
+<footer
+    class="relative bg-slate-900 text-slate-200 pt-16 pb-8 mt-24 overflow-hidden"
+>
+    <div
+        class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-linear-to-r from-transparent via-blue-500/50 to-transparent"
+    >
     </div>
 
-    <div class="flex flex-col lg:flex-row justify-between items-center gap-4 pt-8 text-sm">
-      <p class="text-slate-500">&copy; {currentYear} EventEase. All rights reserved.</p>
-      <div class="flex items-center gap-6">
-        <a href="#privacy" class="text-slate-400 hover:text-blue-400 font-medium transition-colors">Privacy</a>
-        <span class="text-slate-700 select-none">·</span>
-        <a href="#terms" class="text-slate-400 hover:text-blue-400 font-medium transition-colors">Terms</a>
-        <span class="text-slate-700 select-none">·</span>
-        <a href="#cookies" class="text-slate-400 hover:text-blue-400 font-medium transition-colors">Cookies</a>
-      </div>
+    <div
+        class="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.03)_1px,transparent_1px)] bg-size-[50px_50px] opacity-50"
+    >
     </div>
-  </div>
+
+    <div class="container mx-auto px-4 relative z-10">
+        <div
+            class="flex flex-col lg:flex-row justify-between items-center lg:items-center gap-8 lg:gap-12 py-8 border-b border-white/5 mb-8"
+        >
+            <div class="shrink-0 text-center lg:text-left">
+                <h2
+                    class="font-serif text-3xl font-extrabold bg-linear-to-r from-blue-400 to-blue-200 bg-clip-text text-transparent tracking-tight mb-1"
+                >
+                    EventEase
+                </h2>
+                <p class="text-sm text-slate-400">
+                    Making events unforgettable
+                </p>
+            </div>
+
+            <nav
+                class="flex flex-col lg:flex-row gap-4 lg:gap-10 text-center lg:text-left"
+            >
+                <a
+                    href="/"
+                    class="relative text-slate-300 font-medium hover:text-blue-400 transition-colors duration-300 group"
+                >
+                    Home
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-linear-to-r from-blue-400 to-blue-600 group-hover:w-full transition-all duration-300"
+                    ></span>
+                </a>
+                <a
+                    href="#features"
+                    class="relative text-slate-300 font-medium hover:text-blue-400 transition-colors duration-300 group"
+                >
+                    Features
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-linear-to-r from-blue-400 to-blue-600 group-hover:w-full transition-all duration-300"
+                    ></span>
+                </a>
+                <a
+                    href="#faq"
+                    class="relative text-slate-300 font-medium hover:text-blue-400 transition-colors duration-300 group"
+                >
+                    FAQ
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-linear-to-r from-blue-400 to-blue-600 group-hover:w-full transition-all duration-300"
+                    ></span>
+                </a>
+                <a
+                    href="#contact"
+                    class="relative text-slate-300 font-medium hover:text-blue-400 transition-colors duration-300 group"
+                >
+                    Contact
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-linear-to-r from-blue-400 to-blue-600 group-hover:w-full transition-all duration-300"
+                    ></span>
+                </a>
+            </nav>
+
+            <div class="flex gap-3">
+                <a
+                    href="#"
+                    class="relative w-11 h-11 flex items-center justify-center bg-white/5 border border-white/10 text-slate-400 hover:text-blue-400 hover:border-blue-400/30 hover:-translate-y-1 transition-all duration-300 overflow-hidden group text-lg font-bold"
+                    aria-label="Twitter"
+                >
+                    <span
+                        class="absolute inset-0 bg-linear-to-br from-blue-500/10 to-blue-300/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    ></span>
+                    <span class="relative z-10">𝕏</span>
+                </a>
+                <a
+                    href="#"
+                    class="relative w-11 h-11 flex items-center justify-center bg-white/5 border border-white/10 text-slate-400 hover:text-blue-400 hover:border-blue-400/30 hover:-translate-y-1 transition-all duration-300 overflow-hidden group text-lg font-bold"
+                    aria-label="GitHub"
+                >
+                    <span
+                        class="absolute inset-0 bg-linear-to-br from-blue-500/10 to-blue-300/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    ></span>
+                    <span class="relative z-10">GH</span>
+                </a>
+                <a
+                    href="#"
+                    class="relative w-11 h-11 flex items-center justify-center bg-white/5 border border-white/10 text-slate-400 hover:text-blue-400 hover:border-blue-400/30 hover:-translate-y-1 transition-all duration-300 overflow-hidden group text-lg font-bold"
+                    aria-label="LinkedIn"
+                >
+                    <span
+                        class="absolute inset-0 bg-linear-to-br from-blue-500/10 to-blue-300/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    ></span>
+                    <span class="relative z-10">in</span>
+                </a>
+            </div>
+        </div>
+
+        <div
+            class="flex flex-col lg:flex-row justify-between items-center gap-4 pt-8 text-sm"
+        >
+            <p class="text-slate-500">
+                &copy; {currentYear} EventEase. All rights reserved.
+            </p>
+            <div class="flex items-center gap-6">
+                <a
+                    href="#privacy"
+                    class="text-slate-400 hover:text-blue-400 font-medium transition-colors"
+                    >Privacy</a
+                >
+                <span class="text-slate-700 select-none">·</span>
+                <a
+                    href="#terms"
+                    class="text-slate-400 hover:text-blue-400 font-medium transition-colors"
+                    >Terms</a
+                >
+                <span class="text-slate-700 select-none">·</span>
+                <a
+                    href="#cookies"
+                    class="text-slate-400 hover:text-blue-400 font-medium transition-colors"
+                    >Cookies</a
+                >
+            </div>
+        </div>
+    </div>
 </footer>

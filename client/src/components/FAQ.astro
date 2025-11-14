@@ -1,56 +1,58 @@
 ---
 const faqs = [
-  {
-    question: "What exactly is EventEase?",
-    answer: "Think of us as your event planning best friend! We help you organize everything from small meetups to big conferences. Registration, ticketing, analytics - it's all here, working together smoothly."
-  },
-  {
-    question: "Can I try it before I buy?",
-    answer: "Absolutely! Take EventEase for a 14-day test drive with full access to everything. No credit card needed, no strings attached. We're confident you'll love it!"
-  },
-  {
-    question: "What kinds of events work with EventEase?",
-    answer: "All of them! Whether you're planning a workshop, conference, webinar, party, or community meetup - if it involves people gathering, we've got you covered."
-  },
-  {
-    question: "Is my information safe with you?",
-    answer: "Your trust means everything to us. We use bank-level encryption and follow strict security standards to keep your data locked down tight. Your information stays yours."
-  },
-  {
-    question: "Does it work with my other tools?",
-    answer: "Great question! We play nice with Google Calendar, popular payment services, and email platforms. And we're always adding more friends to the mix."
-  },
-  {
-    question: "What if I need help?",
-    answer: "We're here for you 24/7! Reach out via email or chat anytime. Need extra love? Our premium plans include priority support and your own dedicated helper."
-  }
+    {
+        question: "What exactly is EventEase?",
+        answer: "Think of us as your event planning best friend! We help you organize everything from small meetups to big conferences. Registration, ticketing, analytics - it's all here, working together smoothly.",
+    },
+    {
+        question: "What kinds of events work with EventEase?",
+        answer: "All of them! Whether you're planning a workshop, conference, webinar, party, or community meetup - if it involves people gathering, we've got you covered.",
+    },
+    {
+        question: "Is my information safe with you?",
+        answer: "Your trust means everything to us. We use bank-level encryption and follow strict security standards to keep your data locked down tight. Your information stays yours.",
+    },
+    {
+        question: "Does it work with my other tools?",
+        answer: "Great question! We play nice with Google Calendar, popular payment services, and email platforms. And we're always adding more friends to the mix.",
+    },
+    {
+        question: "What if I need help?",
+        answer: "We're here for you 24/7! Reach out via email or chat anytime. Need extra love? Our premium plans include priority support and your own dedicated helper.",
+    },
 ];
 ---
 
 <section id="faq" class="py-16 md:py-24 bg-gray-50">
-  <div class="container mx-auto px-4">
-    <div class="text-center mb-12">
-      <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4 bg-linear-to-r from-blue-500 to-blue-800 bg-clip-text text-transparent">
-        Questions? We've Got You Covered
-      </h2>
-      <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-        Here are the answers to what people usually ask us. Don't see yours? Just reach out!
-      </p>
-    </div>
-
-    <div class="max-w-4xl mx-auto space-y-4">
-      {faqs.map((faq) => (
-        <div class="collapse collapse-plus bg-white shadow-md hover:shadow-lg transition-shadow">
-          <input type="radio" name="faq-accordion" />
-          <div class="collapse-title text-xl font-semibold text-gray-900">
-            {faq.question}
-          </div>
-          <div class="collapse-content">
-            <p class="text-gray-600 leading-relaxed">{faq.answer}</p>
-          </div>
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2
+                class="font-serif text-4xl md:text-5xl font-bold mb-4 bg-linear-to-r from-blue-500 to-blue-800 bg-clip-text text-transparent"
+            >
+                Questions? We've Got You Covered
+            </h2>
+            <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+                Here are the answers to what people usually ask us. Don't see
+                yours? Just reach out!
+            </p>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
 
+        <div class="max-w-4xl mx-auto space-y-4">
+            {
+                faqs.map((faq) => (
+                    <div class="collapse collapse-plus bg-white shadow-md hover:shadow-lg transition-shadow">
+                        <input type="radio" name="faq-accordion" />
+                        <div class="collapse-title text-xl font-semibold text-gray-900">
+                            {faq.question}
+                        </div>
+                        <div class="collapse-content">
+                            <p class="text-gray-600 leading-relaxed">
+                                {faq.answer}
+                            </p>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</section>

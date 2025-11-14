@@ -3,68 +3,95 @@ const currentPath = Astro.url.pathname;
 ---
 
 <nav class="bg-white shadow-md sticky top-0 z-50">
-  <div class="navbar container mx-auto px-4">
-    <div class="navbar-start">
-      <div class="dropdown lg:hidden">
-        <label tabindex="0" class="btn btn-ghost btn-circle">
-          ☰
-        </label>
-        <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow-lg bg-white rounded-box w-52 border border-gray-100">
-          <li><a href="/" class={currentPath === '/' ? 'active font-semibold text-blue-600' : 'text-gray-700'}>Home</a></li>
-          <li><a href="#features" class="text-gray-700">Features</a></li>
-          <li><a href="#faq" class="text-gray-700">FAQ</a></li>
-          <li><a href="#contact" class="text-gray-700">Contact</a></li>
-          <li><a href="/userdashboard" class={currentPath === '/userdashboard' ? 'active font-semibold text-blue-600' : 'text-gray-700'}>Dashboard</a></li>
-          <li><a href="/organiser" class={currentPath === '/organiser' ? 'active font-semibold text-blue-600' : 'text-gray-700'}>Dashboard Organiser</a></li>
+    <div class="navbar container mx-auto px-4">
+        <div class="navbar-start">
+            <div class="dropdown lg:hidden">
+                <label tabindex="0" class="btn btn-ghost btn-circle">
+                    ☰
+                </label>
+                <ul
+                    tabindex="0"
+                    class="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow-lg bg-white rounded-box w-52 border border-gray-100"
+                >
+                    <li>
+                        <a
+                            href="/"
+                            class={currentPath === "/"
+                                ? "active font-semibold text-blue-600"
+                                : "text-gray-700"}>Home</a>
+                    </li>
+                    <li>
+                        <a href="#features" class="text-gray-700">Features</a>
+                    </li>
+                    <li><a href="#faq" class="text-gray-700">FAQ</a></li>
+                    <li>
+                        <a href="#contact" class="text-gray-700">Contact</a>
+                    </li>
+                    <li class="border-t border-gray-100 mt-2 pt-2">
+                        <a href="/login" class="text-gray-700">Login</a>
+                    </li>
+                    <li>
+                        <a
+                            href="/register"
+                            class="bg-neutral text-white hover:bg-neutral-focus"
+                            >Get Started</a
+                        >
+                    </li>
+                </ul>
+            </div>
+            <a
+                href="/"
+                class="font-serif text-2xl md:text-3xl font-extrabold bg-linear-to-r from-blue-500 to-blue-800 bg-clip-text text-transparent tracking-tight hover:scale-105 transition-transform ml-2 lg:ml-0"
+            >
+                EventEase
+            </a>
+        </div>
 
+        <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1 gap-2">
+                <li>
+                    <a
+                        href="/"
+                        class={`font-medium transition-colors ${currentPath === "/" ? "text-blue-600 bg-blue-50" : "text-gray-700 hover:text-blue-600 hover:bg-blue-50"}`}
+                    >
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="#features"
+                        class="font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+                    >
+                        Features
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="#faq"
+                        class="font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+                    >
+                        FAQ
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="#contact"
+                        class="font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+                    >
+                        Contact
+                    </a>
+                </li>
+            </ul>
+        </div>
 
-          <li class="border-t border-gray-100 mt-2 pt-2">
-
-            <a href="/login" class="text-gray-700">Login</a>
-          </li>
-          <li>
-            <a href="/register" class="bg-neutral text-white hover:bg-neutral-focus">Get Started</a>
-          </li>
-        </ul>
-      </div>
-      <a href="/" class="font-serif text-2xl md:text-3xl font-extrabold bg-linear-to-r from-blue-500 to-blue-800 bg-clip-text text-transparent tracking-tight hover:scale-105 transition-transform ml-2 lg:ml-0">
-        EventEase
-      </a>
+        <div class="navbar-end hidden lg:flex gap-2">
+            <a
+                href="/login"
+                class="btn btn-ghost font-semibold hover:bg-gray-100">Login</a
+            >
+            <a href="/register" class="btn btn-neutral font-semibold"
+                >Get Started</a
+            >
+        </div>
     </div>
-    
-    <div class="navbar-center hidden lg:flex">
-      <ul class="menu menu-horizontal px-1 gap-2">
-        <li>
-          <a href="/" class={`font-medium transition-colors ${currentPath === '/' ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'}`}>
-            Home
-          </a>
-        </li>
-        <li>
-          <a href="#features" class="font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors">
-            Features
-          </a>
-        </li>
-        <li>
-          <a href="#faq" class="font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors">
-            FAQ
-          </a>
-        </li>
-        <li>
-          <a href="#contact" class="font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors">
-            Contact
-          </a>
-        </li>
-        <li>
-          <a href="/userdashboard" class={`font-medium transition-colors ${currentPath === '/userdashboard' ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'}`}>
-            Dashboard
-          </a>
-        </li>
-      </ul>
-    </div>
-    
-    <div class="navbar-end hidden lg:flex gap-2">
-      <a href="/login" class="btn btn-ghost font-semibold hover:bg-gray-100">Login</a>
-      <a href="/register" class="btn btn-neutral font-semibold">Get Started</a>
-    </div>
-  </div>
 </nav>

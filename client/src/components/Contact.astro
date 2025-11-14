@@ -1,137 +1,184 @@
 ---
+
 ---
 
 <section id="contact" class="py-16 md:py-24 bg-gray-50">
-  <div class="container mx-auto px-4">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
-      <div class="lg:sticky lg:top-24 self-start">
-        <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4 bg-linear-to-r from-blue-500 to-blue-800 bg-clip-text text-transparent">
-          We'd Love to Hear from You
-        </h2>
-        <p class="text-lg md:text-xl text-gray-600 leading-relaxed mb-8">
-          Got a question? Want to share feedback? Or just want to say hi? 
-          Drop us a message and our friendly team will get back to you soon!
-        </p>
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+            <div class="lg:sticky lg:top-24 self-start">
+                <h2
+                    class="font-serif text-4xl md:text-5xl font-bold mb-4 bg-linear-to-r from-blue-500 to-blue-800 bg-clip-text text-transparent"
+                >
+                    We'd Love to Hear from You
+                </h2>
+                <p
+                    class="text-lg md:text-xl text-gray-600 leading-relaxed mb-8"
+                >
+                    Got a question? Want to share feedback? Or just want to say
+                    hi? Drop us a message and our friendly team will get back to
+                    you soon!
+                </p>
 
-        <div class="space-y-6">
-          <div class="flex gap-4 items-start">
-            <div class="w-14 h-14 shrink-0 flex items-center justify-center bg-white shadow-md text-3xl">
-              📧
+                <div class="space-y-6">
+                    <div class="flex gap-4 items-start">
+                        <div
+                            class="w-14 h-14 shrink-0 flex items-center justify-center bg-white shadow-md text-3xl"
+                        >
+                            📧
+                        </div>
+                        <div>
+                            <h3
+                                class="text-lg font-semibold text-gray-900 mb-1"
+                            >
+                                Email Us
+                            </h3>
+                            <a
+                                href="mailto:hello@eventease.com"
+                                class="text-blue-600 hover:text-blue-700 font-medium hover:underline"
+                            >
+                                hello@eventease.com
+                            </a>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-start">
+                        <div
+                            class="w-14 h-14 shrink-0 flex items-center justify-center bg-white shadow-md text-3xl"
+                        >
+                            📞
+                        </div>
+                        <div>
+                            <h3
+                                class="text-lg font-semibold text-gray-900 mb-1"
+                            >
+                                Give Us a Ring
+                            </h3>
+                            <a
+                                href="tel:+919876543210"
+                                class="text-blue-600 hover:text-blue-700 font-medium hover:underline"
+                            >
+                                +91 9876543210
+                            </a>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-start">
+                        <div
+                            class="w-14 h-14 shrink-0 flex items-center justify-center bg-white shadow-md text-3xl"
+                        >
+                            📍
+                        </div>
+                        <div>
+                            <h3
+                                class="text-lg font-semibold text-gray-900 mb-1"
+                            >
+                                Come Visit
+                            </h3>
+                            <p class="text-gray-600">
+                                Pune, Maharashtra, India
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>
-              <h3 class="text-lg font-semibold text-gray-900 mb-1">Email Us</h3>
-              <a href="mailto:hello@eventease.com" class="text-blue-600 hover:text-blue-700 font-medium hover:underline">
-                hello@eventease.com
-              </a>
-            </div>
-          </div>
+            <div class="card bg-white shadow-lg">
+                <div class="card-body">
+                    <form id="contactForm" class="space-y-6">
+                        <div class="form-control">
+                            <label for="name" class="label">
+                                <span
+                                    class="label-text font-semibold text-gray-900"
+                                    >Full Name</span
+                                >
+                            </label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                class="input input-bordered w-full focus:input-primary"
+                                placeholder="John Doe"
+                                required
+                            />
+                        </div>
 
-          <div class="flex gap-4 items-start">
-            <div class="w-14 h-14 shrink-0 flex items-center justify-center bg-white shadow-md text-3xl">
-              📞
-            </div>
-            <div>
-              <h3 class="text-lg font-semibold text-gray-900 mb-1">Give Us a Ring</h3>
-              <a href="tel:+919876543210" class="text-blue-600 hover:text-blue-700 font-medium hover:underline">
-                +91 9876543210
-              </a>
-            </div>
-          </div>
+                        <div class="form-control">
+                            <label for="email" class="label">
+                                <span
+                                    class="label-text font-semibold text-gray-900"
+                                    >Email Address</span
+                                >
+                            </label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                class="input input-bordered w-full focus:input-primary"
+                                placeholder="john@example.com"
+                                required
+                            />
+                        </div>
 
-          <div class="flex gap-4 items-start">
-            <div class="w-14 h-14 shrink-0 flex items-center justify-center bg-white shadow-md text-3xl">
-              📍
+                        <div class="form-control">
+                            <label for="subject" class="label">
+                                <span
+                                    class="label-text font-semibold text-gray-900"
+                                    >Subject</span
+                                >
+                            </label>
+                            <input
+                                type="text"
+                                id="subject"
+                                name="subject"
+                                class="input input-bordered w-full focus:input-primary"
+                                placeholder="How can we help?"
+                                required
+                            />
+                        </div>
+
+                        <div class="form-control">
+                            <label for="message" class="label">
+                                <span
+                                    class="label-text font-semibold text-gray-900"
+                                    >Message</span
+                                >
+                            </label>
+                            <textarea
+                                id="message"
+                                name="message"
+                                class="textarea textarea-bordered w-full h-32 focus:textarea-primary resize-y"
+                                placeholder="Tell us more about your inquiry..."
+                                required></textarea>
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="btn btn-neutral w-full text-lg font-semibold"
+                        >
+                            Send Message
+                        </button>
+                    </form>
+                </div>
             </div>
-            <div>
-              <h3 class="text-lg font-semibold text-gray-900 mb-1">Come Visit</h3>
-              <p class="text-gray-600">Pune, Maharashtra, India</p>
-            </div>
-          </div>
         </div>
-      </div>
-
-      <div class="card bg-white shadow-lg">
-        <div class="card-body">
-          <form id="contactForm" class="space-y-6">
-            <div class="form-control">
-              <label for="name" class="label">
-                <span class="label-text font-semibold text-gray-900">Full Name</span>
-              </label>
-              <input 
-                type="text" 
-                id="name" 
-                name="name" 
-                class="input input-bordered w-full focus:input-primary" 
-                placeholder="John Doe"
-                required
-              />
-            </div>
-
-            <div class="form-control">
-              <label for="email" class="label">
-                <span class="label-text font-semibold text-gray-900">Email Address</span>
-              </label>
-              <input 
-                type="email" 
-                id="email" 
-                name="email" 
-                class="input input-bordered w-full focus:input-primary" 
-                placeholder="john@example.com"
-                required
-              />
-            </div>
-
-            <div class="form-control">
-              <label for="subject" class="label">
-                <span class="label-text font-semibold text-gray-900">Subject</span>
-              </label>
-              <input 
-                type="text" 
-                id="subject" 
-                name="subject" 
-                class="input input-bordered w-full focus:input-primary" 
-                placeholder="How can we help?"
-                required
-              />
-            </div>
-
-            <div class="form-control">
-              <label for="message" class="label">
-                <span class="label-text font-semibold text-gray-900">Message</span>
-              </label>
-              <textarea 
-                id="message" 
-                name="message" 
-                class="textarea textarea-bordered w-full h-32 focus:textarea-primary resize-y" 
-                placeholder="Tell us more about your inquiry..."
-                required
-              ></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-neutral w-full text-lg font-semibold">
-              Send Message
-            </button>
-          </form>
-        </div>
-      </div>
     </div>
-  </div>
 </section>
 
 <script>
-  const contactForm = document.getElementById('contactForm') as HTMLFormElement;
+    const contactForm = document.getElementById(
+        "contactForm",
+    ) as HTMLFormElement;
 
-  contactForm?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const formData = new FormData(contactForm);
-    const data = Object.fromEntries(formData);
-    
-    // TODO: Implement actual contact form submission
-    console.log('Contact form data:', data);
-    alert('Thank you for your message! We will get back to you soon. (This is a demo)');
-    
-    // Reset form
-    contactForm.reset();
-  });
+    contactForm?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(contactForm);
+        const data = Object.fromEntries(formData);
+
+        // TODO: Implement actual contact form submission
+        console.log("Contact form data:", data);
+        alert(
+            "Thank you for your message! We will get back to you soon. (This is a demo)",
+        );
+
+        // Reset form
+        contactForm.reset();
+    });
 </script>
