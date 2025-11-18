@@ -1,5 +1,10 @@
 import { Router } from "express";
-import { createEvent, getAllEvent, updateEvent, getEventById } from "./eventControllers.js";
+import {
+  createEvent,
+  getAllEvent,
+  updateEvent,
+  getEventById,
+} from "./eventControllers.js";
 import {
   createEventValidation,
   updateEventValidation,
