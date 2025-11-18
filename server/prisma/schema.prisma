@@ -9,18 +9,22 @@ datasource db {
 }
 
 model User {
-  id            Int            @id @default(autoincrement())
-  firstName     String
-  lastName      String
-  email         String         @unique
-  phone         String         @unique
-  password      String
-  role          Role           @default(USER)
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  events        Event[]
-  registrations Registration[]
-  reviews       Review[]
+  id               Int            @id @default(autoincrement())
+  firstName        String?
+  lastName         String?
+  email            String         @unique
+  phone            String?        @unique
+  password         String?
+  provider         Provider       @default(LOCAL)
+  providerId       String?        @unique
+  profilePicture   String?        
+  role             Role           @default(USER)
+  isProfileComplete Boolean       @default(false)
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  events           Event[]
+  registrations    Registration[]
+  reviews          Review[]
 }
 
 model Event {
@@ -89,4 +93,9 @@ enum PaymentStatus {
   PENDING
   COMPLETED
   FAILED
+}
+
+enum Provider {
+  LOCAL
+  GOOGLE
 }
