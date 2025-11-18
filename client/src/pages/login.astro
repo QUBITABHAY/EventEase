@@ -6,33 +6,47 @@ import Footer from "../components/Footer.astro";
 
 <Layout title="Login - EventEase">
   <Navbar />
-  <main class="auth-page">
-    <div class="auth-background">
-      <div class="gradient-orb orb-1"></div>
-      <div class="gradient-orb orb-2"></div>
+  <main
+    class="relative min-h-screen flex items-center justify-center p-8 bg-gradient-to-br from-[#e8f4ff] to-[#f0f9ff] overflow-hidden"
+  >
+    <div class="absolute top-0 left-0 right-0 bottom-0 overflow-hidden z-0">
+      <div
+        class="absolute rounded-full filter blur-[100px] opacity-30 animate-float w-[500px] h-[500px] bg-gradient-to-br from-[#002ffe] to-[#000000] top-[-200px] right-[-200px]"
+      >
+      </div>
+      <div
+        class="absolute rounded-full filter blur-[100px] opacity-30 animate-float w-[400px] h-[400px] bg-gradient-to-br from-[#0066ff] to-[#00ccff] bottom-[-150px] left-[-150px] animate-delay-5000"
+      >
+      </div>
     </div>
 
-    <div class="auth-container">
-      <div class="auth-content">
-        <div class="auth-card">
-          <div class="auth-header">
-            <h1 class="auth-title">Welcome Back!</h1>
-            <p class="auth-subtitle">
+    <div class="relative z-10 w-full max-w-[1100px]">
+      <div class="flex justify-center items-center">
+        <div
+          class="bg-white rounded-none shadow-2xl p-12 backdrop-blur-sm border border-white/50 max-w-[480px] w-full"
+        >
+          <div class="text-center mb-10">
+            <h1 class="text-3xl font-semibold text-gray-800 mb-2">
+              Welcome Back!
+            </h1>
+            <p class="text-sm text-gray-500">
               We're so glad to see you again. Let's pick up where you left off!
             </p>
           </div>
 
           <form
-            class="auth-form"
+            class="flex flex-col gap-8"
             id="loginForm"
             action="http://localhost:3000/api/user/login"
             method="POST"
           >
-            <div class="form-group">
-              <label for="email" class="form-label">Email</label>
-              <div class="input-wrapper">
+            <div class="flex flex-col gap-3">
+              <label for="email" class="font-semibold text-sm text-gray-800"
+                >Email</label
+              >
+              <div class="relative">
                 <svg
-                  class="input-icon"
+                  class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
                   height="20"
@@ -50,7 +64,9 @@ import Footer from "../components/Footer.astro";
                   type="email"
                   id="email"
                   name="email"
-                  class="form-input"
+                  class="w-full py-3 px-4 pl-12 rounded-none text-base bg-gray-50
+                  transition-all duration-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-300/20
+                  hover:border-gray-400"
                   placeholder="name@company.com"
                   required
                   autocomplete="email"
@@ -58,16 +74,21 @@ import Footer from "../components/Footer.astro";
               </div>
             </div>
 
-            <div class="form-group">
-              <div class="form-label-row">
-                <label for="password" class="form-label">Password</label>
-                <a href="#forgot-password" class="forgot-link"
-                  >Forgot password?</a
+            <div class="flex flex-col gap-2">
+              <div class="flex justify-between items-center">
+                <label
+                  for="password"
+                  class="font-semibold text-sm text-gray-800">Password</label
+                >
+                <a
+                  class="text-darkblue-600 font-semibold text-sm hover:text-blue-700 transition-colors duration-200 cursor-pointer"
+                >
+                  Forgot password?</a
                 >
               </div>
-              <div class="input-wrapper">
+              <div class="relative">
                 <svg
-                  class="input-icon"
+                  class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
                   height="20"
@@ -84,7 +105,9 @@ import Footer from "../components/Footer.astro";
                   type="password"
                   id="password"
                   name="password"
-                  class="form-input"
+                  class="w-full py-3 px-4 pl-12 rounded-none text-base bg-gray-50
+                  transition-all duration-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-300/20
+                  hover:border-gray-400"
                   placeholder="••••••••"
                   required
                   autocomplete="current-password"
@@ -92,41 +115,60 @@ import Footer from "../components/Footer.astro";
               </div>
             </div>
 
-            <div class="form-options">
-              <div class="form-checkbox">
-                <input type="checkbox" id="remember" name="remember" />
-                <label for="remember">Remember me</label>
+            <div class="flex justify-between items-center">
+              <div class="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id="remember"
+                  name="remember"
+                  class="w-5 h-5 text-blue-500 cursor-pointer"
+                />
+                <label
+                  for="remember"
+                  class="text-sm text-gray-800 cursor-pointer"
+                  >Remember me</label
+                >
               </div>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-full btn-large">
+            <button
+              type="submit"
+              class="w-full h-10 py-4 text-white font-semibold text-md flex items-center justify-center gap-2
+         bg-blue-700 hover:bg-blue-900 transition-all duration-300 rounded-sm cursor-pointer"
+            >
               <span>Sign In</span>
               <svg
+                class="w-5 h-5"
                 xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
                 stroke-width="2"
+                viewBox="0 0 24 24"
               >
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
             </button>
 
-            <div class="form-divider">
-              <span>or continue with</span>
+            <div class="relative text-center my-4">
+              <div class="absolute top-1/2 left-0 right-0 h-px bg-gray-300 z-0">
+              </div>
+              <span class="relative z-10 bg-white text-sm text-gray-500 px-4"
+                >or continue with</span
+              >
             </div>
 
-            <div class="social-auth">
-              <button type="button" class="social-btn google-btn">
+            <div class="grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                class="flex items-center justify-center gap-2 py-3 px-4 border-2 border-none rounded-none bg-white font-semibold text-sm
+         transition-all duration-300 hover:border-gray-700 hover:-translate-y-1 hover:shadow-lg cursor-pointer"
+              >
                 <svg
+                  class="w-5 h-5"
                   xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
                   fill="currentColor"
+                  viewBox="0 0 24 24"
                 >
                   <path
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -143,13 +185,16 @@ import Footer from "../components/Footer.astro";
                 </svg>
                 <span>Google</span>
               </button>
-              <button type="button" class="social-btn github-btn">
+              <button
+                type="button"
+                class="flex items-center justify-center gap-2 py-3 px-4 border-2 border-none rounded-none bg-white font-semibold text-sm
+         transition-all duration-300 hover:border-gray-700 hover:-translate-y-1 hover:shadow-lg cursor-pointer"
+              >
                 <svg
+                  class="w-5 h-5"
                   xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
                   fill="currentColor"
+                  viewBox="0 0 24 24"
                 >
                   <path
                     d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
@@ -160,10 +205,14 @@ import Footer from "../components/Footer.astro";
             </div>
           </form>
 
-          <div class="auth-footer">
-            <p>
-              Don't have an account? <a href="/register" class="auth-link"
-                >Create account</a>
+          <div class="text-center mt-6 pt-6 border-t border-gray-300">
+            <p class="text-gray-500 text-sm">
+              Don't have an account?
+              <a
+                href="/register"
+                class="text-blue-800 font-semibold hover:text-blue-700 cursor-pointer"
+                >Create account</a
+              >
             </p>
           </div>
         </div>
@@ -172,317 +221,5 @@ import Footer from "../components/Footer.astro";
   </main>
   <Footer />
 </Layout>
-
-<style>
-  .auth-page {
-    position: relative;
-    min-height: calc(100vh - 80px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem 1rem;
-    background: linear-gradient(135deg, #e8f4ff 0%, #f0f9ff 100%);
-    overflow: hidden;
-  }
-
-  .auth-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: hidden;
-    z-index: 0;
-  }
-
-  .gradient-orb {
-    position: absolute;
-    border-radius: 0;
-    filter: blur(100px);
-    opacity: 0.3;
-    animation: float 20s infinite ease-in-out;
-  }
-
-  .orb-1 {
-    width: 500px;
-    height: 500px;
-    background: linear-gradient(135deg, #002ffe 0%, #000000 100%);
-    top: -200px;
-    right: -200px;
-  }
-
-  .orb-2 {
-    width: 400px;
-    height: 400px;
-    background: linear-gradient(135deg, #0066ff, #00ccff);
-    bottom: -150px;
-    left: -150px;
-    animation-delay: 5s;
-  }
-
-  @keyframes float {
-    0%,
-    100% {
-      transform: translate(0, 0) scale(1);
-    }
-    33% {
-      transform: translate(30px, -30px) scale(1.1);
-    }
-    66% {
-      transform: translate(-20px, 20px) scale(0.9);
-    }
-  }
-
-  .auth-container {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 1100px;
-  }
-
-  .auth-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .auth-card {
-    background: white;
-    border-radius: 0;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-    padding: 3rem;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    max-width: 480px;
-    width: 100%;
-  }
-
-  .auth-header {
-    text-align: center;
-    margin-bottom: 2.5rem;
-  }
-
-  .logo-badge {
-    width: 64px;
-    height: 64px;
-    background: linear-gradient(135deg, #002ffe 0%, #000000 100%);
-    border-radius: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.5rem;
-    color: white;
-  }
-
-  .auth-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    margin-bottom: 0.5rem;
-  }
-
-  .auth-subtitle {
-    color: var(--text-light);
-    font-size: 0.9375rem;
-  }
-
-  .auth-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .form-label-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .form-label {
-    font-weight: 600;
-    color: var(--text-dark);
-    font-size: 0.875rem;
-    display: block;
-  }
-
-  .forgot-link {
-    font-size: 0.8125rem;
-    color: var(--primary-color);
-    font-weight: 600;
-    transition: all 0.3s ease;
-  }
-
-  .forgot-link:hover {
-    color: var(--primary-dark);
-  }
-
-  .input-wrapper {
-    position: relative;
-  }
-
-  .input-icon {
-    position: absolute;
-    left: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-light);
-    pointer-events: none;
-  }
-
-  .form-input {
-    width: 100%;
-    padding: 0.875rem 1rem 0.875rem 3rem;
-    border: 2px solid var(--border-color);
-    border-radius: 0;
-    font-size: 0.9375rem;
-    transition: all 0.3s ease;
-    background: var(--bg-light);
-  }
-
-  .form-input:focus {
-    border-color: var(--primary-color);
-    background: white;
-    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-  }
-
-  .form-options {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .form-checkbox {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .form-checkbox input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-    accent-color: var(--primary-color);
-  }
-
-  .form-checkbox label {
-    font-size: 0.875rem;
-    color: var(--text-dark);
-    cursor: pointer;
-  }
-
-  .btn-large {
-    padding: 1rem 2rem;
-    font-size: 1rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-  }
-
-  .btn-full {
-    width: 100%;
-  }
-
-  .form-divider {
-    position: relative;
-    text-align: center;
-    margin: 1rem 0;
-  }
-
-  .form-divider::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: var(--border-color);
-    z-index: 0;
-  }
-
-  .form-divider span {
-    position: relative;
-    background: white;
-    padding: 0 1rem;
-    color: var(--text-light);
-    font-size: 0.8125rem;
-    z-index: 1;
-  }
-
-  .social-auth {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
-  }
-
-  .social-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.875rem;
-    border: 2px solid var(--border-color);
-    border-radius: 0;
-    background: white;
-    font-weight: 600;
-    font-size: 0.875rem;
-    transition: all 0.3s ease;
-  }
-
-  .social-btn:hover {
-    border-color: var(--text-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  .auth-footer {
-    text-align: center;
-    margin-top: 1.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--border-color);
-  }
-
-  .auth-footer p {
-    color: var(--text-light);
-    font-size: 0.875rem;
-  }
-
-  .auth-link {
-    color: var(--primary-color);
-    font-weight: 600;
-    transition: color 0.3s ease;
-  }
-
-  .auth-link:hover {
-    color: var(--primary-dark);
-  }
-
-  @media (max-width: 968px) {
-    .auth-content {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .auth-card {
-      padding: 2rem;
-    }
-
-    .auth-title {
-      font-size: 1.75rem;
-    }
-
-    .social-auth {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
 
 <script></script>
