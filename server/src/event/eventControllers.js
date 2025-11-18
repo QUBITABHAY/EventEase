@@ -21,12 +21,14 @@ export const createEvent = async (req, res) => {
 
 export const getAllEvent = async (req, res) => {
   try {
-    const result = await getAllEventService();
+    const { page, limit } = req.query;
+    const result = await getAllEventService({ page, limit });
 
     return res
       .status(result?.status || 500)
       .json({ 
         events: result?.events || [],
+        pagination: result?.pagination,
         message: result?.message
       });
   } catch (error) {
