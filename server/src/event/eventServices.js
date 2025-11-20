@@ -43,12 +43,39 @@ export const createEventService = async (data) => {
     console.log(error);
     return { status: 500, message: "Internal Server Error" };
   }
-};
+}
 
 export const getAllEventService = async (data) => {
   try {
-    const allEvent = await prisma.event.findMany();
-    return { status: 200, events: allEvent };
+    const page = parseInt(data?.page) || 1;
+    const limit = parseInt(data?.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const [allEvent, totalCount] = await Promise.all([
+      prisma.event.findMany({
+        skip,
+        take: limit,
+        orderBy: {
+          createdAt: 'desc',
+        },
+      }),
+      prisma.event.count(),
+    ]);
+
+    const totalPages = Math.ceil(totalCount / limit);
+
+    return {
+      status: 200,
+      events: allEvent,
+      pagination: {
+        currentPage: page,
+        totalPages,
+        totalCount,
+        limit,
+        hasNextPage: page < totalPages,
+        hasPrevPage: page > 1,
+      },
+    };
   } catch (error) {
     console.log(error);
     return { status: 500, message: "Internal Server Error" };
