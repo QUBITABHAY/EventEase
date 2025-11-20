@@ -6,238 +6,399 @@ import Footer from "../components/Footer.astro";
 
 <Layout title="Register - EventEase">
   <Navbar />
-  <main class="min-h-screen bg-white flex items-center justify-center px-8 py-12">
-    <div class="w-full max-w-4xl">
-      <div class="mb-8">
-        <h1 class="text-3xl font-black text-gray-900 mb-2" style="font-family: 'Poppins', sans-serif;">Create your EventEase account</h1>
-        <p class="text-gray-500 font-bold">One question at a time — fast and simple.</p>
+  <main
+    class="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-50 px-4 py-12 overflow-hidden"
+  >
+    <!-- Background Orbs -->
+
+    <div class="absolute top-0 left-0 right-0 bottom-0 overflow-hidden z-0">
+      <div
+        class="absolute rounded-full filter blur-[100px] opacity-30 animate-float w-[500px] h-[500px] bg-gradient-to-br from-[#002ffe] to-[#000000] top-[-200px] left-[-200px]"
+      >
+      </div>
+      <div
+        class="absolute rounded-full filter blur-[100px] opacity-30 animate-float w-[400px] h-[400px] bg-gradient-to-br from-[#0066ff] to-[#00ccff] bottom-[-150px] right-[-150px] animate-delay-5000"
+      >
+      </div>
+    </div>
+
+    <!-- Form Card -->
+    <div
+      class="relative z-10 w-full max-w-2xl bg-white border border-white/50 shadow-2xl backdrop-blur-lg p-12"
+    >
+      <div class="text-center mb-10">
+        <h1 class="text-4xl font-bold text-gray-900 mb-2">
+          Join Our Community
+        </h1>
+        <p class="text-gray-500 text-sm">
+          Let's get you started! Creating amazing events is just a few clicks
+          away.
+        </p>
       </div>
 
-      <form id="registerForm" action="http://localhost:3000/api/user/register" method="POST">
-          <input type="hidden" name="role" id="hiddenRole" value="" />
-
-        <div class="flex items-center gap-4 mb-8">
-          <div class="flex-1 bg-gray-200 h-3 overflow-hidden">
-            <div id="progressBar" class="h-full bg-blue-600 transition-all duration-300" style="width:0%"></div>
+      <form
+        id="registerForm"
+        action="http://localhost:3000/api/user/register"
+        method="POST"
+        class="space-y-10"
+      >
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label for="firstName" class="text-sm font-semibold text-gray-700"
+              >First Name</label
+            >
+            <div class="relative">
+              <svg
+                class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                placeholder="John"
+                required
+                class="w-full py-3 px-4 pl-12 rounded-none text-base bg-gray-50
+                transition-all duration-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-300/20
+                hover:border-gray-400 my-3"
+              />
+            </div>
           </div>
-          <div class="text-base font-black text-gray-600">
-            Step <span id="currentStep">1</span> of <span id="totalSteps">1</span>
+          <div>
+            <label for="lastName" class="text-sm font-semibold text-gray-700"
+              >Last Name</label
+            >
+
+            <div class="relative">
+              <svg
+                class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                placeholder="Doe"
+                required
+                class="w-full py-3 px-4 pl-12 rounded-none text-base bg-gray-50
+                transition-all duration-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-300/20
+                hover:border-gray-400 my-3"
+              />
+            </div>
           </div>
         </div>
 
-        <div class="min-h-[400px]">
-            <section class="tf-slide hidden" data-step="1" data-role="all">
-              <h2 class="text-3xl font-black text-gray-900 mb-6">Are you creating an account as an organizer or attendee?</h2>
-              <div class="flex flex-col gap-4">
-                <label class="bg-gray-100 p-6 cursor-pointer hover:bg-blue-600 hover:text-white transition-all">
-                  <div class="flex items-start gap-3">
-                    <input type="radio" name="role_choice" value="organizer" class="mt-1" />
-                    <div>
-                      <div class="font-black">Organizer</div>
-                      <div class="text-sm font-semibold">Create and manage events</div>
-                    </div>
-                  </div>
-                </label>
-                <label class="bg-gray-100 p-4 cursor-pointer hover:bg-blue-600 hover:text-white transition-all">
-                  <div class="flex items-start gap-3">
-                    <input type="radio" name="role_choice" value="user" class="mt-1" />
-                    <div>
-                      <div class="font-black">Attendee</div>
-                      <div class="text-sm font-semibold">Find and join events</div>
-                    </div>
-                  </div>
-                </label>
-              </div>
-            </section>
-
-            <section class="tf-slide hidden" data-step="2" data-role="organizer">
-              <h2 class="text-3xl font-black text-gray-900 mb-6">What's your organization or group called?</h2>
-              <input type="text" name="organization" class="w-full px-6 py-4 bg-gray-100 text-xl font-semibold focus:bg-blue-50 focus:outline-none" placeholder="Organization name" />
-            </section>
-
-            <section class="tf-slide hidden" data-step="3" data-role="organizer">
-              <h2 class="text-3xl font-black text-gray-900 mb-6">Website (optional)</h2>
-              <input type="url" name="organization_website" class="w-full px-6 py-4 bg-gray-100 text-xl font-semibold focus:bg-blue-50 focus:outline-none" placeholder="https://example.com" />
-            </section>
-
-            <section class="tf-slide hidden" data-step="4" data-role="organizer">
-              <h2 class="text-3xl font-black text-gray-900 mb-6">Organization contact number</h2>
-              <input type="tel" name="organization_phone" class="w-full px-6 py-4 bg-gray-100 text-xl font-semibold focus:bg-blue-50 focus:outline-none" placeholder="+1 (555) 000-0000" />
-            </section>
-
-            <section class="tf-slide hidden" data-step="5" data-role="user">
-              <h2 class="text-3xl font-black text-gray-900 mb-6">What's your first name?</h2>
-              <input type="text" name="firstName" class="w-full px-6 py-4 bg-gray-100 text-xl font-semibold focus:bg-blue-50 focus:outline-none" placeholder="John" required />
-            </section>
-
-            <section class="tf-slide hidden" data-step="6" data-role="user">
-              <h2 class="text-3xl font-black text-gray-900 mb-6">What's your last name?</h2>
-              <input type="text" name="lastName" class="w-full px-6 py-4 bg-gray-100 text-xl font-semibold focus:bg-blue-50 focus:outline-none" placeholder="Doe" required />
-            </section>
-
-            <section class="tf-slide hidden" data-step="7" data-role="user">
-              <h2 class="text-3xl font-black text-gray-900 mb-6">Email address</h2>
-              <input type="email" name="email" class="w-full px-6 py-4 bg-gray-100 text-xl font-semibold focus:bg-blue-50 focus:outline-none" placeholder="name@something.com" required />
-            </section>
-
-            <section class="tf-slide hidden" data-step="8" data-role="user">
-              <h2 class="text-3xl font-black text-gray-900 mb-6">Phone number (optional)</h2>
-              <input type="tel" name="phone" class="w-full px-6 py-4 bg-gray-100 text-xl font-semibold focus:bg-blue-50 focus:outline-none" placeholder="+1 (555) 000-0000" />
-            </section>
-
-            <section class="tf-slide hidden" data-step="9" data-role="user">
-              <h2 class="text-3xl font-black text-gray-900 mb-6">Create a password</h2>
-              <input type="password" name="password" class="w-full px-6 py-4 bg-gray-100 text-xl font-semibold focus:bg-blue-50 focus:outline-none" placeholder="Choose a secure password" required minlength="8" />
-              <p class="text-base text-gray-500 font-bold mt-3">Minimum 8 characters</p>
-            </section>
-
-            <section class="tf-slide hidden" data-step="10" data-role="all">
-              <h2 class="text-3xl font-black text-gray-900 mb-6">Terms and conditions</h2>
-              <div class="flex items-start gap-4">
-                <input type="checkbox" name="terms" required class="mt-1 w-5 h-5" />
-                <label class="text-gray-700 font-bold text-lg">I agree to the <a href="#terms" class="text-blue-600 font-black hover:underline">Terms of Service</a> and <a href="#privacy" class="text-blue-600 font-black hover:underline">Privacy Policy</a></label>
-              </div>
-            </section>
-
-            <section class="tf-slide hidden" data-step="11" data-role="all">
-              <h2 class="text-3xl font-black text-gray-900 mb-6">Ready to finish?</h2>
-              <p class="text-gray-600 font-bold text-lg mb-8">Review your answers and create your account.</p>
-            </section>
+        <div class="flex flex-col gap-3">
+          <label for="email" class="font-semibold text-sm text-gray-800"
+            >Email</label
+          >
+          <div class="relative">
+            <svg
+              class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+              ></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="w-full py-3 px-4 pl-12 rounded-none text-base bg-gray-50
+                     transition-all duration-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-300/20
+                     hover:border-gray-400"
+              placeholder="name@company.com"
+              required
+              autocomplete="email"
+            />
           </div>
-
-        <div class="flex justify-between gap-3 mt-8">
-          <button type="button" id="btnPrev" class="px-8 py-3 bg-gray-200 text-gray-900 font-black hover:bg-gray-300 transition-colors">Previous</button>
-          <button type="button" id="btnNext" class="px-8 py-3 bg-blue-600 text-white font-black hover:bg-blue-700 transition-colors">Next</button>
-          <button type="submit" id="btnSubmit" class="hidden px-8 py-3 bg-blue-600 text-white font-black hover:bg-blue-700 transition-colors">Create Account</button>
         </div>
+
+        <!-- Phone input -->
+        <div class="flex flex-col gap-3">
+          <label for="phone" class="font-semibold text-sm text-gray-800"
+            >Phone</label
+          >
+          <div class="relative">
+            <svg
+              class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2 4.18 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.13.94.38 1.85.73 2.71a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.37-1.37a2 2 0 0 1 2.11-.45c.86.35 1.77.6 2.71.73a2 2 0 0 1 1.72 2z"
+              ></path>
+            </svg>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              class="w-full py-3 px-4 pl-12 rounded-none text-base bg-gray-50
+             transition-all duration-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-300/20
+             hover:border-gray-400"
+              placeholder="+1 234 567 890"
+              required
+              autocomplete="tel"
+            />
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <label for="password" class="font-semibold text-sm text-gray-800"
+            >Password</label
+          >
+          <div class="relative">
+            <svg
+              class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="w-full py-3 px-4 pl-12 rounded-none text-base bg-gray-50
+                     transition-all duration-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-300/20
+                     hover:border-gray-400"
+              placeholder="••••••••"
+              required
+              autocomplete="new-password"
+            />
+          </div>
+        </div>
+        <p class="text-xs text-gray-400 mt-1">
+          Minimum 8 characters with letters and numbers
+        </p>
+
+        <div class="relative">
+          <svg
+            class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="w-full py-3 px-4 pl-12 rounded-none text-base bg-gray-50
+                   transition-all duration-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-300/20
+                   hover:border-gray-400"
+            placeholder="••••••••"
+            required
+            autocomplete="new-password"
+          />
+        </div>
+
+        <!-- Account Type select -->
+        <div class="flex flex-col gap-3">
+          <label for="role" class="font-semibold text-sm text-gray-800"
+            >Account Type</label
+          >
+          <div class="relative">
+            <svg
+              class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+            <select
+              id="role"
+              name="role"
+              class="w-full py-3 px-4 pl-12 rounded-none text-base bg-gray-50
+             transition-all duration-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-300/20
+             hover:border-gray-400 cursor-pointer"
+              required
+            >
+              <option value="">Choose account type</option>
+              <option value="organizer">Event Organizer</option>
+              <option value="user">Event Attendee</option>
+              <option value="both">Both Organizer & Attendee</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-2">
+          <input
+            type="checkbox"
+            id="terms"
+            name="terms"
+            required
+            class="w-4 h-4 accent-blue-500 cursor-pointer"
+          />
+          <label for="terms" class="text-sm text-gray-700 cursor-pointer"
+            >I agree to the <a
+              href="#terms"
+              class="text-blue-800 font-semibold hover:text-blue-700 cursor-pointer underline"
+              >Terms of Service</a
+            > and <a
+              href="#privacy"
+              class="text-blue-800 font-semibold hover:text-blue-700 cursor-pointer underline"
+              >Privacy Policy</a
+            ></label
+          >
+        </div>
+
+        <button
+          type="submit"
+          class="w-full h-10 py-4 text-white font-semibold text-md flex items-center justify-center gap-2
+         bg-blue-700 hover:bg-blue-900 transition-all duration-300 rounded-sm cursor-pointer"
+        >
+          Create Account
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            ><line x1="5" y1="12" x2="19" y2="12"></line><polyline
+              points="12 5 19 12 12 19"></polyline></svg
+          >
+        </button>
+
+        <div class="flex items-center my-4">
+          <hr class="flex-grow border-gray-300" />
+          <span class="mx-2 text-gray-400 text-sm">or sign up with</span>
+          <hr class="flex-grow border-gray-300" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <button
+            type="button"
+            class="flex items-center justify-center gap-2 py-3 px-4 border-2 border-none rounded-none bg-white font-semibold text-sm
+         transition-all duration-300 hover:border-gray-700 hover:-translate-y-1 hover:shadow-lg cursor-pointer"
+          >
+            <!-- Google Icon -->
+            <svg class="w-5 h-5" viewBox="0 0 533.5 544.3">
+              <path
+                fill="#4285F4"
+                d="M533.5 278.4c0-17.4-1.4-34.1-4-50.3H272v95.1h146.9c-6.4 34.3-25.9 63.3-55.2 82.9v68h89.2c52.2-48 82.6-118.7 82.6-195.7z"
+              ></path>
+              <path
+                fill="#34A853"
+                d="M272 544.3c74 0 136-24.4 181-66.1l-89.2-68c-24.8 16.7-56.4 26.5-91.8 26.5-70.7 0-130.7-47.7-152.1-111.9h-90.5v70.3c45 88.9 136.5 149.2 242.6 149.2z"
+              ></path>
+              <path
+                fill="#FBBC05"
+                d="M119.1 332.8c-10.8-32-10.8-66.6 0-98.6v-70.3h-90.5c-39.6 78.9-39.6 172.5 0 251.4l90.5-82.5z"
+              ></path>
+              <path
+                fill="#EA4335"
+                d="M272 107.4c38.8-0.6 75.9 13.2 104 38.9l77.8-77.8C406.7 24.8 344.7 0 272 0 165.9 0 74.4 60.3 29.4 149.2l90.5 70.3c21.5-64.2 81.5-111.9 152.1-111.9z"
+              ></path>
+            </svg>
+            <span>Google</span>
+          </button>
+          <button
+            type="button"
+            class="flex items-center justify-center gap-2 py-3 px-4 border-2 border-none rounded-none bg-white font-semibold text-sm
+         transition-all duration-300 hover:border-gray-700 hover:-translate-y-1 hover:shadow-lg cursor-pointer"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+              ></path>
+            </svg>
+            <span>GitHub</span>
+          </button>
+        </div>
+
+        <p class="text-center text-sm text-gray-500 mt-4">
+          Already have an account? <a
+            href="/login"
+            class="text-blue-800 font-semibold hover:text-blue-700 cursor-pointer"
+            >Sign in</a
+          >
+        </p>
       </form>
-      
-      <div class="text-center mt-8">
-        <p class="text-gray-600 font-bold">Already have an account? <a href="/login" class="text-blue-600 font-black hover:underline">Sign in</a></p>
-      </div>
     </div>
   </main>
   <Footer />
 </Layout>
 
 <style>
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
+  @keyframes float {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    33% {
+      transform: translate(30px, -30px) scale(1.1);
     }
     to {
       opacity: 1;
       transform: translateY(0);
     }
   }
-  
-  .tf-slide:not(.hidden) {
-    animation: fadeIn 0.3s ease;
+  .animate-float {
+    animation: float 20s infinite ease-in-out;
+  }
+  .animation-delay-7s {
+    animation-delay: 7s;
+  }
+  .animation-delay-14s {
+    animation-delay: 14s;
   }
 </style>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const allSlides = Array.from(document.querySelectorAll('.tf-slide'));
-  const progressBar = document.getElementById('progressBar');
-  const currentStepEl = document.getElementById('currentStep');
-  const totalStepsEl = document.getElementById('totalSteps');
-  const hiddenRole = document.getElementById('hiddenRole') as HTMLInputElement;
-  const btnPrev = document.getElementById('btnPrev');
-  const btnNext = document.getElementById('btnNext');
-  const btnSubmit = document.getElementById('btnSubmit');
-  const form = document.getElementById('registerForm') as HTMLFormElement;
-
-  let role = '';
-  let visibleSlides: Element[] = [];
-  let currentIndex = 0;
-
-  function buildVisibleSlides(selectedRole) {
-    const sorted = allSlides.slice().sort((a, b) => Number((a as HTMLElement).dataset.step) - Number((b as HTMLElement).dataset.step));
-    visibleSlides = sorted.filter(s => {
-      const r = (s as HTMLElement).dataset.role;
-      return r === 'all' || (selectedRole && r === selectedRole) || (r === 'user');
-    });
-    if (totalStepsEl) totalStepsEl.textContent = String(visibleSlides.length);
-    if (currentIndex >= visibleSlides.length) currentIndex = visibleSlides.length - 1;
-    showSlide(currentIndex);
-  }
-
-  function showSlide(index) {
-    allSlides.forEach(s => s.classList.add('hidden'));
-    const slide = visibleSlides[index];
-    if (!slide) return;
-    slide.classList.remove('hidden');
-    
-    if (currentStepEl) currentStepEl.textContent = String(index + 1);
-    const total = visibleSlides.length;
-    const pct = total > 1 ? Math.round((index / (total - 1)) * 100) : 0;
-    if (progressBar) progressBar.style.width = pct + '%';
-
-    const isFirst = index === 0;
-    const isLast = index === total - 1;
-    
-    if (btnPrev) btnPrev.style.display = isFirst ? 'none' : 'block';
-    if (btnNext) btnNext.style.display = isLast ? 'none' : 'block';
-    if (btnSubmit) btnSubmit.style.display = isLast ? 'block' : 'none';
-  }
-
-  function validateCurrent() {
-    const slide = visibleSlides[currentIndex];
-    if (!slide) return true;
-    const requireds = slide.querySelectorAll('[required]');
-    for (const el of requireds) {
-      const input = el as HTMLInputElement;
-      if (input.type === 'checkbox') {
-        if (!input.checked) { input.focus(); return false; }
-      } else if (!input.value.trim()) { input.focus(); return false; }
-    }
-    return true;
-  }
-
-  function next() {
-    if (!validateCurrent()) return;
-    if (currentIndex < visibleSlides.length - 1) {
-      currentIndex++;
-      showSlide(currentIndex);
-    }
-  }
-
-  function prev() {
-    if (currentIndex > 0) {
-      currentIndex--;
-      showSlide(currentIndex);
-    }
-  }
-
-  const roleRadios = document.querySelectorAll('input[name="role_choice"]');
-  roleRadios.forEach(r => r.addEventListener('change', (e) => {
-    role = (e.target as HTMLInputElement).value;
-    hiddenRole.value = role;
-    buildVisibleSlides(role);
-    if (currentIndex === 0) {
-      currentIndex = 1;
-      showSlide(currentIndex);
-    }
-  }));
-
-  if (btnNext) btnNext.addEventListener('click', next);
-  if (btnPrev) btnPrev.addEventListener('click', prev);
-  if (btnSubmit && form) btnSubmit.addEventListener('click', () => {
-    if (validateCurrent()) form.submit();
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      const active = document.activeElement;
-      if (active && active.tagName !== 'TEXTAREA' && hiddenRole.value) {
-        e.preventDefault();
-        next();
-      }
-    }
-  });
-
-  buildVisibleSlides('');
-});
-</script>
