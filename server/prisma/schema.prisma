@@ -9,24 +9,24 @@ datasource db {
 }
 
 model User {
-  id               Int            @id @default(autoincrement())
-  firstName        String?
-  lastName         String?
-  email            String         @unique
-  phone            String?        
-  password         String?
-  provider         Provider       @default(LOCAL)
-  providerId       String?        
-  profilePicture   String?        
-  otp String?
-  otpExpiry DateTime
-  role             Role           @default(USER)
-  isProfileComplete Boolean       @default(false)
-  createdAt        DateTime       @default(now())
-  updatedAt        DateTime       @updatedAt
-  events           Event[]
-  registrations    Registration[]
-  reviews          Review[]
+  id                Int            @id @default(autoincrement())
+  firstName         String?
+  lastName          String?
+  email             String         @unique
+  phone             String?
+  password          String?
+  provider          Provider       @default(LOCAL)
+  providerId        String?
+  profilePicture    String?
+  otp               String?
+  otpExpiry         DateTime?
+  role              Role           @default(USER)
+  isProfileComplete Boolean        @default(false)
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  events            Event[]
+  registrations     Registration[]
+  reviews           Review[]
 }
 
 model Event {

@@ -21,8 +21,8 @@ export const localSignupService = async (data) => {
       600,
       JSON.stringify({
         hashedPassword,
-        otp
-      })
+        otp,
+      }),
     );
 
     const subject = "EventEase - OTP Verification";
@@ -47,13 +47,13 @@ export const verifyOtpService = async (data) => {
     const storedData = await redis.get(`otp:${email}`);
 
     if (!storedData) {
-      return { status: 400, message: "Invalid OTP" }
+      return { status: 400, message: "Invalid OTP" };
     }
 
     const { hashedPassword, otp: correctOtp } = JSON.parse(storedData);
 
     if (otp != correctOtp) {
-      return { status: 400, message: "Invalid OTP" }
+      return { status: 400, message: "Invalid OTP" };
     }
 
     const newUser = await prisma.user.create({
@@ -61,24 +61,28 @@ export const verifyOtpService = async (data) => {
         email,
         password: hashedPassword,
         provider: "LOCAL",
-        isProfileComplete: false
-      }
-    })
+        isProfileComplete: false,
+      },
+    });
 
     await redis.del(`otp:${email}`);
 
-    return { status: 201, message: "User registered successfully", user: newUser }
+    return {
+      status: 201,
+      message: "User registered successfully",
+      user: newUser,
+    };
   } catch (error) {
     console.error("Verify OTP service error:", error);
     return { status: 500, message: "Internal Server Error" };
   }
-}
+};
 
 export const completeProfileService = async (data) => {
   try {
     const { userId, firstName, lastName, phone, role } = data;
     const user = await prisma.user.findUnique({
-      where: { id: parseInt(userId) }
+      where: { id: parseInt(userId) },
     });
 
     if (!user) {
@@ -105,18 +109,18 @@ export const completeProfileService = async (data) => {
         lastName: true,
         phone: true,
         role: true,
-      }
+      },
     });
 
     return {
       status: 200,
       message: "Profile completed successfully",
-      user: updatedUser
+      user: updatedUser,
     };
   } catch (error) {
     console.error("Complete profile service error:", error);
 
-    if (error.code === 'P2002' && error.meta?.target?.includes('phone')) {
+    if (error.code === "P2002" && error.meta?.target?.includes("phone")) {
       return { status: 400, message: "Phone number already in use" };
     }
 
@@ -137,7 +141,7 @@ export const localLoginService = async (data) => {
     if (user.provider !== "LOCAL") {
       return {
         status: 400,
-        message: `This account uses ${user.provider} login. Please use "Continue with ${user.provider}" button.`
+        message: `This account uses ${user.provider} login. Please use "Continue with ${user.provider}" button.`,
       };
     }
 
@@ -146,7 +150,7 @@ export const localLoginService = async (data) => {
         status: 403,
         message: "Please complete your profile to continue",
         requiresProfile: true,
-        user: { id: user.id, email: user.email }
+        user: { id: user.id, email: user.email },
       };
     }
 

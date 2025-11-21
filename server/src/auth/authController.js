@@ -3,7 +3,7 @@ import {
   localSignupService,
   localLoginService,
   completeProfileService,
-  verifyOtpService
+  verifyOtpService,
 } from "./authServices.js";
 
 export const verifyOtp = async (req, res) => {
@@ -17,7 +17,7 @@ export const verifyOtp = async (req, res) => {
     const tempToken = jwt.sign(
       { id: result.user.id, email: result.user.email, temp: true },
       process.env.JWT_SECRET,
-      { expiresIn: "30m" }
+      { expiresIn: "30m" },
     );
 
     return res.status(201).json({
@@ -43,7 +43,7 @@ export const localSignup = async (req, res) => {
     const tempToken = jwt.sign(
       { id: result.user.id, email: result.user.email, temp: true },
       process.env.JWT_SECRET,
-      { expiresIn: "30m" }
+      { expiresIn: "30m" },
     );
 
     return res.status(201).json({
@@ -69,7 +69,7 @@ export const completeProfile = async (req, res) => {
     const token = jwt.sign(
       { id: result.user.id, email: result.user.email, role: result.user.role },
       process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRES_IN || "24h" }
+      { expiresIn: process.env.JWT_EXPIRES_IN || "24h" },
     );
 
     res.cookie("token", token, {
@@ -97,7 +97,7 @@ export const localLogin = async (req, res) => {
       const tempToken = jwt.sign(
         { id: result.user.id, email: result.user.email, temp: true },
         process.env.JWT_SECRET,
-        { expiresIn: "30m" }
+        { expiresIn: "30m" },
       );
 
       return res.status(result.status).json({
@@ -115,7 +115,7 @@ export const localLogin = async (req, res) => {
     const token = jwt.sign(
       { id: result.user.id, email: result.user.email, role: result.user.role },
       process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRES_IN || "24h" }
+      { expiresIn: process.env.JWT_EXPIRES_IN || "24h" },
     );
 
     res.cookie("token", token, {
@@ -143,18 +143,18 @@ export const oauthCallback = (req, res) => {
       const tempToken = jwt.sign(
         { id: user.id, email: user.email, temp: true, provider: user.provider },
         process.env.JWT_SECRET,
-        { expiresIn: "30m" }
+        { expiresIn: "30m" },
       );
 
       return res.redirect(
-        `${process.env.CLIENT_URL || "http://localhost:4321"}/complete-profile?token=${tempToken}&userId=${user.id}`
+        `${process.env.CLIENT_URL || "http://localhost:4321"}/complete-profile?token=${tempToken}&userId=${user.id}`,
       );
     }
 
     const token = jwt.sign(
       { id: user.id, email: user.email, role: user.role },
       process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRES_IN || "24h" }
+      { expiresIn: process.env.JWT_EXPIRES_IN || "24h" },
     );
 
     res.cookie("token", token, {
@@ -164,15 +164,21 @@ export const oauthCallback = (req, res) => {
       maxAge: 24 * 60 * 60 * 1000,
     });
 
-    res.redirect(`${process.env.CLIENT_URL || "http://localhost:4321"}/dashboard`);
+    res.redirect(
+      `${process.env.CLIENT_URL || "http://localhost:4321"}/dashboard`,
+    );
   } catch (error) {
     console.error("OAuth Callback Error:", error);
-    res.redirect(`${process.env.CLIENT_URL || "http://localhost:4321"}/login?error=auth_failed`);
+    res.redirect(
+      `${process.env.CLIENT_URL || "http://localhost:4321"}/login?error=auth_failed`,
+    );
   }
 };
 
 export const oauthFailure = (req, res) => {
-  res.redirect(`${process.env.CLIENT_URL || "http://localhost:4321"}/login?error=auth_failed`);
+  res.redirect(
+    `${process.env.CLIENT_URL || "http://localhost:4321"}/login?error=auth_failed`,
+  );
 };
 
 export const logout = (req, res) => {
