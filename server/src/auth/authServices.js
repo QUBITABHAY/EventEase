@@ -1,5 +1,8 @@
 import prisma from "../DB/db.config.js";
 import bcrypt from "bcryptjs";
+import redis from "../DB/redis.config.js";
+import { otpGenerator } from "../utils/otpGenerator.js";
+import { sendEmail } from "../utils/sendEmail.js";
 
 export const localSignupService = async (data) => {
   try {
@@ -10,8 +13,50 @@ export const localSignupService = async (data) => {
       return { status: 400, message: "Email already registered" };
     }
 
+    const otp = otpGenerator();
     const hashedPassword = await bcrypt.hash(password, 10);
-    const tempUser = await prisma.user.create({
+
+    await redis.set(
+      `otp:${email}`,
+      600,
+      JSON.stringify({
+        hashedPassword,
+        otp,
+      }),
+    );
+
+    const subject = "EventEase - OTP Verification";
+    const text = `Your OTP for EventEase registration is: ${otp}`;
+
+    await sendEmail(email, subject, text);
+
+    return {
+      status: 200,
+      message: "OTP sent. Please verify to complete registration.",
+    };
+  } catch (error) {
+    console.error("Local signup service error:", error);
+    return { status: 500, message: "Internal Server Error" };
+  }
+};
+
+export const verifyOtpService = async (data) => {
+  try {
+    const { email, otp } = data;
+
+    const storedData = await redis.get(`otp:${email}`);
+
+    if (!storedData) {
+      return { status: 400, message: "Invalid OTP" };
+    }
+
+    const { hashedPassword, otp: correctOtp } = JSON.parse(storedData);
+
+    if (otp != correctOtp) {
+      return { status: 400, message: "Invalid OTP" };
+    }
+
+    const newUser = await prisma.user.create({
       data: {
         email,
         password: hashedPassword,
@@ -20,13 +65,15 @@ export const localSignupService = async (data) => {
       },
     });
 
-    return { 
-      status: 201, 
-      message: "Registration started. Please complete your profile.",
-      user: tempUser
+    await redis.del(`otp:${email}`);
+
+    return {
+      status: 201,
+      message: "User registered successfully",
+      user: newUser,
     };
   } catch (error) {
-    console.error("Local signup service error:", error);
+    console.error("Verify OTP service error:", error);
     return { status: 500, message: "Internal Server Error" };
   }
 };
@@ -34,8 +81,8 @@ export const localSignupService = async (data) => {
 export const completeProfileService = async (data) => {
   try {
     const { userId, firstName, lastName, phone, role } = data;
-    const user = await prisma.user.findUnique({ 
-      where: { id: parseInt(userId) } 
+    const user = await prisma.user.findUnique({
+      where: { id: parseInt(userId) },
     });
 
     if (!user) {
@@ -62,21 +109,21 @@ export const completeProfileService = async (data) => {
         lastName: true,
         phone: true,
         role: true,
-      }
+      },
     });
 
-    return { 
-      status: 200, 
+    return {
+      status: 200,
       message: "Profile completed successfully",
-      user: updatedUser
+      user: updatedUser,
     };
   } catch (error) {
     console.error("Complete profile service error:", error);
-    
-    if (error.code === 'P2002' && error.meta?.target?.includes('phone')) {
+
+    if (error.code === "P2002" && error.meta?.target?.includes("phone")) {
       return { status: 400, message: "Phone number already in use" };
     }
-    
+
     return { status: 500, message: "Internal Server Error" };
   }
 };
@@ -92,9 +139,9 @@ export const localLoginService = async (data) => {
     }
 
     if (user.provider !== "LOCAL") {
-      return { 
-        status: 400, 
-        message: `This account uses ${user.provider} login. Please use "Continue with ${user.provider}" button.`
+      return {
+        status: 400,
+        message: `This account uses ${user.provider} login. Please use "Continue with ${user.provider}" button.`,
       };
     }
 
@@ -103,7 +150,7 @@ export const localLoginService = async (data) => {
         status: 403,
         message: "Please complete your profile to continue",
         requiresProfile: true,
-        user: { id: user.id, email: user.email }
+        user: { id: user.id, email: user.email },
       };
     }
 

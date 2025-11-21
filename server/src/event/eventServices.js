@@ -43,7 +43,7 @@ export const createEventService = async (data) => {
     console.log(error);
     return { status: 500, message: "Internal Server Error" };
   }
-}
+};
 
 export const getAllEventService = async (data) => {
   try {
@@ -56,7 +56,7 @@ export const getAllEventService = async (data) => {
         skip,
         take: limit,
         orderBy: {
-          createdAt: 'desc',
+          createdAt: "desc",
         },
       }),
       prisma.event.count(),
@@ -117,7 +117,11 @@ export const updateEventService = async (data) => {
       },
     });
 
-    return { status: 200, message: "Event updated successfully", event: updateEvent };
+    return {
+      status: 200,
+      message: "Event updated successfully",
+      event: updateEvent,
+    };
   } catch (error) {
     console.log(error);
     return { status: 500, message: "Internal Server Error" };
