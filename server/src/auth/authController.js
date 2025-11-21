@@ -1,9 +1,36 @@
 import jwt from "jsonwebtoken";
-import { 
-  localSignupService, 
-  localLoginService, 
-  completeProfileService 
+import {
+  localSignupService,
+  localLoginService,
+  completeProfileService,
+  verifyOtpService
 } from "./authServices.js";
+
+export const verifyOtp = async (req, res) => {
+  try {
+    const result = await verifyOtpService(req.body);
+
+    if (result.status !== 201) {
+      return res.status(result.status).json({ message: result.message });
+    }
+
+    const tempToken = jwt.sign(
+      { id: result.user.id, email: result.user.email, temp: true },
+      process.env.JWT_SECRET,
+      { expiresIn: "30m" }
+    );
+
+    return res.status(201).json({
+      message: result.message,
+      tempToken,
+      userId: result.user.id,
+      requiresProfile: true,
+    });
+  } catch (error) {
+    console.error("Verify OTP controller error:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
 
 export const localSignup = async (req, res) => {
   try {
@@ -72,7 +99,7 @@ export const localLogin = async (req, res) => {
         process.env.JWT_SECRET,
         { expiresIn: "30m" }
       );
-      
+
       return res.status(result.status).json({
         message: result.message,
         requiresProfile: true,

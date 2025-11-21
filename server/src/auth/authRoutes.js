@@ -7,6 +7,7 @@ import {
   oauthCallback,
   oauthFailure,
   logout,
+  verifyOtp,
 } from "./authController.js";
 import {
   localSignupValidation,
@@ -17,6 +18,7 @@ import {
 const authRoutes = Router();
 
 authRoutes.post("/local/signup", localSignupValidation, localSignup);
+authRoutes.post("/local/verify-otp", verifyOtp);
 authRoutes.post("/local/login", localLoginValidation, localLogin);
 authRoutes.post("/local/complete-profile", completeProfileValidation, completeProfile);
 authRoutes.post("/logout", logout);

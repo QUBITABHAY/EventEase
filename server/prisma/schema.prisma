@@ -4,7 +4,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -13,11 +13,13 @@ model User {
   firstName        String?
   lastName         String?
   email            String         @unique
-  phone            String?        @unique
+  phone            String?        
   password         String?
   provider         Provider       @default(LOCAL)
-  providerId       String?        @unique
+  providerId       String?        
   profilePicture   String?        
+  otp String?
+  otpExpiry DateTime
   role             Role           @default(USER)
   isProfileComplete Boolean       @default(false)
   createdAt        DateTime       @default(now())
@@ -49,7 +51,7 @@ model Event {
   registrations    Registration[]
   reviews          Review[]
 
-  @@index([organizerId], map: "Event_organizerId_fkey")
+  @@index([organizerId])
 }
 
 model Registration {
@@ -64,8 +66,8 @@ model Registration {
   event         Event         @relation(fields: [eventId], references: [id], onDelete: Cascade)
   user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@index([eventId], map: "Registration_eventId_fkey")
-  @@index([userId], map: "Registration_userId_fkey")
+  @@index([eventId])
+  @@index([userId])
 }
 
 model Review {
@@ -79,8 +81,8 @@ model Review {
   event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@index([eventId], map: "Review_eventId_fkey")
-  @@index([userId], map: "Review_userId_fkey")
+  @@index([eventId])
+  @@index([userId])
 }
 
 enum Role {
