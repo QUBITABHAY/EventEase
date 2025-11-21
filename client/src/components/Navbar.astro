@@ -1,97 +1,277 @@
+
 ---
 const currentPath = Astro.url.pathname;
 ---
 
-<nav class="bg-white shadow-md sticky top-0 z-50">
+<nav class="navbar-wrapper">
     <div class="navbar container mx-auto px-4">
         <div class="navbar-start">
             <div class="dropdown lg:hidden">
-                <label tabindex="0" class="btn btn-ghost btn-circle">
-                    ☰
-                </label>
-                <ul
-                    tabindex="0"
-                    class="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow-lg bg-white rounded-box w-52 border border-gray-100"
-                >
+                <label tabindex="0" class="btn btn-ghost btn-circle menu-btn">☰</label>
+                <ul tabindex="0" class="menu menu-sm dropdown-content menu-dropdown">
                     <li>
-                        <a
-                            href="/"
-                            class={currentPath === "/"
-                                ? "active font-semibold text-blue-600"
-                                : "text-gray-700"}>Home</a>
+                        <a href="/" class={currentPath === "/" ? "active-link" : "nav-link"}>Home</a>
+                    </li>
+                    <li><a href="#features" class="nav-link">Features</a></li>
+                    <li><a href="#faq" class="nav-link">FAQ</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                    <li class="top-border">
+                        <a href="/login" class="nav-link">Login</a>
                     </li>
                     <li>
-                        <a href="#features" class="text-gray-700">Features</a>
-                    </li>
-                    <li><a href="#faq" class="text-gray-700">FAQ</a></li>
-                    <li>
-                        <a href="#contact" class="text-gray-700">Contact</a>
-                    </li>
-                    <li class="border-t border-gray-100 mt-2 pt-2">
-                        <a href="/login" class="text-gray-700">Login</a>
-                    </li>
-                    <li>
-                        <a
-                            href="/register"
-                            class="bg-neutral text-white hover:bg-neutral-focus"
-                            >Get Started</a
-                        >
+                        <a href="/register" class="btn-start">Get Started</a>
                     </li>
                 </ul>
             </div>
-            <a
-                href="/"
-                class="font-serif text-2xl md:text-3xl font-extrabold bg-linear-to-r from-blue-500 to-blue-800 bg-clip-text text-transparent tracking-tight hover:scale-105 transition-transform ml-2 lg:ml-0"
-            >
+            <a href="/" class="logo">
                 EventEase
             </a>
         </div>
 
         <div class="navbar-center hidden lg:flex">
-            <ul class="menu menu-horizontal px-1 gap-2">
+            <ul class="menu menu-horizontal px-1 gap-10">
                 <li>
-                    <a
-                        href="/"
-                        class={`font-medium transition-colors ${currentPath === "/" ? "text-blue-600 bg-blue-50" : "text-gray-700 hover:text-blue-600 hover:bg-blue-50"}`}
-                    >
-                        Home
-                    </a>
+                    <a href="/" class={`desktop-link ${currentPath === "/" ? "desktop-active" : ""}`}>Home</a>
                 </li>
-                <li>
-                    <a
-                        href="#features"
-                        class="font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors"
-                    >
-                        Features
-                    </a>
-                </li>
-                <li>
-                    <a
-                        href="#faq"
-                        class="font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors"
-                    >
-                        FAQ
-                    </a>
-                </li>
-                <li>
-                    <a
-                        href="#contact"
-                        class="font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors"
-                    >
-                        Contact
-                    </a>
-                </li>
+                <li><a href="#features" class="desktop-link">Features</a></li>
+                <li><a href="#faq" class="desktop-link">FAQ</a></li>
+                <li><a href="#contact" class="desktop-link">Contact</a></li>
             </ul>
         </div>
-
-        <div class="navbar-end hidden lg:flex gap-2">
-            <a
-                href="/login"
-                class="btn btn-ghost font-semibold hover:bg-gray-100">Login</a
-            >
-            <a href="/register" class="btn btn-neutral font-semibold"
-                >Get Started</a
-            >
+        <div class="navbar-end hidden lg:flex gap-4">
+            <a href="/login" class="btn-login">Login</a>
+            <a href="/register" class="btn-get-started">Get Started</a>
         </div>
     </div>
 </nav>
+
+<style>
+
+
+    .navbar-wrapper {
+        background: #ffffff; 
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        padding: 8px 0;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    
+    
+    .menu-btn {
+        width: 44px; 
+        height: 44px;
+        font-size: 22px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px; 
+        transition: 0.2s ease;
+    }
+    
+    .menu-btn:hover {
+        background: #f1f1f1;
+    }
+    
+    
+    
+    .menu-dropdown {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 80%;
+        height: 100vh;
+    
+        background: #ffffff;
+        padding: 40px 28px;
+    
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        overflow-y: auto;
+    
+        border-radius: 0;
+        border: none;
+        box-shadow: 0 12px 45px rgba(0, 0, 0, 0.16);
+    
+        animation: slideFullscreen 0.28s ease-out;
+        z-index: 9999;
+    }
+    
+    
+    @keyframes slideFullscreen {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    
+    .menu-dropdown li a {
+        padding: 16px 16px;
+        border-radius: 12px;
+        font-size: 1.25rem;
+        color: #374151;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+        transition: 0.25s ease;
+        display: block;
+    }
+    
+    
+    .menu-dropdown li a:hover {
+        background: #eff6ff;
+        color: #1d4ed8;
+        transform: translateX(8px);
+    }
+    
+    
+    .menu-dropdown .get-started-btn {
+        margin-top: auto;
+        background: #1d4ed8;
+        color: white;
+        padding: 16px 20px;
+        border-radius: 14px;
+        font-size: 1.25rem;
+        font-weight: 700;
+        text-align: center;
+        transition: 0.25s ease;
+    }
+    
+    .menu-dropdown .get-started-btn:hover {
+        background: #1e40af;
+        transform: translateY(-2px);
+    }
+    
+    
+    @keyframes fadeSlide {
+        from {
+            opacity: 0;
+            transform: translateY(-8px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .nav-link {
+        padding: 8px;
+        border-radius: 8px;
+        color: #555;
+        transition: 0.2s ease;
+    }
+    
+    .nav-link:hover {
+        background: #f3f4f6;
+    }
+    
+    
+    .active-link {
+        background: #e8f0ff;
+        color: #2563eb;
+        font-weight: 600;
+        border-radius: 8px;
+    }
+    
+    
+    .top-border {
+        border-top: 1px solid #e5e7eb;
+        padding-top: 8px;
+        margin-top: 8px;
+    }
+    
+    .btn-start {
+        display: block;
+        background: #3b82f6; 
+        color: white;
+        padding: 12px;
+        text-align: center;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: 0.2s ease;
+    }
+    .btn-start:hover {
+        background: #2563eb;
+    }
+    
+    
+    
+    .logo {
+        font-family: serif;
+        font-size: 40px;
+        font-weight: 800;
+        background: -webkit-linear-gradient(45deg, #3b82f6, #1e40af);
+        -webkit-background-clip: text;
+        color: transparent;
+        transition: 0.3s ease;
+        margin-right: auto;
+        margin-left: -10px;
+    }
+    
+    .logo:hover {
+        transform: scale(1.05);
+        text-shadow: 0 0 12px rgba(59,130,246,0.5);
+    }
+    
+    
+    .desktop-link {
+        padding: 8px 14px;
+        border-radius: 10px;
+        color: #555;
+        font-weight: 650;
+        transition: 0.25s ease;
+    }
+    
+    .desktop-link:hover {
+        background: #e8f0ff;
+        color: #2563eb;
+    }
+    
+    .desktop-active {
+        background: #e8f0ff;
+        color: #2563eb;
+        font-weight: 600;
+    }
+    
+    
+    .btn-login {
+        padding: 8px 18px;
+        border-radius: 10px;
+        font-weight: 800;
+        color: #444;
+        transition: 0.2s ease;
+    }
+    
+    .btn-login:hover {
+        background: #f3f4f6;
+    }
+    
+    .btn-get-started {
+        background: #2563eb; 
+        color: white;
+        padding: 8px 18px;
+        border-radius: 10px;
+        font-weight: 600;
+        box-shadow: 0 8px 32px rgba(255, 255, 255, 0.6),
+                    0 2px 8px rgba(230, 230, 230, 0.9);
+        transition: 0.2s ease;
+        margin-right: -80px;
+    }
+    
+    .btn-get-started:hover {
+        background: #1e40af; 
+    }
+    
+    </style>
+    
