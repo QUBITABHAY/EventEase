@@ -2,47 +2,29 @@
 import HeroFeaturedEvents from "./HeroFeaturedEvents.astro";
 ---
 
-<section
-    class="relative min-h-screen flex items-center overflow-hidden bg-linear-to-br from-blue-600 via-blue-800 to-black"
->
+<section class="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-blue-600 via-blue-800 to-black">
     <div class="absolute inset-0 overflow-hidden">
-        <div
-            class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.15)_1px,transparent_1px)] bg-size-[50px_50px] opacity-70"
-        >
+        <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.15)_1px,transparent_1px)] bg-[size:50px_50px] opacity-70">
         </div>
 
-        <div
-            class="absolute top-[-150px] left-[-150px] w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(240,147,251,0.6),transparent_70%)] blur-[100px] opacity-40 animate-[float_20s_ease-in-out_infinite]"
-        >
+        <div class="absolute top-[-150px] left-[-150px] w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(240,147,251,0.6),transparent_70%)] blur-[100px] opacity-40 animate-float">
         </div>
-        <div
-            class="absolute bottom-[-200px] right-[-200px] w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(157,227,255,0.5),transparent_70%)] blur-[100px] opacity-40 animate-[float_20s_ease-in-out_infinite_7s]"
-        >
+        <div class="absolute bottom-[-200px] right-[-200px] w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(157,227,255,0.5),transparent_70%)] blur-[100px] opacity-40 animate-float-delayed-7">
         </div>
-        <div
-            class="absolute top-[40%] left-[60%] w-[400px] h-[400px] bg-[radial-gradient(circle,rgba(217,255,0,0.3),transparent_70%)] blur-[100px] opacity-40 animate-[float_20s_ease-in-out_infinite_14s]"
-        >
+        <div class="absolute top-[40%] left-[60%] w-[400px] h-[400px] bg-[radial-gradient(circle,rgba(217,255,0,0.3),transparent_70%)] blur-[100px] opacity-40 animate-float-delayed-14">
         </div>
     </div>
 
     <div class="container mx-auto px-4 py-16 md:py-20">
-        <div
-            class="relative z-10 text-center max-w-4xl mx-auto animate-[fadeInUp_0.8s_ease-out]"
-        >
-            <h1
-                class="font-serif text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight tracking-tight drop-shadow-lg"
-            >
+        <div class="relative z-10 text-center max-w-4xl mx-auto animate-fade-in-up">
+            <h1 class="font-serif text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight tracking-tight drop-shadow-lg">
                 Let's Make Your Events
-                <span
-                    class="block mt-2 text-orange-400 animate-[gradientShift_3s_ease_infinite]"
-                >
+                <span class="block mt-2 text-orange-400 animate-gradient-shift bg-[length:200%_200%]">
                     Unforgettable
                 </span>
             </h1>
 
-            <p
-                class="text-xl md:text-2xl text-white/90 leading-relaxed max-w-3xl mx-auto"
-            >
+            <p class="text-xl md:text-2xl text-white/90 leading-relaxed max-w-3xl mx-auto">
                 We believe every event has a story to tell. Whether it's a small
                 gathering or a large conference, EventEase helps you create
                 meaningful experiences that your attendees will love and
@@ -52,41 +34,3 @@ import HeroFeaturedEvents from "./HeroFeaturedEvents.astro";
     </div>
 </section>
 
-<style>
-    <<<<<<< HEAD @keyframes float {
-        0%,
-        100% {
-            transform: translate(0, 0) scale(1);
-        }
-        25% {
-            transform: translate(50px, -50px) scale(1.1);
-        }
-        50% {
-            transform: translate(-30px, 30px) scale(0.95);
-        }
-        75% {
-            transform: translate(40px, 20px) scale(1.05);
-        }
-    }
-
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @keyframes gradientShift {
-        0%,
-        100% {
-            background-position: 0% 50%;
-        }
-        50% {
-            background-position: 100% 50%;
-        }
-    }
-</style>

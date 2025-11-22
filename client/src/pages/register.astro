@@ -17,7 +17,7 @@ import Footer from "../components/Footer.astro";
       >
       </div>
       <div
-        class="absolute rounded-full filter blur-[100px] opacity-30 animate-float w-[400px] h-[400px] bg-gradient-to-br from-[#0066ff] to-[#00ccff] bottom-[-150px] right-[-150px] animate-delay-5000"
+        class="absolute rounded-full filter blur-[100px] opacity-30 animate-float w-[400px] h-[400px] bg-gradient-to-br from-[#0066ff] to-[#00ccff] bottom-[-150px] right-[-150px] delay-[5s]"
       >
       </div>
     </div>
@@ -38,7 +38,7 @@ import Footer from "../components/Footer.astro";
 
       <form
         id="registerForm"
-        action="http://localhost:3000/api/user/register"
+        action="http://localhost:3000/api/auth/local/signup"
         method="POST"
         class="space-y-10"
       >
@@ -377,28 +377,3 @@ import Footer from "../components/Footer.astro";
   </main>
   <Footer />
 </Layout>
-
-<style>
-  @keyframes float {
-    0%,
-    100% {
-      transform: translate(0, 0) scale(1);
-    }
-    33% {
-      transform: translate(30px, -30px) scale(1.1);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  .animate-float {
-    animation: float 20s infinite ease-in-out;
-  }
-  .animation-delay-7s {
-    animation-delay: 7s;
-  }
-  .animation-delay-14s {
-    animation-delay: 14s;
-  }
-</style>

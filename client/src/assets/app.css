@@ -1,2 +1,83 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+@theme {
+    --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-serif: "Playfair Display", Georgia, serif;
+
+    --animate-float: float 20s ease-in-out infinite;
+    --animate-float-delayed-7: float 20s ease-in-out 7s infinite;
+    --animate-float-delayed-14: float 20s ease-in-out 14s infinite;
+    --animate-fade-in-up: fadeInUp 0.8s ease-out;
+    --animate-gradient-shift: gradientShift 3s ease infinite;
+
+    @keyframes float {
+
+        0%,
+        100% {
+            transform: translate(0, 0) scale(1);
+        }
+
+        25% {
+            transform: translate(50px, -50px) scale(1.1);
+        }
+
+        50% {
+            transform: translate(-30px, 30px) scale(0.95);
+        }
+
+        75% {
+            transform: translate(40px, 20px) scale(1.05);
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes gradientShift {
+
+        0%,
+        100% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+    }
+
+    --animate-slide-fullscreen: slideFullscreen 0.28s ease-out;
+
+    @keyframes slideFullscreen {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+@layer base {
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: var(--font-serif);
+    }
+}

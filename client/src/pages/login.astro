@@ -15,7 +15,7 @@ import Footer from "../components/Footer.astro";
       >
       </div>
       <div
-        class="absolute rounded-full filter blur-[100px] opacity-30 animate-float w-[400px] h-[400px] bg-gradient-to-br from-[#0066ff] to-[#00ccff] bottom-[-150px] left-[-150px] animate-delay-5000"
+        class="absolute rounded-full filter blur-[100px] opacity-30 animate-float w-[400px] h-[400px] bg-gradient-to-br from-[#0066ff] to-[#00ccff] bottom-[-150px] left-[-150px] delay-[5s]"
       >
       </div>
     </div>
@@ -37,7 +37,7 @@ import Footer from "../components/Footer.astro";
           <form
             class="flex flex-col gap-8"
             id="loginForm"
-            action="http://localhost:3000/api/user/login"
+            action="http://localhost:3000/api/auth/local/login"
             method="POST"
           >
             <div class="flex flex-col gap-3">
@@ -222,4 +222,50 @@ import Footer from "../components/Footer.astro";
   <Footer />
 </Layout>
 
-<script></script>
+<script>
+  const loginForm = document.getElementById("loginForm");
+
+  loginForm?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target as HTMLFormElement);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch(
+        "http://localhost:3000/api/auth/local/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+          credentials: "include",
+        },
+      );
+
+      const result = await response.json();
+
+      if (response.ok) {
+        // Check for temp token (profile incomplete)
+        if (result.requiresProfile && result.tempToken) {
+          window.location.href = `/complete-profile?token=${result.tempToken}&userId=${result.userId}`;
+          return;
+        }
+
+        // Redirect based on role
+        const userRole = result.user.role;
+        if (userRole === "ORGANIZER" || userRole === "BOTH") {
+          window.location.href = "/organiser";
+        } else {
+          window.location.href = "/userdashboard";
+        }
+      } else {
+        alert(result.message || "Login failed");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("An error occurred during login. Please try again.");
+    }
+  });
+</script>

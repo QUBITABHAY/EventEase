@@ -8,80 +8,80 @@ import { events } from "../../dummyData.js";
 
 <Layout title="Tech Events">
   <Navbar />
-  <div class="section-header">
-    <h2 class="section-title">Explore Events</h2>
-    <p class="section-description">
+  <div class="text-center m-12">
+    <h2 class="text-4xl font-bold text-gray-800 mb-4 bg-gradient-to-br from-blue-600 to-teal-600 bg-clip-text text-transparent">Explore Events</h2>
+    <p class="text-lg text-gray-500 max-w-2xl mx-auto">
       Trusted by thousands of event organizers worldwide
     </p>
   </div>
 
-  <div class="page">
+  <div class="max-w-7xl mx-auto p-6 flex flex-col lg:flex-row gap-6 text-gray-800 bg-gradient-to-b from-cyan-500/5 to-transparent rounded-xl">
     <!-- Sidebar (filters + sorting) -->
-    <aside class="sidebar">
-      <h2 class="sidebar-title">Filters</h2>
+    <aside class="sidebar w-full lg:w-[300px] bg-white border border-gray-200 p-5 rounded-xl shadow-lg h-fit lg:sticky lg:top-6">
+      <h2 class="mb-6 text-lg font-bold text-gray-800">Filters</h2>
 
-      <div class="control">
-        <label class="control-label">Search</label>
+      <div class="mb-4">
+        <label class="block mb-2 text-gray-500 text-sm">Search</label>
         <input
           id="searchInput"
-          class="input"
+          class="w-full p-2.5 bg-gray-50 border border-gray-200 text-gray-800 rounded-lg outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
           placeholder="Search title or venue"
         />
       </div>
 
-      <div class="control">
-        <label class="control-label">Category</label>
+      <div class="mb-4">
+        <label class="block mb-2 text-gray-500 text-sm">Category</label>
         <div class="checkbox-grid">
-          <label
+          <label class="block py-1.5 text-gray-500 text-sm cursor-pointer flex items-center"
             ><input
               type="checkbox"
-              class="filter-category"
+              class="filter-category w-4 h-4 mr-2 accent-blue-500 rounded"
               value="Machine Learning/AI"
             /> Machine Learning/AI</label
           >
-          <label
+          <label class="block py-1.5 text-gray-500 text-sm cursor-pointer flex items-center"
             ><input
               type="checkbox"
-              class="filter-category"
+              class="filter-category w-4 h-4 mr-2 accent-blue-500 rounded"
               value="Creative AI"
             /> Creative AI</label
           >
-          <label
-            ><input type="checkbox" class="filter-category" value="Gaming" /> Gaming</label
+          <label class="block py-1.5 text-gray-500 text-sm cursor-pointer flex items-center"
+            ><input type="checkbox" class="filter-category w-4 h-4 mr-2 accent-blue-500 rounded" value="Gaming" /> Gaming</label
           >
-          <label
+          <label class="block py-1.5 text-gray-500 text-sm cursor-pointer flex items-center"
             ><input
               type="checkbox"
-              class="filter-category"
+              class="filter-category w-4 h-4 mr-2 accent-blue-500 rounded"
               value="Cybersecurity"
             /> Cybersecurity</label
           >
         </div>
       </div>
 
-      <div class="control">
-        <label class="control-label">Price</label>
-        <label
-          ><input type="checkbox" class="filter-price" value="free" /> Free</label
+      <div class="mb-4">
+        <label class="block mb-2 text-gray-500 text-sm">Price</label>
+        <label class="block py-1.5 text-gray-500 text-sm cursor-pointer flex items-center"
+          ><input type="checkbox" class="filter-price w-4 h-4 mr-2 accent-blue-500 rounded" value="free" /> Free</label
         >
-        <label
-          ><input type="checkbox" class="filter-price" value="paid" /> Paid</label
-        >
-      </div>
-
-      <div class="control">
-        <label class="control-label">Date</label>
-        <label
-          ><input type="checkbox" class="filter-date" value="upcoming" /> Upcoming</label
-        >
-        <label
-          ><input type="checkbox" class="filter-date" value="past" /> Past</label
+        <label class="block py-1.5 text-gray-500 text-sm cursor-pointer flex items-center"
+          ><input type="checkbox" class="filter-price w-4 h-4 mr-2 accent-blue-500 rounded" value="paid" /> Paid</label
         >
       </div>
 
-      <div class="control">
-        <label class="control-label">Sort</label>
-        <select id="sortSelect" class="select">
+      <div class="mb-4">
+        <label class="block mb-2 text-gray-500 text-sm">Date</label>
+        <label class="block py-1.5 text-gray-500 text-sm cursor-pointer flex items-center"
+          ><input type="checkbox" class="filter-date w-4 h-4 mr-2 accent-blue-500 rounded" value="upcoming" /> Upcoming</label
+        >
+        <label class="block py-1.5 text-gray-500 text-sm cursor-pointer flex items-center"
+          ><input type="checkbox" class="filter-date w-4 h-4 mr-2 accent-blue-500 rounded" value="past" /> Past</label
+        >
+      </div>
+
+      <div class="mb-4">
+        <label class="block mb-2 text-gray-500 text-sm">Sort</label>
+        <select id="sortSelect" class="w-full p-2.5 bg-gray-50 border border-gray-200 text-gray-800 rounded-lg outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
           <option value="latest">Latest First</option>
           <option value="oldest">Oldest First</option>
           <option value="price-asc">Price: Low to High</option>
@@ -89,13 +89,13 @@ import { events } from "../../dummyData.js";
         </select>
       </div>
 
-      <div class="control">
-        <button id="resetBtn" class="btn-secondary">Reset filters</button>
+      <div class="mb-4">
+        <button id="resetBtn" class="w-full py-2 px-3 bg-white text-gray-700 border border-gray-200 rounded-lg cursor-pointer font-semibold hover:bg-gray-50 transition-all">Reset filters</button>
       </div>
     </aside>
 
     <!-- Events list -->
-    <main class="events" id="eventsList">
+    <main class="events flex-1 flex flex-col gap-5 min-w-0" id="eventsList">
       <!-- Cards rendered server-side; JS will filter/sort them on the client -->
       {
         events.map((event) => {
@@ -105,7 +105,7 @@ import { events } from "../../dummyData.js";
           const price = Number(event.price ?? 0);
           return (
             <article
-              class="card"
+              class="card grid grid-cols-1 md:grid-cols-[140px_1fr_180px] gap-5 items-start bg-white border border-blue-100 border-l-4 border-l-blue-400 p-4 rounded-lg transition-all hover:-translate-y-1 hover:shadow-xl hover:border-blue-200"
               data-id={event.id}
               data-title={event.title}
               data-category={event.category}
@@ -114,59 +114,59 @@ import { events } from "../../dummyData.js";
               data-end={endISO}
               data-price={price}
             >
-              <div class="card-left">
-                <img src={event.posterUrl} alt={event.title} class="poster" />
+              <div class="min-h-[1px]">
+                <img src={event.posterUrl} alt={event.title} class="w-full h-full max-h-[140px] object-cover rounded-lg bg-gray-100" />
               </div>
 
-              <div class="card-center">
-                <header class="card-header">
-                  <h3 class="card-title">{event.title}</h3>
-                  <div class="meta-line">
-                    <span class="meta-pill">{event.category}</span>
-                    <span class="meta-muted">@</span>
-                    <span class="meta-muted">{event.venue}</span>
+              <div class="min-h-[1px]">
+                <header class="mb-1.5">
+                  <h3 class="text-xl font-bold text-gray-800 leading-tight mb-1.5">{event.title}</h3>
+                  <div class="flex gap-2 items-center text-gray-500 text-sm mb-4">
+                    <span class="bg-blue-50 text-blue-600 px-2 py-1 rounded-full font-semibold text-xs">{event.category}</span>
+                    <span class="text-gray-400">@</span>
+                    <span class="text-gray-500">{event.venue}</span>
                   </div>
                 </header>
 
-                <p class="card-desc">{event.description}</p>
+                <p class="mb-3 text-gray-500 text-sm line-clamp-2">{event.description}</p>
 
-                <div class="card-bottom">
-                  <div class="left-info">
-                    <div class="when">
-                      <svg class="icon" viewBox="0 0 24 24">
+                <div class="flex justify-between gap-3 items-center mt-2 flex-wrap">
+                  <div class="flex gap-2 items-center text-gray-500 text-sm">
+                    <div class="flex gap-2 items-center text-gray-500 text-sm">
+                      <svg class="w-4 h-4 opacity-90 text-gray-400" viewBox="0 0 24 24">
                         <path fill="currentColor" d="M7 10h5v5H7z" />
                       </svg>
-                      <span class="when-text">
+                      <span class="text-gray-500">
                         {new Date(event.startTime).toLocaleDateString()}
                       </span>
                       <span class="dash">-</span>
-                      <span class="when-text">
+                      <span class="text-gray-500">
                         {new Date(event.endTime).toLocaleDateString()}
                       </span>
                     </div>
                   </div>
 
-                  <div class="right-actions">
-                    <div class="price">
+                  <div class="flex items-center gap-3">
+                    <div class="text-gray-800 bg-gray-50 px-2.5 py-1.5 rounded-lg font-semibold text-sm">
                       {event.price === 0
                         ? "Free"
                         : `$${event.price.toFixed(2)}`}
                     </div>
-                    <a class="btn-primary" href={`/events/${event.id}`}>
+                    <a class="bg-gradient-to-r from-blue-600 to-blue-400 text-white px-3 py-2 rounded-lg font-bold shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all text-sm no-underline" href={`/events/${event.id}`}>
                       View Details
                     </a>
                   </div>
                 </div>
               </div>
 
-              <div class="card-right">
-                <div class="organizer">
+              <div class="flex flex-col items-end gap-2 text-gray-500 md:border-l md:border-dashed md:border-gray-200 md:pl-4 md:h-full md:justify-center">
+                <div class="bg-gray-50 px-2.5 py-1.5 rounded-full text-blue-600 font-bold text-sm">
                   {event.organizer?.name ?? "Organizer"}
                 </div>
-                <div class="capacity">
+                <div class="text-sm text-gray-500">
                   {event.capacity?.toLocaleString() ?? "—"} seats
                 </div>
-                <a class="btn-ghost" href={`/events/${event.id}`}>
+                <a class="px-3 py-2 rounded-lg border border-gray-200 text-gray-700 bg-transparent font-semibold hover:shadow-md hover:-translate-y-0.5 transition-all text-sm no-underline" href={`/events/${event.id}`}>
                   Register
                 </a>
               </div>
@@ -314,354 +314,6 @@ import { events } from "../../dummyData.js";
     })();
   </script>
 
-  <style>
-    /* page wrapper */
-    .page {
-      max-width: 1400px;
-      margin: 28px auto;
-      padding: 24px;
-      display: flex;
-      gap: 20px;
-      color: var(--text);
-      background: linear-gradient(
-        180deg,
-        rgba(13, 202, 231, 0.02),
-        transparent
-      );
-      border-radius: 12px;
-    }
 
-    /* SIDEBAR */
-    .sidebar {
-      width: 300px;
-      background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.02),
-        rgba(255, 255, 255, 0.01)
-      );
-      border: 1px solid rgba(164, 153, 153, 0.4);
-      padding: 18px;
-      border-radius: 12px;
-      box-shadow: 0 6px 20px rgba(177, 187, 189, 0.6);
-      position: sticky;
-      top: 22px;
-      height: fit-content;
-      min-height: 200px;
-    }
-
-    .sidebar-title {
-      margin: 0 0 22px 0;
-      font-size: 1.15rem;
-      color: var(--text);
-      font-weight: 700;
-    }
-
-    .control {
-      margin-bottom: 14px;
-    }
-    .control-label {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
-    .input,
-    .select {
-      width: 100%;
-      padding: 8px 10px;
-      background: var(--panel);
-      border: 1px solid rgba(255, 255, 255, 0.03);
-      color: var(--text);
-      border-radius: 8px;
-      outline: none;
-      font-size: 0.95rem;
-    }
-
-    .input::placeholder {
-      color: rgba(35, 36, 37, 0.45);
-    }
-
-    .checkbox-grid label {
-      display: block;
-      padding: 6px 0;
-      color: var(--muted);
-      font-size: 0.92rem;
-      cursor: pointer;
-    }
-
-    input[type="checkbox"] {
-      width: 16px;
-      height: 16px;
-      margin-right: 8px;
-      accent-color: var(--accent);
-    }
-
-    .btn-secondary {
-      width: 100%;
-      padding: 8px 10px;
-      background: transparent;
-      color: var(--text);
-      border: 1px solid rgba(12, 11, 11, 0.04);
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    /* EVENTS LIST */
-    .events {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      min-width: 0; /* prevent overflow */
-    }
-
-    .card {
-      display: grid;
-      grid-template-columns: 140px 1fr 180px;
-      gap: 18px;
-      align-items: start;
-      background: linear-gradient(
-        180deg,
-        rgba(13, 125, 162, 0.04),
-        rgba(134, 182, 177, 0.05)
-      );
-      border: 1px solid rgba(47, 157, 246, 0.25);
-      border-left: 4px solid rgba(22, 135, 216, 0.4);
-      padding: 14px;
-      border-radius: 6px;
-      transition:
-        transform 0.18s cubic-bezier(0.2, 0.9, 0.2, 1),
-        box-shadow 0.18s;
-      min-height: 250px;
-    }
-
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 10px 40px rgba(47, 157, 246, 0.08);
-      border-color: rgba(47, 157, 246, 0.25);
-      border-left: 4px solid rgba(22, 83, 216, 0.4);
-    }
-
-    .card-left,
-    .card-center,
-    .card-right {
-      min-height: 1px;
-    }
-
-    .poster {
-      width: 100%;
-      height: 100%;
-      max-height: 140px;
-      object-fit: cover;
-      border-radius: 8px;
-      display: block;
-      background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.02),
-        rgba(0, 0, 0, 0.05)
-      );
-      border: 1px solid rgba(255, 255, 255, 0.02);
-    }
-
-    .card-title {
-      margin: 0 0 6px 0;
-      color: var(--text);
-      font-size: 1.15rem;
-      line-height: 1.2;
-      font-weight: 700;
-      word-break: break-word;
-    }
-
-    .meta-line {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      color: var(--muted);
-      font-size: 0.9rem;
-      margin-bottom: 18px;
-    }
-    .meta-pill {
-      background: rgba(47, 157, 246, 0.08);
-      color: var(--accent);
-      padding: 4px 8px;
-      border-radius: 999px;
-      font-weight: 600;
-      font-size: 0.82rem;
-    }
-
-    .card-desc {
-      margin: 0 0 10px 0;
-      color: var(--muted);
-      font-size: 0.95rem;
-      max-width: 100%;
-    }
-
-    .card-bottom {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-      margin-top: 6px;
-      flex-wrap: wrap;
-    }
-    .when {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-    .icon {
-      width: 16px;
-      height: 16px;
-      opacity: 0.9;
-      color: var(--muted);
-    }
-
-    .when-text {
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    .right-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .price {
-      color: var(--text);
-      background: rgba(255, 255, 255, 0.02);
-      padding: 6px 10px;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-
-    .btn-primary {
-      text-decoration: none;
-      background: linear-gradient(90deg, var(--accent), #1da1f2);
-      color: #031023;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-weight: 700;
-      box-shadow: 0 6px 20px rgba(47, 157, 246, 0.1);
-      transition:
-        transform 0.14s ease,
-        box-shadow 0.14s;
-    }
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(47, 157, 246, 0.16);
-    }
-
-    /* RIGHT COLUMN (organizer + register) */
-    .card-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 8px;
-      color: var(--muted);
-    }
-
-    .organizer {
-      background: rgba(255, 255, 255, 0.02);
-      padding: 6px 10px;
-      border-radius: 999px;
-      color: var(--accent);
-      font-weight: 700;
-      font-size: 0.9rem;
-    }
-    .capacity {
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    .btn-ghost {
-      text-decoration: none;
-      padding: 8px 12px;
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      color: var(--text);
-      background: transparent;
-      font-weight: 600;
-    }
-    .btn-ghost:hover {
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-      transform: translateY(-3px);
-    }
-
-    .section-header {
-      text-align: center;
-      margin: 3rem;
-    }
-
-    .section-title {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: #1f2937;
-      margin-bottom: 1rem;
-      background: linear-gradient(135deg, rgb(20, 80, 184), rgb(13, 148, 141));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .section-description {
-      font-size: 1.125rem;
-      color: #6b7280;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    /* responsive */
-    @media (max-width: 960px) {
-      .page {
-        padding: 16px;
-        gap: 12px;
-      }
-      .sidebar {
-        width: 100%;
-        position: relative;
-        top: auto;
-      }
-      .card {
-        grid-template-columns: 1fr;
-      }
-      .card-right {
-        align-items: flex-start;
-        border-top: 1px dashed rgba(255, 255, 255, 0.02);
-        padding-top: 12px;
-        margin-top: 6px;
-      }
-    }
-
-    @media (max-width: 520px) {
-      .card {
-        gap: 12px;
-        padding: 12px;
-      }
-      .card-title {
-        font-size: 1rem;
-      }
-      .price {
-        font-size: 0.9rem;
-      }
-      .btn-primary,
-      .btn-ghost {
-        padding: 7px 10px;
-        font-size: 0.9rem;
-      }
-    }
-
-    html,
-    body {
-      background: var(--bg);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-  </style>
   <Footer />
 </Layout>

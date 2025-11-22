@@ -21,50 +21,50 @@ export async function getStaticPaths() {
 
 <Layout title={event.title}>
   <Navbar />
-  <div class="event-page">
+  <div class="min-h-screen bg-gray-50 font-sans bg-gradient-to-b from-cyan-500/5 to-transparent">
     <!-- Hero Section -->
-    <div class="event-hero">
-      <img src={event.posterUrl} alt={event.title} class="event-banner" />
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <h1>{event.title}</h1>
-        <p class="tagline">{event.category}</p>
+    <div class="relative h-[360px] flex items-center justify-center overflow-hidden border-b border-gray-100">
+      <img src={event.posterUrl} alt={event.title} class="w-full h-full object-cover brightness-50" />
+      <div class="absolute inset-0 bg-black/35"></div>
+      <div class="absolute text-center text-white z-10 max-w-[90%]">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-3">{event.title}</h1>
+        <p class="bg-blue-600 text-white inline-block px-3.5 py-1.5 rounded-md text-sm font-semibold">{event.category}</p>
       </div>
     </div>
 
     <!-- Main Content -->
-    <div class="event-main">
-      <div class="event-details">
-        <h2>{event.title}</h2>
-        <p class="description">{event.description}</p>
+    <div class="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-10 max-w-6xl mx-auto my-12 px-5 md:px-10">
+      <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-sm">
+        <h2 class="text-3xl font-bold mb-4 text-gray-800">{event.title}</h2>
+        <p class="text-lg text-gray-600 mb-6 leading-relaxed">{event.description}</p>
 
-        <div class="event-meta">
-          <p><strong>Organized by:</strong> {event.organizer.name}</p>
-          <p><strong>Venue:</strong> {event.venue}</p>
-          <p>
+        <div class="bg-slate-50 border border-gray-200 rounded-lg p-5 mt-4 space-y-3">
+          <p class="text-base text-gray-800 mb-3"><strong>Organized by:</strong> {event.organizer.name}</p>
+          <p class="text-base text-gray-800 mb-3"><strong>Venue:</strong> {event.venue}</p>
+          <p class="text-base text-gray-800 mb-3">
             <strong>Dates:</strong>
             {new Date(event.startTime).toLocaleDateString()} - {
               new Date(event.endTime).toLocaleDateString()
             }
           </p>
-          <p>
+          <p class="text-base text-gray-800 mb-3">
             <strong>Capacity:</strong>
             {event.capacity.toLocaleString()} participants
           </p>
-          <p>
+          <p class="text-base text-gray-800 mb-3">
             <strong>Price:</strong>
             {event.price === 0 ? "Free" : `$${event.price.toFixed(2)}`}
           </p>
         </div>
 
-        <a href="/register" class="join-btn" id="joinEventBtn">Join Event</a>
+        <a href="/register" class="inline-block bg-blue-600 text-white font-semibold rounded-lg px-6 py-3 mt-6 hover:bg-blue-700 transition-colors" id="joinEventBtn">Join Event</a>
       </div>
 
       <!-- Sidebar -->
-      <aside class="event-sidebar">
-        <div class="card">
-          <h3>Quick Info</h3>
-          <p>
+      <aside class="flex flex-col gap-6">
+        <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+          <h3 class="text-lg font-bold mb-3 text-blue-600 border-b border-gray-200 pb-2">Quick Info</h3>
+          <p class="mb-2.5 text-sm text-gray-600 flex items-center gap-2">
             <span>💻</span>
             <b>Online / In-person:</b>
             {
@@ -73,38 +73,38 @@ export async function getStaticPaths() {
                 : "In-person"
             }
           </p>
-          <p>
+          <p class="mb-2.5 text-sm text-gray-600 flex items-center gap-2">
             <span>📅</span>
             <b>Start:</b>
             {new Date(event.startTime).toLocaleString()}
           </p>
-          <p>
+          <p class="mb-2.5 text-sm text-gray-600 flex items-center gap-2">
             <span>🏁</span>
             <b>End:</b>
             {new Date(event.endTime).toLocaleString()}
           </p>
-          <p><span>🧠</span> <b>Category:</b> {event.category}</p>
-          <p><span>💰</span> <b>Prize Pool:</b> ₹{event.prizePool}</p>
+          <p class="mb-2.5 text-sm text-gray-600 flex items-center gap-2"><span>🧠</span> <b>Category:</b> {event.category}</p>
+          <p class="mb-2.5 text-sm text-gray-600 flex items-center gap-2"><span>💰</span> <b>Prize Pool:</b> ₹{event.prizePool}</p>
         </div>
 
-        <div class="card tags">
-          <h3>Tags</h3>
-          <div class="tag-list">
-            <span>AI</span>
-            <span>Cloud</span>
-            <span>Hackathon</span>
-            <span>Innovation</span>
+        <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+          <h3 class="text-lg font-bold mb-3 text-blue-600 border-b border-gray-200 pb-2">Tags</h3>
+          <div class="flex flex-wrap gap-2 mt-2">
+            <span class="bg-indigo-50 text-indigo-600 font-medium px-3 py-1 rounded-md text-sm">AI</span>
+            <span class="bg-indigo-50 text-indigo-600 font-medium px-3 py-1 rounded-md text-sm">Cloud</span>
+            <span class="bg-indigo-50 text-indigo-600 font-medium px-3 py-1 rounded-md text-sm">Hackathon</span>
+            <span class="bg-indigo-50 text-indigo-600 font-medium px-3 py-1 rounded-md text-sm">Innovation</span>
           </div>
         </div>
       </aside>
     </div>
 
     <!-- Additional Info Section -->
-    <section class="extra-info">
-      <div class="content-wrapper">
-        <div class="info-card">
-          <h2>🏆 Prize Pool Details</h2>
-          <p>
+    <section class="bg-gray-50 py-16 mt-12 border-t border-gray-200">
+      <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-8">
+        <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all">
+          <h2 class="text-blue-500 text-2xl mb-4 flex items-center gap-2 font-bold">🏆 Prize Pool Details</h2>
+          <p class="text-slate-700 text-base leading-relaxed">
             {
               event.prizePool
                 ? event.prizeDescription
@@ -113,9 +113,9 @@ export async function getStaticPaths() {
           </p>
         </div>
 
-        <div class="info-card">
-          <h2>🧠 About the Event</h2>
-          <p>
+        <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all">
+          <h2 class="text-blue-500 text-2xl mb-4 flex items-center gap-2 font-bold">🧠 About the Event</h2>
+          <p class="text-slate-700 text-base leading-relaxed">
             {
               event.longDescription ||
                 "This is a premier tech event bringing together developers, designers, and innovators to build impactful solutions. Participants will engage in hands-on sessions, hackathons, and discussions with mentors from leading tech companies."
@@ -126,307 +126,6 @@ export async function getStaticPaths() {
     </section>
   </div>
 
-  <style>
-    /* ===== BASE ===== */
-    .event-page {
-      background: var(--bg);
-      color: var(--text);
-      font-family: "Inter", sans-serif;
-      background: linear-gradient(
-        180deg,
-        rgba(13, 202, 231, 0.02),
-        transparent
-      );
-    }
 
-    /* ===== HERO ===== */
-    .event-hero {
-      position: relative;
-      height: 360px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    }
-
-    .event-banner {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: brightness(0.55);
-    }
-
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.35);
-    }
-
-    .hero-content {
-      position: absolute;
-      text-align: center;
-      color: white;
-      z-index: 2;
-      max-width: 90%;
-    }
-
-    .hero-content h1 {
-      font-size: 2.8rem;
-      font-weight: 800;
-      margin-bottom: 10px;
-    }
-
-    .hero-content .tagline {
-      background: var(--clr-accent-300);
-      color: white;
-      display: inline-block;
-      padding: 6px 14px;
-      border-radius: 6px;
-      font-size: 0.95rem;
-      font-weight: 600;
-    }
-
-    /* ===== MAIN CONTENT ===== */
-    .event-main {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 2.5rem;
-      max-width: 1200px;
-      margin: 50px auto;
-      padding: 0 40px;
-    }
-
-    .event-details {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 30px;
-      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
-    }
-
-    .event-details h2 {
-      font-size: 2rem;
-      margin-bottom: 16px;
-      color: var(--text);
-    }
-
-    .description {
-      font-size: 1.05rem;
-      color: var(--subtext);
-      margin-bottom: 25px;
-      line-height: 1.75;
-    }
-
-    .event-meta {
-      background: #f8fafc;
-      border: 1px solid #e5e7eb;
-      border-radius: 8px;
-      padding: 20px;
-      margin-top: 15px;
-    }
-
-    .event-meta p {
-      margin-bottom: 12px;
-      font-size: 1rem;
-      color: var(--text);
-    }
-
-    .join-btn {
-      display: inline-block;
-      background: var(--clr-accent-300);
-      color: white;
-      font-weight: 600;
-      border-radius: 8px;
-      padding: 12px 26px;
-      text-decoration: none;
-      margin-top: 25px;
-      transition: background 0.25s ease;
-    }
-
-    .join-btn:hover {
-      background: #2563eb;
-    }
-
-    /* ===== SIDEBAR ===== */
-    .event-sidebar {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .card {
-      background: #ffffff;
-      border: 1px solid #e5e7eb;
-      border-radius: 10px;
-      padding: 22px;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-    }
-
-    .card h3 {
-      font-size: 1.15rem;
-      margin-bottom: 12px;
-      color: var(--clr-accent-300);
-      border-bottom: 1px solid #e5e7eb;
-      padding-bottom: 6px;
-    }
-
-    .card p {
-      margin-bottom: 10px;
-      font-size: 0.95rem;
-      color: var(--subtext);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .tag-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 8px;
-    }
-
-    .tag-list span {
-      background: #e0e7ff;
-      color: var(--clr-accent-300);
-      font-weight: 500;
-      padding: 5px 12px;
-      border-radius: 6px;
-      font-size: 0.9rem;
-    }
-
-    /* ===== EXTRA INFO SECTION ===== */
-    .extra-info {
-      background: #f9fafb;
-      padding: 60px 20px;
-      margin-top: 40px;
-      border-top: 1px solid #e5e7eb;
-    }
-
-    .content-wrapper {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
-
-    .info-card {
-      background: white;
-      border: 1px solid #e5e7eb;
-      border-radius: 10px;
-      padding: 30px;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-    }
-
-    .info-card h2 {
-      color: var(--clr-accent-300);
-      font-size: 1.5rem;
-      margin-bottom: 16px;
-    }
-
-    .info-card p {
-      color: var(--subtext);
-      font-size: 1rem;
-      line-height: 1.7;
-    }
-
-    .info-card ul {
-      list-style: disc;
-      margin-left: 20px;
-      color: var(--text);
-      line-height: 1.8;
-    }
-
-    /* ===== EXTRA INFO SECTION ===== */
-    .extra-info {
-      background: #f9fafb;
-      padding: 70px 0;
-      margin-top: 50px;
-      border-top: 1px solid #e5e7eb;
-    }
-
-    .content-wrapper {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      padding: 0 30px;
-    }
-
-    .info-card {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 14px;
-      padding: 30px 28px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-      transition: all 0.25s ease;
-    }
-
-    .info-card:hover {
-      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.12);
-      transform: translateY(-2px);
-    }
-
-    .info-card h2 {
-      color: #3b82f6;
-      font-size: 1.4rem;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 700;
-    }
-
-    .info-card p {
-      color: #334155;
-      font-size: 1rem;
-      line-height: 1.8;
-      margin-bottom: 10px;
-    }
-
-    .info-card ul {
-      margin-top: 8px;
-      padding-left: 20px;
-      list-style-type: disc;
-      color: #475569;
-      line-height: 1.8;
-    }
-
-    .info-card ul li {
-      margin-bottom: 8px;
-    }
-
-    @media (max-width: 900px) {
-      .content-wrapper {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-        padding: 0 20px;
-      }
-
-      .info-card {
-        padding: 24px;
-      }
-    }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 900px) {
-      .event-main {
-        grid-template-columns: 1fr;
-        padding: 0 20px;
-      }
-      .event-details {
-        padding: 20px;
-      }
-      .hero-content h1 {
-        font-size: 2rem;
-      }
-      .extra-info {
-        padding: 40px 15px;
-      }
-    }
-  </style>
   <Footer />
 </Layout>

@@ -31,13 +31,13 @@ import EventCalendar from '../components/EventCalendar.astro';
 
       <div class="flex-1 flex flex-col overflow-y-auto px-6 py-6">
         <nav class="space-y-2 flex-1">
-          <a href="#" class="nav-link active" data-page="discover"><span>Discover Events</span></a>
-          <a href="#" class="nav-link" data-page="myevents"><span>My Events</span></a>
-          <a href="#" class="nav-link" data-page="calendar"><span>Event Calendar</span></a>
-          <a href="#" class="nav-link" data-page="past"><span>Past Events</span></a>
-          <a href="#" class="nav-link" data-page="certificates"><span>Certificates</span></a>
-          <a href="#" class="nav-link" data-page="notifications"><span>Notifications</span></a>
-          <a href="#" class="nav-link" data-page="profile"><span>Profile</span></a>
+          <a href="#" class="nav-link block px-4 py-3 text-gray-500 relative overflow-hidden transition-all hover:text-gray-800 hover:bg-gray-100 hover:translate-x-1 [&.active]:text-blue-600 [&.active]:bg-blue-50 [&.active]:font-bold [&.active]:border-l-4 [&.active]:border-blue-600 active" data-page="discover"><span>Discover Events</span></a>
+          <a href="#" class="nav-link block px-4 py-3 text-gray-500 relative overflow-hidden transition-all hover:text-gray-800 hover:bg-gray-100 hover:translate-x-1 [&.active]:text-blue-600 [&.active]:bg-blue-50 [&.active]:font-bold [&.active]:border-l-4 [&.active]:border-blue-600" data-page="myevents"><span>My Events</span></a>
+          <a href="#" class="nav-link block px-4 py-3 text-gray-500 relative overflow-hidden transition-all hover:text-gray-800 hover:bg-gray-100 hover:translate-x-1 [&.active]:text-blue-600 [&.active]:bg-blue-50 [&.active]:font-bold [&.active]:border-l-4 [&.active]:border-blue-600" data-page="calendar"><span>Event Calendar</span></a>
+          <a href="#" class="nav-link block px-4 py-3 text-gray-500 relative overflow-hidden transition-all hover:text-gray-800 hover:bg-gray-100 hover:translate-x-1 [&.active]:text-blue-600 [&.active]:bg-blue-50 [&.active]:font-bold [&.active]:border-l-4 [&.active]:border-blue-600" data-page="past"><span>Past Events</span></a>
+          <a href="#" class="nav-link block px-4 py-3 text-gray-500 relative overflow-hidden transition-all hover:text-gray-800 hover:bg-gray-100 hover:translate-x-1 [&.active]:text-blue-600 [&.active]:bg-blue-50 [&.active]:font-bold [&.active]:border-l-4 [&.active]:border-blue-600" data-page="certificates"><span>Certificates</span></a>
+          <a href="#" class="nav-link block px-4 py-3 text-gray-500 relative overflow-hidden transition-all hover:text-gray-800 hover:bg-gray-100 hover:translate-x-1 [&.active]:text-blue-600 [&.active]:bg-blue-50 [&.active]:font-bold [&.active]:border-l-4 [&.active]:border-blue-600" data-page="notifications"><span>Notifications</span></a>
+          <a href="#" class="nav-link block px-4 py-3 text-gray-500 relative overflow-hidden transition-all hover:text-gray-800 hover:bg-gray-100 hover:translate-x-1 [&.active]:text-blue-600 [&.active]:bg-blue-50 [&.active]:font-bold [&.active]:border-l-4 [&.active]:border-blue-600" data-page="profile"><span>Profile</span></a>
         </nav>
 
         <div class="border-t border-gray-200 pt-4 mt-4">
@@ -244,61 +244,4 @@ import EventCalendar from '../components/EventCalendar.astro';
   });
 </script>
 
-<style>
-  /* Remove all border radius */
-  * {
-    border-radius: 0 !important;
-  }
-  
-  .nav-link {
-    display: block;
-    padding: 0.75rem 1rem;
-    color: rgb(107, 114, 128);
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-  }
-  
-  .nav-link::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 3px;
-    background: rgb(59, 130, 246);
-    transform: scaleY(0);
-    transition: transform 0.3s ease;
-  }
-  
-  .nav-link:hover {
-    color: rgb(31, 41, 55);
-    background: rgb(243, 244, 246);
-    transform: translateX(4px);
-  }
-  
-  .nav-link.active {
-    color: rgb(37, 99, 235);
-    background: rgb(239, 246, 255);
-    font-weight: 700;
-  }
-  
-  .nav-link.active::before {
-    transform: scaleY(1);
-  }
-  
-  .page-content {
-    animation: fadeIn 0.3s ease-in;
-  }
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-</style>

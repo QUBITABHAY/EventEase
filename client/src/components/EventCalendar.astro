@@ -7,7 +7,7 @@
   <div class="border-b border-gray-200 p-4 bg-gray-50">
     <div class="flex items-center justify-between mb-4">
       <div class="flex items-center gap-4">
-        <h2 class="text-2xl font-black text-gray-900" style="font-family: 'Poppins', sans-serif;">
+        <h2 class="text-2xl font-black text-gray-900">
           <span id="current-month">December</span> <span id="current-year">2025</span>
         </h2>
       </div>
@@ -42,13 +42,13 @@
   <div id="calendar-view" class="p-4">
     <!-- Day Names Header -->
     <div class="grid grid-cols-7 gap-px mb-px bg-gray-200">
-      <div class="bg-gray-50 p-3 text-center font-bold text-gray-700 text-sm" style="font-family: 'Poppins', sans-serif;">SUN</div>
-      <div class="bg-gray-50 p-3 text-center font-bold text-gray-700 text-sm" style="font-family: 'Poppins', sans-serif;">MON</div>
-      <div class="bg-gray-50 p-3 text-center font-bold text-gray-700 text-sm" style="font-family: 'Poppins', sans-serif;">TUE</div>
-      <div class="bg-gray-50 p-3 text-center font-bold text-gray-700 text-sm" style="font-family: 'Poppins', sans-serif;">WED</div>
-      <div class="bg-gray-50 p-3 text-center font-bold text-gray-700 text-sm" style="font-family: 'Poppins', sans-serif;">THU</div>
-      <div class="bg-gray-50 p-3 text-center font-bold text-gray-700 text-sm" style="font-family: 'Poppins', sans-serif;">FRI</div>
-      <div class="bg-gray-50 p-3 text-center font-bold text-gray-700 text-sm" style="font-family: 'Poppins', sans-serif;">SAT</div>
+      <div class="bg-gray-50 p-3 text-center font-bold text-gray-700 text-sm">SUN</div>
+      <div class="bg-gray-50 p-3 text-center font-bold text-gray-700 text-sm">MON</div>
+      <div class="bg-gray-50 p-3 text-center font-bold text-gray-700 text-sm">TUE</div>
+      <div class="bg-gray-50 p-3 text-center font-bold text-gray-700 text-sm">WED</div>
+      <div class="bg-gray-50 p-3 text-center font-bold text-gray-700 text-sm">THU</div>
+      <div class="bg-gray-50 p-3 text-center font-bold text-gray-700 text-sm">FRI</div>
+      <div class="bg-gray-50 p-3 text-center font-bold text-gray-700 text-sm">SAT</div>
     </div>
 
     <!-- Calendar Days Grid -->
@@ -59,10 +59,10 @@
 </div>
 
 <!-- Event Modal -->
-<div id="event-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+<div id="event-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 backdrop-blur-sm">
   <div class="bg-white w-full max-w-2xl shadow-2xl border border-gray-300">
     <div class="bg-blue-600 text-white p-6 flex justify-between items-center">
-      <h3 class="text-2xl font-black" style="font-family: 'Poppins', sans-serif;">Event Details</h3>
+      <h3 class="text-2xl font-black">Event Details</h3>
       <button id="close-modal" class="text-white hover:text-gray-200 text-3xl font-bold">×</button>
     </div>
     <div id="modal-content" class="p-6">
@@ -213,7 +213,7 @@
     modalContent.innerHTML = `
       <div class="space-y-4">
         <div>
-          <h4 class="text-2xl font-black text-gray-900 mb-2" style="font-family: 'Poppins', sans-serif;">${event.title}</h4>
+          <h4 class="text-2xl font-black text-gray-900 mb-2">${event.title}</h4>
           <span class="inline-block px-3 py-1 ${event.color} text-white text-sm font-bold">${event.category}</span>
         </div>
         <div class="space-y-2">
@@ -277,8 +277,4 @@
   renderCalendar();
 </script>
 
-<style>
-  #event-modal {
-    backdrop-filter: blur(4px);
-  }
-</style>
+

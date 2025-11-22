@@ -1,13 +1,13 @@
 ---
 ---
 
-<section class="video-section section">
-  <div class="container">
-    <h2 class="section-title">Learn how EventEase works</h2>
-    <div class="video-container">
-      <div class="video-placeholder">
-        <button class="play-button" aria-label="Play video">
-          <svg width="64" height="64" viewBox="0 0 24 24" fill="white">
+<section class="bg-white py-16">
+  <div class="container mx-auto px-4">
+    <h2 class="text-4xl font-bold text-gray-800 mb-10 text-left md:text-3xl">Learn how EventEase works</h2>
+    <div class="max-w-[1000px] mx-auto">
+      <div class="w-full aspect-video bg-gradient-to-br from-teal-700 to-teal-900 rounded-xl flex items-center justify-center relative overflow-hidden shadow-lg cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl">
+        <button class="w-20 h-20 rounded-full bg-white/20 backdrop-blur-md border-[3px] border-white flex items-center justify-center cursor-pointer transition-all duration-300 z-10 hover:scale-110 hover:bg-white/30 md:w-16 md:h-16" aria-label="Play video">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="white" class="ml-1 md:w-8 md:h-8">
             <path d="M8 5v14l11-7z"/>
           </svg>
         </button>
@@ -16,83 +16,4 @@
   </div>
 </section>
 
-<style>
-  .video-section {
-    background: white;
-    padding: 4rem 0;
-  }
-
-  .section-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #1f2937;
-    margin-bottom: 2.5rem;
-    text-align: left;
-  }
-
-  .video-container {
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-
-  .video-placeholder {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .video-placeholder:hover {
-    transform: scale(1.02);
-    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.3);
-  }
-
-  .play-button {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    border: 3px solid white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 10;
-  }
-
-  .play-button:hover {
-    transform: scale(1.1);
-    background: rgba(255, 255, 255, 0.3);
-  }
-
-  .play-button svg {
-    margin-left: 4px;
-  }
-
-  @media (max-width: 768px) {
-    .section-title {
-      font-size: 2rem;
-    }
-
-    .play-button {
-      width: 64px;
-      height: 64px;
-    }
-
-    .play-button svg {
-      width: 32px;
-      height: 32px;
-    }
-  }
-</style>
 

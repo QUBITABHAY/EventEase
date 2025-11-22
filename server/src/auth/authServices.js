@@ -18,11 +18,12 @@ export const localSignupService = async (data) => {
 
     await redis.set(
       `otp:${email}`,
-      600,
       JSON.stringify({
         hashedPassword,
         otp,
       }),
+      "EX",
+      600
     );
 
     const subject = "EventEase - OTP Verification";
@@ -145,6 +146,11 @@ export const localLoginService = async (data) => {
       };
     }
 
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return { status: 401, message: "Invalid email or password" };
+    }
+
     if (!user.isProfileComplete) {
       return {
         status: 403,
@@ -152,11 +158,6 @@ export const localLoginService = async (data) => {
         requiresProfile: true,
         user: { id: user.id, email: user.email },
       };
-    }
-
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      return { status: 401, message: "Invalid email or password" };
     }
 
     return {
