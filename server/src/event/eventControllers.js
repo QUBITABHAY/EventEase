@@ -54,7 +54,7 @@ export const updateEvent = async (req, res) => {
 export const getEventById = async (req, res) => {
   try {
     const { id } = req.params;
-    const result = await getEventByIdService(parseInt(id));
+    const result = await getEventByIdService(id);
 
     return res.status(result?.status || 500).json({
       message: result?.message,

@@ -1,131 +1,172 @@
 ---
+export const prerender = false;
 import Layout from "../../layouts/Layout.astro";
-import { events } from "../../../dummyData.js";
 import Footer from "../../components/Footer.astro";
 import Navbar from "../../components/Navbar.astro";
 
 const { id } = Astro.params;
-const event = events.find((e) => e.id === parseInt(id));
+let event: any = null;
+let error: string | null = null;
 
-if (!event) {
-  throw new Error(`Event with ID ${id} not found.`);
+try {
+  const response = await fetch(`http://localhost:3000/api/event/${id}`);
+  if (!response.ok) {
+    throw new Error("Failed to fetch event");
+  }
+  const data = await response.json();
+  event = data.event;
+} catch (e) {
+  console.error("Error fetching event:", e);
+  error = "Could not load event details.";
 }
 
-export async function getStaticPaths() {
-  const { events } = await import("../../../dummyData.js");
-  return events.map((event) => ({
-    params: { id: event.id.toString() },
-  }));
+if (!event && !error) {
+    return Astro.redirect('/404');
 }
 ---
 
-<Layout title={event.title}>
-  <Navbar />
-  <div class="min-h-screen bg-gray-50 font-sans bg-gradient-to-b from-cyan-500/5 to-transparent">
-    <!-- Hero Section -->
-    <div class="relative h-[360px] flex items-center justify-center overflow-hidden border-b border-gray-100">
-      <img src={event.posterUrl} alt={event.title} class="w-full h-full object-cover brightness-50" />
-      <div class="absolute inset-0 bg-black/35"></div>
-      <div class="absolute text-center text-white z-10 max-w-[90%]">
-        <h1 class="text-4xl md:text-5xl font-extrabold mb-3">{event.title}</h1>
-        <p class="bg-blue-600 text-white inline-block px-3.5 py-1.5 rounded-md text-sm font-semibold">{event.category}</p>
-      </div>
-    </div>
-
-    <!-- Main Content -->
-    <div class="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-10 max-w-6xl mx-auto my-12 px-5 md:px-10">
-      <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-sm">
-        <h2 class="text-3xl font-bold mb-4 text-gray-800">{event.title}</h2>
-        <p class="text-lg text-gray-600 mb-6 leading-relaxed">{event.description}</p>
-
-        <div class="bg-slate-50 border border-gray-200 rounded-lg p-5 mt-4 space-y-3">
-          <p class="text-base text-gray-800 mb-3"><strong>Organized by:</strong> {event.organizer.name}</p>
-          <p class="text-base text-gray-800 mb-3"><strong>Venue:</strong> {event.venue}</p>
-          <p class="text-base text-gray-800 mb-3">
-            <strong>Dates:</strong>
-            {new Date(event.startTime).toLocaleDateString()} - {
-              new Date(event.endTime).toLocaleDateString()
-            }
-          </p>
-          <p class="text-base text-gray-800 mb-3">
-            <strong>Capacity:</strong>
-            {event.capacity.toLocaleString()} participants
-          </p>
-          <p class="text-base text-gray-800 mb-3">
-            <strong>Price:</strong>
-            {event.price === 0 ? "Free" : `$${event.price.toFixed(2)}`}
-          </p>
+<Layout title={event ? `${event.title} | EventEase` : "Event Not Found"}>
+    <Navbar />
+    
+    {error ? (
+        <div class="min-h-screen flex items-center justify-center bg-gray-50">
+            <div class="text-center">
+                <h1 class="text-2xl font-bold text-gray-800 mb-2">Error Loading Event</h1>
+                <p class="text-gray-600 mb-4">{error}</p>
+                <a href="/events" class="text-blue-600 hover:underline">Back to Events</a>
+            </div>
         </div>
+    ) : (
+        <div class="min-h-screen bg-gray-50 font-sans bg-gradient-to-b from-cyan-500/5 to-transparent">
+            <!-- Hero Section -->
+            <div class="relative h-[360px] flex items-center justify-center overflow-hidden border-b border-gray-100">
+                <img
+                    src={event.posterUrl || "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=2070"}
+                    alt={event.title}
+                    class="w-full h-full object-cover brightness-50"
+                />
+                <div class="absolute inset-0 bg-black/35"></div>
+                <div class="absolute text-center text-white z-10 max-w-[90%]">
+                    <h1 class="text-4xl md:text-5xl font-extrabold mb-3 font-serif">
+                        {event.title}
+                    </h1>
+                    <p class="bg-blue-600 text-white inline-block px-3.5 py-1.5 rounded-md text-sm font-semibold">
+                        {event.category}
+                    </p>
+                </div>
+            </div>
 
-        <a href="/register" class="inline-block bg-blue-600 text-white font-semibold rounded-lg px-6 py-3 mt-6 hover:bg-blue-700 transition-colors" id="joinEventBtn">Join Event</a>
-      </div>
+            <!-- Main Content -->
+            <div class="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-10 max-w-6xl mx-auto my-12 px-5 md:px-10">
+                <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-sm">
+                    <h2 class="text-3xl font-bold mb-4 text-gray-800 font-serif">
+                        {event.title}
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                        {event.description}
+                    </p>
 
-      <!-- Sidebar -->
-      <aside class="flex flex-col gap-6">
-        <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-          <h3 class="text-lg font-bold mb-3 text-blue-600 border-b border-gray-200 pb-2">Quick Info</h3>
-          <p class="mb-2.5 text-sm text-gray-600 flex items-center gap-2">
-            <span>💻</span>
-            <b>Online / In-person:</b>
-            {
-              event.venue.toLowerCase().includes("online")
-                ? "Online"
-                : "In-person"
-            }
-          </p>
-          <p class="mb-2.5 text-sm text-gray-600 flex items-center gap-2">
-            <span>📅</span>
-            <b>Start:</b>
-            {new Date(event.startTime).toLocaleString()}
-          </p>
-          <p class="mb-2.5 text-sm text-gray-600 flex items-center gap-2">
-            <span>🏁</span>
-            <b>End:</b>
-            {new Date(event.endTime).toLocaleString()}
-          </p>
-          <p class="mb-2.5 text-sm text-gray-600 flex items-center gap-2"><span>🧠</span> <b>Category:</b> {event.category}</p>
-          <p class="mb-2.5 text-sm text-gray-600 flex items-center gap-2"><span>💰</span> <b>Prize Pool:</b> ₹{event.prizePool}</p>
+                    <div class="bg-slate-50 border border-gray-200 rounded-lg p-5 mt-4 space-y-3">
+                        <p class="text-base text-gray-800 mb-3">
+                            <strong>Organized by:</strong>
+                            {event.organizer?.name || "Event Organizer"}
+                        </p>
+                        <p class="text-base text-gray-800 mb-3">
+                            <strong>Venue:</strong>
+                            {event.venue}
+                        </p>
+                        <p class="text-base text-gray-800 mb-3">
+                            <strong>Dates:</strong>
+                            {new Date(event.startTime).toLocaleDateString()} - {new Date(event.endTime).toLocaleDateString()}
+                        </p>
+                        <p class="text-base text-gray-800 mb-3">
+                            <strong>Capacity:</strong>
+                            {event.capacity?.toLocaleString() || "Unlimited"} participants
+                        </p>
+                        <p class="text-base text-gray-800 mb-3">
+                            <strong>Price:</strong>
+                            {event.price === 0 ? "Free" : `$${event.price}`}
+                        </p>
+                    </div>
+
+                    <a
+                        href="/register"
+                        class="inline-block bg-blue-600 text-white font-semibold rounded-lg px-6 py-3 mt-6 hover:bg-blue-700 transition-colors"
+                        id="joinEventBtn">Join Event</a
+                    >
+                </div>
+
+                <!-- Sidebar -->
+                <aside class="flex flex-col gap-6">
+                    <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+                        <h3 class="text-lg font-bold mb-3 text-blue-600 border-b border-gray-200 pb-2 font-serif">
+                            Quick Info
+                        </h3>
+                        <p class="mb-2.5 text-sm text-gray-600 flex items-center gap-2">
+                            <span>💻</span>
+                            <b>Online / In-person:</b>
+                            {event.venue?.toLowerCase().includes("online") ? "Online" : "In-person"}
+                        </p>
+                        <p class="mb-2.5 text-sm text-gray-600 flex items-center gap-2">
+                            <span>📅</span>
+                            <b>Start:</b>
+                            {new Date(event.startTime).toLocaleString()}
+                        </p>
+                        <p class="mb-2.5 text-sm text-gray-600 flex items-center gap-2">
+                            <span>🏁</span>
+                            <b>End:</b>
+                            {new Date(event.endTime).toLocaleString()}
+                        </p>
+                        <p class="mb-2.5 text-sm text-gray-600 flex items-center gap-2">
+                            <span>🧠</span>
+                            <b>Category:</b>
+                            {event.category}
+                        </p>
+                        <p class="mb-2.5 text-sm text-gray-600 flex items-center gap-2">
+                            <span>💰</span>
+                            <b>Prize Pool:</b> ₹{event.prizePool || 0}
+                        </p>
+                    </div>
+
+                    <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+                        <h3 class="text-lg font-bold mb-3 text-blue-600 border-b border-gray-200 pb-2 font-serif">
+                            Tags
+                        </h3>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="bg-indigo-50 text-indigo-600 font-medium px-3 py-1 rounded-md text-sm">
+                                {event.category}
+                            </span>
+                            <span class="bg-indigo-50 text-indigo-600 font-medium px-3 py-1 rounded-md text-sm">
+                                Tech
+                            </span>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+
+            <!-- Additional Info Section -->
+            <section class="bg-gray-50 py-16 mt-12 border-t border-gray-200">
+                <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-8">
+                    <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all">
+                        <h2 class="text-blue-500 text-2xl mb-4 flex items-center gap-2 font-bold font-serif">
+                            🏆 Prize Pool Details
+                        </h2>
+                        <p class="text-slate-700 text-base leading-relaxed">
+                            {event.prizePool ? event.prizeDescription || `Total prize pool of ₹${event.prizePool}` : "No monetary prizes for this event, but participants gain valuable networking opportunities and exposure."}
+                        </p>
+                    </div>
+
+                    <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all">
+                        <h2 class="text-blue-500 text-2xl mb-4 flex items-center gap-2 font-bold font-serif">
+                            🧠 About the Event
+                        </h2>
+                        <p class="text-slate-700 text-base leading-relaxed">
+                            {event.longDescription || event.description || "Join us for this exciting event!"}
+                        </p>
+                    </div>
+                </div>
+            </section>
         </div>
-
-        <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-          <h3 class="text-lg font-bold mb-3 text-blue-600 border-b border-gray-200 pb-2">Tags</h3>
-          <div class="flex flex-wrap gap-2 mt-2">
-            <span class="bg-indigo-50 text-indigo-600 font-medium px-3 py-1 rounded-md text-sm">AI</span>
-            <span class="bg-indigo-50 text-indigo-600 font-medium px-3 py-1 rounded-md text-sm">Cloud</span>
-            <span class="bg-indigo-50 text-indigo-600 font-medium px-3 py-1 rounded-md text-sm">Hackathon</span>
-            <span class="bg-indigo-50 text-indigo-600 font-medium px-3 py-1 rounded-md text-sm">Innovation</span>
-          </div>
-        </div>
-      </aside>
-    </div>
-
-    <!-- Additional Info Section -->
-    <section class="bg-gray-50 py-16 mt-12 border-t border-gray-200">
-      <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-8">
-        <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all">
-          <h2 class="text-blue-500 text-2xl mb-4 flex items-center gap-2 font-bold">🏆 Prize Pool Details</h2>
-          <p class="text-slate-700 text-base leading-relaxed">
-            {
-              event.prizePool
-                ? event.prizeDescription
-                : "No monetary prizes for this event, but participants gain valuable networking opportunities and exposure."
-            }
-          </p>
-        </div>
-
-        <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all">
-          <h2 class="text-blue-500 text-2xl mb-4 flex items-center gap-2 font-bold">🧠 About the Event</h2>
-          <p class="text-slate-700 text-base leading-relaxed">
-            {
-              event.longDescription ||
-                "This is a premier tech event bringing together developers, designers, and innovators to build impactful solutions. Participants will engage in hands-on sessions, hackathons, and discussions with mentors from leading tech companies."
-            }
-          </p>
-        </div>
-      </div>
-    </section>
-  </div>
-
-
-  <Footer />
+    )}
+    <Footer />
 </Layout>
