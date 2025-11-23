@@ -84,63 +84,63 @@ import Layout from '../layouts/Layout.astro';
           
           <!-- Stats Cards -->
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div class="bg-white p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow">
+            <div class="bg-white p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
               <div class="flex items-center justify-between">
                 <div>
-                  <p class="text-gray-500 text-sm font-semibold uppercase tracking-wide">Total Events</p>
+                  <p class="text-gray-500 text-sm font-black uppercase tracking-wide">Total Events</p>
                   <p id="statTotalEvents" class="text-4xl font-black text-gray-900 mt-2" style="font-family: 'Poppins', sans-serif;">0</p>
                 </div>
-                <div class="bg-blue-100 p-4">
-                  <span class="text-3xl text-blue-600 font-bold">E</span>
+                <div class="bg-blue-100 p-3 border-2 border-black">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                 </div>
               </div>
-              <div class="mt-4 text-sm">
-                <span class="text-gray-500"> this month</span>
+              <div class="mt-4 text-sm font-bold text-gray-400 uppercase tracking-wider">
+                this month
               </div>
             </div>
 
-            <div class="bg-white p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow">
+            <div class="bg-white p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
               <div class="flex items-center justify-between">
                 <div>
-                  <p class="text-gray-500 text-sm font-semibold uppercase tracking-wide">Active Events</p>
+                  <p class="text-gray-500 text-sm font-black uppercase tracking-wide">Active Events</p>
                   <p id="statActiveEvents" class="text-4xl font-black text-gray-900 mt-2" style="font-family: 'Poppins', sans-serif;">0</p>
                 </div>
-                <div class="bg-green-100 p-4">
-                  <span class="text-3xl text-green-600 font-bold">A</span>
+                <div class="bg-green-100 p-3 border-2 border-black">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                 </div>
               </div>
-              <div class="mt-4 text-sm">
-                <span class="text-gray-500"> currently</span>
+              <div class="mt-4 text-sm font-bold text-gray-400 uppercase tracking-wider">
+                currently
               </div>
             </div>
 
-            <div class="bg-white p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow">
+            <div class="bg-white p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
               <div class="flex items-center justify-between">
                 <div>
-                  <p class="text-gray-500 text-sm font-semibold uppercase tracking-wide">Total Registrations</p>
+                  <p class="text-gray-500 text-sm font-black uppercase tracking-wide">Registrations</p>
                   <p id="statTotalRegistrations" class="text-4xl font-black text-gray-900 mt-2" style="font-family: 'Poppins', sans-serif;">0</p>
                 </div>
-                <div class="bg-purple-100 p-4">
-                  <span class="text-3xl text-purple-600 font-bold">R</span>
+                <div class="bg-purple-100 p-3 border-2 border-black">
+                   <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                 </div>
               </div>
-              <div class="mt-4 text-sm">
-                <span class="text-gray-500"> this week</span>
+              <div class="mt-4 text-sm font-bold text-gray-400 uppercase tracking-wider">
+                this week
               </div>
             </div>
 
-            <div class="bg-white p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow">
+            <div class="bg-white p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
               <div class="flex items-center justify-between">
                 <div>
-                  <p class="text-gray-500 text-sm font-semibold uppercase tracking-wide">Avg Attendance</p>
+                  <p class="text-gray-500 text-sm font-black uppercase tracking-wide">Avg Attendance</p>
                   <p id="statAvgAttendance" class="text-4xl font-black text-gray-900 mt-2" style="font-family: 'Poppins', sans-serif;">0%</p>
                 </div>
-                <div class="bg-orange-100 p-4">
-                  <span class="text-3xl text-orange-600 font-bold">%</span>
+                <div class="bg-orange-100 p-3 border-2 border-black">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
                 </div>
               </div>
-              <div class="mt-4 text-sm">
-                <span class="text-gray-500"> from last month</span>
+              <div class="mt-4 text-sm font-bold text-gray-400 uppercase tracking-wider">
+                from last month
               </div>
             </div>
           </div>
@@ -172,17 +172,17 @@ import Layout from '../layouts/Layout.astro';
 
           
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <button class="bg-blue-600 text-white p-8 shadow-lg hover:bg-blue-700 transition-colors text-left">
-              <h3 class="text-2xl font-black mb-2" style="font-family: 'Poppins', sans-serif;">Create New Event</h3>
-              <p class="text-blue-100 font-medium">Start organizing a new event</p>
+            <button class="bg-blue-600 text-white p-8 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all text-left group">
+              <h3 class="text-2xl font-black mb-2 uppercase tracking-tight group-hover:underline decoration-4 underline-offset-4" style="font-family: 'Poppins', sans-serif;">Create New Event</h3>
+              <p class="text-blue-100 font-bold tracking-wide">Start organizing a new event</p>
             </button>
-            <button class="bg-purple-600 text-white p-8 shadow-lg hover:bg-purple-700 transition-colors text-left">
-              <h3 class="text-2xl font-black mb-2" style="font-family: 'Poppins', sans-serif;">View Statistics</h3>
-              <p class="text-purple-100 font-medium">Check detailed analytics</p>
+            <button class="bg-purple-600 text-white p-8 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all text-left group">
+              <h3 class="text-2xl font-black mb-2 uppercase tracking-tight group-hover:underline decoration-4 underline-offset-4" style="font-family: 'Poppins', sans-serif;">View Statistics</h3>
+              <p class="text-purple-100 font-bold tracking-wide">Check detailed analytics</p>
             </button>
-            <button class="bg-green-600 text-white p-8 shadow-lg hover:bg-green-700 transition-colors text-left">
-              <h3 class="text-2xl font-black mb-2" style="font-family: 'Poppins', sans-serif;">Manage Events</h3>
-              <p class="text-green-100 font-medium">Edit and update events</p>
+            <button class="bg-green-600 text-white p-8 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all text-left group">
+              <h3 class="text-2xl font-black mb-2 uppercase tracking-tight group-hover:underline decoration-4 underline-offset-4" style="font-family: 'Poppins', sans-serif;">Manage Events</h3>
+              <p class="text-green-100 font-bold tracking-wide">Edit and update events</p>
             </button>
           </div>
         </div>
@@ -251,22 +251,22 @@ import Layout from '../layouts/Layout.astro';
                         What category does it fall under?
                       </h2>
                       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left" data-value="Technology">
+                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="Technology">
                           <div class="font-bold text-xl text-gray-900">Technology</div>
                         </button>
-                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left" data-value="Cultural">
+                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="Cultural">
                           <div class="font-bold text-xl text-gray-900">Cultural</div>
                         </button>
-                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left" data-value="Sports">
+                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="Sports">
                           <div class="font-bold text-xl text-gray-900">Sports</div>
                         </button>
-                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left" data-value="Academic">
+                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="Academic">
                           <div class="font-bold text-xl text-gray-900">Academic</div>
                         </button>
-                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left" data-value="Workshop">
+                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="Workshop">
                           <div class="font-bold text-xl text-gray-900">Workshop</div>
                         </button>
-                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left" data-value="Conference">
+                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="Conference">
                           <div class="font-bold text-xl text-gray-900">Conference</div>
                         </button>
                       </div>
@@ -282,19 +282,19 @@ import Layout from '../layouts/Layout.astro';
                         How will attendees join?
                       </h2>
                       <div class="grid grid-cols-1 gap-4">
-                        <button type="button" class="event-type-option p-8 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left" data-value="In-Person">
+                        <button type="button" class="event-type-option p-8 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="In-Person">
                           <div>
                             <div class="font-bold text-2xl text-gray-900 mb-1">In-Person</div>
                             <div class="text-gray-600">Physical venue attendance</div>
                           </div>
                         </button>
-                        <button type="button" class="event-type-option p-8 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left" data-value="Online">
+                        <button type="button" class="event-type-option p-8 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="Online">
                           <div>
                             <div class="font-bold text-2xl text-gray-900 mb-1">Online</div>
                             <div class="text-gray-600">Virtual event via video call</div>
                           </div>
                         </button>
-                        <button type="button" class="event-type-option p-8 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left" data-value="Hybrid">
+                        <button type="button" class="event-type-option p-8 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="Hybrid">
                           <div>
                             <div class="font-bold text-2xl text-gray-900 mb-1">Hybrid</div>
                             <div class="text-gray-600">Both in-person and online options</div>
@@ -1318,6 +1318,10 @@ import Layout from '../layouts/Layout.astro';
 <style>
   /* Remove all border radius */
   * {
+    border-radius: 0 !important;
+  }
+  
+  .btn, .card, .input, .select, .badge, .modal-box, .avatar, .dropdown-content {
     border-radius: 0 !important;
   }
   

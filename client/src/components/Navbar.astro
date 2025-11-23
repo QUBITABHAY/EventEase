@@ -11,7 +11,7 @@ const currentPath = Astro.url.pathname;
                 </label>
                 <ul
                     tabindex="0"
-                    class="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow-lg bg-white rounded-box w-52 border border-gray-100"
+                    class="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-white w-52 border-2 border-black"
                 >
                     <li>
                         <a
@@ -33,7 +33,7 @@ const currentPath = Astro.url.pathname;
                     <li>
                         <a
                             href="/register"
-                            class="bg-neutral text-white hover:bg-neutral-focus"
+                            class="bg-black text-white hover:bg-gray-800 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] transition-all font-bold uppercase tracking-wide px-4 py-2"
                             >Get Started</a
                         >
                     </li>
@@ -87,9 +87,9 @@ const currentPath = Astro.url.pathname;
         <div class="navbar-end hidden lg:flex gap-2">
             <a
                 href="/login"
-                class="btn btn-ghost font-semibold hover:bg-gray-100">Login</a
+                class="btn btn-ghost font-bold hover:bg-gray-100 rounded-none border-2 border-transparent hover:border-black uppercase tracking-wide">Login</a
             >
-            <a href="/signup" class="btn btn-neutral font-semibold"
+            <a href="/signup" class="btn bg-black text-white hover:bg-gray-800 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] transition-all font-bold uppercase tracking-wide rounded-none"
                 >Get Started</a
             >
         </div>

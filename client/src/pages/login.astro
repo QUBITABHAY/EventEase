@@ -99,7 +99,7 @@ import Footer from "../components/Footer.astro";
               </div>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-full btn-large">
+            <button type="submit" class="btn btn-primary btn-full btn-large" style="background-color: black; border: 2px solid black; box-shadow: 4px 4px 0px 0px rgba(147,51,234,1); color: white; text-transform: uppercase; letter-spacing: 0.05em; transition: all 0.2s ease;">
               <span>Sign In</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -249,10 +249,10 @@ import Footer from "../components/Footer.astro";
   .auth-card {
     background: white;
     border-radius: 0;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
     padding: 3rem;
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border: 2px solid black;
     max-width: 480px;
     width: 100%;
   }
@@ -338,17 +338,19 @@ import Footer from "../components/Footer.astro";
   .form-input {
     width: 100%;
     padding: 0.875rem 1rem 0.875rem 3rem;
-    border: 2px solid var(--border-color);
+    border: 2px solid black;
     border-radius: 0;
     font-size: 0.9375rem;
     transition: all 0.3s ease;
     background: var(--bg-light);
+    font-weight: 700;
   }
 
   .form-input:focus {
     border-color: var(--primary-color);
     background: white;
-    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    outline: none;
+    box-shadow: none;
   }
 
   .form-options {
@@ -428,18 +430,20 @@ import Footer from "../components/Footer.astro";
     justify-content: center;
     gap: 0.5rem;
     padding: 0.875rem;
-    border: 2px solid var(--border-color);
+    border: 2px solid black;
     border-radius: 0;
     background: white;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 0.875rem;
     transition: all 0.3s ease;
+    box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 
   .social-btn:hover {
-    border-color: var(--text-dark);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 2px 0px 0px rgba(0,0,0,1);
   }
 
   .auth-footer {
