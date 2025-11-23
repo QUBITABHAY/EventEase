@@ -2,6 +2,27 @@
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
+import jwt from "jsonwebtoken";
+
+const token = Astro.cookies.get("token")?.value;
+let user = null;
+let isCompletionMode = false;
+
+if (token) {
+  try {
+    const decoded = jwt.decode(token);
+    if (decoded) {
+      user = decoded;
+      isCompletionMode = true;
+    }
+  } catch (e) {
+    console.error("Invalid token", e);
+  }
+}
+
+if (!token) {
+    return Astro.redirect("/signup");
+}
 ---
 
 <Layout title="Register - EventEase">
@@ -395,10 +416,98 @@ import Footer from "../components/Footer.astro";
   .animate-float {
     animation: float 20s infinite ease-in-out;
   }
-  .animation-delay-7s {
-    animation-delay: 7s;
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const allSlides = Array.from(document.querySelectorAll('.tf-slide'));
+  const progressBar = document.getElementById('progressBar');
+  const currentStepEl = document.getElementById('currentStep');
+  const totalStepsEl = document.getElementById('totalSteps');
+  const hiddenRole = document.getElementById('hiddenRole');
+  const btnPrev = document.getElementById('btnPrev');
+  const btnNext = document.getElementById('btnNext');
+  const btnSubmit = document.getElementById('btnSubmit');
+  const form = document.getElementById('registerForm');
+
+  let role = '';
+  let visibleSlides = [];
+  let currentIndex = 0;
+
+  function buildVisibleSlides(selectedRole) {
+    const sorted = allSlides.slice().sort((a, b) => Number(a.dataset.step) - Number(b.dataset.step));
+    visibleSlides = sorted.filter(s => {
+      const r = s.dataset.role;
+      return r === 'all' || (selectedRole && r === selectedRole) || (r === 'USER' && selectedRole === 'USER') || (r === 'ORGANIZER' && selectedRole === 'ORGANIZER');
+    });
+    if (totalStepsEl) totalStepsEl.textContent = String(visibleSlides.length);
+    if (currentIndex >= visibleSlides.length) currentIndex = visibleSlides.length - 1;
+    showSlide(currentIndex);
   }
   .animation-delay-14s {
     animation-delay: 14s;
   }
-</style>
+
+  function validateCurrent() {
+    const slide = visibleSlides[currentIndex];
+    if (!slide) return true;
+    const requireds = slide.querySelectorAll('[required]');
+    for (const el of requireds) {
+      if (el.type === 'checkbox') {
+        if (!el.checked) { el.focus(); return false; }
+      } else if (!el.value.trim()) { el.focus(); return false; }
+    }
+    return true;
+  }
+
+  function next() {
+    if (!validateCurrent()) return;
+    if (currentIndex < visibleSlides.length - 1) {
+      currentIndex++;
+      showSlide(currentIndex);
+    }
+  }
+
+  function prev() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      showSlide(currentIndex);
+    }
+  }
+
+  const roleRadios = document.querySelectorAll('input[name="newRole"]');
+  roleRadios.forEach(r => r.addEventListener('change', (e) => {
+    role = e.target.value;
+    hiddenRole.value = role;
+    buildVisibleSlides(role);
+    if (currentIndex === 0) {
+      currentIndex = 1;
+      showSlide(currentIndex);
+    }
+  }));
+
+  if (btnNext) btnNext.addEventListener('click', next);
+  if (btnPrev) btnPrev.addEventListener('click', prev);
+  if (btnSubmit && form) btnSubmit.addEventListener('click', (e) => {
+      e.preventDefault();
+    if (validateCurrent()) {
+        // Handle form submission via fetch to support PUT method if needed, or just submit
+        // Since we are using a standard form submit to a POST endpoint that handles updates, 
+        // we can just submit.
+        form.submit();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const active = document.activeElement;
+      if (active && active.tagName !== 'TEXTAREA' && hiddenRole.value) {
+        e.preventDefault();
+        next();
+      }
+    }
+  });
+
+  buildVisibleSlides('');
+});
+</script>

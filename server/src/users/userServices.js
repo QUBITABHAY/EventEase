@@ -68,7 +68,7 @@ export const loginUserService = async (data) => {
 export const getCurrentUserService = async (data) => {
   try {
     const decoded = data;
-    
+
     const user = await prisma.user.findUnique({
       where: { id: decoded.id },
       select: {
@@ -88,7 +88,7 @@ export const getCurrentUserService = async (data) => {
 
     return {
       status: 200,
-      data: user 
+      data: user
     };
   } catch (error) {
     // Development log
@@ -114,7 +114,7 @@ export const getCurrentUserService = async (data) => {
 
 export const updateUserService = async (data) => {
   try {
-    const { newName, email, newPassword, newRole } = data;
+    const { firstName, lastName, email, phone, newPassword, newRole } = data;
 
     const checkDetail = await prisma.user.findUnique({
       where: {
@@ -129,24 +129,27 @@ export const updateUserService = async (data) => {
       };
     }
 
-    const data = await prisma.user.update({
+    const updateData = {};
+    if (firstName) updateData.firstName = firstName;
+    if (lastName) updateData.lastName = lastName;
+    if (phone) updateData.phone = phone;
+    if (newPassword) updateData.password = await bcrypt.hash(newPassword, 10);
+    if (newRole) updateData.role = newRole;
+
+    const updatedUser = await prisma.user.update({
       where: {
         id: checkDetail.id,
       },
-
-      data: {
-        name: newName,
-        password: await bcrypt.hash(newPassword, 10),
-        role: newRole,
-      },
+      data: updateData,
     });
 
     return {
       status: 200,
       message: "User updated",
-      data: data
+      data: updatedUser
     };
   } catch (error) {
+    console.log(error);
     return {
       status: 500,
       message: "Internal Server Error"

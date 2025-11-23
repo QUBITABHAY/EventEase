@@ -84,63 +84,63 @@ import Layout from '../layouts/Layout.astro';
           
           <!-- Stats Cards -->
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div class="bg-white p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow">
+            <div class="bg-white p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
               <div class="flex items-center justify-between">
                 <div>
-                  <p class="text-gray-500 text-sm font-semibold uppercase tracking-wide">Total Events</p>
-                  <p class="text-4xl font-black text-gray-900 mt-2" style="font-family: 'Poppins', sans-serif;">0</p>
+                  <p class="text-gray-500 text-sm font-black uppercase tracking-wide">Total Events</p>
+                  <p id="statTotalEvents" class="text-4xl font-black text-gray-900 mt-2" style="font-family: 'Poppins', sans-serif;">0</p>
                 </div>
-                <div class="bg-blue-100 p-4">
-                  <span class="text-3xl text-blue-600 font-bold">E</span>
+                <div class="bg-blue-100 p-3 border-2 border-black">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                 </div>
               </div>
-              <div class="mt-4 text-sm">
-                <span class="text-gray-500"> this month</span>
+              <div class="mt-4 text-sm font-bold text-gray-400 uppercase tracking-wider">
+                this month
               </div>
             </div>
 
-            <div class="bg-white p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow">
+            <div class="bg-white p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
               <div class="flex items-center justify-between">
                 <div>
-                  <p class="text-gray-500 text-sm font-semibold uppercase tracking-wide">Active Events</p>
-                  <p class="text-4xl font-black text-gray-900 mt-2" style="font-family: 'Poppins', sans-serif;">0</p>
+                  <p class="text-gray-500 text-sm font-black uppercase tracking-wide">Active Events</p>
+                  <p id="statActiveEvents" class="text-4xl font-black text-gray-900 mt-2" style="font-family: 'Poppins', sans-serif;">0</p>
                 </div>
-                <div class="bg-green-100 p-4">
-                  <span class="text-3xl text-green-600 font-bold">A</span>
+                <div class="bg-green-100 p-3 border-2 border-black">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                 </div>
               </div>
-              <div class="mt-4 text-sm">
-                <span class="text-gray-500"> currently</span>
+              <div class="mt-4 text-sm font-bold text-gray-400 uppercase tracking-wider">
+                currently
               </div>
             </div>
 
-            <div class="bg-white p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow">
+            <div class="bg-white p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
               <div class="flex items-center justify-between">
                 <div>
-                  <p class="text-gray-500 text-sm font-semibold uppercase tracking-wide">Total Registrations</p>
-                  <p class="text-4xl font-black text-gray-900 mt-2" style="font-family: 'Poppins', sans-serif;">0</p>
+                  <p class="text-gray-500 text-sm font-black uppercase tracking-wide">Registrations</p>
+                  <p id="statTotalRegistrations" class="text-4xl font-black text-gray-900 mt-2" style="font-family: 'Poppins', sans-serif;">0</p>
                 </div>
-                <div class="bg-purple-100 p-4">
-                  <span class="text-3xl text-purple-600 font-bold">R</span>
+                <div class="bg-purple-100 p-3 border-2 border-black">
+                   <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                 </div>
               </div>
-              <div class="mt-4 text-sm">
-                <span class="text-gray-500"> this week</span>
+              <div class="mt-4 text-sm font-bold text-gray-400 uppercase tracking-wider">
+                this week
               </div>
             </div>
 
-            <div class="bg-white p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow">
+            <div class="bg-white p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
               <div class="flex items-center justify-between">
                 <div>
-                  <p class="text-gray-500 text-sm font-semibold uppercase tracking-wide">Avg Attendance</p>
-                  <p class="text-4xl font-black text-gray-900 mt-2" style="font-family: 'Poppins', sans-serif;">0%</p>
+                  <p class="text-gray-500 text-sm font-black uppercase tracking-wide">Avg Attendance</p>
+                  <p id="statAvgAttendance" class="text-4xl font-black text-gray-900 mt-2" style="font-family: 'Poppins', sans-serif;">0%</p>
                 </div>
-                <div class="bg-orange-100 p-4">
-                  <span class="text-3xl text-orange-600 font-bold">%</span>
+                <div class="bg-orange-100 p-3 border-2 border-black">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
                 </div>
               </div>
-              <div class="mt-4 text-sm">
-                <span class="text-gray-500"> from last month</span>
+              <div class="mt-4 text-sm font-bold text-gray-400 uppercase tracking-wider">
+                from last month
               </div>
             </div>
           </div>
@@ -161,7 +161,7 @@ import Layout from '../layouts/Layout.astro';
                     <th class="font-bold text-gray-700">Actions</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="recentEventsTableBody">
                   <tr>
                     <td colspan="5" class="text-center py-8 text-gray-500 font-medium">No events yet</td>
                   </tr>
@@ -172,17 +172,17 @@ import Layout from '../layouts/Layout.astro';
 
           
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <button class="bg-blue-600 text-white p-8 shadow-lg hover:bg-blue-700 transition-colors text-left">
-              <h3 class="text-2xl font-black mb-2" style="font-family: 'Poppins', sans-serif;">Create New Event</h3>
-              <p class="text-blue-100 font-medium">Start organizing a new event</p>
+            <button class="bg-blue-600 text-white p-8 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all text-left group">
+              <h3 class="text-2xl font-black mb-2 uppercase tracking-tight group-hover:underline decoration-4 underline-offset-4" style="font-family: 'Poppins', sans-serif;">Create New Event</h3>
+              <p class="text-blue-100 font-bold tracking-wide">Start organizing a new event</p>
             </button>
-            <button class="bg-purple-600 text-white p-8 shadow-lg hover:bg-purple-700 transition-colors text-left">
-              <h3 class="text-2xl font-black mb-2" style="font-family: 'Poppins', sans-serif;">View Statistics</h3>
-              <p class="text-purple-100 font-medium">Check detailed analytics</p>
+            <button class="bg-purple-600 text-white p-8 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all text-left group">
+              <h3 class="text-2xl font-black mb-2 uppercase tracking-tight group-hover:underline decoration-4 underline-offset-4" style="font-family: 'Poppins', sans-serif;">View Statistics</h3>
+              <p class="text-purple-100 font-bold tracking-wide">Check detailed analytics</p>
             </button>
-            <button class="bg-green-600 text-white p-8 shadow-lg hover:bg-green-700 transition-colors text-left">
-              <h3 class="text-2xl font-black mb-2" style="font-family: 'Poppins', sans-serif;">Manage Events</h3>
-              <p class="text-green-100 font-medium">Edit and update events</p>
+            <button class="bg-green-600 text-white p-8 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all text-left group">
+              <h3 class="text-2xl font-black mb-2 uppercase tracking-tight group-hover:underline decoration-4 underline-offset-4" style="font-family: 'Poppins', sans-serif;">Manage Events</h3>
+              <p class="text-green-100 font-bold tracking-wide">Edit and update events</p>
             </button>
           </div>
         </div>
@@ -251,22 +251,22 @@ import Layout from '../layouts/Layout.astro';
                         What category does it fall under?
                       </h2>
                       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left" data-value="Technology">
+                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="Technology">
                           <div class="font-bold text-xl text-gray-900">Technology</div>
                         </button>
-                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left" data-value="Cultural">
+                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="Cultural">
                           <div class="font-bold text-xl text-gray-900">Cultural</div>
                         </button>
-                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left" data-value="Sports">
+                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="Sports">
                           <div class="font-bold text-xl text-gray-900">Sports</div>
                         </button>
-                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left" data-value="Academic">
+                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="Academic">
                           <div class="font-bold text-xl text-gray-900">Academic</div>
                         </button>
-                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left" data-value="Workshop">
+                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="Workshop">
                           <div class="font-bold text-xl text-gray-900">Workshop</div>
                         </button>
-                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left" data-value="Conference">
+                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="Conference">
                           <div class="font-bold text-xl text-gray-900">Conference</div>
                         </button>
                       </div>
@@ -282,19 +282,19 @@ import Layout from '../layouts/Layout.astro';
                         How will attendees join?
                       </h2>
                       <div class="grid grid-cols-1 gap-4">
-                        <button type="button" class="event-type-option p-8 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left" data-value="In-Person">
+                        <button type="button" class="event-type-option p-8 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="In-Person">
                           <div>
                             <div class="font-bold text-2xl text-gray-900 mb-1">In-Person</div>
                             <div class="text-gray-600">Physical venue attendance</div>
                           </div>
                         </button>
-                        <button type="button" class="event-type-option p-8 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left" data-value="Online">
+                        <button type="button" class="event-type-option p-8 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="Online">
                           <div>
                             <div class="font-bold text-2xl text-gray-900 mb-1">Online</div>
                             <div class="text-gray-600">Virtual event via video call</div>
                           </div>
                         </button>
-                        <button type="button" class="event-type-option p-8 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left" data-value="Hybrid">
+                        <button type="button" class="event-type-option p-8 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="Hybrid">
                           <div>
                             <div class="font-bold text-2xl text-gray-900 mb-1">Hybrid</div>
                             <div class="text-gray-600">Both in-person and online options</div>
@@ -652,8 +652,22 @@ import Layout from '../layouts/Layout.astro';
           </div>
 
           <!-- Events List -->
-          <div class="text-center py-16 bg-white shadow-lg border border-gray-200">
-            <p class="text-gray-600 text-lg font-semibold" style="font-family: 'Poppins', sans-serif;">No events to manage yet</p>
+          <div class="bg-white shadow-lg border border-gray-200">
+            <div class="overflow-x-auto">
+              <table class="table w-full">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="font-bold text-gray-700">Event Name</th>
+                    <th class="font-bold text-gray-700">Date</th>
+                    <th class="font-bold text-gray-700">Status</th>
+                    <th class="font-bold text-gray-700">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="manageEventsTableBody">
+                   <tr><td colspan="4" class="text-center py-8">Loading...</td></tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
 
@@ -802,7 +816,7 @@ import Layout from '../layouts/Layout.astro';
                     <th class="font-bold text-gray-700">Actions</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="registrationsTableBody">
                   <tr>
                     <td colspan="7" class="text-center py-8 text-gray-500 font-medium">No registrations yet</td>
                   </tr>
@@ -929,6 +943,7 @@ import Layout from '../layouts/Layout.astro';
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    // --- Navigation Logic ---
     const sidebar = document.getElementById('sidebar');
     const sidebarOverlay = document.getElementById('sidebarOverlay');
     const toggleSidebar = document.getElementById('toggleSidebar');
@@ -969,6 +984,11 @@ import Layout from '../layouts/Layout.astro';
           if (currentPageBreadcrumb) {
             currentPageBreadcrumb.textContent = pageTitle;
           }
+
+          // Fetch data based on page
+          if (pageId === 'dashboard') fetchStats();
+          if (pageId === 'manage') fetchMyEvents();
+          if (pageId === 'registrations') fetchRegistrations();
         }
         
         if (window.innerWidth < 1024) {
@@ -978,7 +998,126 @@ import Layout from '../layouts/Layout.astro';
       });
     });
 
-    // Typeform-style Create Event Handler
+    // --- Data Fetching Logic ---
+
+    async function fetchStats() {
+        try {
+            const res = await fetch('http://localhost:3000/api/events/organizer/stats', { credentials: 'include' });
+            if (res.ok) {
+                const { data } = await res.json();
+                document.getElementById('statTotalEvents')!.textContent = data.totalEvents;
+                document.getElementById('statActiveEvents')!.textContent = data.activeEvents;
+                document.getElementById('statTotalRegistrations')!.textContent = data.totalRegistrations;
+                document.getElementById('statAvgAttendance')!.textContent = data.avgAttendance || '0%';
+            }
+        } catch (e) {
+            console.error("Failed to fetch stats", e);
+        }
+    }
+
+    async function fetchMyEvents() {
+        const tbody = document.getElementById('manageEventsTableBody');
+        const recentTbody = document.getElementById('recentEventsTableBody');
+        if (!tbody) return;
+
+        try {
+            const res = await fetch('http://localhost:3000/api/events/organizer/my-events', { credentials: 'include' });
+            const { data } = await res.json();
+
+            const renderRow = (event) => `
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="font-medium text-gray-900">${event.title}</td>
+                    <td class="text-gray-600">${new Date(event.date).toLocaleDateString()}</td>
+                    <td><span class="badge ${new Date(event.date) > new Date() ? 'badge-success' : 'badge-ghost'} badge-sm font-bold text-white">${new Date(event.date) > new Date() ? 'Active' : 'Completed'}</span></td>
+                    <td>
+                        <button class="btn btn-ghost btn-xs text-blue-600 hover:bg-blue-50" onclick="editEvent(${event.id})">Edit</button>
+                        <button class="btn btn-ghost btn-xs text-red-600 hover:bg-red-50" onclick="deleteEvent(${event.id})">Delete</button>
+                    </td>
+                </tr>
+            `;
+
+            if (data.length === 0) {
+                const empty = '<tr><td colspan="4" class="text-center py-8 text-gray-500">No events found</td></tr>';
+                tbody.innerHTML = empty;
+                if (recentTbody) recentTbody.innerHTML = empty;
+                return;
+            }
+
+            tbody.innerHTML = data.map(renderRow).join('');
+            
+            // Also update Recent Events table (first 5)
+            if (recentTbody) {
+                // Recent events table has different columns: Name, Date, Registrations, Status, Actions
+                // We'll simplify for now or fetch registrations count if needed.
+                // For now, reusing similar structure but matching the header
+                recentTbody.innerHTML = data.slice(0, 5).map(event => `
+                    <tr>
+                        <td class="font-bold text-gray-900">${event.title}</td>
+                        <td class="text-gray-600">${new Date(event.date).toLocaleDateString()}</td>
+                        <td class="text-gray-600 font-medium">-</td> 
+                        <td><span class="badge ${new Date(event.date) > new Date() ? 'badge-success' : 'badge-ghost'} text-white font-bold">${new Date(event.date) > new Date() ? 'Active' : 'Completed'}</span></td>
+                        <td><button class="btn btn-ghost btn-xs text-blue-600 font-bold">View</button></td>
+                    </tr>
+                `).join('');
+            }
+
+        } catch (e) {
+            console.error(e);
+            tbody.innerHTML = '<tr><td colspan="4" class="text-center text-red-500">Failed to load events</td></tr>';
+        }
+    }
+
+    (window as any).deleteEvent = async (id) => {
+        if (!confirm('Are you sure you want to delete this event?')) return;
+        try {
+            const res = await fetch(`http://localhost:3000/api/events/${id}`, {
+                method: 'DELETE',
+                credentials: 'include'
+            });
+            if (res.ok) {
+                alert('Event deleted');
+                fetchMyEvents();
+                fetchStats();
+            } else {
+                alert('Failed to delete event');
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+    async function fetchRegistrations() {
+        const tbody = document.getElementById('registrationsTableBody');
+        if (!tbody) return;
+
+        try {
+            const res = await fetch('http://localhost:3000/api/events/organizer/registrations', { credentials: 'include' });
+            const { data } = await res.json();
+
+            if (data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center py-8 text-gray-500 font-medium">No registrations yet</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = data.map(reg => `
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="font-mono text-xs text-gray-500">#${reg.id}</td>
+                    <td class="font-bold text-gray-900">${reg.user.firstName} ${reg.user.lastName}</td>
+                    <td class="text-gray-600">${reg.user.email}</td>
+                    <td class="text-blue-600 font-medium">${reg.event.title}</td>
+                    <td class="text-gray-600">${new Date(reg.createdAt).toLocaleDateString()}</td>
+                    <td><span class="badge ${reg.paymentStatus === 'COMPLETED' ? 'badge-success' : 'badge-warning'} text-white font-bold badge-sm">${reg.paymentStatus}</span></td>
+                    <td><button class="btn btn-ghost btn-xs">Details</button></td>
+                </tr>
+            `).join('');
+
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+
+    // --- Typeform Logic ---
     let currentStep = 1;
     const totalSteps = 12;
     const slides = document.querySelectorAll('.question-slide');
@@ -995,13 +1134,11 @@ import Layout from '../layouts/Layout.astro';
       if (progressBar) progressBar.style.width = `${progress}%`;
       if (currentStepEl) currentStepEl.textContent = currentStep.toString();
       
-      // Update button states
       if (prevButton) (prevButton as HTMLButtonElement).disabled = currentStep === 1;
       if (nextButton) {
         nextButton.textContent = currentStep === totalSteps ? 'Submit' : 'Next';
       }
 
-      // Show/hide skip button for optional fields
       const optionalSteps = [10, 11, 12];
       if (skipButton) {
         skipButton.style.display = optionalSteps.includes(currentStep) ? 'block' : 'none';
@@ -1026,7 +1163,6 @@ import Layout from '../layouts/Layout.astro';
       });
       updateProgress();
       
-      // Focus on input
       const activeSlide = document.querySelector('.question-slide.active');
       const input = activeSlide?.querySelector('input, textarea');
       if (input) (input as HTMLElement).focus();
@@ -1073,30 +1209,47 @@ import Layout from '../layouts/Layout.astro';
       }
     }
 
-    function submitForm() {
+    async function submitForm() {
       const formData = {
         title: (document.getElementById('eventTitle') as HTMLInputElement)?.value,
         description: (document.getElementById('eventDescription') as HTMLTextAreaElement)?.value,
         category: (document.getElementById('eventCategory') as HTMLInputElement)?.value,
-        type: (document.getElementById('eventType') as HTMLInputElement)?.value,
-        startDate: (document.getElementById('startDate') as HTMLInputElement)?.value,
-        startTime: (document.getElementById('startTime') as HTMLInputElement)?.value,
-        endDate: (document.getElementById('endDate') as HTMLInputElement)?.value,
-        endTime: (document.getElementById('endTime') as HTMLInputElement)?.value,
+        // type: (document.getElementById('eventType') as HTMLInputElement)?.value, // Backend doesn't have type yet, but we can send it or ignore
+        date: (document.getElementById('startDate') as HTMLInputElement)?.value,
+        startTime: (document.getElementById('startDate') as HTMLInputElement)?.value + 'T' + (document.getElementById('startTime') as HTMLInputElement)?.value, // Combine for ISO
+        endTime: (document.getElementById('endDate') as HTMLInputElement)?.value + 'T' + (document.getElementById('endTime') as HTMLInputElement)?.value,
         venue: (document.getElementById('venueName') as HTMLInputElement)?.value,
-        address: (document.getElementById('venueAddress') as HTMLInputElement)?.value,
-        maxAttendees: (document.getElementById('maxAttendees') as HTMLInputElement)?.value,
-        entryFee: (document.getElementById('entryFee') as HTMLInputElement)?.value,
+        // address: (document.getElementById('venueAddress') as HTMLInputElement)?.value,
+        capacity: (document.getElementById('maxAttendees') as HTMLInputElement)?.value,
+        price: (document.getElementById('entryFee') as HTMLInputElement)?.value,
       };
 
-      console.log('Event Created:', formData);
-      alert('Event created successfully!');
-      
-      // Close typeform and reset
-      const createPage = document.getElementById('create-page');
-      createPage?.classList.add('hidden');
-      currentStep = 1;
-      showSlide(1);
+      try {
+          const res = await fetch('http://localhost:3000/api/events', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(formData),
+              credentials: 'include'
+          });
+          
+          if (res.ok) {
+              alert('Event created successfully!');
+              const createPage = document.getElementById('create-page');
+              createPage?.classList.add('hidden');
+              currentStep = 1;
+              showSlide(1);
+              fetchStats();
+              fetchMyEvents();
+              // Go to dashboard
+              document.querySelector('.nav-link[data-page="dashboard"]')?.dispatchEvent(new Event('click'));
+          } else {
+              const err = await res.json();
+              alert('Failed to create event: ' + err.message);
+          }
+      } catch (e) {
+          console.error(e);
+          alert('Error creating event');
+      }
     }
 
     // Event Listeners
@@ -1111,18 +1264,16 @@ import Layout from '../layouts/Layout.astro';
       showSlide(1);
     });
 
-    // Enter key navigation
     typeformCreate?.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
-        e.preventDefault();
         const target = e.target as HTMLElement;
         if (target.tagName !== 'TEXTAREA') {
-          nextStep();
+            e.preventDefault();
+            nextStep();
         }
       }
     });
 
-    // Category selection
     document.querySelectorAll('.category-option').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.category-option').forEach(b => {
@@ -1140,7 +1291,6 @@ import Layout from '../layouts/Layout.astro';
       });
     });
 
-    // Event type selection
     document.querySelectorAll('.event-type-option').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.event-type-option').forEach(b => {
@@ -1158,14 +1308,20 @@ import Layout from '../layouts/Layout.astro';
       });
     });
 
-    // Initialize
+    // Initial Load
     showSlide(1);
+    fetchStats();
+    fetchMyEvents(); // Pre-fetch
   });
 </script>
 
 <style>
   /* Remove all border radius */
   * {
+    border-radius: 0 !important;
+  }
+  
+  .btn, .card, .input, .select, .badge, .modal-box, .avatar, .dropdown-content {
     border-radius: 0 !important;
   }
   
