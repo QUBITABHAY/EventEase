@@ -62,21 +62,19 @@ export const localLogin = async (req, res) => {
   try {
     const result = await localLoginService(req.body);
 
-    // 1. Handle Profile Completion Requirement
     if (result.requiresProfile) {
-      const { id, email } = result.user; 
-      
+      const { id, email } = result.user;
+
       const tempToken = jwt.sign(
-        { 
-          id: id, 
-          email: email, 
-          temp: true // Flag to indicate a temporary token
+        {
+          id: id,
+          email: email,
+          temp: true,
         },
         process.env.JWT_SECRET,
         { expiresIn: "30m" },
       );
 
-      // ACTION: Set the temporary token in an HTTP-only cookie
       res.cookie("token", tempToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
@@ -84,20 +82,17 @@ export const localLogin = async (req, res) => {
         maxAge: 30 * 60 * 1000,
       });
 
-      // ACTION: Respond with 200 and the redirect flag
       return res.status(200).json({
         message: result.message || "Profile incomplete. Redirecting to setup.",
-        requiresProfile: true, 
-        token:tempToken
+        requiresProfile: true,
+        token: tempToken,
       });
     }
 
-    // 2. Handle Failed Login Attempts
     if (result.status !== 200) {
       return res.status(result.status).json({ message: result.message });
     }
 
-    // 3. Handle Regular Successful Login (Profile is Complete)
     const token = jwt.sign(
       { id: result.user.id, email: result.user.email, role: result.user.role },
       process.env.JWT_SECRET,
@@ -121,27 +116,20 @@ export const localLogin = async (req, res) => {
   }
 };
 
-
 export const completeProfile = async (req, res) => {
   try {
-    // NOTE: Assuming middleware is run BEFORE this, which verifies the temp token
-    // and extracts the userId, likely attaching it to req.body or req.user.
-    
-    // The service layer (completeProfileService) should handle the userId from req.body.
     const result = await completeProfileService(req.body);
 
     if (result.status !== 200) {
       return res.status(result.status).json({ message: result.message });
     }
 
-    // ACTION: Generate the permanent token
     const token = jwt.sign(
       { id: result.user.id, email: result.user.email, role: result.user.role },
       process.env.JWT_SECRET,
       { expiresIn: process.env.JWT_EXPIRES_IN || "24h" },
     );
 
-    // ACTION: Replace the temporary token cookie with the permanent token cookie
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
