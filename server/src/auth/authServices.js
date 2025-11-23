@@ -23,7 +23,7 @@ export const localSignupService = async (data) => {
         otp,
       }),
       "EX",
-      600
+      600,
     );
 
     const subject = "EventEase - OTP Verification";
@@ -82,8 +82,9 @@ export const verifyOtpService = async (data) => {
 export const completeProfileService = async (data) => {
   try {
     const { userId, firstName, lastName, phone, role } = data;
+
     const user = await prisma.user.findUnique({
-      where: { id: parseInt(userId) },
+      where: { id: userId },
     });
 
     if (!user) {
@@ -95,7 +96,7 @@ export const completeProfileService = async (data) => {
     }
 
     const updatedUser = await prisma.user.update({
-      where: { id: parseInt(userId) },
+      where: { id: userId },
       data: {
         firstName,
         lastName,
