@@ -24,17 +24,13 @@ export const localSignupValidation = (req, res, next) => {
   next();
 };
 export const completeProfileValidation = (req, res, next) => {
-  // REMOVE userId from destructured object (it should be set by prior middleware)
-  // Ensure we check all fields the frontend sends: firstName, lastName, phone, role
   const { firstName, lastName, phone, role } = req.body; 
 
-  if (!firstName || !lastName || !phone || !role) { // Updated check
+  if (!firstName || !lastName || !phone || !role) { 
     return res.status(400).json({
       message: "First name, last name, phone, and role are required",
     });
   }
-
-  // NOTE: Remove the check for userId here, as it is now guaranteed by isAuthenticatedTemp
 
   if (firstName.trim().length === 0 || lastName.trim().length === 0) {
     return res.status(400).json({
@@ -42,7 +38,6 @@ export const completeProfileValidation = (req, res, next) => {
     });
   }
   
-  // You might want to add phone number format validation here!
 
   next();
 };
@@ -60,7 +55,7 @@ export const localLoginValidation = (req, res, next) => {
 
 
 export const isAuthenticatedTemp = (req, res, next) => {
-  // 1. Get token from cookie
+
   const token = req.cookies.token; 
 
   if (!token) {
@@ -70,14 +65,10 @@ export const isAuthenticatedTemp = (req, res, next) => {
   }
 
   try {
-      // DEBUG: Log the secret used for verification
-      // console.log('DEBUG: JWT_SECRET for VERIFICATION:', process.env.JWT_SECRET);
-      
-      // 2. Verify and decode the token
-      // This line is the source of the "Invalid or expired token" error.
+    
       const decoded = jwt.verify(token,token); 
       console.log("hahahahhahah",decoded)
-      // 3. CRUCIAL Payload Checks: 
+ 
       if (!decoded.id || !decoded.temp) {
           console.error("Token payload check failed: Missing ID or temp flag.", decoded);
           return res.status(403).json({ 
@@ -85,18 +76,16 @@ export const isAuthenticatedTemp = (req, res, next) => {
           });
       }
 
-     
-      
-      // 4. Inject the userId into the body for subsequent controllers/validation
+  
       req.body.userId = decoded.id; 
       
       console.log(`Authenticated Temp User ID: ${decoded.id}`);
       next();
   } catch (error) {
-      // This handles ExpiredTokenError, JsonWebTokenError (invalid signature/secret mismatch)
+
       console.error("JWT Verification failed:", error.message);
       
-      // FIX: Clear the invalid cookie to prevent infinite loop errors
+
       res.clearCookie("token", { path: '/' }); 
 
       return res.status(401).json({ 
