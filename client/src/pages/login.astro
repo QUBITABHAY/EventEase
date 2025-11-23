@@ -134,7 +134,7 @@ import Footer from "../components/Footer.astro";
             <button
               type="submit"
               class="w-full h-10 py-4 text-white font-semibold text-md flex items-center justify-center gap-2
-         bg-blue-700 hover:bg-blue-900 transition-all duration-300 rounded-sm cursor-pointer"
+                    bg-blue-700 hover:bg-blue-900 transition-all duration-300 rounded-sm cursor-pointer"
             >
               <span>Sign In</span>
               <svg
@@ -224,36 +224,35 @@ import Footer from "../components/Footer.astro";
 
 <script>
   const loginForm = document.getElementById("loginForm");
+  const API_URL = "http://localhost:3000/api/auth/local/login";
 
   loginForm?.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const formData = new FormData(e.target as HTMLFormElement);
+    const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
 
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/auth/local/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-          credentials: "include",
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify(data),
+        credentials: "include", // CRITICAL: Ensures the server can SET the cookie
+      });
 
       const result = await response.json();
 
       if (response.ok) {
-        // Check for temp token (profile incomplete)
-        if (result.requiresProfile && result.tempToken) {
-          window.location.href = `/complete-profile?token=${result.tempToken}&userId=${result.userId}`;
+        // ACTION: Check ONLY for the requiresProfile flag
+        if (result.requiresProfile) {
+          // Backend has set the temporary cookie securely. Redirect cleanly.
+          window.location.href = "/completeprofile";
           return;
         }
 
-        // Redirect based on role
+        // Full Login Success
         const userRole = result.user.role;
         if (userRole === "ORGANIZER" || userRole === "BOTH") {
           window.location.href = "/organiser";

@@ -13,6 +13,7 @@ import {
   localSignupValidation,
   localLoginValidation,
   completeProfileValidation,
+  isAuthenticatedTemp,
 } from "./authMiddleware.js";
 
 const authRoutes = Router();
@@ -22,6 +23,7 @@ authRoutes.post("/local/verify-otp", verifyOtp);
 authRoutes.post("/local/login", localLoginValidation, localLogin);
 authRoutes.post(
   "/local/complete-profile",
+  isAuthenticatedTemp,
   completeProfileValidation,
   completeProfile,
 );
