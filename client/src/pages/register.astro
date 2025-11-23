@@ -2,6 +2,27 @@
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
+import jwt from "jsonwebtoken";
+
+const token = Astro.cookies.get("token")?.value;
+let user = null;
+let isCompletionMode = false;
+
+if (token) {
+  try {
+    const decoded = jwt.decode(token);
+    if (decoded) {
+      user = decoded;
+      isCompletionMode = true;
+    }
+  } catch (e) {
+    console.error("Invalid token", e);
+  }
+}
+
+if (!token) {
+    return Astro.redirect("/signup");
+}
 ---
 
 <Layout title="Register - EventEase">
@@ -9,12 +30,17 @@ import Footer from "../components/Footer.astro";
   <main class="min-h-screen bg-white flex items-center justify-center px-8 py-12">
     <div class="w-full max-w-4xl">
       <div class="mb-8">
-        <h1 class="text-3xl font-black text-gray-900 mb-2" style="font-family: 'Poppins', sans-serif;">Create your EventEase account</h1>
+        <h1 class="text-3xl font-black text-gray-900 mb-2" style="font-family: 'Poppins', sans-serif;">
+          {isCompletionMode ? "Complete your profile" : "Create your EventEase account"}
+        </h1>
         <p class="text-gray-500 font-bold">One question at a time — fast and simple.</p>
       </div>
 
-      <form id="registerForm" action="http://localhost:3000/api/user/register" method="POST">
+      <form id="registerForm" action="http://localhost:3000/api/user/update" method="POST">
           <input type="hidden" name="role" id="hiddenRole" value="" />
+          <input type="hidden" name="email" value={user?.email} />
+          <!-- PUT method override if needed by backend framework, though here we use POST to update endpoint -->
+          <input type="hidden" name="_method" value="PUT" />
 
         <div class="flex items-center gap-4 mb-8">
           <div class="flex-1 bg-gray-200 h-3 overflow-hidden">
@@ -31,7 +57,7 @@ import Footer from "../components/Footer.astro";
               <div class="flex flex-col gap-4">
                 <label class="bg-gray-100 p-6 cursor-pointer hover:bg-blue-600 hover:text-white transition-all">
                   <div class="flex items-start gap-3">
-                    <input type="radio" name="role_choice" value="organizer" class="mt-1" />
+                    <input type="radio" name="newRole" value="ORGANIZER" class="mt-1" />
                     <div>
                       <div class="font-black">Organizer</div>
                       <div class="text-sm font-semibold">Create and manage events</div>
@@ -40,7 +66,7 @@ import Footer from "../components/Footer.astro";
                 </label>
                 <label class="bg-gray-100 p-4 cursor-pointer hover:bg-blue-600 hover:text-white transition-all">
                   <div class="flex items-start gap-3">
-                    <input type="radio" name="role_choice" value="user" class="mt-1" />
+                    <input type="radio" name="newRole" value="USER" class="mt-1" />
                     <div>
                       <div class="font-black">Attendee</div>
                       <div class="text-sm font-semibold">Find and join events</div>
@@ -50,45 +76,26 @@ import Footer from "../components/Footer.astro";
               </div>
             </section>
 
-            <section class="tf-slide hidden" data-step="2" data-role="organizer">
+            <section class="tf-slide hidden" data-step="2" data-role="ORGANIZER">
               <h2 class="text-3xl font-black text-gray-900 mb-6">What's your organization or group called?</h2>
               <input type="text" name="organization" class="w-full px-6 py-4 bg-gray-100 text-xl font-semibold focus:bg-blue-50 focus:outline-none" placeholder="Organization name" />
             </section>
 
-            <section class="tf-slide hidden" data-step="3" data-role="organizer">
+            <section class="tf-slide hidden" data-step="3" data-role="ORGANIZER">
               <h2 class="text-3xl font-black text-gray-900 mb-6">Website (optional)</h2>
               <input type="url" name="organization_website" class="w-full px-6 py-4 bg-gray-100 text-xl font-semibold focus:bg-blue-50 focus:outline-none" placeholder="https://example.com" />
             </section>
 
-            <section class="tf-slide hidden" data-step="4" data-role="organizer">
+            <section class="tf-slide hidden" data-step="4" data-role="ORGANIZER">
               <h2 class="text-3xl font-black text-gray-900 mb-6">Organization contact number</h2>
               <input type="tel" name="organization_phone" class="w-full px-6 py-4 bg-gray-100 text-xl font-semibold focus:bg-blue-50 focus:outline-none" placeholder="+1 (555) 000-0000" />
             </section>
 
-            <section class="tf-slide hidden" data-step="5" data-role="user">
-              <h2 class="text-3xl font-black text-gray-900 mb-6">What's your first name?</h2>
-              <input type="text" name="firstName" class="w-full px-6 py-4 bg-gray-100 text-xl font-semibold focus:bg-blue-50 focus:outline-none" placeholder="John" required />
-            </section>
+            <!-- Skipped Name/Email/Password steps as they are already collected -->
 
-            <section class="tf-slide hidden" data-step="6" data-role="user">
-              <h2 class="text-3xl font-black text-gray-900 mb-6">What's your last name?</h2>
-              <input type="text" name="lastName" class="w-full px-6 py-4 bg-gray-100 text-xl font-semibold focus:bg-blue-50 focus:outline-none" placeholder="Doe" required />
-            </section>
-
-            <section class="tf-slide hidden" data-step="7" data-role="user">
-              <h2 class="text-3xl font-black text-gray-900 mb-6">Email address</h2>
-              <input type="email" name="email" class="w-full px-6 py-4 bg-gray-100 text-xl font-semibold focus:bg-blue-50 focus:outline-none" placeholder="name@something.com" required />
-            </section>
-
-            <section class="tf-slide hidden" data-step="8" data-role="user">
+            <section class="tf-slide hidden" data-step="8" data-role="USER">
               <h2 class="text-3xl font-black text-gray-900 mb-6">Phone number (optional)</h2>
               <input type="tel" name="phone" class="w-full px-6 py-4 bg-gray-100 text-xl font-semibold focus:bg-blue-50 focus:outline-none" placeholder="+1 (555) 000-0000" />
-            </section>
-
-            <section class="tf-slide hidden" data-step="9" data-role="user">
-              <h2 class="text-3xl font-black text-gray-900 mb-6">Create a password</h2>
-              <input type="password" name="password" class="w-full px-6 py-4 bg-gray-100 text-xl font-semibold focus:bg-blue-50 focus:outline-none" placeholder="Choose a secure password" required minlength="8" />
-              <p class="text-base text-gray-500 font-bold mt-3">Minimum 8 characters</p>
             </section>
 
             <section class="tf-slide hidden" data-step="10" data-role="all">
@@ -101,20 +108,17 @@ import Footer from "../components/Footer.astro";
 
             <section class="tf-slide hidden" data-step="11" data-role="all">
               <h2 class="text-3xl font-black text-gray-900 mb-6">Ready to finish?</h2>
-              <p class="text-gray-600 font-bold text-lg mb-8">Review your answers and create your account.</p>
+              <p class="text-gray-600 font-bold text-lg mb-8">Review your answers and complete your profile.</p>
             </section>
           </div>
 
         <div class="flex justify-between gap-3 mt-8">
           <button type="button" id="btnPrev" class="px-8 py-3 bg-gray-200 text-gray-900 font-black hover:bg-gray-300 transition-colors">Previous</button>
           <button type="button" id="btnNext" class="px-8 py-3 bg-blue-600 text-white font-black hover:bg-blue-700 transition-colors">Next</button>
-          <button type="submit" id="btnSubmit" class="hidden px-8 py-3 bg-blue-600 text-white font-black hover:bg-blue-700 transition-colors">Create Account</button>
+          <button type="submit" id="btnSubmit" class="hidden px-8 py-3 bg-blue-600 text-white font-black hover:bg-blue-700 transition-colors">Complete Registration</button>
         </div>
       </form>
       
-      <div class="text-center mt-8">
-        <p class="text-gray-600 font-bold">Already have an account? <a href="/login" class="text-blue-600 font-black hover:underline">Sign in</a></p>
-      </div>
     </div>
   </main>
   <Footer />
@@ -143,21 +147,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const progressBar = document.getElementById('progressBar');
   const currentStepEl = document.getElementById('currentStep');
   const totalStepsEl = document.getElementById('totalSteps');
-  const hiddenRole = document.getElementById('hiddenRole') as HTMLInputElement;
+  const hiddenRole = document.getElementById('hiddenRole');
   const btnPrev = document.getElementById('btnPrev');
   const btnNext = document.getElementById('btnNext');
   const btnSubmit = document.getElementById('btnSubmit');
-  const form = document.getElementById('registerForm') as HTMLFormElement;
+  const form = document.getElementById('registerForm');
 
   let role = '';
-  let visibleSlides: Element[] = [];
+  let visibleSlides = [];
   let currentIndex = 0;
 
   function buildVisibleSlides(selectedRole) {
-    const sorted = allSlides.slice().sort((a, b) => Number((a as HTMLElement).dataset.step) - Number((b as HTMLElement).dataset.step));
+    const sorted = allSlides.slice().sort((a, b) => Number(a.dataset.step) - Number(b.dataset.step));
     visibleSlides = sorted.filter(s => {
-      const r = (s as HTMLElement).dataset.role;
-      return r === 'all' || (selectedRole && r === selectedRole) || (r === 'user');
+      const r = s.dataset.role;
+      return r === 'all' || (selectedRole && r === selectedRole) || (r === 'USER' && selectedRole === 'USER') || (r === 'ORGANIZER' && selectedRole === 'ORGANIZER');
     });
     if (totalStepsEl) totalStepsEl.textContent = String(visibleSlides.length);
     if (currentIndex >= visibleSlides.length) currentIndex = visibleSlides.length - 1;
@@ -188,10 +192,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!slide) return true;
     const requireds = slide.querySelectorAll('[required]');
     for (const el of requireds) {
-      const input = el as HTMLInputElement;
-      if (input.type === 'checkbox') {
-        if (!input.checked) { input.focus(); return false; }
-      } else if (!input.value.trim()) { input.focus(); return false; }
+      if (el.type === 'checkbox') {
+        if (!el.checked) { el.focus(); return false; }
+      } else if (!el.value.trim()) { el.focus(); return false; }
     }
     return true;
   }
@@ -211,9 +214,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  const roleRadios = document.querySelectorAll('input[name="role_choice"]');
+  const roleRadios = document.querySelectorAll('input[name="newRole"]');
   roleRadios.forEach(r => r.addEventListener('change', (e) => {
-    role = (e.target as HTMLInputElement).value;
+    role = e.target.value;
     hiddenRole.value = role;
     buildVisibleSlides(role);
     if (currentIndex === 0) {
@@ -224,8 +227,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (btnNext) btnNext.addEventListener('click', next);
   if (btnPrev) btnPrev.addEventListener('click', prev);
-  if (btnSubmit && form) btnSubmit.addEventListener('click', () => {
-    if (validateCurrent()) form.submit();
+  if (btnSubmit && form) btnSubmit.addEventListener('click', (e) => {
+      e.preventDefault();
+    if (validateCurrent()) {
+        // Handle form submission via fetch to support PUT method if needed, or just submit
+        // Since we are using a standard form submit to a POST endpoint that handles updates, 
+        // we can just submit.
+        form.submit();
+    }
   });
 
   document.addEventListener('keydown', (e) => {

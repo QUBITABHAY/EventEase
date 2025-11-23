@@ -95,7 +95,7 @@ import EventCalendar from '../components/EventCalendar.astro';
 
           <div class="bg-white p-8 shadow-lg border border-gray-200 mb-8 hover:shadow-xl transition-shadow duration-300">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
-              <input type="text" placeholder="Search events..." class="input input-bordered col-span-1 md:col-span-4" />
+              <input type="text" id="searchEvents" placeholder="Search events..." class="input input-bordered col-span-1 md:col-span-4" />
               
               <select class="select select-bordered">
                 <option disabled selected>Category</option>
@@ -114,42 +114,24 @@ import EventCalendar from '../components/EventCalendar.astro';
                 <option>Online</option>
               </select>
 
-              <button class="btn btn-primary">
+              <button class="btn btn-primary" id="filterBtn">
                 Filter
               </button>
             </div>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="card bg-white shadow-md border border-gray-200 hover:shadow-xl transition-all hover:-translate-y-1 overflow-hidden">
-              <figure class="h-48 bg-blue-400-600 relative">
-                <div class="absolute inset-0 bg-black/20"></div>
-              </figure>
-              <div class="card-body p-6">
-                <div class="flex justify-between items-start mb-4">
-                  <h2 class="card-title text-xl font-bold text-gray-900" style="font-family: 'Poppins', sans-serif;">AI Hackathon 2025</h2>
-                  <span class="badge bg-blue-600 text-white border-none text-sm font-bold shadow-md px-3 py-1">Tech</span>
-                </div>
-                <div class="space-y-3 text-base text-gray-600 font-medium">
-                  <div class="flex items-center gap-2">
-                    <span class="font-bold">Date:</span> Dec 20, 2025
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <span class="font-bold">Location:</span> Main Auditorium
-                  </div>
-                </div>
-                <div class="card-actions justify-end mt-5">
-                  <button class="btn btn-primary btn-sm font-bold shadow-lg" style="font-family: 'Poppins', sans-serif;">View Details</button>
-                </div>
-              </div>
-            </div>
+          <div id="eventsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Events will be loaded here dynamically -->
+             <div class="col-span-full text-center py-10 text-gray-500">Loading events...</div>
           </div>
         </div>
 
         <div id="myevents-page" class="page-content hidden">
           <h1 class="text-4xl font-black text-gray-900 mb-8 tracking-tight" style="font-family: 'Poppins', sans-serif;">My Events</h1>
-          <div class="text-center py-16 bg-white shadow-lg border border-gray-200">
-            <p class="text-gray-600 text-lg font-semibold" style="font-family: 'Poppins', sans-serif;">Your registered events will appear here</p>
+          <div id="myEventsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="col-span-full text-center py-16 bg-white shadow-lg border border-gray-200">
+                <p class="text-gray-600 text-lg font-semibold" style="font-family: 'Poppins', sans-serif;">Loading your events...</p>
+            </div>
           </div>
         </div>
 
@@ -173,26 +155,132 @@ import EventCalendar from '../components/EventCalendar.astro';
 
         <div id="notifications-page" class="page-content hidden">
           <h1 class="text-4xl font-black text-gray-900 mb-8 tracking-tight" style="font-family: 'Poppins', sans-serif;">Notifications</h1>
-          <div class="text-center py-16 bg-white shadow-lg border border-gray-200">
-            <p class="text-gray-600 text-lg font-semibold" style="font-family: 'Poppins', sans-serif;">No new notifications</p>
+          <div class="space-y-4">
+             <div class="bg-white p-6 shadow-md border-l-4 border-blue-500">
+                <h3 class="font-bold text-lg">Welcome to EventEase!</h3>
+                <p class="text-gray-600">Your account has been successfully created. Explore events and start your journey.</p>
+                <span class="text-xs text-gray-400 mt-2 block">Just now</span>
+             </div>
+             <!-- Mock notifications for now -->
+             <div class="bg-white p-6 shadow-md border-l-4 border-green-500">
+                <h3 class="font-bold text-lg">Profile Updated</h3>
+                <p class="text-gray-600">Your profile details have been updated successfully.</p>
+                <span class="text-xs text-gray-400 mt-2 block">2 mins ago</span>
+             </div>
           </div>
         </div>
 
         <div id="profile-page" class="page-content hidden">
           <h1 class="text-4xl font-black text-gray-900 mb-8 tracking-tight" style="font-family: 'Poppins', sans-serif;">Profile Settings</h1>
-          <div class="bg-white shadow-lg border border-gray-200 p-8">
-            <p class="text-gray-600 text-lg text-center font-semibold" style="font-family: 'Poppins', sans-serif;">Profile settings will appear here</p>
+          <div class="bg-white shadow-lg border border-gray-200 p-8 max-w-2xl">
+            <form id="profileForm" class="space-y-6">
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">First Name</label>
+                        <input type="text" name="firstName" id="profileFirstName" class="input input-bordered w-full" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Last Name</label>
+                        <input type="text" name="lastName" id="profileLastName" class="input input-bordered w-full" />
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Email</label>
+                    <input type="email" name="email" id="profileEmail" class="input input-bordered w-full bg-gray-100" readonly />
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Phone</label>
+                    <input type="tel" name="phone" id="profilePhone" class="input input-bordered w-full" />
+                </div>
+                
+                <div class="pt-4">
+                    <button type="submit" class="btn btn-primary w-full">Update Profile</button>
+                </div>
+            </form>
           </div>
         </div>
       </main>
     </div>
 
     <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden hidden"></div>
+
+    <!-- Event Details Modal -->
+    <dialog id="eventModal" class="modal">
+      <div class="modal-box w-11/12 max-w-3xl p-0 overflow-hidden bg-white">
+        <div class="relative h-64 bg-blue-600">
+            <img id="modalImage" src="" alt="Event" class="w-full h-full object-cover opacity-80" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <button class="btn btn-circle btn-sm absolute right-4 top-4 bg-white/20 border-none text-white hover:bg-white/40" onclick="eventModal.close()">✕</button>
+            <div class="absolute bottom-6 left-6 text-white">
+                <span id="modalCategory" class="badge bg-blue-500 border-none text-white mb-2">Category</span>
+                <h2 id="modalTitle" class="text-3xl font-black">Event Title</h2>
+            </div>
+        </div>
+        <div class="p-8">
+            <div class="flex gap-8 mb-8">
+                <div class="flex-1">
+                    <h3 class="text-lg font-bold mb-2">Description</h3>
+                    <p id="modalDescription" class="text-gray-600 leading-relaxed">Event description goes here...</p>
+                    
+                    <div class="mt-6 grid grid-cols-2 gap-4">
+                        <div class="flex items-center gap-3 text-gray-700">
+                            <span class="text-xl">📅</span>
+                            <div>
+                                <p class="text-xs text-gray-500 font-bold">DATE</p>
+                                <p id="modalDate" class="font-semibold">Dec 20, 2025</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 text-gray-700">
+                            <span class="text-xl">⏰</span>
+                            <div>
+                                <p class="text-xs text-gray-500 font-bold">TIME</p>
+                                <p id="modalTime" class="font-semibold">10:00 AM</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 text-gray-700">
+                            <span class="text-xl">📍</span>
+                            <div>
+                                <p class="text-xs text-gray-500 font-bold">LOCATION</p>
+                                <p id="modalVenue" class="font-semibold">Main Auditorium</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 text-gray-700">
+                            <span class="text-xl">🎟️</span>
+                            <div>
+                                <p class="text-xs text-gray-500 font-bold">PRICE</p>
+                                <p id="modalPrice" class="font-semibold">Free</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-64 bg-gray-50 p-6 rounded-xl h-fit">
+                    <h3 class="font-bold mb-4">Organizer</h3>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="avatar placeholder">
+                            <div class="bg-neutral text-neutral-content rounded-full w-10">
+                                <span class="text-xs">OR</span>
+                            </div>
+                        </div>
+                        <div>
+                            <p id="modalOrganizer" class="font-semibold text-sm">Organizer Name</p>
+                            <p class="text-xs text-gray-500">Event Organizer</p>
+                        </div>
+                    </div>
+                    <button id="registerBtn" class="btn btn-primary w-full shadow-lg">Register Now</button>
+                </div>
+            </div>
+        </div>
+      </div>
+      <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+      </form>
+    </dialog>
   </div>
 </Layout>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    // ... (existing sidebar logic) ...
     const sidebar = document.getElementById('sidebar');
     const sidebarOverlay = document.getElementById('sidebarOverlay');
     const toggleSidebar = document.getElementById('toggleSidebar');
@@ -233,6 +321,10 @@ import EventCalendar from '../components/EventCalendar.astro';
           if (currentPageBreadcrumb) {
             currentPageBreadcrumb.textContent = pageTitle;
           }
+          
+          // Refresh data based on page
+          if (pageId === 'discover') fetchEvents();
+          if (pageId === 'myevents') fetchMyEvents();
         }
         
         if (window.innerWidth < 1024) {
@@ -241,10 +333,206 @@ import EventCalendar from '../components/EventCalendar.astro';
         }
       });
     });
+
+    // --- New Logic ---
+
+    // 1. Fetch User Profile
+    async function fetchUserProfile() {
+        try {
+            const res = await fetch('http://localhost:3000/api/user/me', { credentials: 'include' });
+            if (res.ok) {
+                const { data } = await res.json();
+                // Populate Profile Form
+                const firstNameInput = document.getElementById('profileFirstName') as HTMLInputElement;
+                const lastNameInput = document.getElementById('profileLastName') as HTMLInputElement;
+                const emailInput = document.getElementById('profileEmail') as HTMLInputElement;
+                const phoneInput = document.getElementById('profilePhone') as HTMLInputElement;
+
+                if (firstNameInput) firstNameInput.value = data.firstName || '';
+                if (lastNameInput) lastNameInput.value = data.lastName || '';
+                if (emailInput) emailInput.value = data.email || '';
+                if (phoneInput) phoneInput.value = data.phone || '';
+
+                // Update Sidebar/Header
+                const userNameElements = document.querySelectorAll('.user-name, h3.font-bold.text-lg.text-gray-900'); // Targeting sidebar name too
+                userNameElements.forEach(el => el.textContent = `${data.firstName} ${data.lastName}`);
+                
+                // Initials
+                const initials = `${data.firstName[0]}${data.lastName[0]}`.toUpperCase();
+                document.querySelectorAll('.avatar span').forEach(el => el.textContent = initials);
+            }
+        } catch (e) {
+            console.error("Failed to fetch profile", e);
+        }
+    }
+
+    // 2. Update Profile
+    const profileForm = document.getElementById('profileForm');
+    profileForm?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target as HTMLFormElement);
+        const data = Object.fromEntries(formData.entries());
+        // Add email from readonly field if needed, but backend uses email to identify user currently (which is flawed but per existing logic).
+        // Actually, updateUserService uses email to find user. We should send it.
+        // Wait, the form has email input.
+        
+        try {
+            const res = await fetch('http://localhost:3000/api/user/update', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+                credentials: 'include'
+            });
+            if (res.ok) {
+                alert('Profile updated successfully!');
+                fetchUserProfile(); // Refresh
+            } else {
+                alert('Failed to update profile');
+            }
+        } catch (e) {
+            console.error(e);
+            alert('Error updating profile');
+        }
+    });
+
+    // 3. Fetch Events (Discover)
+    async function fetchEvents() {
+        const grid = document.getElementById('eventsGrid');
+        if (!grid) return;
+        grid.innerHTML = '<div class="col-span-full text-center py-10 text-gray-500">Loading events...</div>';
+
+        try {
+            const res = await fetch('http://localhost:3000/api/events');
+            const { data } = await res.json();
+            
+            if (data.length === 0) {
+                grid.innerHTML = '<div class="col-span-full text-center py-10 text-gray-500">No upcoming events found.</div>';
+                return;
+            }
+
+            grid.innerHTML = data.map(event => `
+                <div class="card bg-white shadow-md border border-gray-200 hover:shadow-xl transition-all hover:-translate-y-1 overflow-hidden">
+                  <figure class="h-48 bg-gray-200 relative">
+                    <img src="${event.posterUrl || 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80'}" class="w-full h-full object-cover" />
+                    <div class="absolute top-4 right-4">
+                        <span class="badge bg-white text-gray-900 font-bold shadow-sm">${event.category}</span>
+                    </div>
+                  </figure>
+                  <div class="card-body p-6">
+                    <h2 class="card-title text-xl font-bold text-gray-900 mb-2 line-clamp-1">${event.title}</h2>
+                    <div class="space-y-2 text-sm text-gray-600 mb-4">
+                      <div class="flex items-center gap-2">
+                        <span>📅</span> ${new Date(event.date).toLocaleDateString()}
+                      </div>
+                      <div class="flex items-center gap-2">
+                        <span>📍</span> ${event.venue}
+                      </div>
+                    </div>
+                    <div class="card-actions justify-between items-center mt-auto">
+                      <span class="font-bold text-blue-600">${event.price > 0 ? '$'+event.price : 'Free'}</span>
+                      <button class="btn btn-primary btn-sm font-bold shadow-sm" onclick="openEventModal(${event.id})">View Details</button>
+                    </div>
+                  </div>
+                </div>
+            `).join('');
+        } catch (e) {
+            console.error(e);
+            grid.innerHTML = '<div class="col-span-full text-center py-10 text-red-500">Failed to load events.</div>';
+        }
+    }
+
+    // 4. Open Event Modal
+    (window as any).openEventModal = async (id) => {
+        try {
+            const res = await fetch(`http://localhost:3000/api/events/${id}`);
+            const { data } = await res.json();
+            
+            const modal = document.getElementById('eventModal') as HTMLDialogElement;
+            document.getElementById('modalTitle')!.textContent = data.title;
+            document.getElementById('modalCategory')!.textContent = data.category;
+            document.getElementById('modalDescription')!.textContent = data.description; // or longDescription
+            document.getElementById('modalDate')!.textContent = new Date(data.date).toLocaleDateString();
+            document.getElementById('modalTime')!.textContent = new Date(data.startTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            document.getElementById('modalVenue')!.textContent = data.venue;
+            document.getElementById('modalPrice')!.textContent = data.price > 0 ? `$${data.price}` : 'Free';
+            document.getElementById('modalOrganizer')!.textContent = `${data.organizer.firstName} ${data.organizer.lastName}`;
+            (document.getElementById('modalImage') as HTMLImageElement).src = data.posterUrl || 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80';
+
+            const registerBtn = document.getElementById('registerBtn');
+            registerBtn!.onclick = () => registerForEvent(id);
+
+            modal.showModal();
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+    // 5. Register for Event
+    async function registerForEvent(id) {
+        try {
+            const res = await fetch(`http://localhost:3000/api/events/${id}/register`, {
+                method: 'POST',
+                credentials: 'include'
+            });
+            const result = await res.json();
+            if (res.ok) {
+                alert('Successfully registered!');
+                (document.getElementById('eventModal') as HTMLDialogElement).close();
+                fetchMyEvents(); // Refresh my events
+            } else {
+                alert(result.message || 'Registration failed');
+            }
+        } catch (e) {
+            console.error(e);
+            alert('Error registering for event');
+        }
+    }
+
+    // 6. Fetch My Events
+    async function fetchMyEvents() {
+        const list = document.getElementById('myEventsList');
+        if (!list) return;
+        
+        try {
+            const res = await fetch('http://localhost:3000/api/events/my/registered', { credentials: 'include' });
+            const { data } = await res.json();
+
+            if (data.length === 0) {
+                list.innerHTML = '<div class="col-span-full text-center py-16 bg-white shadow-lg border border-gray-200"><p class="text-gray-600 text-lg font-semibold">You haven\'t registered for any events yet.</p></div>';
+                return;
+            }
+
+            list.innerHTML = data.map(reg => `
+                <div class="card bg-white shadow-md border border-gray-200">
+                    <div class="card-body">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-bold text-lg">${reg.event.title}</h3>
+                                <p class="text-sm text-gray-500">${new Date(reg.event.date).toLocaleDateString()}</p>
+                            </div>
+                            <span class="badge ${reg.paymentStatus === 'COMPLETED' ? 'badge-success' : 'badge-warning'} text-white text-xs font-bold">${reg.paymentStatus}</span>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center">
+                            <div class="text-xs text-gray-400">Ticket ID: ${reg.ticketId}</div>
+                            <button class="btn btn-ghost btn-xs text-blue-600">View Ticket</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    // Initial Load
+    fetchUserProfile();
+    fetchEvents();
   });
 </script>
 
 <style>
+  /* ... (existing styles) ... */
   /* Remove all border radius */
   * {
     border-radius: 0 !important;
