@@ -139,8 +139,8 @@ export const createEventValidation = async (req, res, next) => {
     return res.status(400).json({ message: "Poster URL must be a string" });
   }
 
-  if (organizer && typeof organizer !== "string") {
-    return res.status(400).json({ message: "Organizer must be a string" });
+  if (organizer && typeof organizer !== "number") {
+    return res.status(400).json({ message: "Organizer must be a number" });
   }
 
   next();

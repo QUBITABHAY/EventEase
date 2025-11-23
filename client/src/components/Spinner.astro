@@ -1,22 +1,21 @@
 ---
 interface Props {
-  size?: 'small' | 'medium' | 'large';
-  color?: 'primary' | 'white';
+    size?: "small" | "medium" | "large";
+    color?: "primary" | "white";
 }
 
-const { size = 'medium', color = 'primary' } = Astro.props;
+const { size = "medium", color = "primary" } = Astro.props;
 
 const sizeClass = {
-  small: 'loading-sm',
-  medium: 'loading-md',
-  large: 'loading-lg'
+    small: "loading-sm",
+    medium: "loading-md",
+    large: "loading-lg",
 }[size];
 
 const colorClass = {
-  primary: 'text-primary',
-  white: 'text-white'
+    primary: "text-primary",
+    white: "text-white",
 }[color];
 ---
 
 <span class={`loading loading-spinner ${sizeClass} ${colorClass}`}></span>
-

@@ -1,16 +1,29 @@
 ---
 const currentPath = Astro.url.pathname;
 ---
+
 <sidebar>
     <div class="sidebar">
         <div class="sidebar-header">
             <h1>EventEase</h1>
         </div>
         <div class="sidebar-links">
-            <a href="/dashboard" class={currentPath === '/dashboard' ? 'active' : ''}>Dashboard</a>
-            <a href="/dashboard/events" class={currentPath === '/dashboard/events' ? 'active' : ''}>Events</a>
-            <a href="/dashboard/profile" class={currentPath === '/dashboard/profile' ? 'active' : ''}>Profile</a>
-            </div>
+            <a
+                href="/dashboard"
+                class={currentPath === "/dashboard" ? "active" : ""}
+                >Dashboard</a
+            >
+            <a
+                href="/dashboard/events"
+                class={currentPath === "/dashboard/events" ? "active" : ""}
+                >Events</a
+            >
+            <a
+                href="/dashboard/profile"
+                class={currentPath === "/dashboard/profile" ? "active" : ""}
+                >Profile</a
+            >
+        </div>
     </div>
 </sidebar>
 
@@ -35,7 +48,6 @@ const currentPath = Astro.url.pathname;
         border: black 1px solid;
     }
     .sidebar-links a {
-
         display: block;
         padding: 10px;
         color: #000000;
@@ -48,7 +60,4 @@ const currentPath = Astro.url.pathname;
         background-color: #ffffff;
         color: #000000;
     }
-            
 </style>
-
-

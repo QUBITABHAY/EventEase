@@ -7,313 +7,398 @@ import { events } from "../../dummyData.js";
 ---
 
 <Layout title="Tech Events">
-  <Navbar />
-  <div class="text-center m-12">
-    <h2 class="text-4xl font-bold text-gray-800 mb-4 bg-gradient-to-br from-blue-600 to-teal-600 bg-clip-text text-transparent">Explore Events</h2>
-    <p class="text-lg text-gray-500 max-w-2xl mx-auto">
-      Trusted by thousands of event organizers worldwide
-    </p>
-  </div>
-
-  <div class="max-w-7xl mx-auto p-6 flex flex-col lg:flex-row gap-6 text-gray-800 bg-gradient-to-b from-cyan-500/5 to-transparent rounded-xl">
-    <!-- Sidebar (filters + sorting) -->
-    <aside class="sidebar w-full lg:w-[300px] bg-white border border-gray-200 p-5 rounded-xl shadow-lg h-fit lg:sticky lg:top-6">
-      <h2 class="mb-6 text-lg font-bold text-gray-800">Filters</h2>
-
-      <div class="mb-4">
-        <label class="block mb-2 text-gray-500 text-sm">Search</label>
-        <input
-          id="searchInput"
-          class="w-full p-2.5 bg-gray-50 border border-gray-200 text-gray-800 rounded-lg outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
-          placeholder="Search title or venue"
-        />
-      </div>
-
-      <div class="mb-4">
-        <label class="block mb-2 text-gray-500 text-sm">Category</label>
-        <div class="checkbox-grid">
-          <label class="block py-1.5 text-gray-500 text-sm cursor-pointer flex items-center"
-            ><input
-              type="checkbox"
-              class="filter-category w-4 h-4 mr-2 accent-blue-500 rounded"
-              value="Machine Learning/AI"
-            /> Machine Learning/AI</label
-          >
-          <label class="block py-1.5 text-gray-500 text-sm cursor-pointer flex items-center"
-            ><input
-              type="checkbox"
-              class="filter-category w-4 h-4 mr-2 accent-blue-500 rounded"
-              value="Creative AI"
-            /> Creative AI</label
-          >
-          <label class="block py-1.5 text-gray-500 text-sm cursor-pointer flex items-center"
-            ><input type="checkbox" class="filter-category w-4 h-4 mr-2 accent-blue-500 rounded" value="Gaming" /> Gaming</label
-          >
-          <label class="block py-1.5 text-gray-500 text-sm cursor-pointer flex items-center"
-            ><input
-              type="checkbox"
-              class="filter-category w-4 h-4 mr-2 accent-blue-500 rounded"
-              value="Cybersecurity"
-            /> Cybersecurity</label
-          >
-        </div>
-      </div>
-
-      <div class="mb-4">
-        <label class="block mb-2 text-gray-500 text-sm">Price</label>
-        <label class="block py-1.5 text-gray-500 text-sm cursor-pointer flex items-center"
-          ><input type="checkbox" class="filter-price w-4 h-4 mr-2 accent-blue-500 rounded" value="free" /> Free</label
+    <Navbar />
+    <div class="text-center m-12">
+        <h2
+            class="text-4xl font-bold text-gray-800 mb-4 bg-gradient-to-br from-blue-600 to-teal-600 bg-clip-text text-transparent"
         >
-        <label class="block py-1.5 text-gray-500 text-sm cursor-pointer flex items-center"
-          ><input type="checkbox" class="filter-price w-4 h-4 mr-2 accent-blue-500 rounded" value="paid" /> Paid</label
+            Explore Events
+        </h2>
+        <p class="text-lg text-gray-500 max-w-2xl mx-auto">
+            Trusted by thousands of event organizers worldwide
+        </p>
+    </div>
+
+    <div
+        class="max-w-7xl mx-auto p-6 flex flex-col lg:flex-row gap-6 text-gray-800 bg-gradient-to-b from-cyan-500/5 to-transparent rounded-xl"
+    >
+        <!-- Sidebar (filters + sorting) -->
+        <aside
+            class="sidebar w-full lg:w-[300px] bg-white border border-gray-200 p-5 rounded-xl shadow-lg h-fit lg:sticky lg:top-6"
         >
-      </div>
+            <h2 class="mb-6 text-lg font-bold text-gray-800">Filters</h2>
 
-      <div class="mb-4">
-        <label class="block mb-2 text-gray-500 text-sm">Date</label>
-        <label class="block py-1.5 text-gray-500 text-sm cursor-pointer flex items-center"
-          ><input type="checkbox" class="filter-date w-4 h-4 mr-2 accent-blue-500 rounded" value="upcoming" /> Upcoming</label
-        >
-        <label class="block py-1.5 text-gray-500 text-sm cursor-pointer flex items-center"
-          ><input type="checkbox" class="filter-date w-4 h-4 mr-2 accent-blue-500 rounded" value="past" /> Past</label
-        >
-      </div>
+            <div class="mb-4">
+                <label class="block mb-2 text-gray-500 text-sm">Search</label>
+                <input
+                    id="searchInput"
+                    class="w-full p-2.5 bg-gray-50 border border-gray-200 text-gray-800 rounded-lg outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                    placeholder="Search title or venue"
+                />
+            </div>
 
-      <div class="mb-4">
-        <label class="block mb-2 text-gray-500 text-sm">Sort</label>
-        <select id="sortSelect" class="w-full p-2.5 bg-gray-50 border border-gray-200 text-gray-800 rounded-lg outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
-          <option value="latest">Latest First</option>
-          <option value="oldest">Oldest First</option>
-          <option value="price-asc">Price: Low to High</option>
-          <option value="price-desc">Price: High to Low</option>
-        </select>
-      </div>
-
-      <div class="mb-4">
-        <button id="resetBtn" class="w-full py-2 px-3 bg-white text-gray-700 border border-gray-200 rounded-lg cursor-pointer font-semibold hover:bg-gray-50 transition-all">Reset filters</button>
-      </div>
-    </aside>
-
-    <!-- Events list -->
-    <main class="events flex-1 flex flex-col gap-5 min-w-0" id="eventsList">
-      <!-- Cards rendered server-side; JS will filter/sort them on the client -->
-      {
-        events.map((event) => {
-          // data-* attributes used by the client filtering code
-          const startISO = event.startTime;
-          const endISO = event.endTime;
-          const price = Number(event.price ?? 0);
-          return (
-            <article
-              class="card grid grid-cols-1 md:grid-cols-[140px_1fr_180px] gap-5 items-start bg-white border border-blue-100 border-l-4 border-l-blue-400 p-4 rounded-lg transition-all hover:-translate-y-1 hover:shadow-xl hover:border-blue-200"
-              data-id={event.id}
-              data-title={event.title}
-              data-category={event.category}
-              data-venue={event.venue}
-              data-start={startISO}
-              data-end={endISO}
-              data-price={price}
-            >
-              <div class="min-h-[1px]">
-                <img src={event.posterUrl} alt={event.title} class="w-full h-full max-h-[140px] object-cover rounded-lg bg-gray-100" />
-              </div>
-
-              <div class="min-h-[1px]">
-                <header class="mb-1.5">
-                  <h3 class="text-xl font-bold text-gray-800 leading-tight mb-1.5">{event.title}</h3>
-                  <div class="flex gap-2 items-center text-gray-500 text-sm mb-4">
-                    <span class="bg-blue-50 text-blue-600 px-2 py-1 rounded-full font-semibold text-xs">{event.category}</span>
-                    <span class="text-gray-400">@</span>
-                    <span class="text-gray-500">{event.venue}</span>
-                  </div>
-                </header>
-
-                <p class="mb-3 text-gray-500 text-sm line-clamp-2">{event.description}</p>
-
-                <div class="flex justify-between gap-3 items-center mt-2 flex-wrap">
-                  <div class="flex gap-2 items-center text-gray-500 text-sm">
-                    <div class="flex gap-2 items-center text-gray-500 text-sm">
-                      <svg class="w-4 h-4 opacity-90 text-gray-400" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M7 10h5v5H7z" />
-                      </svg>
-                      <span class="text-gray-500">
-                        {new Date(event.startTime).toLocaleDateString()}
-                      </span>
-                      <span class="dash">-</span>
-                      <span class="text-gray-500">
-                        {new Date(event.endTime).toLocaleDateString()}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div class="flex items-center gap-3">
-                    <div class="text-gray-800 bg-gray-50 px-2.5 py-1.5 rounded-lg font-semibold text-sm">
-                      {event.price === 0
-                        ? "Free"
-                        : `$${event.price.toFixed(2)}`}
-                    </div>
-                    <a class="bg-gradient-to-r from-blue-600 to-blue-400 text-white px-3 py-2 rounded-lg font-bold shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all text-sm no-underline" href={`/events/${event.id}`}>
-                      View Details
-                    </a>
-                  </div>
+            <div class="mb-4">
+                <label class="block mb-2 text-gray-500 text-sm">Category</label>
+                <div class="checkbox-grid">
+                    <label
+                        class="block py-1.5 text-gray-500 text-sm cursor-pointer flex items-center"
+                        ><input
+                            type="checkbox"
+                            class="filter-category w-4 h-4 mr-2 accent-blue-500 rounded"
+                            value="Machine Learning/AI"
+                        /> Machine Learning/AI</label
+                    >
+                    <label
+                        class="block py-1.5 text-gray-500 text-sm cursor-pointer flex items-center"
+                        ><input
+                            type="checkbox"
+                            class="filter-category w-4 h-4 mr-2 accent-blue-500 rounded"
+                            value="Creative AI"
+                        /> Creative AI</label
+                    >
+                    <label
+                        class="block py-1.5 text-gray-500 text-sm cursor-pointer flex items-center"
+                        ><input
+                            type="checkbox"
+                            class="filter-category w-4 h-4 mr-2 accent-blue-500 rounded"
+                            value="Gaming"
+                        /> Gaming</label
+                    >
+                    <label
+                        class="block py-1.5 text-gray-500 text-sm cursor-pointer flex items-center"
+                        ><input
+                            type="checkbox"
+                            class="filter-category w-4 h-4 mr-2 accent-blue-500 rounded"
+                            value="Cybersecurity"
+                        /> Cybersecurity</label
+                    >
                 </div>
-              </div>
+            </div>
 
-              <div class="flex flex-col items-end gap-2 text-gray-500 md:border-l md:border-dashed md:border-gray-200 md:pl-4 md:h-full md:justify-center">
-                <div class="bg-gray-50 px-2.5 py-1.5 rounded-full text-blue-600 font-bold text-sm">
-                  {event.organizer?.name ?? "Organizer"}
-                </div>
-                <div class="text-sm text-gray-500">
-                  {event.capacity?.toLocaleString() ?? "—"} seats
-                </div>
-                <a class="px-3 py-2 rounded-lg border border-gray-200 text-gray-700 bg-transparent font-semibold hover:shadow-md hover:-translate-y-0.5 transition-all text-sm no-underline" href={`/events/${event.id}`}>
-                  Register
-                </a>
-              </div>
-            </article>
-          );
-        })
-      }
-    </main>
-  </div>
+            <div class="mb-4">
+                <label class="block mb-2 text-gray-500 text-sm">Price</label>
+                <label
+                    class="block py-1.5 text-gray-500 text-sm cursor-pointer flex items-center"
+                    ><input
+                        type="checkbox"
+                        class="filter-price w-4 h-4 mr-2 accent-blue-500 rounded"
+                        value="free"
+                    /> Free</label
+                >
+                <label
+                    class="block py-1.5 text-gray-500 text-sm cursor-pointer flex items-center"
+                    ><input
+                        type="checkbox"
+                        class="filter-price w-4 h-4 mr-2 accent-blue-500 rounded"
+                        value="paid"
+                    /> Paid</label
+                >
+            </div>
 
-  <!-- Client-side filtering & sorting -->
-  <script>
-    (() => {
-      // helper
-      const q = (sel, root = document) => root.querySelector(sel);
-      const qa = (sel, root = document) =>
-        Array.from(root.querySelectorAll(sel));
+            <div class="mb-4">
+                <label class="block mb-2 text-gray-500 text-sm">Date</label>
+                <label
+                    class="block py-1.5 text-gray-500 text-sm cursor-pointer flex items-center"
+                    ><input
+                        type="checkbox"
+                        class="filter-date w-4 h-4 mr-2 accent-blue-500 rounded"
+                        value="upcoming"
+                    /> Upcoming</label
+                >
+                <label
+                    class="block py-1.5 text-gray-500 text-sm cursor-pointer flex items-center"
+                    ><input
+                        type="checkbox"
+                        class="filter-date w-4 h-4 mr-2 accent-blue-500 rounded"
+                        value="past"
+                    /> Past</label
+                >
+            </div>
 
-      const eventsList = q("#eventsList");
-      const cards = qa(".card", eventsList);
+            <div class="mb-4">
+                <label class="block mb-2 text-gray-500 text-sm">Sort</label>
+                <select
+                    id="sortSelect"
+                    class="w-full p-2.5 bg-gray-50 border border-gray-200 text-gray-800 rounded-lg outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                >
+                    <option value="latest">Latest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                </select>
+            </div>
 
-      const searchInput = q("#searchInput");
-      const categoryChecks = qa(".filter-category");
-      const priceChecks = qa(".filter-price");
-      const dateChecks = qa(".filter-date");
-      const sortSelect = q("#sortSelect");
-      const resetBtn = q("#resetBtn");
+            <div class="mb-4">
+                <button
+                    id="resetBtn"
+                    class="w-full py-2 px-3 bg-white text-gray-700 border border-gray-200 rounded-lg cursor-pointer font-semibold hover:bg-gray-50 transition-all"
+                    >Reset filters</button
+                >
+            </div>
+        </aside>
 
-      // parse checkboxes to arrays
-      const selected = {
-        categories: [],
-        prices: [],
-        dates: [],
-        search: "",
-      };
+        <!-- Events list -->
+        <main class="events flex-1 flex flex-col gap-5 min-w-0" id="eventsList">
+            <!-- Cards rendered server-side; JS will filter/sort them on the client -->
+            {
+                events.map((event) => {
+                    // data-* attributes used by the client filtering code
+                    const startISO = event.startTime;
+                    const endISO = event.endTime;
+                    const price = Number(event.price ?? 0);
+                    return (
+                        <article
+                            class="card grid grid-cols-1 md:grid-cols-[140px_1fr_180px] gap-5 items-start bg-white border border-blue-100 border-l-4 border-l-blue-400 p-4 rounded-lg transition-all hover:-translate-y-1 hover:shadow-xl hover:border-blue-200"
+                            data-id={event.id}
+                            data-title={event.title}
+                            data-category={event.category}
+                            data-venue={event.venue}
+                            data-start={startISO}
+                            data-end={endISO}
+                            data-price={price}
+                        >
+                            <div class="min-h-[1px]">
+                                <img
+                                    src={event.posterUrl}
+                                    alt={event.title}
+                                    class="w-full h-full max-h-[140px] object-cover rounded-lg bg-gray-100"
+                                />
+                            </div>
 
-      function updateSelected() {
-        selected.categories = categoryChecks
-          .filter((c) => c.checked)
-          .map((c) => c.value);
-        selected.prices = priceChecks
-          .filter((c) => c.checked)
-          .map((c) => c.value);
-        selected.dates = dateChecks
-          .filter((c) => c.checked)
-          .map((c) => c.value);
-        selected.search = searchInput.value.trim().toLowerCase();
-      }
+                            <div class="min-h-[1px]">
+                                <header class="mb-1.5">
+                                    <h3 class="text-xl font-bold text-gray-800 leading-tight mb-1.5">
+                                        {event.title}
+                                    </h3>
+                                    <div class="flex gap-2 items-center text-gray-500 text-sm mb-4">
+                                        <span class="bg-blue-50 text-blue-600 px-2 py-1 rounded-full font-semibold text-xs">
+                                            {event.category}
+                                        </span>
+                                        <span class="text-gray-400">@</span>
+                                        <span class="text-gray-500">
+                                            {event.venue}
+                                        </span>
+                                    </div>
+                                </header>
 
-      function isUpcoming(startISO) {
-        return new Date(startISO) >= new Date();
-      }
+                                <p class="mb-3 text-gray-500 text-sm line-clamp-2">
+                                    {event.description}
+                                </p>
 
-      function matchesCard(card) {
-        // title/venue search
-        if (selected.search) {
-          const title = (card.dataset.title || "").toLowerCase();
-          const venue = (card.dataset.venue || "").toLowerCase();
-          if (
-            !title.includes(selected.search) &&
-            !venue.includes(selected.search)
-          )
-            return false;
-        }
+                                <div class="flex justify-between gap-3 items-center mt-2 flex-wrap">
+                                    <div class="flex gap-2 items-center text-gray-500 text-sm">
+                                        <div class="flex gap-2 items-center text-gray-500 text-sm">
+                                            <svg
+                                                class="w-4 h-4 opacity-90 text-gray-400"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path
+                                                    fill="currentColor"
+                                                    d="M7 10h5v5H7z"
+                                                />
+                                            </svg>
+                                            <span class="text-gray-500">
+                                                {new Date(
+                                                    event.startTime,
+                                                ).toLocaleDateString()}
+                                            </span>
+                                            <span class="dash">-</span>
+                                            <span class="text-gray-500">
+                                                {new Date(
+                                                    event.endTime,
+                                                ).toLocaleDateString()}
+                                            </span>
+                                        </div>
+                                    </div>
 
-        // category
-        if (selected.categories.length > 0) {
-          if (!selected.categories.includes(card.dataset.category))
-            return false;
-        }
+                                    <div class="flex items-center gap-3">
+                                        <div class="text-gray-800 bg-gray-50 px-2.5 py-1.5 rounded-lg font-semibold text-sm">
+                                            {event.price === 0
+                                                ? "Free"
+                                                : `$${event.price.toFixed(2)}`}
+                                        </div>
+                                        <a
+                                            class="bg-gradient-to-r from-blue-600 to-blue-400 text-white px-3 py-2 rounded-lg font-bold shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all text-sm no-underline"
+                                            href={`/events/${event.id}`}
+                                        >
+                                            View Details
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
 
-        // price (free / paid)
-        if (selected.prices.length > 0) {
-          const isFree = Number(card.dataset.price) === 0;
-          if (selected.prices.includes("free") && !isFree) return false;
-          if (selected.prices.includes("paid") && isFree) return false;
-        }
+                            <div class="flex flex-col items-end gap-2 text-gray-500 md:border-l md:border-dashed md:border-gray-200 md:pl-4 md:h-full md:justify-center">
+                                <div class="bg-gray-50 px-2.5 py-1.5 rounded-full text-blue-600 font-bold text-sm">
+                                    {event.organizer?.name ?? "Organizer"}
+                                </div>
+                                <div class="text-sm text-gray-500">
+                                    {event.capacity?.toLocaleString() ?? "—"}{" "}
+                                    seats
+                                </div>
+                                <a
+                                    class="px-3 py-2 rounded-lg border border-gray-200 text-gray-700 bg-transparent font-semibold hover:shadow-md hover:-translate-y-0.5 transition-all text-sm no-underline"
+                                    href={`/events/${event.id}`}
+                                >
+                                    Register
+                                </a>
+                            </div>
+                        </article>
+                    );
+                })
+            }
+        </main>
+    </div>
 
-        // date (upcoming / past)
-        if (selected.dates.length > 0) {
-          const start = card.dataset.start;
-          const upcoming = isUpcoming(start);
-          if (selected.dates.includes("upcoming") && !upcoming) return false;
-          if (selected.dates.includes("past") && upcoming) return false;
-        }
+    <!-- Client-side filtering & sorting -->
+    <script>
+        (() => {
+            // helper
+            const q = (sel, root = document) => root.querySelector(sel);
+            const qa = (sel, root = document) =>
+                Array.from(root.querySelectorAll(sel));
 
-        return true;
-      }
+            const eventsList = q("#eventsList");
+            const cards = qa(".card", eventsList);
 
-      function applyFiltersAndSort() {
-        updateSelected();
+            const searchInput = q("#searchInput");
+            const categoryChecks = qa(".filter-category");
+            const priceChecks = qa(".filter-price");
+            const dateChecks = qa(".filter-date");
+            const sortSelect = q("#sortSelect");
+            const resetBtn = q("#resetBtn");
 
-        // Filter
-        let visible = cards.filter((c) => {
-          const ok = matchesCard(c);
-          c.style.display = ok ? "grid" : "none";
-          return ok;
-        });
+            // parse checkboxes to arrays
+            const selected = {
+                categories: [],
+                prices: [],
+                dates: [],
+                search: "",
+            };
 
-        // Sort
-        const sortMode = sortSelect.value;
-        visible.sort((a, b) => {
-          if (sortMode === "latest") {
-            // soonest start first
-            return new Date(a.dataset.start) - new Date(b.dataset.start);
-          } else if (sortMode === "oldest") {
-            return new Date(b.dataset.start) - new Date(a.dataset.start);
-          } else if (sortMode === "price-asc") {
-            return Number(a.dataset.price) - Number(b.dataset.price);
-          } else if (sortMode === "price-desc") {
-            return Number(b.dataset.price) - Number(a.dataset.price);
-          }
-          return 0;
-        });
+            function updateSelected() {
+                selected.categories = categoryChecks
+                    .filter((c) => c.checked)
+                    .map((c) => c.value);
+                selected.prices = priceChecks
+                    .filter((c) => c.checked)
+                    .map((c) => c.value);
+                selected.dates = dateChecks
+                    .filter((c) => c.checked)
+                    .map((c) => c.value);
+                selected.search = searchInput.value.trim().toLowerCase();
+            }
 
-        // Re-append in new order (keeps DOM nodes)
-        visible.forEach((node) => eventsList.appendChild(node));
-      }
+            function isUpcoming(startISO) {
+                return new Date(startISO) >= new Date();
+            }
 
-      // Event listeners
-      searchInput.addEventListener("input", () => applyFiltersAndSort());
-      categoryChecks.forEach((cb) =>
-        cb.addEventListener("change", () => applyFiltersAndSort())
-      );
-      priceChecks.forEach((cb) =>
-        cb.addEventListener("change", () => applyFiltersAndSort())
-      );
-      dateChecks.forEach((cb) =>
-        cb.addEventListener("change", () => applyFiltersAndSort())
-      );
-      sortSelect.addEventListener("change", () => applyFiltersAndSort());
+            function matchesCard(card) {
+                // title/venue search
+                if (selected.search) {
+                    const title = (card.dataset.title || "").toLowerCase();
+                    const venue = (card.dataset.venue || "").toLowerCase();
+                    if (
+                        !title.includes(selected.search) &&
+                        !venue.includes(selected.search)
+                    )
+                        return false;
+                }
 
-      resetBtn.addEventListener("click", () => {
-        // reset inputs
-        searchInput.value = "";
-        categoryChecks.forEach((cb) => (cb.checked = false));
-        priceChecks.forEach((cb) => (cb.checked = false));
-        dateChecks.forEach((cb) => (cb.checked = false));
-        sortSelect.value = "latest";
-        applyFiltersAndSort();
-      });
+                // category
+                if (selected.categories.length > 0) {
+                    if (!selected.categories.includes(card.dataset.category))
+                        return false;
+                }
 
-      // initial sort
-      applyFiltersAndSort();
-    })();
-  </script>
+                // price (free / paid)
+                if (selected.prices.length > 0) {
+                    const isFree = Number(card.dataset.price) === 0;
+                    if (selected.prices.includes("free") && !isFree)
+                        return false;
+                    if (selected.prices.includes("paid") && isFree)
+                        return false;
+                }
 
+                // date (upcoming / past)
+                if (selected.dates.length > 0) {
+                    const start = card.dataset.start;
+                    const upcoming = isUpcoming(start);
+                    if (selected.dates.includes("upcoming") && !upcoming)
+                        return false;
+                    if (selected.dates.includes("past") && upcoming)
+                        return false;
+                }
 
-  <Footer />
+                return true;
+            }
+
+            function applyFiltersAndSort() {
+                updateSelected();
+
+                // Filter
+                let visible = cards.filter((c) => {
+                    const ok = matchesCard(c);
+                    c.style.display = ok ? "grid" : "none";
+                    return ok;
+                });
+
+                // Sort
+                const sortMode = sortSelect.value;
+                visible.sort((a, b) => {
+                    if (sortMode === "latest") {
+                        // soonest start first
+                        return (
+                            new Date(a.dataset.start) -
+                            new Date(b.dataset.start)
+                        );
+                    } else if (sortMode === "oldest") {
+                        return (
+                            new Date(b.dataset.start) -
+                            new Date(a.dataset.start)
+                        );
+                    } else if (sortMode === "price-asc") {
+                        return (
+                            Number(a.dataset.price) - Number(b.dataset.price)
+                        );
+                    } else if (sortMode === "price-desc") {
+                        return (
+                            Number(b.dataset.price) - Number(a.dataset.price)
+                        );
+                    }
+                    return 0;
+                });
+
+                // Re-append in new order (keeps DOM nodes)
+                visible.forEach((node) => eventsList.appendChild(node));
+            }
+
+            // Event listeners
+            searchInput.addEventListener("input", () => applyFiltersAndSort());
+            categoryChecks.forEach((cb) =>
+                cb.addEventListener("change", () => applyFiltersAndSort()),
+            );
+            priceChecks.forEach((cb) =>
+                cb.addEventListener("change", () => applyFiltersAndSort()),
+            );
+            dateChecks.forEach((cb) =>
+                cb.addEventListener("change", () => applyFiltersAndSort()),
+            );
+            sortSelect.addEventListener("change", () => applyFiltersAndSort());
+
+            resetBtn.addEventListener("click", () => {
+                // reset inputs
+                searchInput.value = "";
+                categoryChecks.forEach((cb) => (cb.checked = false));
+                priceChecks.forEach((cb) => (cb.checked = false));
+                dateChecks.forEach((cb) => (cb.checked = false));
+                sortSelect.value = "latest";
+                applyFiltersAndSort();
+            });
+
+            // initial sort
+            applyFiltersAndSort();
+        })();
+    </script>
+
+    <Footer />
 </Layout>

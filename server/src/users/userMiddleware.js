@@ -1,25 +1,5 @@
 import jwt from "jsonwebtoken";
 
-export const createUserValidation = (req, res, next) => {
-  const { firstName, lastName, email, password, phone } = req.body;
-
-  if (!firstName || !lastName || !email || !password || !phone) {
-    return res.status(400).json({ message: "All fields are required" });
-  }
-
-  next();
-};
-
-export const loginUserValidation = (req, res, next) => {
-  const { email, password } = req.body;
-
-  if (!email || !password) {
-    return res.status(400).json({ message: "Email and password are required" });
-  }
-
-  next();
-};
-
 export const getCurrentUserValidation = (req, res, next) => {
   const token = req.cookies.token;
 
@@ -34,12 +14,14 @@ export const getCurrentUserValidation = (req, res, next) => {
 };
 
 export const updateUserValidation = (req, res, next) => {
-  const { firstName, lastName, password, role } = req.body;
+  const { email, newRole, newPassword } = req.body;
 
-  if (!firstName && !lastName && !password && !role) {
-    return res
-      .status(400)
-      .json({ message: "At least one field is required to update" });
+  if (!email) {
+    return res.status(400).json({ message: "Email is required" });
+  }
+
+  if (!newRole && !newPassword) {
+    return res.status(400).json({ message: "New role or password is required" });
   }
 
   next();

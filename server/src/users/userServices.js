@@ -101,8 +101,6 @@ export const getCurrentUserService = async (data) => {
       data: user,
     };
   } catch (error) {
-    // Development log
-    console.log(error);
     if (error.name === "JsonWebTokenError") {
       return {
         status: 401,
@@ -124,7 +122,7 @@ export const getCurrentUserService = async (data) => {
 
 export const updateUserService = async (data) => {
   try {
-    const { newName, email, newPassword, newRole } = data;
+    const { email, newRole, newPassword } = data;
 
     const checkDetail = await prisma.user.findUnique({
       where: {
@@ -139,22 +137,21 @@ export const updateUserService = async (data) => {
       };
     }
 
-    const data = await prisma.user.update({
+    const result = await prisma.user.update({
       where: {
         id: checkDetail.id,
       },
 
       data: {
-        name: newName,
-        password: await bcrypt.hash(newPassword, 10),
-        role: newRole,
+        ...(newPassword && { password: await bcrypt.hash(newPassword, 10) }),
+        ...(newRole && { role: newRole.toUpperCase() }),
       },
     });
 
     return {
       status: 200,
       message: "User updated",
-      data: data,
+      data: result,
     };
   } catch (error) {
     return {

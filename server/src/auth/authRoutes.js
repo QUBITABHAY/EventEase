@@ -21,12 +21,7 @@ const authRoutes = Router();
 authRoutes.post("/local/signup", localSignupValidation, localSignup);
 authRoutes.post("/local/verify-otp", verifyOtp);
 authRoutes.post("/local/login", localLoginValidation, localLogin);
-authRoutes.post(
-  "/local/complete-profile",
-  isAuthenticatedTemp,
-  completeProfileValidation,
-  completeProfile,
-);
+authRoutes.post("/local/complete-profile", isAuthenticatedTemp, completeProfileValidation, completeProfile);
 authRoutes.post("/logout", logout);
 authRoutes.get("/google", passport.authenticate("google", { session: false }));
 
