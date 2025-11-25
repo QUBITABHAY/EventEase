@@ -12,10 +12,25 @@ export const createUser = async (req, res) => {
   try {
     const data = req.body;
 
-    const result = await createUserService(data);
+    const result = await createUserService(data)
 
     if (result?.status === 201) {
-      return res.redirect("http://localhost:4321/login");
+      const token = jwt.sign(
+        { id: result.user.id, email: result.user.email, role: result.user.role },
+        process.env.JWT_SECRET,
+        { expiresIn: process.env.JWT_EXPIRES_IN }
+      );
+
+      const cookieOptions = {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        maxAge: 24 * 60 * 60 * 1000,
+        path: "/",
+      };
+
+      res.cookie("token", token, cookieOptions);
+      return res.redirect("http://localhost:4321/register");
     }
 
     return res

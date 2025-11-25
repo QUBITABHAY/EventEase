@@ -26,136 +26,170 @@ import Layout from "../layouts/Layout.astro";
                 </button>
             </div>
 
-            <div class="px-6 py-6 border-b border-gray-200 bg-blue-50">
-                <div class="flex items-center gap-4">
-                    <div class="avatar placeholder">
-                        <div
-                            class="bg-purple-600 text-white w-14 h-14 shadow-lg ring-2 ring-white ring-offset-2"
-                        >
-                            <span
-                                class="text-lg font-bold"
-                                style="font-family: 'Poppins', sans-serif;"
-                                >ORG</span
-                            >
-                        </div>
-                    </div>
-                    <div>
-                        <h3
-                            class="font-bold text-lg text-gray-900"
-                            style="font-family: 'Poppins', sans-serif;"
-                        >
-                            Tech Events Co.
-                        </h3>
-                        <p class="text-sm text-gray-500 font-medium">
-                            Organiser
-                        </p>
-                    </div>
+        <div class="flex items-center gap-4">
+          <button class="btn btn-ghost btn-sm text-xl">
+            Search
+          </button>
+          <div class="dropdown dropdown-end">
+            <label tabindex="0" class="btn btn-ghost avatar placeholder">
+              <div class="bg-purple-600 text-white w-10 h-10">
+                <span class="text-sm">ORG</span>
+              </div>
+            </label>
+            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow-lg bg-white w-52 border border-gray-100">
+              <li><a href="#profile" data-page="profile">Profile Settings</a></li>
+              <li><a href="/login">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+      <main class="flex-1 overflow-y-auto p-8 bg-gray-50">
+        <!-- Dashboard Overview -->
+        <div id="dashboard-page" class="page-content">
+          <h1 class="text-4xl font-black text-gray-900 mb-8 tracking-tight" style="font-family: 'Poppins', sans-serif;">Dashboard Overview</h1>
+          
+          <!-- Stats Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-gray-500 text-sm font-black uppercase tracking-wide">Total Events</p>
+                  <p id="statTotalEvents" class="text-4xl font-black text-gray-900 mt-2" style="font-family: 'Poppins', sans-serif;">0</p>
                 </div>
+                <div class="bg-blue-100 p-3 border-2 border-black">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                </div>
+              </div>
+              <div class="mt-4 text-sm font-bold text-gray-400 uppercase tracking-wider">
+                this month
+              </div>
             </div>
 
-            <div class="flex-1 flex flex-col overflow-y-auto px-6 py-6">
-                <nav class="space-y-2 flex-1">
-                    <a
-                        href="#"
-                        class="nav-link block px-4 py-3 text-gray-500 relative overflow-hidden transition-all hover:text-gray-800 hover:bg-gray-100 hover:translate-x-1 [&.active]:text-purple-600 [&.active]:bg-purple-50 [&.active]:font-bold [&.active]:border-l-4 [&.active]:border-purple-600 active"
-                        data-page="dashboard"><span>Dashboard</span></a
-                    >
-                    <a
-                        href="#"
-                        class="nav-link block px-4 py-3 text-gray-500 relative overflow-hidden transition-all hover:text-gray-800 hover:bg-gray-100 hover:translate-x-1 [&.active]:text-purple-600 [&.active]:bg-purple-50 [&.active]:font-bold [&.active]:border-l-4 [&.active]:border-purple-600"
-                        data-page="create"><span>Create Event</span></a
-                    >
-                    <a
-                        href="#"
-                        class="nav-link block px-4 py-3 text-gray-500 relative overflow-hidden transition-all hover:text-gray-800 hover:bg-gray-100 hover:translate-x-1 [&.active]:text-purple-600 [&.active]:bg-purple-50 [&.active]:font-bold [&.active]:border-l-4 [&.active]:border-purple-600"
-                        data-page="manage"><span>Manage Events</span></a
-                    >
-                    <a
-                        href="#"
-                        class="nav-link block px-4 py-3 text-gray-500 relative overflow-hidden transition-all hover:text-gray-800 hover:bg-gray-100 hover:translate-x-1 [&.active]:text-purple-600 [&.active]:bg-purple-50 [&.active]:font-bold [&.active]:border-l-4 [&.active]:border-purple-600"
-                        data-page="stats"><span>Statistics</span></a
-                    >
-                    <a
-                        href="#"
-                        class="nav-link block px-4 py-3 text-gray-500 relative overflow-hidden transition-all hover:text-gray-800 hover:bg-gray-100 hover:translate-x-1 [&.active]:text-purple-600 [&.active]:bg-purple-50 [&.active]:font-bold [&.active]:border-l-4 [&.active]:border-purple-600"
-                        data-page="registrations"><span>Registrations</span></a
-                    >
-                    <a
-                        href="#"
-                        class="nav-link block px-4 py-3 text-gray-500 relative overflow-hidden transition-all hover:text-gray-800 hover:bg-gray-100 hover:translate-x-1 [&.active]:text-purple-600 [&.active]:bg-purple-50 [&.active]:font-bold [&.active]:border-l-4 [&.active]:border-purple-600"
-                        data-page="profile"><span>Profile</span></a
-                    >
-                </nav>
-
-                <div class="border-t border-gray-200 pt-4 mt-4">
-                    <a href="/login" class="nav-link"><span>Logout</span></a>
+            <div class="bg-white p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-gray-500 text-sm font-black uppercase tracking-wide">Active Events</p>
+                  <p id="statActiveEvents" class="text-4xl font-black text-gray-900 mt-2" style="font-family: 'Poppins', sans-serif;">0</p>
                 </div>
+                <div class="bg-green-100 p-3 border-2 border-black">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                </div>
+              </div>
+              <div class="mt-4 text-sm font-bold text-gray-400 uppercase tracking-wider">
+                currently
+              </div>
             </div>
-        </aside>
 
-        <div class="flex-1 flex flex-col overflow-hidden">
-            <header
-                class="bg-white border-b border-gray-200 h-20 flex items-center justify-between px-8 shadow-sm"
-            >
-                <div class="flex items-center gap-6">
-                    <button
-                        id="toggleSidebar"
-                        class="lg:hidden text-gray-600 hover:text-gray-900 text-2xl"
-                    >
-                        ≡
-                    </button>
-                    <div
-                        class="breadcrumbs text-base hidden md:block font-medium"
-                    >
-                        <ul style="font-family: 'Poppins', sans-serif;">
-                            <li>
-                                <a
-                                    href="/"
-                                    class="text-blue-600 hover:text-blue-700 font-semibold"
-                                    >Home</a
-                                >
-                            </li>
-                            <li>
-                                <a
-                                    href="/organiser"
-                                    class="text-blue-600 hover:text-blue-700 font-semibold"
-                                    >Organiser</a
-                                >
-                            </li>
-                            <li
-                                id="currentPage"
-                                class="text-gray-700 font-bold"
-                            >
-                                Dashboard
-                            </li>
-                        </ul>
-                    </div>
+            <div class="bg-white p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-gray-500 text-sm font-black uppercase tracking-wide">Registrations</p>
+                  <p id="statTotalRegistrations" class="text-4xl font-black text-gray-900 mt-2" style="font-family: 'Poppins', sans-serif;">0</p>
                 </div>
+                <div class="bg-purple-100 p-3 border-2 border-black">
+                   <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                </div>
+              </div>
+              <div class="mt-4 text-sm font-bold text-gray-400 uppercase tracking-wider">
+                this week
+              </div>
+            </div>
 
-                <div class="flex items-center gap-4">
-                    <button class="btn btn-ghost btn-sm text-xl">
-                        Search
-                    </button>
-                    <div class="dropdown dropdown-end">
-                        <label
-                            tabindex="0"
-                            class="btn btn-ghost avatar placeholder"
-                        >
-                            <div class="bg-purple-600 text-white w-10 h-10">
-                                <span class="text-sm">ORG</span>
-                            </div>
-                        </label>
-                        <ul
-                            tabindex="0"
-                            class="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow-lg bg-white w-52 border border-gray-100"
-                        >
-                            <li>
-                                <a href="#profile" data-page="profile"
-                                    >Profile Settings</a
-                                >
-                            </li>
-                            <li><a href="/login">Logout</a></li>
-                        </ul>
+            <div class="bg-white p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-gray-500 text-sm font-black uppercase tracking-wide">Avg Attendance</p>
+                  <p id="statAvgAttendance" class="text-4xl font-black text-gray-900 mt-2" style="font-family: 'Poppins', sans-serif;">0%</p>
+                </div>
+                <div class="bg-orange-100 p-3 border-2 border-black">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                </div>
+              </div>
+              <div class="mt-4 text-sm font-bold text-gray-400 uppercase tracking-wider">
+                from last month
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Events -->
+          <div class="bg-white shadow-lg border border-gray-200 mb-8">
+            <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+              <h2 class="text-2xl font-black text-gray-900" style="font-family: 'Poppins', sans-serif;">Recent Events</h2>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="table w-full">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="font-bold text-gray-700">Event Name</th>
+                    <th class="font-bold text-gray-700">Date</th>
+                    <th class="font-bold text-gray-700">Registrations</th>
+                    <th class="font-bold text-gray-700">Status</th>
+                    <th class="font-bold text-gray-700">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="recentEventsTableBody">
+                  <tr>
+                    <td colspan="5" class="text-center py-8 text-gray-500 font-medium">No events yet</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <button class="bg-blue-600 text-white p-8 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all text-left group">
+              <h3 class="text-2xl font-black mb-2 uppercase tracking-tight group-hover:underline decoration-4 underline-offset-4" style="font-family: 'Poppins', sans-serif;">Create New Event</h3>
+              <p class="text-blue-100 font-bold tracking-wide">Start organizing a new event</p>
+            </button>
+            <button class="bg-purple-600 text-white p-8 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all text-left group">
+              <h3 class="text-2xl font-black mb-2 uppercase tracking-tight group-hover:underline decoration-4 underline-offset-4" style="font-family: 'Poppins', sans-serif;">View Statistics</h3>
+              <p class="text-purple-100 font-bold tracking-wide">Check detailed analytics</p>
+            </button>
+            <button class="bg-green-600 text-white p-8 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all text-left group">
+              <h3 class="text-2xl font-black mb-2 uppercase tracking-tight group-hover:underline decoration-4 underline-offset-4" style="font-family: 'Poppins', sans-serif;">Manage Events</h3>
+              <p class="text-green-100 font-bold tracking-wide">Edit and update events</p>
+            </button>
+          </div>
+        </div>
+
+       
+        <div id="create-page" class="page-content hidden">
+          <div class="fixed inset-0 bg-gradient-to-br from-purple-50 via-white to-blue-50 z-50 overflow-hidden">
+            <div class="h-full flex flex-col">
+              <!-- Progress Bar -->
+              <div class="bg-white border-b border-gray-200 px-8 py-4">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm font-bold text-gray-600" style="font-family: 'Poppins', sans-serif;">
+                    Step <span id="currentStep">1</span> of <span id="totalSteps">12</span>
+                  </span>
+                  <button id="closeTypeform" class="text-gray-500 hover:text-gray-900 font-bold text-xl">X</button>
+                </div>
+                <div class="w-full bg-gray-200 h-2">
+                  <div id="progressBar" class="bg-purple-600 h-2 transition-all duration-300" style="width: 8.33%"></div>
+                </div>
+              </div>
+
+              <!-- Form Container -->
+              <div class="flex-1 overflow-y-auto px-8 py-12">
+                <form id="typeformCreate" class="max-w-3xl mx-auto">
+                  
+                  <!-- Question 1: Event Title -->
+                  <div class="question-slide active" data-step="1">
+                    <div class="mb-8">
+                      <span class="text-purple-600 font-bold text-sm tracking-wide uppercase">Question 1</span>
+                      <h2 class="text-5xl font-black text-gray-900 mt-4 mb-8" style="font-family: 'Poppins', sans-serif;">
+                        What's the name of your event?
+                      </h2>
+                      <input 
+                        type="text" 
+                        id="eventTitle"
+                        placeholder="Type your answer here..."
+                        class="w-full text-2xl border-0 border-b-4 border-gray-300 focus:border-purple-600 outline-none py-4 bg-transparent font-medium transition-colors"
+                        required
+                      />
+                      <p class="text-gray-500 text-sm mt-4 font-medium">Press Enter ↵</p>
                     </div>
                 </div>
             </header>
@@ -292,92 +326,64 @@ import Layout from "../layouts/Layout.astro";
                             </div>
                         </div>
                     </div>
+                  </div>
 
-                    <!-- Recent Events -->
-                    <div class="bg-white shadow-lg border border-gray-200 mb-8">
-                        <div
-                            class="px-6 py-4 border-b border-gray-200 bg-gray-50"
-                        >
-                            <h2
-                                class="text-2xl font-black text-gray-900"
-                                style="font-family: 'Poppins', sans-serif;"
-                            >
-                                Recent Events
-                            </h2>
-                        </div>
-                        <div class="overflow-x-auto">
-                            <table class="table w-full">
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th class="font-bold text-gray-700"
-                                            >Event Name</th
-                                        >
-                                        <th class="font-bold text-gray-700"
-                                            >Date</th
-                                        >
-                                        <th class="font-bold text-gray-700"
-                                            >Registrations</th
-                                        >
-                                        <th class="font-bold text-gray-700"
-                                            >Status</th
-                                        >
-                                        <th class="font-bold text-gray-700"
-                                            >Actions</th
-                                        >
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td
-                                            colspan="5"
-                                            class="text-center py-8 text-gray-500 font-medium"
-                                            >No events yet</td
-                                        >
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                  <!-- Question 3: Category -->
+                  <div class="question-slide" data-step="3">
+                    <div class="mb-8">
+                      <span class="text-purple-600 font-bold text-sm tracking-wide uppercase">Question 3</span>
+                      <h2 class="text-5xl font-black text-gray-900 mt-4 mb-8" style="font-family: 'Poppins', sans-serif;">
+                        What category does it fall under?
+                      </h2>
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="Technology">
+                          <div class="font-bold text-xl text-gray-900">Technology</div>
+                        </button>
+                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="Cultural">
+                          <div class="font-bold text-xl text-gray-900">Cultural</div>
+                        </button>
+                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="Sports">
+                          <div class="font-bold text-xl text-gray-900">Sports</div>
+                        </button>
+                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="Academic">
+                          <div class="font-bold text-xl text-gray-900">Academic</div>
+                        </button>
+                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="Workshop">
+                          <div class="font-bold text-xl text-gray-900">Workshop</div>
+                        </button>
+                        <button type="button" class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="Conference">
+                          <div class="font-bold text-xl text-gray-900">Conference</div>
+                        </button>
+                      </div>
+                      <input type="hidden" id="eventCategory" required />
                     </div>
+                  </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <button
-                            class="bg-blue-600 text-white p-8 shadow-lg hover:bg-blue-700 transition-colors text-left"
-                        >
-                            <h3
-                                class="text-2xl font-black mb-2"
-                                style="font-family: 'Poppins', sans-serif;"
-                            >
-                                Create New Event
-                            </h3>
-                            <p class="text-blue-100 font-medium">
-                                Start organizing a new event
-                            </p>
+                  <!-- Question 4: Event Type -->
+                  <div class="question-slide" data-step="4">
+                    <div class="mb-8">
+                      <span class="text-purple-600 font-bold text-sm tracking-wide uppercase">Question 4</span>
+                      <h2 class="text-5xl font-black text-gray-900 mt-4 mb-8" style="font-family: 'Poppins', sans-serif;">
+                        How will attendees join?
+                      </h2>
+                      <div class="grid grid-cols-1 gap-4">
+                        <button type="button" class="event-type-option p-8 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="In-Person">
+                          <div>
+                            <div class="font-bold text-2xl text-gray-900 mb-1">In-Person</div>
+                            <div class="text-gray-600">Physical venue attendance</div>
+                          </div>
                         </button>
-                        <button
-                            class="bg-purple-600 text-white p-8 shadow-lg hover:bg-purple-700 transition-colors text-left"
-                        >
-                            <h3
-                                class="text-2xl font-black mb-2"
-                                style="font-family: 'Poppins', sans-serif;"
-                            >
-                                View Statistics
-                            </h3>
-                            <p class="text-purple-100 font-medium">
-                                Check detailed analytics
-                            </p>
+                        <button type="button" class="event-type-option p-8 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="Online">
+                          <div>
+                            <div class="font-bold text-2xl text-gray-900 mb-1">Online</div>
+                            <div class="text-gray-600">Virtual event via video call</div>
+                          </div>
                         </button>
-                        <button
-                            class="bg-green-600 text-white p-8 shadow-lg hover:bg-green-700 transition-colors text-left"
-                        >
-                            <h3
-                                class="text-2xl font-black mb-2"
-                                style="font-family: 'Poppins', sans-serif;"
-                            >
-                                Manage Events
-                            </h3>
-                            <p class="text-green-100 font-medium">
-                                Edit and update events
-                            </p>
+                        <button type="button" class="event-type-option p-8 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left rounded-none" data-value="Hybrid">
+                          <div>
+                            <div class="font-bold text-2xl text-gray-900 mb-1">Hybrid</div>
+                            <div class="text-gray-600">Both in-person and online options</div>
+                          </div>
                         </button>
                     </div>
                 </div>
@@ -1294,34 +1300,25 @@ import Layout from "../layouts/Layout.astro";
                         Manage Events
                     </h1>
 
-                    <!-- Filter Bar -->
-                    <div
-                        class="bg-white p-6 shadow-lg border border-gray-200 mb-8"
-                    >
-                        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
-                            <input
-                                type="text"
-                                placeholder="Search events..."
-                                class="input input-bordered col-span-2"
-                            />
-                            <select class="select select-bordered">
-                                <option selected>All Status</option>
-                                <option>Active</option>
-                                <option>Pending</option>
-                                <option>Completed</option>
-                                <option>Cancelled</option>
-                            </select>
-                            <select class="select select-bordered">
-                                <option selected>All Categories</option>
-                                <option>Technology</option>
-                                <option>Cultural</option>
-                                <option>Sports</option>
-                            </select>
-                            <button class="btn btn-primary font-bold"
-                                >Search</button
-                            >
-                        </div>
-                    </div>
+          <!-- Events List -->
+          <div class="bg-white shadow-lg border border-gray-200">
+            <div class="overflow-x-auto">
+              <table class="table w-full">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="font-bold text-gray-700">Event Name</th>
+                    <th class="font-bold text-gray-700">Date</th>
+                    <th class="font-bold text-gray-700">Status</th>
+                    <th class="font-bold text-gray-700">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="manageEventsTableBody">
+                   <tr><td colspan="4" class="text-center py-8">Loading...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
 
                     <!-- Events List -->
                     <div
@@ -1563,30 +1560,41 @@ import Layout from "../layouts/Layout.astro";
                         Event Registrations
                     </h1>
 
-                    <!-- Filter -->
-                    <div
-                        class="bg-white p-6 shadow-lg border border-gray-200 mb-8"
-                    >
-                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                            <select class="select select-bordered">
-                                <option selected>All Events</option>
-                            </select>
-                            <select class="select select-bordered">
-                                <option selected>All Status</option>
-                                <option>Confirmed</option>
-                                <option>Pending</option>
-                                <option>Cancelled</option>
-                            </select>
-                            <input
-                                type="text"
-                                placeholder="Search by name or email..."
-                                class="input input-bordered"
-                            />
-                            <button class="btn btn-primary font-bold"
-                                >Filter</button
-                            >
-                        </div>
-                    </div>
+          <!-- Registrations List -->
+          <div class="bg-white shadow-lg border border-gray-200">
+            <div class="px-6 py-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
+              <h2 class="text-2xl font-black text-gray-900" style="font-family: 'Poppins', sans-serif;">Recent Registrations</h2>
+              <button class="btn btn-sm btn-primary font-bold">Export CSV</button>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="table w-full">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="font-bold text-gray-700">ID</th>
+                    <th class="font-bold text-gray-700">Name</th>
+                    <th class="font-bold text-gray-700">Email</th>
+                    <th class="font-bold text-gray-700">Event</th>
+                    <th class="font-bold text-gray-700">Date</th>
+                    <th class="font-bold text-gray-700">Status</th>
+                    <th class="font-bold text-gray-700">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="registrationsTableBody">
+                  <tr>
+                    <td colspan="7" class="text-center py-8 text-gray-500 font-medium">No registrations yet</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="px-6 py-4 border-t border-gray-200 bg-gray-50 flex justify-between items-center">
+              <span class="text-sm text-gray-600 font-semibold">Showing 0 registrations</span>
+              <div class="flex gap-2">
+                <button class="btn btn-sm btn-ghost border border-gray-300 font-bold">Previous</button>
+                <button class="btn btn-sm btn-ghost border border-gray-300 font-bold">Next</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
                     <!-- Registrations List -->
                     <div class="bg-white shadow-lg border border-gray-200">
@@ -1909,89 +1917,53 @@ import Layout from "../layouts/Layout.astro";
 </Layout>
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const sidebar = document.getElementById("sidebar");
-        const sidebarOverlay = document.getElementById("sidebarOverlay");
-        const toggleSidebar = document.getElementById("toggleSidebar");
-        const closeSidebar = document.getElementById("closeSidebar");
-        const navLinks = document.querySelectorAll(".nav-link[data-page]");
-        const pages = document.querySelectorAll(".page-content");
-        const currentPageBreadcrumb = document.getElementById("currentPage");
+  document.addEventListener('DOMContentLoaded', () => {
+    // --- Navigation Logic ---
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    const toggleSidebar = document.getElementById('toggleSidebar');
+    const closeSidebar = document.getElementById('closeSidebar');
+    const navLinks = document.querySelectorAll('.nav-link[data-page]');
+    const pages = document.querySelectorAll('.page-content');
+    const currentPageBreadcrumb = document.getElementById('currentPage');
+    
+    toggleSidebar?.addEventListener('click', () => {
+      sidebar?.classList.remove('-translate-x-full');
+      sidebarOverlay?.classList.remove('hidden');
+    });
+    
+    closeSidebar?.addEventListener('click', () => {
+      sidebar?.classList.add('-translate-x-full');
+      sidebarOverlay?.classList.add('hidden');
+    });
+    
+    sidebarOverlay?.addEventListener('click', () => {
+      sidebar?.classList.add('-translate-x-full');
+      sidebarOverlay?.classList.add('hidden');
+    });
+    
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        
+        const pageId = (link as HTMLElement).dataset.page;
+        pages.forEach(page => page.classList.add('hidden'));
+        
+        const targetPage = document.getElementById(`${pageId}-page`);
+        if (targetPage) {
+          targetPage.classList.remove('hidden');
+          const pageTitle = link.textContent?.trim() || '';
+          if (currentPageBreadcrumb) {
+            currentPageBreadcrumb.textContent = pageTitle;
+          }
 
-        toggleSidebar?.addEventListener("click", () => {
-            sidebar?.classList.remove("-translate-x-full");
-            sidebarOverlay?.classList.remove("hidden");
-        });
-
-        closeSidebar?.addEventListener("click", () => {
-            sidebar?.classList.add("-translate-x-full");
-            sidebarOverlay?.classList.add("hidden");
-        });
-
-        sidebarOverlay?.addEventListener("click", () => {
-            sidebar?.classList.add("-translate-x-full");
-            sidebarOverlay?.classList.add("hidden");
-        });
-
-        navLinks.forEach((link) => {
-            link.addEventListener("click", (e) => {
-                e.preventDefault();
-
-                navLinks.forEach((l) => l.classList.remove("active"));
-                link.classList.add("active");
-
-                const pageId = (link as HTMLElement).dataset.page;
-                pages.forEach((page) => page.classList.add("hidden"));
-
-                const targetPage = document.getElementById(`${pageId}-page`);
-                if (targetPage) {
-                    targetPage.classList.remove("hidden");
-                    const pageTitle = link.textContent?.trim() || "";
-                    if (currentPageBreadcrumb) {
-                        currentPageBreadcrumb.textContent = pageTitle;
-                    }
-                }
-
-                if (window.innerWidth < 1024) {
-                    sidebar?.classList.add("-translate-x-full");
-                    sidebarOverlay?.classList.add("hidden");
-                }
-            });
-        });
-
-        // Typeform-style Create Event Handler
-        let currentStep = 1;
-        const totalSteps = 12;
-        const slides = document.querySelectorAll(".question-slide");
-        const progressBar = document.getElementById("progressBar");
-        const currentStepEl = document.getElementById("currentStep");
-        const prevButton = document.getElementById("prevButton");
-        const nextButton = document.getElementById("nextButton");
-        const skipButton = document.getElementById("skipButton");
-        const closeTypeform = document.getElementById("closeTypeform");
-        const typeformCreate = document.getElementById("typeformCreate");
-
-        function updateProgress() {
-            const progress = (currentStep / totalSteps) * 100;
-            if (progressBar) progressBar.style.width = `${progress}%`;
-            if (currentStepEl)
-                currentStepEl.textContent = currentStep.toString();
-
-            // Update button states
-            if (prevButton)
-                (prevButton as HTMLButtonElement).disabled = currentStep === 1;
-            if (nextButton) {
-                nextButton.textContent =
-                    currentStep === totalSteps ? "Submit" : "Next";
-            }
-
-            // Show/hide skip button for optional fields
-            const optionalSteps = [10, 11, 12];
-            if (skipButton) {
-                skipButton.style.display = optionalSteps.includes(currentStep)
-                    ? "block"
-                    : "none";
-            }
+          // Fetch data based on page
+          if (pageId === 'dashboard') fetchStats();
+          if (pageId === 'manage') fetchMyEvents();
+          if (pageId === 'registrations') fetchRegistrations();
         }
 
         function showSlide(step: number) {
@@ -2020,209 +1992,406 @@ import Layout from "../layouts/Layout.astro";
             if (input) (input as HTMLElement).focus();
         }
 
-        function validateCurrentStep(): boolean {
-            const activeSlide = document.querySelector(
-                ".question-slide.active",
-            );
-            const input = activeSlide?.querySelector(
-                "input[required], textarea[required]",
-            );
+    // --- Data Fetching Logic ---
 
-            if (input) {
-                const htmlInput = input as HTMLInputElement;
-                if (!htmlInput.value.trim()) {
-                    htmlInput.classList.add("border-red-500");
-                    return false;
-                }
-                htmlInput.classList.remove("border-red-500");
+    async function fetchStats() {
+        try {
+            const res = await fetch('http://localhost:3000/api/events/organizer/stats', { credentials: 'include' });
+            if (res.ok) {
+                const { data } = await res.json();
+                document.getElementById('statTotalEvents')!.textContent = data.totalEvents;
+                document.getElementById('statActiveEvents')!.textContent = data.activeEvents;
+                document.getElementById('statTotalRegistrations')!.textContent = data.totalRegistrations;
+                document.getElementById('statAvgAttendance')!.textContent = data.avgAttendance || '0%';
             }
-            return true;
+        } catch (e) {
+            console.error("Failed to fetch stats", e);
         }
+    }
 
-        function nextStep() {
-            if (currentStep === totalSteps) {
-                submitForm();
+    async function fetchMyEvents() {
+        const tbody = document.getElementById('manageEventsTableBody');
+        const recentTbody = document.getElementById('recentEventsTableBody');
+        if (!tbody) return;
+
+        try {
+            const res = await fetch('http://localhost:3000/api/events/organizer/my-events', { credentials: 'include' });
+            const { data } = await res.json();
+
+            const renderRow = (event) => `
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="font-medium text-gray-900">${event.title}</td>
+                    <td class="text-gray-600">${new Date(event.date).toLocaleDateString()}</td>
+                    <td><span class="badge ${new Date(event.date) > new Date() ? 'badge-success' : 'badge-ghost'} badge-sm font-bold text-white">${new Date(event.date) > new Date() ? 'Active' : 'Completed'}</span></td>
+                    <td>
+                        <button class="btn btn-ghost btn-xs text-blue-600 hover:bg-blue-50" onclick="editEvent(${event.id})">Edit</button>
+                        <button class="btn btn-ghost btn-xs text-red-600 hover:bg-red-50" onclick="deleteEvent(${event.id})">Delete</button>
+                    </td>
+                </tr>
+            `;
+
+            if (data.length === 0) {
+                const empty = '<tr><td colspan="4" class="text-center py-8 text-gray-500">No events found</td></tr>';
+                tbody.innerHTML = empty;
+                if (recentTbody) recentTbody.innerHTML = empty;
                 return;
             }
 
-            if (validateCurrentStep()) {
-                currentStep++;
-                showSlide(currentStep);
+            tbody.innerHTML = data.map(renderRow).join('');
+            
+            // Also update Recent Events table (first 5)
+            if (recentTbody) {
+                // Recent events table has different columns: Name, Date, Registrations, Status, Actions
+                // We'll simplify for now or fetch registrations count if needed.
+                // For now, reusing similar structure but matching the header
+                recentTbody.innerHTML = data.slice(0, 5).map(event => `
+                    <tr>
+                        <td class="font-bold text-gray-900">${event.title}</td>
+                        <td class="text-gray-600">${new Date(event.date).toLocaleDateString()}</td>
+                        <td class="text-gray-600 font-medium">-</td> 
+                        <td><span class="badge ${new Date(event.date) > new Date() ? 'badge-success' : 'badge-ghost'} text-white font-bold">${new Date(event.date) > new Date() ? 'Active' : 'Completed'}</span></td>
+                        <td><button class="btn btn-ghost btn-xs text-blue-600 font-bold">View</button></td>
+                    </tr>
+                `).join('');
             }
+
+        } catch (e) {
+            console.error(e);
+            tbody.innerHTML = '<tr><td colspan="4" class="text-center text-red-500">Failed to load events</td></tr>';
         }
+    }
 
-        function prevStep() {
-            if (currentStep > 1) {
-                currentStep--;
-                showSlide(currentStep);
-            }
-        }
-
-        function skipStep() {
-            if (currentStep < totalSteps) {
-                currentStep++;
-                showSlide(currentStep);
-            }
-        }
-
-        async function submitForm() {
-            const title = (
-                document.getElementById("eventTitle") as HTMLInputElement
-            )?.value;
-            const description = (
-                document.getElementById(
-                    "eventDescription",
-                ) as HTMLTextAreaElement
-            )?.value;
-            const category = (
-                document.getElementById("eventCategory") as HTMLInputElement
-            )?.value;
-            const type = (
-                document.getElementById("eventType") as HTMLInputElement
-            )?.value;
-            const startDate = (
-                document.getElementById("startDate") as HTMLInputElement
-            )?.value;
-            const startTime = (
-                document.getElementById("startTime") as HTMLInputElement
-            )?.value;
-            const endDate = (
-                document.getElementById("endDate") as HTMLInputElement
-            )?.value;
-            const endTime = (
-                document.getElementById("endTime") as HTMLInputElement
-            )?.value;
-            const venueName = (
-                document.getElementById("venueName") as HTMLInputElement
-            )?.value;
-            const venueAddress = (
-                document.getElementById("venueAddress") as HTMLInputElement
-            )?.value;
-            const maxAttendees = (
-                document.getElementById("maxAttendees") as HTMLInputElement
-            )?.value;
-            const entryFee = (
-                document.getElementById("entryFee") as HTMLInputElement
-            )?.value;
-
-            // Combine date and time
-            const startDateTime = new Date(`${startDate}T${startTime}`);
-            const endDateTime = new Date(`${endDate}T${endTime}`);
-
-            const formData = {
-                title,
-                description,
-                longDescription: description, // Using description as longDescription for now
-                category,
-                date: startDateTime.toISOString(),
-                startTime: startDateTime.toISOString(),
-                endTime: endDateTime.toISOString(),
-                venue: `${venueName}, ${venueAddress}`,
-                capacity: parseInt(maxAttendees) || 0,
-                price: parseFloat(entryFee) || 0,
-                posterUrl:
-                    "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&q=80&w=1000", // Default image
-            };
-
-            try {
-                const response = await fetch(
-                    "http://localhost:3000/api/event/createEvent",
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(formData),
-                        credentials: "include",
-                    },
-                );
-
-                const data = await response.json();
-
-                if (response.ok && data.success) {
-                    alert("Event created successfully!");
-                    // Close typeform and reset
-                    const createPage = document.getElementById("create-page");
-                    createPage?.classList.add("hidden");
-                    currentStep = 1;
-                    showSlide(1);
-                    // Refresh dashboard or redirect
-                    window.location.reload();
-                } else {
-                    alert(
-                        `Error creating event: ${data.message || "Unknown error"}`,
-                    );
-                }
-            } catch (error) {
-                console.error("Error creating event:", error);
-                alert("Failed to create event. Please try again.");
-            }
-        }
-
-        // Event Listeners
-        nextButton?.addEventListener("click", nextStep);
-        prevButton?.addEventListener("click", prevStep);
-        skipButton?.addEventListener("click", skipStep);
-
-        closeTypeform?.addEventListener("click", () => {
-            const createPage = document.getElementById("create-page");
-            createPage?.classList.add("hidden");
-            currentStep = 1;
-            showSlide(1);
-        });
-
-        // Enter key navigation
-        typeformCreate?.addEventListener("keypress", (e) => {
-            if (e.key === "Enter") {
-                e.preventDefault();
-                const target = e.target as HTMLElement;
-                if (target.tagName !== "TEXTAREA") {
-                    nextStep();
-                }
-            }
-        });
-
-        // Category selection
-        document.querySelectorAll(".category-option").forEach((btn) => {
-            btn.addEventListener("click", () => {
-                document.querySelectorAll(".category-option").forEach((b) => {
-                    b.classList.remove("border-purple-600", "bg-purple-50");
-                    b.classList.add("border-gray-300");
-                });
-                btn.classList.remove("border-gray-300");
-                btn.classList.add("border-purple-600", "bg-purple-50");
-
-                const value = (btn as HTMLElement).dataset.value;
-                const categoryInput = document.getElementById(
-                    "eventCategory",
-                ) as HTMLInputElement;
-                if (categoryInput && value) categoryInput.value = value;
-
-                setTimeout(nextStep, 300);
+    (window as any).deleteEvent = async (id) => {
+        if (!confirm('Are you sure you want to delete this event?')) return;
+        try {
+            const res = await fetch(`http://localhost:3000/api/events/${id}`, {
+                method: 'DELETE',
+                credentials: 'include'
             });
-        });
+            if (res.ok) {
+                alert('Event deleted');
+                fetchMyEvents();
+                fetchStats();
+            } else {
+                alert('Failed to delete event');
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    };
 
-        // Event type selection
-        document.querySelectorAll(".event-type-option").forEach((btn) => {
-            btn.addEventListener("click", () => {
-                document.querySelectorAll(".event-type-option").forEach((b) => {
-                    b.classList.remove("border-purple-600", "bg-purple-50");
-                    b.classList.add("border-gray-300");
-                });
-                btn.classList.remove("border-gray-300");
-                btn.classList.add("border-purple-600", "bg-purple-50");
+    async function fetchRegistrations() {
+        const tbody = document.getElementById('registrationsTableBody');
+        if (!tbody) return;
 
-                const value = (btn as HTMLElement).dataset.value;
-                const typeInput = document.getElementById(
-                    "eventType",
-                ) as HTMLInputElement;
-                if (typeInput && value) typeInput.value = value;
+        try {
+            const res = await fetch('http://localhost:3000/api/events/organizer/registrations', { credentials: 'include' });
+            const { data } = await res.json();
 
-                setTimeout(nextStep, 300);
-            });
-        });
+            if (data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center py-8 text-gray-500 font-medium">No registrations yet</td></tr>';
+                return;
+            }
 
-        // Initialize
-        showSlide(1);
+            tbody.innerHTML = data.map(reg => `
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="font-mono text-xs text-gray-500">#${reg.id}</td>
+                    <td class="font-bold text-gray-900">${reg.user.firstName} ${reg.user.lastName}</td>
+                    <td class="text-gray-600">${reg.user.email}</td>
+                    <td class="text-blue-600 font-medium">${reg.event.title}</td>
+                    <td class="text-gray-600">${new Date(reg.createdAt).toLocaleDateString()}</td>
+                    <td><span class="badge ${reg.paymentStatus === 'COMPLETED' ? 'badge-success' : 'badge-warning'} text-white font-bold badge-sm">${reg.paymentStatus}</span></td>
+                    <td><button class="btn btn-ghost btn-xs">Details</button></td>
+                </tr>
+            `).join('');
+
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+
+    // --- Typeform Logic ---
+    let currentStep = 1;
+    const totalSteps = 12;
+    const slides = document.querySelectorAll('.question-slide');
+    const progressBar = document.getElementById('progressBar');
+    const currentStepEl = document.getElementById('currentStep');
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
+    const skipButton = document.getElementById('skipButton');
+    const closeTypeform = document.getElementById('closeTypeform');
+    const typeformCreate = document.getElementById('typeformCreate');
+
+    function updateProgress() {
+      const progress = (currentStep / totalSteps) * 100;
+      if (progressBar) progressBar.style.width = `${progress}%`;
+      if (currentStepEl) currentStepEl.textContent = currentStep.toString();
+      
+      if (prevButton) (prevButton as HTMLButtonElement).disabled = currentStep === 1;
+      if (nextButton) {
+        nextButton.textContent = currentStep === totalSteps ? 'Submit' : 'Next';
+      }
+
+      const optionalSteps = [10, 11, 12];
+      if (skipButton) {
+        skipButton.style.display = optionalSteps.includes(currentStep) ? 'block' : 'none';
+      }
+    }
+
+    function showSlide(step: number) {
+      slides.forEach((slide, index) => {
+        const htmlSlide = slide as HTMLElement;
+        if (index + 1 === step) {
+          htmlSlide.classList.add('active');
+          htmlSlide.style.display = 'block';
+          htmlSlide.style.opacity = '0';
+          setTimeout(() => {
+            htmlSlide.style.transition = 'opacity 0.3s ease-in';
+            htmlSlide.style.opacity = '1';
+          }, 10);
+        } else {
+          htmlSlide.classList.remove('active');
+          htmlSlide.style.display = 'none';
+        }
+      });
+      updateProgress();
+      
+      const activeSlide = document.querySelector('.question-slide.active');
+      const input = activeSlide?.querySelector('input, textarea');
+      if (input) (input as HTMLElement).focus();
+    }
+
+    function validateCurrentStep(): boolean {
+      const activeSlide = document.querySelector('.question-slide.active');
+      const input = activeSlide?.querySelector('input[required], textarea[required]');
+      
+      if (input) {
+        const htmlInput = input as HTMLInputElement;
+        if (!htmlInput.value.trim()) {
+          htmlInput.classList.add('border-red-500');
+          return false;
+        }
+        htmlInput.classList.remove('border-red-500');
+      }
+      return true;
+    }
+
+    function nextStep() {
+      if (currentStep === totalSteps) {
+        submitForm();
+        return;
+      }
+
+      if (validateCurrentStep()) {
+        currentStep++;
+        showSlide(currentStep);
+      }
+    }
+
+    function prevStep() {
+      if (currentStep > 1) {
+        currentStep--;
+        showSlide(currentStep);
+      }
+    }
+
+    function skipStep() {
+      if (currentStep < totalSteps) {
+        currentStep++;
+        showSlide(currentStep);
+      }
+    }
+
+    async function submitForm() {
+      const formData = {
+        title: (document.getElementById('eventTitle') as HTMLInputElement)?.value,
+        description: (document.getElementById('eventDescription') as HTMLTextAreaElement)?.value,
+        category: (document.getElementById('eventCategory') as HTMLInputElement)?.value,
+        // type: (document.getElementById('eventType') as HTMLInputElement)?.value, // Backend doesn't have type yet, but we can send it or ignore
+        date: (document.getElementById('startDate') as HTMLInputElement)?.value,
+        startTime: (document.getElementById('startDate') as HTMLInputElement)?.value + 'T' + (document.getElementById('startTime') as HTMLInputElement)?.value, // Combine for ISO
+        endTime: (document.getElementById('endDate') as HTMLInputElement)?.value + 'T' + (document.getElementById('endTime') as HTMLInputElement)?.value,
+        venue: (document.getElementById('venueName') as HTMLInputElement)?.value,
+        // address: (document.getElementById('venueAddress') as HTMLInputElement)?.value,
+        capacity: (document.getElementById('maxAttendees') as HTMLInputElement)?.value,
+        price: (document.getElementById('entryFee') as HTMLInputElement)?.value,
+      };
+
+      try {
+          const res = await fetch('http://localhost:3000/api/events', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(formData),
+              credentials: 'include'
+          });
+          
+          if (res.ok) {
+              alert('Event created successfully!');
+              const createPage = document.getElementById('create-page');
+              createPage?.classList.add('hidden');
+              currentStep = 1;
+              showSlide(1);
+              fetchStats();
+              fetchMyEvents();
+              // Go to dashboard
+              document.querySelector('.nav-link[data-page="dashboard"]')?.dispatchEvent(new Event('click'));
+          } else {
+              const err = await res.json();
+              alert('Failed to create event: ' + err.message);
+          }
+      } catch (e) {
+          console.error(e);
+          alert('Error creating event');
+      }
+    }
+
+    // Event Listeners
+    nextButton?.addEventListener('click', nextStep);
+    prevButton?.addEventListener('click', prevStep);
+    skipButton?.addEventListener('click', skipStep);
+    
+    closeTypeform?.addEventListener('click', () => {
+      const createPage = document.getElementById('create-page');
+      createPage?.classList.add('hidden');
+      currentStep = 1;
+      showSlide(1);
     });
+
+    typeformCreate?.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        const target = e.target as HTMLElement;
+        if (target.tagName !== 'TEXTAREA') {
+            e.preventDefault();
+            nextStep();
+        }
+
+    document.querySelectorAll('.category-option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.category-option').forEach(b => {
+          b.classList.remove('border-purple-600', 'bg-purple-50');
+          b.classList.add('border-gray-300');
+        });
+
+    document.querySelectorAll('.event-type-option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.event-type-option').forEach(b => {
+          b.classList.remove('border-purple-600', 'bg-purple-50');
+          b.classList.add('border-gray-300');
+        });
+
+    // Initial Load
+    showSlide(1);
+    fetchStats();
+    fetchMyEvents(); // Pre-fetch
+  });
 </script>
+
+<style>
+  /* Remove all border radius */
+  * {
+    border-radius: 0 !important;
+  }
+  
+  .btn, .card, .input, .select, .badge, .modal-box, .avatar, .dropdown-content {
+    border-radius: 0 !important;
+  }
+  
+  .nav-link {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: rgb(107, 114, 128);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background: rgb(147, 51, 234);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    color: rgb(31, 41, 55);
+    background: rgb(243, 244, 246);
+    transform: translateX(4px);
+  }
+  
+  .nav-link.active {
+    color: rgb(147, 51, 234);
+    background: rgb(243, 232, 255);
+    font-weight: 700;
+  }
+  
+  .nav-link.active::before {
+    transform: scaleY(1);
+  }
+  
+  .page-content {
+    animation: fadeIn 0.3s ease-in;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Typeform Styles */
+  .question-slide {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+  }
+
+  .question-slide.active {
+    display: block;
+    opacity: 1;
+  }
+
+  .question-slide input:focus,
+  .question-slide textarea:focus {
+    border-bottom-color: rgb(147, 51, 234);
+  }
+
+  .category-option,
+  .event-type-option {
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .category-option.selected,
+  .event-type-option.selected {
+    border-color: rgb(147, 51, 234);
+    background-color: rgb(243, 232, 255);
+  }
+
+  /* Custom scrollbar for typeform */
+  #create-page::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  #create-page::-webkit-scrollbar-track {
+    background: rgb(243, 244, 246);
+  }
+
+  #create-page::-webkit-scrollbar-thumb {
+    background: rgb(147, 51, 234);
+  }
+
+  #create-page::-webkit-scrollbar-thumb:hover {
+    background: rgb(126, 34, 206);
+  }
+</style>

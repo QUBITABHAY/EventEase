@@ -15,7 +15,7 @@ const currentPath = Astro.url.pathname;
                 >
                 <ul
                     tabindex="0"
-                    class="menu dropdown-content fixed top-0 left-0 z-[9999] h-screen w-[80%] flex-col gap-5 bg-white p-10 shadow-[0_12px_45px_rgba(0,0,0,0.16)] animate-[slideFullscreen_0.28s_ease-out]"
+                    class="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-white w-52 border-2 border-black"
                 >
                     <li>
                         <a
@@ -52,7 +52,7 @@ const currentPath = Astro.url.pathname;
                     <li class="mt-auto">
                         <a
                             href="/register"
-                            class="block w-full rounded-xl bg-blue-700 px-5 py-4 text-center text-xl font-bold text-white transition-transform duration-250 hover:-translate-y-0.5 hover:bg-blue-800"
+                            class="bg-black text-white hover:bg-gray-800 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] transition-all font-bold uppercase tracking-wide px-4 py-2"
                             >Get Started</a
                         >
                     </li>
@@ -98,12 +98,9 @@ const currentPath = Astro.url.pathname;
         <div class="navbar-end hidden gap-4 lg:flex w-auto lg:w-1/2">
             <a
                 href="/login"
-                class="rounded-lg px-4 py-2 font-extrabold text-gray-700 transition-colors duration-200 hover:bg-gray-100"
-                >Login</a
+                class="btn btn-ghost font-bold hover:bg-gray-100 rounded-none border-2 border-transparent hover:border-black uppercase tracking-wide">Login</a
             >
-            <a
-                href="/register"
-                class="mr-[-80px] rounded-lg bg-blue-600 px-4 py-2 font-semibold text-white shadow-[0_8px_32px_rgba(255,255,255,0.6),0_2px_8px_rgba(230,230,230,0.9)] transition-colors duration-200 hover:bg-blue-800"
+            <a href="/signup" class="btn bg-black text-white hover:bg-gray-800 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] transition-all font-bold uppercase tracking-wide rounded-none"
                 >Get Started</a
             >
         </div>

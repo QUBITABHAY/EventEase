@@ -98,7 +98,7 @@ export const getCurrentUserService = async (data) => {
 
     return {
       status: 200,
-      data: user,
+      data: user
     };
   } catch (error) {
     if (error.name === "JsonWebTokenError") {
@@ -122,7 +122,7 @@ export const getCurrentUserService = async (data) => {
 
 export const updateUserService = async (data) => {
   try {
-    const { email, newRole, newPassword } = data;
+    const { firstName, lastName, email, phone, newPassword, newRole } = data;
 
     const checkDetail = await prisma.user.findUnique({
       where: {
@@ -137,23 +137,27 @@ export const updateUserService = async (data) => {
       };
     }
 
-    const result = await prisma.user.update({
+    const updateData = {};
+    if (firstName) updateData.firstName = firstName;
+    if (lastName) updateData.lastName = lastName;
+    if (phone) updateData.phone = phone;
+    if (newPassword) updateData.password = await bcrypt.hash(newPassword, 10);
+    if (newRole) updateData.role = newRole;
+
+    const updatedUser = await prisma.user.update({
       where: {
         id: checkDetail.id,
       },
-
-      data: {
-        ...(newPassword && { password: await bcrypt.hash(newPassword, 10) }),
-        ...(newRole && { role: newRole.toUpperCase() }),
-      },
+      data: updateData,
     });
 
     return {
       status: 200,
       message: "User updated",
-      data: result,
+      data: updatedUser
     };
   } catch (error) {
+    console.log(error);
     return {
       status: 500,
       message: "Internal Server Error",
