@@ -1,9 +1,5 @@
 import { Router } from "express";
-import {
-  getCurrentUser,
-  updateUser,
-  deleteUser,
-} from "./userController.js";
+import { getCurrentUser, updateUser, deleteUser } from "./userController.js";
 import {
   getCurrentUserValidation,
   updateUserValidation,

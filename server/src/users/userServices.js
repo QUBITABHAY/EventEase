@@ -24,7 +24,13 @@ export const createUserService = async (data) => {
         phone,
         role: role ? role.toUpperCase() : "USER",
       },
-      select: { id: true, firstName: true, lastName: true, email: true, role: true },
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        role: true,
+      },
     });
 
     return { status: 201, message: "User created", user: created };
@@ -57,7 +63,11 @@ export const loginUserService = async (data) => {
     return {
       status: 200,
       message: "Login successful",
-      user: { id: checkDetail.id, email: checkDetail.email, role: checkDetail.role },
+      user: {
+        id: checkDetail.id,
+        email: checkDetail.email,
+        role: checkDetail.role,
+      },
     };
   } catch (error) {
     console.log(error);
@@ -91,23 +101,21 @@ export const getCurrentUserService = async (data) => {
       data: user
     };
   } catch (error) {
-    // Development log
-    console.log(error);
     if (error.name === "JsonWebTokenError") {
       return {
         status: 401,
-        message: "Invalid token"
+        message: "Invalid token",
       };
     }
     if (error.name === "TokenExpiredError") {
       return {
         status: 401,
-        message: "Token has expired"
+        message: "Token has expired",
       };
     }
     return {
       status: 500,
-      message: "Internal Server Error"
+      message: "Internal Server Error",
     };
   }
 };
@@ -125,7 +133,7 @@ export const updateUserService = async (data) => {
     if (!checkDetail) {
       return {
         status: 401,
-        message: "Invalid credential"
+        message: "Invalid credential",
       };
     }
 
@@ -152,7 +160,7 @@ export const updateUserService = async (data) => {
     console.log(error);
     return {
       status: 500,
-      message: "Internal Server Error"
+      message: "Internal Server Error",
     };
   }
 };
