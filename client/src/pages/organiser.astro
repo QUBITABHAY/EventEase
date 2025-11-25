@@ -1,63 +1,30 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Organiser Dashboard - EventEase">
-  <div class="flex h-screen bg-gray-50 overflow-hidden">
-    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-80 bg-white border-r border-gray-200 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 -translate-x-full shadow-lg">
-      <div class="flex items-center justify-between h-20 px-6 border-b border-gray-200 bg-gray-50">
-        <a href="/" class="text-2xl font-black text-blue-600 tracking-tight" style="font-family: 'Space Grotesk', sans-serif;">
-          EventEase
-        </a>
-        <button id="closeSidebar" class="lg:hidden text-gray-500 hover:text-gray-900 text-2xl font-bold">
-          X
-        </button>
-      </div>
-
-      <div class="px-6 py-6 border-b border-gray-200 bg-blue-50">
-        <div class="flex items-center gap-4">
-          <div class="avatar placeholder">
-            <div class="bg-purple-600 text-white w-14 h-14 shadow-lg ring-2 ring-white ring-offset-2">
-              <span class="text-lg font-bold" style="font-family: 'Poppins', sans-serif;">ORG</span>
+    <div class="flex h-screen bg-gray-50 overflow-hidden">
+        <aside
+            id="sidebar"
+            class="fixed inset-y-0 left-0 z-50 w-80 bg-white border-r border-gray-200 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 -translate-x-full shadow-lg"
+        >
+            <div
+                class="flex items-center justify-between h-20 px-6 border-b border-gray-200 bg-gray-50"
+            >
+                <a
+                    href="/"
+                    class="text-2xl font-black text-blue-600 tracking-tight"
+                    style="font-family: 'Space Grotesk', sans-serif;"
+                >
+                    EventEase
+                </a>
+                <button
+                    id="closeSidebar"
+                    class="lg:hidden text-gray-500 hover:text-gray-900 text-2xl font-bold"
+                >
+                    X
+                </button>
             </div>
-          </div>
-          <div>
-            <h3 class="font-bold text-lg text-gray-900" style="font-family: 'Poppins', sans-serif;">Tech Events Co.</h3>
-            <p class="text-sm text-gray-500 font-medium">Organiser</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="flex-1 flex flex-col overflow-y-auto px-6 py-6">
-        <nav class="space-y-2 flex-1">
-          <a href="#" class="nav-link active" data-page="dashboard"><span>Dashboard</span></a>
-          <a href="#" class="nav-link" data-page="create"><span>Create Event</span></a>
-          <a href="#" class="nav-link" data-page="manage"><span>Manage Events</span></a>
-          <a href="#" class="nav-link" data-page="stats"><span>Statistics</span></a>
-          <a href="#" class="nav-link" data-page="registrations"><span>Registrations</span></a>
-          <a href="#" class="nav-link" data-page="profile"><span>Profile</span></a>
-        </nav>
-
-        <div class="border-t border-gray-200 pt-4 mt-4">
-          <a href="/login" class="nav-link"><span>Logout</span></a>
-        </div>
-      </div>
-    </aside>
-
-    <div class="flex-1 flex flex-col overflow-hidden">
-      <header class="bg-white border-b border-gray-200 h-20 flex items-center justify-between px-8 shadow-sm">
-        <div class="flex items-center gap-6">
-          <button id="toggleSidebar" class="lg:hidden text-gray-600 hover:text-gray-900 text-2xl">
-            ≡
-          </button>
-          <div class="breadcrumbs text-base hidden md:block font-medium">
-            <ul style="font-family: 'Poppins', sans-serif;">
-              <li><a href="/" class="text-blue-600 hover:text-blue-700 font-semibold">Home</a></li>
-              <li><a href="/organiser" class="text-blue-600 hover:text-blue-700 font-semibold">Organiser</a></li>
-              <li id="currentPage" class="text-gray-700 font-bold">Dashboard</li>
-            </ul>
-          </div>
-        </div>
 
         <div class="flex items-center gap-4">
           <button class="btn btn-ghost btn-sm text-xl">
@@ -224,22 +191,140 @@ import Layout from '../layouts/Layout.astro';
                       />
                       <p class="text-gray-500 text-sm mt-4 font-medium">Press Enter ↵</p>
                     </div>
-                  </div>
+                </div>
+            </header>
 
-                  <!-- Question 2: Event Description -->
-                  <div class="question-slide" data-step="2">
-                    <div class="mb-8">
-                      <span class="text-purple-600 font-bold text-sm tracking-wide uppercase">Question 2</span>
-                      <h2 class="text-5xl font-black text-gray-900 mt-4 mb-8" style="font-family: 'Poppins', sans-serif;">
-                        Tell us about your event
-                      </h2>
-                      <textarea 
-                        id="eventDescription"
-                        placeholder="Type your answer here..."
-                        class="w-full text-xl border-0 border-b-4 border-gray-300 focus:border-purple-600 outline-none py-4 bg-transparent font-medium transition-colors resize-none h-32"
-                        required
-                      ></textarea>
-                      <p class="text-gray-500 text-sm mt-4 font-medium">Press Enter ↵</p>
+            <main class="flex-1 overflow-y-auto p-8 bg-gray-50">
+                <!-- Dashboard Overview -->
+                <div id="dashboard-page" class="page-content">
+                    <h1
+                        class="text-4xl font-black text-gray-900 mb-8 tracking-tight"
+                        style="font-family: 'Poppins', sans-serif;"
+                    >
+                        Dashboard Overview
+                    </h1>
+
+                    <!-- Stats Cards -->
+                    <div
+                        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
+                    >
+                        <div
+                            class="bg-white p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow"
+                        >
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p
+                                        class="text-gray-500 text-sm font-semibold uppercase tracking-wide"
+                                    >
+                                        Total Events
+                                    </p>
+                                    <p
+                                        class="text-4xl font-black text-gray-900 mt-2"
+                                        style="font-family: 'Poppins', sans-serif;"
+                                    >
+                                        0
+                                    </p>
+                                </div>
+                                <div class="bg-blue-100 p-4">
+                                    <span
+                                        class="text-3xl text-blue-600 font-bold"
+                                        >E</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="mt-4 text-sm">
+                                <span class="text-gray-500"> this month</span>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-white p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow"
+                        >
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p
+                                        class="text-gray-500 text-sm font-semibold uppercase tracking-wide"
+                                    >
+                                        Active Events
+                                    </p>
+                                    <p
+                                        class="text-4xl font-black text-gray-900 mt-2"
+                                        style="font-family: 'Poppins', sans-serif;"
+                                    >
+                                        0
+                                    </p>
+                                </div>
+                                <div class="bg-green-100 p-4">
+                                    <span
+                                        class="text-3xl text-green-600 font-bold"
+                                        >A</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="mt-4 text-sm">
+                                <span class="text-gray-500"> currently</span>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-white p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow"
+                        >
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p
+                                        class="text-gray-500 text-sm font-semibold uppercase tracking-wide"
+                                    >
+                                        Total Registrations
+                                    </p>
+                                    <p
+                                        class="text-4xl font-black text-gray-900 mt-2"
+                                        style="font-family: 'Poppins', sans-serif;"
+                                    >
+                                        0
+                                    </p>
+                                </div>
+                                <div class="bg-purple-100 p-4">
+                                    <span
+                                        class="text-3xl text-purple-600 font-bold"
+                                        >R</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="mt-4 text-sm">
+                                <span class="text-gray-500"> this week</span>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-white p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow"
+                        >
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p
+                                        class="text-gray-500 text-sm font-semibold uppercase tracking-wide"
+                                    >
+                                        Avg Attendance
+                                    </p>
+                                    <p
+                                        class="text-4xl font-black text-gray-900 mt-2"
+                                        style="font-family: 'Poppins', sans-serif;"
+                                    >
+                                        0%
+                                    </p>
+                                </div>
+                                <div class="bg-orange-100 p-4">
+                                    <span
+                                        class="text-3xl text-orange-600 font-bold"
+                                        >%</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="mt-4 text-sm">
+                                <span class="text-gray-500">
+                                    from last month</span
+                                >
+                            </div>
+                        </div>
                     </div>
                   </div>
 
@@ -300,356 +385,920 @@ import Layout from '../layouts/Layout.astro';
                             <div class="text-gray-600">Both in-person and online options</div>
                           </div>
                         </button>
-                      </div>
-                      <input type="hidden" id="eventType" required />
                     </div>
-                  </div>
+                </div>
 
-                  <!-- Question 5: Start Date -->
-                  <div class="question-slide" data-step="5">
-                    <div class="mb-8">
-                      <span class="text-purple-600 font-bold text-sm tracking-wide uppercase">Question 5</span>
-                      <h2 class="text-5xl font-black text-gray-900 mt-4 mb-8" style="font-family: 'Poppins', sans-serif;">
-                        When does it start?
-                      </h2>
-                      <input 
-                        type="date" 
-                        id="startDate"
-                        class="w-full text-2xl border-0 border-b-4 border-gray-300 focus:border-purple-600 outline-none py-4 bg-transparent font-medium transition-colors"
-                        required
-                      />
-                      <p class="text-gray-500 text-sm mt-4 font-medium">Press Enter ↵</p>
-                    </div>
-                  </div>
-
-                  <!-- Question 6: Start Time -->
-                  <div class="question-slide" data-step="6">
-                    <div class="mb-8">
-                      <span class="text-purple-600 font-bold text-sm tracking-wide uppercase">Question 6</span>
-                      <h2 class="text-5xl font-black text-gray-900 mt-4 mb-8" style="font-family: 'Poppins', sans-serif;">
-                        What time does it start?
-                      </h2>
-                      <input 
-                        type="time" 
-                        id="startTime"
-                        class="w-full text-2xl border-0 border-b-4 border-gray-300 focus:border-purple-600 outline-none py-4 bg-transparent font-medium transition-colors"
-                        required
-                      />
-                      <p class="text-gray-500 text-sm mt-4 font-medium">Press Enter ↵</p>
-                    </div>
-                  </div>
-
-                  <!-- Question 7: End Date -->
-                  <div class="question-slide" data-step="7">
-                    <div class="mb-8">
-                      <span class="text-purple-600 font-bold text-sm tracking-wide uppercase">Question 7</span>
-                      <h2 class="text-5xl font-black text-gray-900 mt-4 mb-8" style="font-family: 'Poppins', sans-serif;">
-                        When does it end?
-                      </h2>
-                      <input 
-                        type="date" 
-                        id="endDate"
-                        class="w-full text-2xl border-0 border-b-4 border-gray-300 focus:border-purple-600 outline-none py-4 bg-transparent font-medium transition-colors"
-                        required
-                      />
-                      <p class="text-gray-500 text-sm mt-4 font-medium">Press Enter ↵</p>
-                    </div>
-                  </div>
-
-                  <!-- Question 8: End Time -->
-                  <div class="question-slide" data-step="8">
-                    <div class="mb-8">
-                      <span class="text-purple-600 font-bold text-sm tracking-wide uppercase">Question 8</span>
-                      <h2 class="text-5xl font-black text-gray-900 mt-4 mb-8" style="font-family: 'Poppins', sans-serif;">
-                        What time does it end?
-                      </h2>
-                      <input 
-                        type="time" 
-                        id="endTime"
-                        class="w-full text-2xl border-0 border-b-4 border-gray-300 focus:border-purple-600 outline-none py-4 bg-transparent font-medium transition-colors"
-                        required
-                      />
-                      <p class="text-gray-500 text-sm mt-4 font-medium">Press Enter ↵</p>
-                    </div>
-                  </div>
-
-                  <!-- Question 9: Venue -->
-                  <div class="question-slide" data-step="9">
-                    <div class="mb-8">
-                      <span class="text-purple-600 font-bold text-sm tracking-wide uppercase">Question 9</span>
-                      <h2 class="text-5xl font-black text-gray-900 mt-4 mb-8" style="font-family: 'Poppins', sans-serif;">
-                        Where is the venue?
-                      </h2>
-                      <input 
-                        type="text" 
-                        id="venueName"
-                        placeholder="e.g., Main Auditorium, Grand Hall..."
-                        class="w-full text-2xl border-0 border-b-4 border-gray-300 focus:border-purple-600 outline-none py-4 bg-transparent font-medium transition-colors"
-                        required
-                      />
-                      <p class="text-gray-500 text-sm mt-4 font-medium">Press Enter ↵</p>
-                    </div>
-                  </div>
-
-                  <!-- Question 10: Address -->
-                  <div class="question-slide" data-step="10">
-                    <div class="mb-8">
-                      <span class="text-purple-600 font-bold text-sm tracking-wide uppercase">Question 10</span>
-                      <h2 class="text-5xl font-black text-gray-900 mt-4 mb-8" style="font-family: 'Poppins', sans-serif;">
-                        What's the full address?
-                      </h2>
-                      <input 
-                        type="text" 
-                        id="venueAddress"
-                        placeholder="Street address, city, state..."
-                        class="w-full text-2xl border-0 border-b-4 border-gray-300 focus:border-purple-600 outline-none py-4 bg-transparent font-medium transition-colors"
-                      />
-                      <p class="text-gray-500 text-sm mt-4 font-medium">Press Enter ↵ or Skip</p>
-                    </div>
-                  </div>
-
-                  <!-- Question 11: Max Attendees -->
-                  <div class="question-slide" data-step="11">
-                    <div class="mb-8">
-                      <span class="text-purple-600 font-bold text-sm tracking-wide uppercase">Question 11</span>
-                      <h2 class="text-5xl font-black text-gray-900 mt-4 mb-8" style="font-family: 'Poppins', sans-serif;">
-                        How many people can attend?
-                      </h2>
-                      <input 
-                        type="number" 
-                        id="maxAttendees"
-                        placeholder="e.g., 100, 500..."
-                        class="w-full text-2xl border-0 border-b-4 border-gray-300 focus:border-purple-600 outline-none py-4 bg-transparent font-medium transition-colors"
-                      />
-                      <p class="text-gray-500 text-sm mt-4 font-medium">Press Enter ↵ or Skip</p>
-                    </div>
-                  </div>
-
-                  <!-- Question 12: Entry Fee -->
-                  <div class="question-slide" data-step="12">
-                    <div class="mb-8">
-                      <span class="text-purple-600 font-bold text-sm tracking-wide uppercase">Question 12</span>
-                      <h2 class="text-5xl font-black text-gray-900 mt-4 mb-8" style="font-family: 'Poppins', sans-serif;">
-                        Is there an entry fee?
-                      </h2>
-                      <div class="flex items-center gap-4 mb-6">
-                        <span class="text-3xl font-bold text-gray-700">$</span>
-                        <input 
-                          type="number" 
-                          id="entryFee"
-                          placeholder="0.00"
-                          step="0.01"
-                          class="flex-1 text-2xl border-0 border-b-4 border-gray-300 focus:border-purple-600 outline-none py-4 bg-transparent font-medium transition-colors"
-                        />
-                      </div>
-                      <p class="text-gray-500 text-sm mt-4 font-medium">Press Enter to finish</p>
-                    </div>
-                  </div>
-
-                  <!-- Hidden inputs for multi-step form -->
-                  <input type="hidden" id="formStep" value="1" />
-                </form>
-              </div>
-
-              <!-- Navigation Buttons -->
-              <div class="bg-white border-t border-gray-200 px-8 py-6">
-                <div class="max-w-3xl mx-auto flex justify-between items-center">
-                  <button 
-                    type="button" 
-                    id="prevButton" 
-                    class="px-6 py-3 text-gray-600 hover:text-gray-900 font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                    disabled
-                  >
-                    Previous
-                  </button>
-                  <div class="flex gap-4">
-                    <button 
-                      type="button" 
-                      id="skipButton" 
-                      class="px-6 py-3 text-gray-600 hover:text-gray-900 font-bold transition-colors"
+                <div id="create-page" class="page-content hidden">
+                    <div
+                        class="fixed inset-0 bg-gradient-to-br from-purple-50 via-white to-blue-50 z-50 overflow-hidden"
                     >
-                      Skip
-                    </button>
-                    <button 
-                      type="button" 
-                      id="nextButton" 
-                      class="px-8 py-3 bg-purple-600 text-white hover:bg-purple-700 font-bold transition-colors"
+                        <div class="h-full flex flex-col">
+                            <!-- Progress Bar -->
+                            <div
+                                class="bg-white border-b border-gray-200 px-8 py-4"
+                            >
+                                <div
+                                    class="flex items-center justify-between mb-2"
+                                >
+                                    <span
+                                        class="text-sm font-bold text-gray-600"
+                                        style="font-family: 'Poppins', sans-serif;"
+                                    >
+                                        Step <span id="currentStep">1</span> of <span
+                                            id="totalSteps">12</span
+                                        >
+                                    </span>
+                                    <button
+                                        id="closeTypeform"
+                                        class="text-gray-500 hover:text-gray-900 font-bold text-xl"
+                                        >X</button
+                                    >
+                                </div>
+                                <div class="w-full bg-gray-200 h-2">
+                                    <div
+                                        id="progressBar"
+                                        class="bg-purple-600 h-2 transition-all duration-300"
+                                        style="width: 8.33%"
+                                    >
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Form Container -->
+                            <div class="flex-1 overflow-y-auto px-8 py-12">
+                                <form
+                                    id="typeformCreate"
+                                    class="max-w-3xl mx-auto"
+                                >
+                                    <!-- Question 1: Event Title -->
+                                    <div
+                                        class="question-slide hidden opacity-0 transition-opacity duration-300 ease-in [&.active]:block [&.active]:opacity-100 active"
+                                        data-step="1"
+                                    >
+                                        <div class="mb-8">
+                                            <span
+                                                class="text-purple-600 font-bold text-sm tracking-wide uppercase"
+                                                >Question 1</span
+                                            >
+                                            <h2
+                                                class="text-5xl font-black text-gray-900 mt-4 mb-8"
+                                                style="font-family: 'Poppins', sans-serif;"
+                                            >
+                                                What's the name of your event?
+                                            </h2>
+                                            <input
+                                                type="text"
+                                                id="eventTitle"
+                                                placeholder="Type your answer here..."
+                                                class="w-full text-2xl border-0 border-b-4 border-gray-300 focus:border-purple-600 outline-none py-4 bg-transparent font-medium transition-colors"
+                                                required
+                                            />
+                                            <p
+                                                class="text-gray-500 text-sm mt-4 font-medium"
+                                            >
+                                                Press Enter ↵
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Question 2: Event Description -->
+                                    <div
+                                        class="question-slide hidden opacity-0 transition-opacity duration-300 ease-in [&.active]:block [&.active]:opacity-100"
+                                        data-step="2"
+                                    >
+                                        <div class="mb-8">
+                                            <span
+                                                class="text-purple-600 font-bold text-sm tracking-wide uppercase"
+                                                >Question 2</span
+                                            >
+                                            <h2
+                                                class="text-5xl font-black text-gray-900 mt-4 mb-8"
+                                                style="font-family: 'Poppins', sans-serif;"
+                                            >
+                                                Tell us about your event
+                                            </h2>
+                                            <textarea
+                                                id="eventDescription"
+                                                placeholder="Type your answer here..."
+                                                class="w-full text-xl border-0 border-b-4 border-gray-300 focus:border-purple-600 outline-none py-4 bg-transparent font-medium transition-colors resize-none h-32"
+                                                required></textarea>
+                                            <p
+                                                class="text-gray-500 text-sm mt-4 font-medium"
+                                            >
+                                                Press Enter ↵
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Question 3: Category -->
+                                    <div
+                                        class="question-slide hidden opacity-0 transition-opacity duration-300 ease-in [&.active]:block [&.active]:opacity-100"
+                                        data-step="3"
+                                    >
+                                        <div class="mb-8">
+                                            <span
+                                                class="text-purple-600 font-bold text-sm tracking-wide uppercase"
+                                                >Question 3</span
+                                            >
+                                            <h2
+                                                class="text-5xl font-black text-gray-900 mt-4 mb-8"
+                                                style="font-family: 'Poppins', sans-serif;"
+                                            >
+                                                What category does it fall
+                                                under?
+                                            </h2>
+                                            <div
+                                                class="grid grid-cols-1 md:grid-cols-2 gap-4"
+                                            >
+                                                <button
+                                                    type="button"
+                                                    class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left [&.selected]:border-purple-600 [&.selected]:bg-purple-50 cursor-pointer"
+                                                    data-value="Technology"
+                                                >
+                                                    <div
+                                                        class="font-bold text-xl text-gray-900"
+                                                    >
+                                                        Technology
+                                                    </div>
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left [&.selected]:border-purple-600 [&.selected]:bg-purple-50 cursor-pointer"
+                                                    data-value="Cultural"
+                                                >
+                                                    <div
+                                                        class="font-bold text-xl text-gray-900"
+                                                    >
+                                                        Cultural
+                                                    </div>
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left [&.selected]:border-purple-600 [&.selected]:bg-purple-50 cursor-pointer"
+                                                    data-value="Sports"
+                                                >
+                                                    <div
+                                                        class="font-bold text-xl text-gray-900"
+                                                    >
+                                                        Sports
+                                                    </div>
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left [&.selected]:border-purple-600 [&.selected]:bg-purple-50 cursor-pointer"
+                                                    data-value="Academic"
+                                                >
+                                                    <div
+                                                        class="font-bold text-xl text-gray-900"
+                                                    >
+                                                        Academic
+                                                    </div>
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left [&.selected]:border-purple-600 [&.selected]:bg-purple-50 cursor-pointer"
+                                                    data-value="Workshop"
+                                                >
+                                                    <div
+                                                        class="font-bold text-xl text-gray-900"
+                                                    >
+                                                        Workshop
+                                                    </div>
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    class="category-option p-6 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left [&.selected]:border-purple-600 [&.selected]:bg-purple-50 cursor-pointer"
+                                                    data-value="Conference"
+                                                >
+                                                    <div
+                                                        class="font-bold text-xl text-gray-900"
+                                                    >
+                                                        Conference
+                                                    </div>
+                                                </button>
+                                            </div>
+                                            <input
+                                                type="hidden"
+                                                id="eventCategory"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <!-- Question 4: Event Type -->
+                                    <div
+                                        class="question-slide hidden opacity-0 transition-opacity duration-300 ease-in [&.active]:block [&.active]:opacity-100"
+                                        data-step="4"
+                                    >
+                                        <div class="mb-8">
+                                            <span
+                                                class="text-purple-600 font-bold text-sm tracking-wide uppercase"
+                                                >Question 4</span
+                                            >
+                                            <h2
+                                                class="text-5xl font-black text-gray-900 mt-4 mb-8"
+                                                style="font-family: 'Poppins', sans-serif;"
+                                            >
+                                                How will attendees join?
+                                            </h2>
+                                            <div class="grid grid-cols-1 gap-4">
+                                                <button
+                                                    type="button"
+                                                    class="event-type-option p-8 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left [&.selected]:border-purple-600 [&.selected]:bg-purple-50 cursor-pointer"
+                                                    data-value="In-Person"
+                                                >
+                                                    <div>
+                                                        <div
+                                                            class="font-bold text-2xl text-gray-900 mb-1"
+                                                        >
+                                                            In-Person
+                                                        </div>
+                                                        <div
+                                                            class="text-gray-600"
+                                                        >
+                                                            Physical venue
+                                                            attendance
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    class="event-type-option p-8 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left [&.selected]:border-purple-600 [&.selected]:bg-purple-50 cursor-pointer"
+                                                    data-value="Online"
+                                                >
+                                                    <div>
+                                                        <div
+                                                            class="font-bold text-2xl text-gray-900 mb-1"
+                                                        >
+                                                            Online
+                                                        </div>
+                                                        <div
+                                                            class="text-gray-600"
+                                                        >
+                                                            Virtual event via
+                                                            video call
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    class="event-type-option p-8 border-2 border-gray-300 hover:border-purple-600 hover:bg-purple-50 transition-all text-left [&.selected]:border-purple-600 [&.selected]:bg-purple-50 cursor-pointer"
+                                                    data-value="Hybrid"
+                                                >
+                                                    <div>
+                                                        <div
+                                                            class="font-bold text-2xl text-gray-900 mb-1"
+                                                        >
+                                                            Hybrid
+                                                        </div>
+                                                        <div
+                                                            class="text-gray-600"
+                                                        >
+                                                            Both in-person and
+                                                            online options
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                            <input
+                                                type="hidden"
+                                                id="eventType"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <!-- Question 5: Start Date -->
+                                    <div
+                                        class="question-slide hidden opacity-0 transition-opacity duration-300 ease-in [&.active]:block [&.active]:opacity-100"
+                                        data-step="5"
+                                    >
+                                        <div class="mb-8">
+                                            <span
+                                                class="text-purple-600 font-bold text-sm tracking-wide uppercase"
+                                                >Question 5</span
+                                            >
+                                            <h2
+                                                class="text-5xl font-black text-gray-900 mt-4 mb-8"
+                                                style="font-family: 'Poppins', sans-serif;"
+                                            >
+                                                When does it start?
+                                            </h2>
+                                            <input
+                                                type="date"
+                                                id="startDate"
+                                                class="w-full text-2xl border-0 border-b-4 border-gray-300 focus:border-purple-600 outline-none py-4 bg-transparent font-medium transition-colors"
+                                                required
+                                            />
+                                            <p
+                                                class="text-gray-500 text-sm mt-4 font-medium"
+                                            >
+                                                Press Enter ↵
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Question 6: Start Time -->
+                                    <div
+                                        class="question-slide hidden opacity-0 transition-opacity duration-300 ease-in [&.active]:block [&.active]:opacity-100"
+                                        data-step="6"
+                                    >
+                                        <div class="mb-8">
+                                            <span
+                                                class="text-purple-600 font-bold text-sm tracking-wide uppercase"
+                                                >Question 6</span
+                                            >
+                                            <h2
+                                                class="text-5xl font-black text-gray-900 mt-4 mb-8"
+                                                style="font-family: 'Poppins', sans-serif;"
+                                            >
+                                                What time does it start?
+                                            </h2>
+                                            <input
+                                                type="time"
+                                                id="startTime"
+                                                class="w-full text-2xl border-0 border-b-4 border-gray-300 focus:border-purple-600 outline-none py-4 bg-transparent font-medium transition-colors"
+                                                required
+                                            />
+                                            <p
+                                                class="text-gray-500 text-sm mt-4 font-medium"
+                                            >
+                                                Press Enter ↵
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Question 7: End Date -->
+                                    <div
+                                        class="question-slide hidden opacity-0 transition-opacity duration-300 ease-in [&.active]:block [&.active]:opacity-100"
+                                        data-step="7"
+                                    >
+                                        <div class="mb-8">
+                                            <span
+                                                class="text-purple-600 font-bold text-sm tracking-wide uppercase"
+                                                >Question 7</span
+                                            >
+                                            <h2
+                                                class="text-5xl font-black text-gray-900 mt-4 mb-8"
+                                                style="font-family: 'Poppins', sans-serif;"
+                                            >
+                                                When does it end?
+                                            </h2>
+                                            <input
+                                                type="date"
+                                                id="endDate"
+                                                class="w-full text-2xl border-0 border-b-4 border-gray-300 focus:border-purple-600 outline-none py-4 bg-transparent font-medium transition-colors"
+                                                required
+                                            />
+                                            <p
+                                                class="text-gray-500 text-sm mt-4 font-medium"
+                                            >
+                                                Press Enter ↵
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Question 8: End Time -->
+                                    <div
+                                        class="question-slide hidden opacity-0 transition-opacity duration-300 ease-in [&.active]:block [&.active]:opacity-100"
+                                        data-step="8"
+                                    >
+                                        <div class="mb-8">
+                                            <span
+                                                class="text-purple-600 font-bold text-sm tracking-wide uppercase"
+                                                >Question 8</span
+                                            >
+                                            <h2
+                                                class="text-5xl font-black text-gray-900 mt-4 mb-8"
+                                                style="font-family: 'Poppins', sans-serif;"
+                                            >
+                                                What time does it end?
+                                            </h2>
+                                            <input
+                                                type="time"
+                                                id="endTime"
+                                                class="w-full text-2xl border-0 border-b-4 border-gray-300 focus:border-purple-600 outline-none py-4 bg-transparent font-medium transition-colors"
+                                                required
+                                            />
+                                            <p
+                                                class="text-gray-500 text-sm mt-4 font-medium"
+                                            >
+                                                Press Enter ↵
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Question 9: Venue -->
+                                    <div
+                                        class="question-slide hidden opacity-0 transition-opacity duration-300 ease-in [&.active]:block [&.active]:opacity-100"
+                                        data-step="9"
+                                    >
+                                        <div class="mb-8">
+                                            <span
+                                                class="text-purple-600 font-bold text-sm tracking-wide uppercase"
+                                                >Question 9</span
+                                            >
+                                            <h2
+                                                class="text-5xl font-black text-gray-900 mt-4 mb-8"
+                                                style="font-family: 'Poppins', sans-serif;"
+                                            >
+                                                Where is the venue?
+                                            </h2>
+                                            <input
+                                                type="text"
+                                                id="venueName"
+                                                placeholder="e.g., Main Auditorium, Grand Hall..."
+                                                class="w-full text-2xl border-0 border-b-4 border-gray-300 focus:border-purple-600 outline-none py-4 bg-transparent font-medium transition-colors"
+                                                required
+                                            />
+                                            <p
+                                                class="text-gray-500 text-sm mt-4 font-medium"
+                                            >
+                                                Press Enter ↵
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Question 10: Address -->
+                                    <div
+                                        class="question-slide hidden opacity-0 transition-opacity duration-300 ease-in [&.active]:block [&.active]:opacity-100"
+                                        data-step="10"
+                                    >
+                                        <div class="mb-8">
+                                            <span
+                                                class="text-purple-600 font-bold text-sm tracking-wide uppercase"
+                                                >Question 10</span
+                                            >
+                                            <h2
+                                                class="text-5xl font-black text-gray-900 mt-4 mb-8"
+                                                style="font-family: 'Poppins', sans-serif;"
+                                            >
+                                                What's the full address?
+                                            </h2>
+                                            <input
+                                                type="text"
+                                                id="venueAddress"
+                                                placeholder="Street address, city, state..."
+                                                class="w-full text-2xl border-0 border-b-4 border-gray-300 focus:border-purple-600 outline-none py-4 bg-transparent font-medium transition-colors"
+                                            />
+                                            <p
+                                                class="text-gray-500 text-sm mt-4 font-medium"
+                                            >
+                                                Press Enter ↵ or Skip
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Question 11: Max Attendees -->
+                                    <div
+                                        class="question-slide hidden opacity-0 transition-opacity duration-300 ease-in [&.active]:block [&.active]:opacity-100"
+                                        data-step="11"
+                                    >
+                                        <div class="mb-8">
+                                            <span
+                                                class="text-purple-600 font-bold text-sm tracking-wide uppercase"
+                                                >Question 11</span
+                                            >
+                                            <h2
+                                                class="text-5xl font-black text-gray-900 mt-4 mb-8"
+                                                style="font-family: 'Poppins', sans-serif;"
+                                            >
+                                                How many people can attend?
+                                            </h2>
+                                            <input
+                                                type="number"
+                                                id="maxAttendees"
+                                                placeholder="e.g., 100, 500..."
+                                                class="w-full text-2xl border-0 border-b-4 border-gray-300 focus:border-purple-600 outline-none py-4 bg-transparent font-medium transition-colors"
+                                            />
+                                            <p
+                                                class="text-gray-500 text-sm mt-4 font-medium"
+                                            >
+                                                Press Enter ↵ or Skip
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Question 12: Entry Fee -->
+                                    <div
+                                        class="question-slide hidden opacity-0 transition-opacity duration-300 ease-in [&.active]:block [&.active]:opacity-100"
+                                        data-step="12"
+                                    >
+                                        <div class="mb-8">
+                                            <span
+                                                class="text-purple-600 font-bold text-sm tracking-wide uppercase"
+                                                >Question 12</span
+                                            >
+                                            <h2
+                                                class="text-5xl font-black text-gray-900 mt-4 mb-8"
+                                                style="font-family: 'Poppins', sans-serif;"
+                                            >
+                                                Is there an entry fee?
+                                            </h2>
+                                            <div
+                                                class="flex items-center gap-4 mb-6"
+                                            >
+                                                <span
+                                                    class="text-3xl font-bold text-gray-700"
+                                                    >$</span
+                                                >
+                                                <input
+                                                    type="number"
+                                                    id="entryFee"
+                                                    placeholder="0.00"
+                                                    step="0.01"
+                                                    class="flex-1 text-2xl border-0 border-b-4 border-gray-300 focus:border-purple-600 outline-none py-4 bg-transparent font-medium transition-colors"
+                                                />
+                                            </div>
+                                            <p
+                                                class="text-gray-500 text-sm mt-4 font-medium"
+                                            >
+                                                Press Enter to finish
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Hidden inputs for multi-step form -->
+                                    <input
+                                        type="hidden"
+                                        id="formStep"
+                                        value="1"
+                                    />
+                                </form>
+                            </div>
+
+                            <!-- Navigation Buttons -->
+                            <div
+                                class="bg-white border-t border-gray-200 px-8 py-6"
+                            >
+                                <div
+                                    class="max-w-3xl mx-auto flex justify-between items-center"
+                                >
+                                    <button
+                                        type="button"
+                                        id="prevButton"
+                                        class="px-6 py-3 text-gray-600 hover:text-gray-900 font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                        disabled
+                                    >
+                                        Previous
+                                    </button>
+                                    <div class="flex gap-4">
+                                        <button
+                                            type="button"
+                                            id="skipButton"
+                                            class="px-6 py-3 text-gray-600 hover:text-gray-900 font-bold transition-colors"
+                                        >
+                                            Skip
+                                        </button>
+                                        <button
+                                            type="button"
+                                            id="nextButton"
+                                            class="px-8 py-3 bg-purple-600 text-white hover:bg-purple-700 font-bold transition-colors"
+                                        >
+                                            Next
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Original Create Event Form (hidden fallback) -->
+                <div id="create-traditional-page" class="page-content hidden">
+                    <h1
+                        class="text-4xl font-black text-gray-900 mb-8 tracking-tight"
+                        style="font-family: 'Poppins', sans-serif;"
                     >
-                      Next
-                    </button>
-                  </div>
+                        Create New Event
+                    </h1>
+
+                    <div class="bg-white shadow-lg border border-gray-200 p-8">
+                        <form id="createEventForm" class="space-y-6">
+                            <!-- Basic Information -->
+                            <div class="border-b border-gray-200 pb-6">
+                                <h2
+                                    class="text-2xl font-black text-gray-900 mb-6"
+                                    style="font-family: 'Poppins', sans-serif;"
+                                >
+                                    Basic Information
+                                </h2>
+                                <div
+                                    class="grid grid-cols-1 md:grid-cols-2 gap-6"
+                                >
+                                    <div class="md:col-span-2">
+                                        <label
+                                            class="block text-sm font-bold text-gray-700 mb-2"
+                                            >Event Title</label
+                                        >
+                                        <input
+                                            type="text"
+                                            placeholder="Enter event title"
+                                            class="input input-bordered w-full"
+                                            required
+                                        />
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <label
+                                            class="block text-sm font-bold text-gray-700 mb-2"
+                                            >Event Description</label
+                                        >
+                                        <textarea
+                                            placeholder="Describe your event..."
+                                            class="textarea textarea-bordered w-full h-32"
+                                            required></textarea>
+                                    </div>
+                                    <div>
+                                        <label
+                                            class="block text-sm font-bold text-gray-700 mb-2"
+                                            >Category</label
+                                        >
+                                        <select
+                                            class="select select-bordered w-full"
+                                            required
+                                        >
+                                            <option disabled selected
+                                                >Select category</option
+                                            >
+                                            <option>Technology</option>
+                                            <option>Cultural</option>
+                                            <option>Sports</option>
+                                            <option>Academic</option>
+                                            <option>Workshop</option>
+                                            <option>Conference</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label
+                                            class="block text-sm font-bold text-gray-700 mb-2"
+                                            >Event Type</label
+                                        >
+                                        <select
+                                            class="select select-bordered w-full"
+                                            required
+                                        >
+                                            <option disabled selected
+                                                >Select type</option
+                                            >
+                                            <option>In-Person</option>
+                                            <option>Online</option>
+                                            <option>Hybrid</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Date and Time -->
+                            <div class="border-b border-gray-200 pb-6">
+                                <h2
+                                    class="text-2xl font-black text-gray-900 mb-6"
+                                    style="font-family: 'Poppins', sans-serif;"
+                                >
+                                    Date & Time
+                                </h2>
+                                <div
+                                    class="grid grid-cols-1 md:grid-cols-2 gap-6"
+                                >
+                                    <div>
+                                        <label
+                                            class="block text-sm font-bold text-gray-700 mb-2"
+                                            >Start Date</label
+                                        >
+                                        <input
+                                            type="date"
+                                            class="input input-bordered w-full"
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <label
+                                            class="block text-sm font-bold text-gray-700 mb-2"
+                                            >Start Time</label
+                                        >
+                                        <input
+                                            type="time"
+                                            class="input input-bordered w-full"
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <label
+                                            class="block text-sm font-bold text-gray-700 mb-2"
+                                            >End Date</label
+                                        >
+                                        <input
+                                            type="date"
+                                            class="input input-bordered w-full"
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <label
+                                            class="block text-sm font-bold text-gray-700 mb-2"
+                                            >End Time</label
+                                        >
+                                        <input
+                                            type="time"
+                                            class="input input-bordered w-full"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Location -->
+                            <div class="border-b border-gray-200 pb-6">
+                                <h2
+                                    class="text-2xl font-black text-gray-900 mb-6"
+                                    style="font-family: 'Poppins', sans-serif;"
+                                >
+                                    Location
+                                </h2>
+                                <div
+                                    class="grid grid-cols-1 md:grid-cols-2 gap-6"
+                                >
+                                    <div class="md:col-span-2">
+                                        <label
+                                            class="block text-sm font-bold text-gray-700 mb-2"
+                                            >Venue Name</label
+                                        >
+                                        <input
+                                            type="text"
+                                            placeholder="Enter venue name"
+                                            class="input input-bordered w-full"
+                                            required
+                                        />
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <label
+                                            class="block text-sm font-bold text-gray-700 mb-2"
+                                            >Address</label
+                                        >
+                                        <input
+                                            type="text"
+                                            placeholder="Enter full address"
+                                            class="input input-bordered w-full"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label
+                                            class="block text-sm font-bold text-gray-700 mb-2"
+                                            >City</label
+                                        >
+                                        <input
+                                            type="text"
+                                            placeholder="Enter city"
+                                            class="input input-bordered w-full"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label
+                                            class="block text-sm font-bold text-gray-700 mb-2"
+                                            >Online Meeting Link</label
+                                        >
+                                        <input
+                                            type="url"
+                                            placeholder="https://..."
+                                            class="input input-bordered w-full"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Registration Settings -->
+                            <div class="border-b border-gray-200 pb-6">
+                                <h2
+                                    class="text-2xl font-black text-gray-900 mb-6"
+                                    style="font-family: 'Poppins', sans-serif;"
+                                >
+                                    Registration Settings
+                                </h2>
+                                <div
+                                    class="grid grid-cols-1 md:grid-cols-2 gap-6"
+                                >
+                                    <div>
+                                        <label
+                                            class="block text-sm font-bold text-gray-700 mb-2"
+                                            >Maximum Attendees</label
+                                        >
+                                        <input
+                                            type="number"
+                                            placeholder="Enter max capacity"
+                                            class="input input-bordered w-full"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label
+                                            class="block text-sm font-bold text-gray-700 mb-2"
+                                            >Registration Deadline</label
+                                        >
+                                        <input
+                                            type="date"
+                                            class="input input-bordered w-full"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label
+                                            class="block text-sm font-bold text-gray-700 mb-2"
+                                            >Entry Fee</label
+                                        >
+                                        <input
+                                            type="number"
+                                            placeholder="0.00"
+                                            class="input input-bordered w-full"
+                                        />
+                                    </div>
+                                    <div class="flex items-center gap-4 pt-8">
+                                        <label
+                                            class="flex items-center gap-2 cursor-pointer"
+                                        >
+                                            <input
+                                                type="checkbox"
+                                                class="checkbox checkbox-primary"
+                                            />
+                                            <span
+                                                class="text-sm font-bold text-gray-700"
+                                                >Require Approval</span
+                                            >
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Additional Details -->
+                            <div class="pb-6">
+                                <h2
+                                    class="text-2xl font-black text-gray-900 mb-6"
+                                    style="font-family: 'Poppins', sans-serif;"
+                                >
+                                    Additional Details
+                                </h2>
+                                <div class="grid grid-cols-1 gap-6">
+                                    <div>
+                                        <label
+                                            class="block text-sm font-bold text-gray-700 mb-2"
+                                            >Event Banner URL</label
+                                        >
+                                        <input
+                                            type="url"
+                                            placeholder="https://..."
+                                            class="input input-bordered w-full"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label
+                                            class="block text-sm font-bold text-gray-700 mb-2"
+                                            >Tags (comma separated)</label
+                                        >
+                                        <input
+                                            type="text"
+                                            placeholder="technology, workshop, ai"
+                                            class="input input-bordered w-full"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label
+                                            class="block text-sm font-bold text-gray-700 mb-2"
+                                            >Special Instructions</label
+                                        >
+                                        <textarea
+                                            placeholder="Any special instructions for attendees..."
+                                            class="textarea textarea-bordered w-full h-24"
+                                        ></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="flex gap-4 pt-6">
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary flex-1 font-bold text-lg"
+                                    >Create Event</button
+                                >
+                                <button
+                                    type="button"
+                                    class="btn btn-ghost border border-gray-300 px-8 font-bold"
+                                    >Save as Draft</button
+                                >
+                                <button
+                                    type="reset"
+                                    class="btn btn-ghost border border-gray-300 px-8 font-bold"
+                                    >Reset</button
+                                >
+                            </div>
+                        </form>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <!-- Original Create Event Form (hidden fallback) -->
-        <div id="create-traditional-page" class="page-content hidden">
-          <h1 class="text-4xl font-black text-gray-900 mb-8 tracking-tight" style="font-family: 'Poppins', sans-serif;">Create New Event</h1>
-          
-          <div class="bg-white shadow-lg border border-gray-200 p-8">
-            <form id="createEventForm" class="space-y-6">
-              <!-- Basic Information -->
-              <div class="border-b border-gray-200 pb-6">
-                <h2 class="text-2xl font-black text-gray-900 mb-6" style="font-family: 'Poppins', sans-serif;">Basic Information</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div class="md:col-span-2">
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Event Title</label>
-                    <input type="text" placeholder="Enter event title" class="input input-bordered w-full" required />
-                  </div>
-                  <div class="md:col-span-2">
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Event Description</label>
-                    <textarea placeholder="Describe your event..." class="textarea textarea-bordered w-full h-32" required></textarea>
-                  </div>
-                  <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Category</label>
-                    <select class="select select-bordered w-full" required>
-                      <option disabled selected>Select category</option>
-                      <option>Technology</option>
-                      <option>Cultural</option>
-                      <option>Sports</option>
-                      <option>Academic</option>
-                      <option>Workshop</option>
-                      <option>Conference</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Event Type</label>
-                    <select class="select select-bordered w-full" required>
-                      <option disabled selected>Select type</option>
-                      <option>In-Person</option>
-                      <option>Online</option>
-                      <option>Hybrid</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Date and Time -->
-              <div class="border-b border-gray-200 pb-6">
-                <h2 class="text-2xl font-black text-gray-900 mb-6" style="font-family: 'Poppins', sans-serif;">Date & Time</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Start Date</label>
-                    <input type="date" class="input input-bordered w-full" required />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Start Time</label>
-                    <input type="time" class="input input-bordered w-full" required />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">End Date</label>
-                    <input type="date" class="input input-bordered w-full" required />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">End Time</label>
-                    <input type="time" class="input input-bordered w-full" required />
-                  </div>
-                </div>
-              </div>
-
-              <!-- Location -->
-              <div class="border-b border-gray-200 pb-6">
-                <h2 class="text-2xl font-black text-gray-900 mb-6" style="font-family: 'Poppins', sans-serif;">Location</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div class="md:col-span-2">
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Venue Name</label>
-                    <input type="text" placeholder="Enter venue name" class="input input-bordered w-full" required />
-                  </div>
-                  <div class="md:col-span-2">
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Address</label>
-                    <input type="text" placeholder="Enter full address" class="input input-bordered w-full" />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">City</label>
-                    <input type="text" placeholder="Enter city" class="input input-bordered w-full" />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Online Meeting Link</label>
-                    <input type="url" placeholder="https://..." class="input input-bordered w-full" />
-                  </div>
-                </div>
-              </div>
-
-              <!-- Registration Settings -->
-              <div class="border-b border-gray-200 pb-6">
-                <h2 class="text-2xl font-black text-gray-900 mb-6" style="font-family: 'Poppins', sans-serif;">Registration Settings</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Maximum Attendees</label>
-                    <input type="number" placeholder="Enter max capacity" class="input input-bordered w-full" />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Registration Deadline</label>
-                    <input type="date" class="input input-bordered w-full" />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Entry Fee</label>
-                    <input type="number" placeholder="0.00" class="input input-bordered w-full" />
-                  </div>
-                  <div class="flex items-center gap-4 pt-8">
-                    <label class="flex items-center gap-2 cursor-pointer">
-                      <input type="checkbox" class="checkbox checkbox-primary" />
-                      <span class="text-sm font-bold text-gray-700">Require Approval</span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Additional Details -->
-              <div class="pb-6">
-                <h2 class="text-2xl font-black text-gray-900 mb-6" style="font-family: 'Poppins', sans-serif;">Additional Details</h2>
-                <div class="grid grid-cols-1 gap-6">
-                  <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Event Banner URL</label>
-                    <input type="url" placeholder="https://..." class="input input-bordered w-full" />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Tags (comma separated)</label>
-                    <input type="text" placeholder="technology, workshop, ai" class="input input-bordered w-full" />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Special Instructions</label>
-                    <textarea placeholder="Any special instructions for attendees..." class="textarea textarea-bordered w-full h-24"></textarea>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Action Buttons -->
-              <div class="flex gap-4 pt-6">
-                <button type="submit" class="btn btn-primary flex-1 font-bold text-lg">Create Event</button>
-                <button type="button" class="btn btn-ghost border border-gray-300 px-8 font-bold">Save as Draft</button>
-                <button type="reset" class="btn btn-ghost border border-gray-300 px-8 font-bold">Reset</button>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <!-- Manage Events Page -->
-        <div id="manage-page" class="page-content hidden">
-          <h1 class="text-4xl font-black text-gray-900 mb-8 tracking-tight" style="font-family: 'Poppins', sans-serif;">Manage Events</h1>
-          
-          <!-- Filter Bar -->
-          <div class="bg-white p-6 shadow-lg border border-gray-200 mb-8">
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
-              <input type="text" placeholder="Search events..." class="input input-bordered col-span-2" />
-              <select class="select select-bordered">
-                <option selected>All Status</option>
-                <option>Active</option>
-                <option>Pending</option>
-                <option>Completed</option>
-                <option>Cancelled</option>
-              </select>
-              <select class="select select-bordered">
-                <option selected>All Categories</option>
-                <option>Technology</option>
-                <option>Cultural</option>
-                <option>Sports</option>
-              </select>
-              <button class="btn btn-primary font-bold">Search</button>
-            </div>
-          </div>
+                <!-- Manage Events Page -->
+                <div id="manage-page" class="page-content hidden">
+                    <h1
+                        class="text-4xl font-black text-gray-900 mb-8 tracking-tight"
+                        style="font-family: 'Poppins', sans-serif;"
+                    >
+                        Manage Events
+                    </h1>
 
           <!-- Events List -->
           <div class="bg-white shadow-lg border border-gray-200">
@@ -671,131 +1320,245 @@ import Layout from '../layouts/Layout.astro';
           </div>
         </div>
 
-        <!-- Statistics Page -->
-        <div id="stats-page" class="page-content hidden">
-          <h1 class="text-4xl font-black text-gray-900 mb-8 tracking-tight" style="font-family: 'Poppins', sans-serif;">Event Statistics</h1>
-          
-          <!-- Overall Stats -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div class="bg-white p-6 shadow-lg border border-gray-200">
-              <h3 class="text-lg font-bold text-gray-500 mb-4 uppercase tracking-wide">Events Overview</h3>
-              <div class="space-y-3">
-                <div class="flex justify-between items-center">
-                  <span class="text-gray-700 font-semibold">Total Events</span>
-                  <span class="text-2xl font-black text-gray-900">0</span>
+                    <!-- Events List -->
+                    <div
+                        class="text-center py-16 bg-white shadow-lg border border-gray-200"
+                    >
+                        <p
+                            class="text-gray-600 text-lg font-semibold"
+                            style="font-family: 'Poppins', sans-serif;"
+                        >
+                            No events to manage yet
+                        </p>
+                    </div>
                 </div>
-                <div class="flex justify-between items-center">
-                  <span class="text-gray-700 font-semibold">Active Events</span>
-                  <span class="text-2xl font-black text-green-600">0</span>
-                </div>
-                <div class="flex justify-between items-center">
-                  <span class="text-gray-700 font-semibold">Completed</span>
-                  <span class="text-2xl font-black text-blue-600">0</span>
-                </div>
-                <div class="flex justify-between items-center">
-                  <span class="text-gray-700 font-semibold">Cancelled</span>
-                  <span class="text-2xl font-black text-red-600">0</span>
-                </div>
-              </div>
-            </div>
 
-            <div class="bg-white p-6 shadow-lg border border-gray-200">
-              <h3 class="text-lg font-bold text-gray-500 mb-4 uppercase tracking-wide">Registration Stats</h3>
-              <div class="space-y-3">
-                <div class="flex justify-between items-center">
-                  <span class="text-gray-700 font-semibold">Total Registrations</span>
-                  <span class="text-2xl font-black text-gray-900">0</span>
-                </div>
-                <div class="flex justify-between items-center">
-                  <span class="text-gray-700 font-semibold">This Month</span>
-                  <span class="text-2xl font-black text-blue-600">0</span>
-                </div>
-                <div class="flex justify-between items-center">
-                  <span class="text-gray-700 font-semibold">This Week</span>
-                  <span class="text-2xl font-black text-green-600">0</span>
-                </div>
-                <div class="flex justify-between items-center">
-                  <span class="text-gray-700 font-semibold">Today</span>
-                  <span class="text-2xl font-black text-purple-600">0</span>
-                </div>
-              </div>
-            </div>
+                <!-- Statistics Page -->
+                <div id="stats-page" class="page-content hidden">
+                    <h1
+                        class="text-4xl font-black text-gray-900 mb-8 tracking-tight"
+                        style="font-family: 'Poppins', sans-serif;"
+                    >
+                        Event Statistics
+                    </h1>
 
-            <div class="bg-white p-6 shadow-lg border border-gray-200">
-              <h3 class="text-lg font-bold text-gray-500 mb-4 uppercase tracking-wide">Attendance Stats</h3>
-              <div class="space-y-3">
-                <div class="flex justify-between items-center">
-                  <span class="text-gray-700 font-semibold">Average Rate</span>
-                  <span class="text-2xl font-black text-gray-900">0%</span>
-                </div>
-                <div class="flex justify-between items-center">
-                  <span class="text-gray-700 font-semibold">Total Attended</span>
-                  <span class="text-2xl font-black text-green-600">0</span>
-                </div>
-                <div class="flex justify-between items-center">
-                  <span class="text-gray-700 font-semibold">No Shows</span>
-                  <span class="text-2xl font-black text-red-600">0</span>
-                </div>
-                <div class="flex justify-between items-center">
-                  <span class="text-gray-700 font-semibold">Feedback Score</span>
-                  <span class="text-2xl font-black text-yellow-600">0</span>
-                </div>
-              </div>
-            </div>
-          </div>
+                    <!-- Overall Stats -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div
+                            class="bg-white p-6 shadow-lg border border-gray-200"
+                        >
+                            <h3
+                                class="text-lg font-bold text-gray-500 mb-4 uppercase tracking-wide"
+                            >
+                                Events Overview
+                            </h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-700 font-semibold"
+                                        >Total Events</span
+                                    >
+                                    <span
+                                        class="text-2xl font-black text-gray-900"
+                                        >0</span
+                                    >
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-700 font-semibold"
+                                        >Active Events</span
+                                    >
+                                    <span
+                                        class="text-2xl font-black text-green-600"
+                                        >0</span
+                                    >
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-700 font-semibold"
+                                        >Completed</span
+                                    >
+                                    <span
+                                        class="text-2xl font-black text-blue-600"
+                                        >0</span
+                                    >
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-700 font-semibold"
+                                        >Cancelled</span
+                                    >
+                                    <span
+                                        class="text-2xl font-black text-red-600"
+                                        >0</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
 
-          <!-- Category Breakdown -->
-          <div class="bg-white shadow-lg border border-gray-200 p-6 mb-8">
-            <h2 class="text-2xl font-black text-gray-900 mb-6" style="font-family: 'Poppins', sans-serif;">Events by Category</h2>
-            <div class="text-center py-8 text-gray-500 font-medium">No category data available</div>
-          </div>
+                        <div
+                            class="bg-white p-6 shadow-lg border border-gray-200"
+                        >
+                            <h3
+                                class="text-lg font-bold text-gray-500 mb-4 uppercase tracking-wide"
+                            >
+                                Registration Stats
+                            </h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-700 font-semibold"
+                                        >Total Registrations</span
+                                    >
+                                    <span
+                                        class="text-2xl font-black text-gray-900"
+                                        >0</span
+                                    >
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-700 font-semibold"
+                                        >This Month</span
+                                    >
+                                    <span
+                                        class="text-2xl font-black text-blue-600"
+                                        >0</span
+                                    >
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-700 font-semibold"
+                                        >This Week</span
+                                    >
+                                    <span
+                                        class="text-2xl font-black text-green-600"
+                                        >0</span
+                                    >
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-700 font-semibold"
+                                        >Today</span
+                                    >
+                                    <span
+                                        class="text-2xl font-black text-purple-600"
+                                        >0</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
 
-          <!-- Top Performing Events -->
-          <div class="bg-white shadow-lg border border-gray-200">
-            <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
-              <h2 class="text-2xl font-black text-gray-900" style="font-family: 'Poppins', sans-serif;">Top Performing Events</h2>
-            </div>
-            <div class="overflow-x-auto">
-              <table class="table w-full">
-                <thead class="bg-gray-50">
-                  <tr>
-                    <th class="font-bold text-gray-700">Rank</th>
-                    <th class="font-bold text-gray-700">Event Name</th>
-                    <th class="font-bold text-gray-700">Registrations</th>
-                    <th class="font-bold text-gray-700">Attendance</th>
-                    <th class="font-bold text-gray-700">Rating</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colspan="5" class="text-center py-8 text-gray-500 font-medium">No performance data available</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+                        <div
+                            class="bg-white p-6 shadow-lg border border-gray-200"
+                        >
+                            <h3
+                                class="text-lg font-bold text-gray-500 mb-4 uppercase tracking-wide"
+                            >
+                                Attendance Stats
+                            </h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-700 font-semibold"
+                                        >Average Rate</span
+                                    >
+                                    <span
+                                        class="text-2xl font-black text-gray-900"
+                                        >0%</span
+                                    >
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-700 font-semibold"
+                                        >Total Attended</span
+                                    >
+                                    <span
+                                        class="text-2xl font-black text-green-600"
+                                        >0</span
+                                    >
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-700 font-semibold"
+                                        >No Shows</span
+                                    >
+                                    <span
+                                        class="text-2xl font-black text-red-600"
+                                        >0</span
+                                    >
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-700 font-semibold"
+                                        >Feedback Score</span
+                                    >
+                                    <span
+                                        class="text-2xl font-black text-yellow-600"
+                                        >0</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-        <!-- Registrations Page -->
-        <div id="registrations-page" class="page-content hidden">
-          <h1 class="text-4xl font-black text-gray-900 mb-8 tracking-tight" style="font-family: 'Poppins', sans-serif;">Event Registrations</h1>
-          
-          <!-- Filter -->
-          <div class="bg-white p-6 shadow-lg border border-gray-200 mb-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <select class="select select-bordered">
-                <option selected>All Events</option>
-              </select>
-              <select class="select select-bordered">
-                <option selected>All Status</option>
-                <option>Confirmed</option>
-                <option>Pending</option>
-                <option>Cancelled</option>
-              </select>
-              <input type="text" placeholder="Search by name or email..." class="input input-bordered" />
-              <button class="btn btn-primary font-bold">Filter</button>
-            </div>
-          </div>
+                    <!-- Category Breakdown -->
+                    <div
+                        class="bg-white shadow-lg border border-gray-200 p-6 mb-8"
+                    >
+                        <h2
+                            class="text-2xl font-black text-gray-900 mb-6"
+                            style="font-family: 'Poppins', sans-serif;"
+                        >
+                            Events by Category
+                        </h2>
+                        <div class="text-center py-8 text-gray-500 font-medium">
+                            No category data available
+                        </div>
+                    </div>
+
+                    <!-- Top Performing Events -->
+                    <div class="bg-white shadow-lg border border-gray-200">
+                        <div
+                            class="px-6 py-4 border-b border-gray-200 bg-gray-50"
+                        >
+                            <h2
+                                class="text-2xl font-black text-gray-900"
+                                style="font-family: 'Poppins', sans-serif;"
+                            >
+                                Top Performing Events
+                            </h2>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="table w-full">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="font-bold text-gray-700"
+                                            >Rank</th
+                                        >
+                                        <th class="font-bold text-gray-700"
+                                            >Event Name</th
+                                        >
+                                        <th class="font-bold text-gray-700"
+                                            >Registrations</th
+                                        >
+                                        <th class="font-bold text-gray-700"
+                                            >Attendance</th
+                                        >
+                                        <th class="font-bold text-gray-700"
+                                            >Rating</th
+                                        >
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td
+                                            colspan="5"
+                                            class="text-center py-8 text-gray-500 font-medium"
+                                            >No performance data available</td
+                                        >
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Registrations Page -->
+                <div id="registrations-page" class="page-content hidden">
+                    <h1
+                        class="text-4xl font-black text-gray-900 mb-8 tracking-tight"
+                        style="font-family: 'Poppins', sans-serif;"
+                    >
+                        Event Registrations
+                    </h1>
 
           <!-- Registrations List -->
           <div class="bg-white shadow-lg border border-gray-200">
@@ -833,112 +1596,324 @@ import Layout from '../layouts/Layout.astro';
           </div>
         </div>
 
-        <!-- Profile Page -->
-        <div id="profile-page" class="page-content hidden">
-          <h1 class="text-4xl font-black text-gray-900 mb-8 tracking-tight" style="font-family: 'Poppins', sans-serif;">Organiser Profile</h1>
-          
-          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Profile Card -->
-            <div class="bg-white shadow-lg border border-gray-200 p-6">
-              <div class="text-center">
-                <div class="avatar placeholder mx-auto mb-4">
-                  <div class="bg-purple-600 text-white w-24 h-24">
-                    <span class="text-4xl font-bold">ORG</span>
-                  </div>
+                    <!-- Registrations List -->
+                    <div class="bg-white shadow-lg border border-gray-200">
+                        <div
+                            class="px-6 py-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center"
+                        >
+                            <h2
+                                class="text-2xl font-black text-gray-900"
+                                style="font-family: 'Poppins', sans-serif;"
+                            >
+                                Recent Registrations
+                            </h2>
+                            <button class="btn btn-sm btn-primary font-bold"
+                                >Export CSV</button
+                            >
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="table w-full">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="font-bold text-gray-700"
+                                            >ID</th
+                                        >
+                                        <th class="font-bold text-gray-700"
+                                            >Name</th
+                                        >
+                                        <th class="font-bold text-gray-700"
+                                            >Email</th
+                                        >
+                                        <th class="font-bold text-gray-700"
+                                            >Event</th
+                                        >
+                                        <th class="font-bold text-gray-700"
+                                            >Date</th
+                                        >
+                                        <th class="font-bold text-gray-700"
+                                            >Status</th
+                                        >
+                                        <th class="font-bold text-gray-700"
+                                            >Actions</th
+                                        >
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td
+                                            colspan="7"
+                                            class="text-center py-8 text-gray-500 font-medium"
+                                            >No registrations yet</td
+                                        >
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div
+                            class="px-6 py-4 border-t border-gray-200 bg-gray-50 flex justify-between items-center"
+                        >
+                            <span class="text-sm text-gray-600 font-semibold"
+                                >Showing 0 registrations</span
+                            >
+                            <div class="flex gap-2">
+                                <button
+                                    class="btn btn-sm btn-ghost border border-gray-300 font-bold"
+                                    >Previous</button
+                                >
+                                <button
+                                    class="btn btn-sm btn-ghost border border-gray-300 font-bold"
+                                    >Next</button
+                                >
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <h2 class="text-2xl font-black text-gray-900 mb-2" style="font-family: 'Poppins', sans-serif;">Tech Events Co.</h2>
-                <p class="text-gray-600 font-semibold mb-4">Premium Organiser</p>
-                <div class="space-y-2 text-left">
-                  <div class="flex items-center gap-2">
-                    <span class="font-bold text-gray-700">Email:</span>
-                    <span class="text-gray-600">contact@techevents.com</span>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <span class="font-bold text-gray-700">Phone:</span>
-                    <span class="text-gray-600">+1 234 567 8900</span>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <span class="font-bold text-gray-700">Member Since:</span>
-                    <span class="text-gray-600">Jan 2024</span>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <span class="font-bold text-gray-700">Total Events:</span>
-                    <span class="text-blue-600 font-bold">0</span>
-                  </div>
-                </div>
-                <button class="btn btn-primary w-full mt-6 font-bold">Edit Profile</button>
-              </div>
-            </div>
 
-            <!-- Profile Details -->
-            <div class="lg:col-span-2 space-y-6">
-              <div class="bg-white shadow-lg border border-gray-200 p-6">
-                <h2 class="text-2xl font-black text-gray-900 mb-6" style="font-family: 'Poppins', sans-serif;">Organization Information</h2>
-                <form class="space-y-4">
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label class="block text-sm font-bold text-gray-700 mb-2">Organization Name</label>
-                      <input type="text" value="Tech Events Co." class="input input-bordered w-full" />
-                    </div>
-                    <div>
-                      <label class="block text-sm font-bold text-gray-700 mb-2">Contact Person</label>
-                      <input type="text" placeholder="Enter name" class="input input-bordered w-full" />
-                    </div>
-                    <div>
-                      <label class="block text-sm font-bold text-gray-700 mb-2">Email Address</label>
-                      <input type="email" value="contact@techevents.com" class="input input-bordered w-full" />
-                    </div>
-                    <div>
-                      <label class="block text-sm font-bold text-gray-700 mb-2">Phone Number</label>
-                      <input type="tel" value="+1 234 567 8900" class="input input-bordered w-full" />
-                    </div>
-                    <div class="md:col-span-2">
-                      <label class="block text-sm font-bold text-gray-700 mb-2">Address</label>
-                      <input type="text" placeholder="Enter address" class="input input-bordered w-full" />
-                    </div>
-                    <div>
-                      <label class="block text-sm font-bold text-gray-700 mb-2">City</label>
-                      <input type="text" placeholder="Enter city" class="input input-bordered w-full" />
-                    </div>
-                    <div>
-                      <label class="block text-sm font-bold text-gray-700 mb-2">Website</label>
-                      <input type="url" placeholder="https://..." class="input input-bordered w-full" />
-                    </div>
-                    <div class="md:col-span-2">
-                      <label class="block text-sm font-bold text-gray-700 mb-2">About Organization</label>
-                      <textarea placeholder="Tell us about your organization..." class="textarea textarea-bordered w-full h-24"></textarea>
-                    </div>
-                  </div>
-                  <button type="submit" class="btn btn-primary font-bold">Save Changes</button>
-                </form>
-              </div>
+                <!-- Profile Page -->
+                <div id="profile-page" class="page-content hidden">
+                    <h1
+                        class="text-4xl font-black text-gray-900 mb-8 tracking-tight"
+                        style="font-family: 'Poppins', sans-serif;"
+                    >
+                        Organiser Profile
+                    </h1>
 
-              <div class="bg-white shadow-lg border border-gray-200 p-6">
-                <h2 class="text-2xl font-black text-gray-900 mb-6" style="font-family: 'Poppins', sans-serif;">Account Settings</h2>
-                <div class="space-y-4">
-                  <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Current Password</label>
-                    <input type="password" placeholder="Enter current password" class="input input-bordered w-full" />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">New Password</label>
-                    <input type="password" placeholder="Enter new password" class="input input-bordered w-full" />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Confirm New Password</label>
-                    <input type="password" placeholder="Confirm new password" class="input input-bordered w-full" />
-                  </div>
-                  <button class="btn btn-primary font-bold">Update Password</button>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <!-- Profile Card -->
+                        <div
+                            class="bg-white shadow-lg border border-gray-200 p-6"
+                        >
+                            <div class="text-center">
+                                <div class="avatar placeholder mx-auto mb-4">
+                                    <div
+                                        class="bg-purple-600 text-white w-24 h-24"
+                                    >
+                                        <span class="text-4xl font-bold"
+                                            >ORG</span
+                                        >
+                                    </div>
+                                </div>
+                                <h2
+                                    class="text-2xl font-black text-gray-900 mb-2"
+                                    style="font-family: 'Poppins', sans-serif;"
+                                >
+                                    Tech Events Co.
+                                </h2>
+                                <p class="text-gray-600 font-semibold mb-4">
+                                    Premium Organiser
+                                </p>
+                                <div class="space-y-2 text-left">
+                                    <div class="flex items-center gap-2">
+                                        <span class="font-bold text-gray-700"
+                                            >Email:</span
+                                        >
+                                        <span class="text-gray-600"
+                                            >contact@techevents.com</span
+                                        >
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="font-bold text-gray-700"
+                                            >Phone:</span
+                                        >
+                                        <span class="text-gray-600"
+                                            >+1 234 567 8900</span
+                                        >
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="font-bold text-gray-700"
+                                            >Member Since:</span
+                                        >
+                                        <span class="text-gray-600"
+                                            >Jan 2024</span
+                                        >
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="font-bold text-gray-700"
+                                            >Total Events:</span
+                                        >
+                                        <span class="text-blue-600 font-bold"
+                                            >0</span
+                                        >
+                                    </div>
+                                </div>
+                                <button
+                                    class="btn btn-primary w-full mt-6 font-bold"
+                                    >Edit Profile</button
+                                >
+                            </div>
+                        </div>
+
+                        <!-- Profile Details -->
+                        <div class="lg:col-span-2 space-y-6">
+                            <div
+                                class="bg-white shadow-lg border border-gray-200 p-6"
+                            >
+                                <h2
+                                    class="text-2xl font-black text-gray-900 mb-6"
+                                    style="font-family: 'Poppins', sans-serif;"
+                                >
+                                    Organization Information
+                                </h2>
+                                <form class="space-y-4">
+                                    <div
+                                        class="grid grid-cols-1 md:grid-cols-2 gap-4"
+                                    >
+                                        <div>
+                                            <label
+                                                class="block text-sm font-bold text-gray-700 mb-2"
+                                                >Organization Name</label
+                                            >
+                                            <input
+                                                type="text"
+                                                value="Tech Events Co."
+                                                class="input input-bordered w-full"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label
+                                                class="block text-sm font-bold text-gray-700 mb-2"
+                                                >Contact Person</label
+                                            >
+                                            <input
+                                                type="text"
+                                                placeholder="Enter name"
+                                                class="input input-bordered w-full"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label
+                                                class="block text-sm font-bold text-gray-700 mb-2"
+                                                >Email Address</label
+                                            >
+                                            <input
+                                                type="email"
+                                                value="contact@techevents.com"
+                                                class="input input-bordered w-full"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label
+                                                class="block text-sm font-bold text-gray-700 mb-2"
+                                                >Phone Number</label
+                                            >
+                                            <input
+                                                type="tel"
+                                                value="+1 234 567 8900"
+                                                class="input input-bordered w-full"
+                                            />
+                                        </div>
+                                        <div class="md:col-span-2">
+                                            <label
+                                                class="block text-sm font-bold text-gray-700 mb-2"
+                                                >Address</label
+                                            >
+                                            <input
+                                                type="text"
+                                                placeholder="Enter address"
+                                                class="input input-bordered w-full"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label
+                                                class="block text-sm font-bold text-gray-700 mb-2"
+                                                >City</label
+                                            >
+                                            <input
+                                                type="text"
+                                                placeholder="Enter city"
+                                                class="input input-bordered w-full"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label
+                                                class="block text-sm font-bold text-gray-700 mb-2"
+                                                >Website</label
+                                            >
+                                            <input
+                                                type="url"
+                                                placeholder="https://..."
+                                                class="input input-bordered w-full"
+                                            />
+                                        </div>
+                                        <div class="md:col-span-2">
+                                            <label
+                                                class="block text-sm font-bold text-gray-700 mb-2"
+                                                >About Organization</label
+                                            >
+                                            <textarea
+                                                placeholder="Tell us about your organization..."
+                                                class="textarea textarea-bordered w-full h-24"
+                                            ></textarea>
+                                        </div>
+                                    </div>
+                                    <button
+                                        type="submit"
+                                        class="btn btn-primary font-bold"
+                                        >Save Changes</button
+                                    >
+                                </form>
+                            </div>
+
+                            <div
+                                class="bg-white shadow-lg border border-gray-200 p-6"
+                            >
+                                <h2
+                                    class="text-2xl font-black text-gray-900 mb-6"
+                                    style="font-family: 'Poppins', sans-serif;"
+                                >
+                                    Account Settings
+                                </h2>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label
+                                            class="block text-sm font-bold text-gray-700 mb-2"
+                                            >Current Password</label
+                                        >
+                                        <input
+                                            type="password"
+                                            placeholder="Enter current password"
+                                            class="input input-bordered w-full"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label
+                                            class="block text-sm font-bold text-gray-700 mb-2"
+                                            >New Password</label
+                                        >
+                                        <input
+                                            type="password"
+                                            placeholder="Enter new password"
+                                            class="input input-bordered w-full"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label
+                                            class="block text-sm font-bold text-gray-700 mb-2"
+                                            >Confirm New Password</label
+                                        >
+                                        <input
+                                            type="password"
+                                            placeholder="Confirm new password"
+                                            class="input input-bordered w-full"
+                                        />
+                                    </div>
+                                    <button class="btn btn-primary font-bold"
+                                        >Update Password</button
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
+            </main>
         </div>
-      </main>
-    </div>
 
-    <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden hidden"></div>
-  </div>
+        <div
+            id="sidebarOverlay"
+            class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden hidden"
+        >
+        </div>
+    </div>
 </Layout>
 
 <script>
@@ -990,13 +1965,32 @@ import Layout from '../layouts/Layout.astro';
           if (pageId === 'manage') fetchMyEvents();
           if (pageId === 'registrations') fetchRegistrations();
         }
-        
-        if (window.innerWidth < 1024) {
-          sidebar?.classList.add('-translate-x-full');
-          sidebarOverlay?.classList.add('hidden');
+
+        function showSlide(step: number) {
+            slides.forEach((slide, index) => {
+                const htmlSlide = slide as HTMLElement;
+                if (index + 1 === step) {
+                    htmlSlide.classList.add("active");
+                    htmlSlide.style.display = "block";
+                    htmlSlide.style.opacity = "0";
+                    setTimeout(() => {
+                        htmlSlide.style.transition = "opacity 0.3s ease-in";
+                        htmlSlide.style.opacity = "1";
+                    }, 10);
+                } else {
+                    htmlSlide.classList.remove("active");
+                    htmlSlide.style.display = "none";
+                }
+            });
+            updateProgress();
+
+            // Focus on input
+            const activeSlide = document.querySelector(
+                ".question-slide.active",
+            );
+            const input = activeSlide?.querySelector("input, textarea");
+            if (input) (input as HTMLElement).focus();
         }
-      });
-    });
 
     // --- Data Fetching Logic ---
 
@@ -1271,8 +2265,6 @@ import Layout from '../layouts/Layout.astro';
             e.preventDefault();
             nextStep();
         }
-      }
-    });
 
     document.querySelectorAll('.category-option').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1280,16 +2272,6 @@ import Layout from '../layouts/Layout.astro';
           b.classList.remove('border-purple-600', 'bg-purple-50');
           b.classList.add('border-gray-300');
         });
-        btn.classList.remove('border-gray-300');
-        btn.classList.add('border-purple-600', 'bg-purple-50');
-        
-        const value = (btn as HTMLElement).dataset.value;
-        const categoryInput = document.getElementById('eventCategory') as HTMLInputElement;
-        if (categoryInput && value) categoryInput.value = value;
-        
-        setTimeout(nextStep, 300);
-      });
-    });
 
     document.querySelectorAll('.event-type-option').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1297,16 +2279,6 @@ import Layout from '../layouts/Layout.astro';
           b.classList.remove('border-purple-600', 'bg-purple-50');
           b.classList.add('border-gray-300');
         });
-        btn.classList.remove('border-gray-300');
-        btn.classList.add('border-purple-600', 'bg-purple-50');
-        
-        const value = (btn as HTMLElement).dataset.value;
-        const typeInput = document.getElementById('eventType') as HTMLInputElement;
-        if (typeInput && value) typeInput.value = value;
-        
-        setTimeout(nextStep, 300);
-      });
-    });
 
     // Initial Load
     showSlide(1);

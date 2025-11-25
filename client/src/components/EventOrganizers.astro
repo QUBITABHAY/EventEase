@@ -1,115 +1,50 @@
 ---
 const organizers = [
-  {
-    name: "Ethan Carter",
-    role: "Tech Event Specialist",
-    initial: "E"
-  },
-  {
-    name: "Sophia Bennett",
-    role: "AI Conference Organizer",
-    initial: "S"
-  },
-  {
-    name: "Liam Harper",
-    role: "Cybersecurity Event Planner",
-    initial: "L"
-  }
+    {
+        name: "Ethan Carter",
+        role: "Tech Event Specialist",
+        initial: "E",
+    },
+    {
+        name: "Sophia Bennett",
+        role: "AI Conference Organizer",
+        initial: "S",
+    },
+    {
+        name: "Liam Harper",
+        role: "Cybersecurity Event Planner",
+        initial: "L",
+    },
 ];
 ---
 
-<section class="event-organizers section">
-  <div class="container">
-    <h2 class="section-title">Featured Event Organizers</h2>
-    <div class="organizers-grid">
-      {organizers.map((organizer) => (
-        <div class="organizer-card">
-          <div class="organizer-avatar">
-            <span class="avatar-initial">{organizer.initial}</span>
-          </div>
-          <h3 class="organizer-name">{organizer.name}</h3>
-          <p class="organizer-role">{organizer.role}</p>
+<section class="bg-white py-16">
+    <div class="container mx-auto px-4">
+        <h2
+            class="text-4xl font-bold text-gray-800 mb-10 text-left md:text-3xl"
+        >
+            Featured Event Organizers
+        </h2>
+        <div
+            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-[900px] mx-auto"
+        >
+            {
+                organizers.map((organizer) => (
+                    <div class="flex flex-col items-center gap-4 text-center group">
+                        <div class="w-[120px] h-[120px] rounded-full bg-[#f5f5dc] flex items-center justify-center shadow-sm transition-all duration-300 group-hover:scale-105 group-hover:shadow-md">
+                            <span class="text-5xl font-bold text-gray-800 font-sans">
+                                {organizer.initial}
+                            </span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-800 m-0">
+                            {organizer.name}
+                        </h3>
+                        <p class="text-sm text-gray-500 m-0">
+                            {organizer.role}
+                        </p>
+                    </div>
+                ))
+            }
         </div>
-      ))}
     </div>
-  </div>
 </section>
-
-<style>
-  .event-organizers {
-    background: white;
-    padding: 4rem 0;
-  }
-
-  .section-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #1f2937;
-    margin-bottom: 2.5rem;
-    text-align: left;
-  }
-
-  .organizers-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-  .organizer-card {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .organizer-avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: #f5f5dc;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-  }
-
-  .organizer-card:hover .organizer-avatar {
-    transform: scale(1.05);
-    box-shadow: 0 8px 12px -2px rgba(0, 0, 0, 0.15);
-  }
-
-  .avatar-initial {
-    font-size: 3rem;
-    font-weight: 700;
-    color: #1f2937;
-    font-family: 'Inter', sans-serif;
-  }
-
-  .organizer-name {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #1f2937;
-    margin: 0;
-  }
-
-  .organizer-role {
-    font-size: 0.875rem;
-    color: #6b7280;
-    margin: 0;
-  }
-
-  @media (max-width: 768px) {
-    .section-title {
-      font-size: 2rem;
-    }
-
-    .organizers-grid {
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    }
-  }
-</style>
-

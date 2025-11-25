@@ -32,16 +32,16 @@ if (!token) {
   >
     <!-- Background Orbs -->
 
-    <div class="absolute top-0 left-0 right-0 bottom-0 overflow-hidden z-0">
-      <div
-        class="absolute rounded-full filter blur-[100px] opacity-30 animate-float w-[500px] h-[500px] bg-gradient-to-br from-[#002ffe] to-[#000000] top-[-200px] left-[-200px]"
-      >
-      </div>
-      <div
-        class="absolute rounded-full filter blur-[100px] opacity-30 animate-float w-[400px] h-[400px] bg-gradient-to-br from-[#0066ff] to-[#00ccff] bottom-[-150px] right-[-150px] animate-delay-5000"
-      >
-      </div>
-    </div>
+        <div class="absolute top-0 left-0 right-0 bottom-0 overflow-hidden z-0">
+            <div
+                class="absolute rounded-full filter blur-[100px] opacity-30 animate-float w-[500px] h-[500px] bg-gradient-to-br from-[#002ffe] to-[#000000] top-[-200px] left-[-200px]"
+            >
+            </div>
+            <div
+                class="absolute rounded-full filter blur-[100px] opacity-30 animate-float w-[400px] h-[400px] bg-gradient-to-br from-[#0066ff] to-[#00ccff] bottom-[-150px] right-[-150px] delay-[5s]"
+            >
+            </div>
+        </div>
 
     <!-- Form Card -->
     <div
@@ -57,16 +57,11 @@ if (!token) {
         </p>
       </div>
 
-      <form
-        id="registerForm"
-        action="http://localhost:3000/api/user/register"
-        method="POST"
-        class="space-y-10"
-      >
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label for="firstName" class="text-sm font-semibold text-gray-700"
-              >First Name</label
+            <form
+                id="registerForm"
+                action="http://localhost:3000/api/auth/local/signup"
+                method="POST"
+                class="space-y-10"
             >
             <div class="relative">
               <svg
@@ -294,26 +289,28 @@ if (!token) {
           </div>
         </div>
 
-        <div class="flex items-start gap-2">
-          <input
-            type="checkbox"
-            id="terms"
-            name="terms"
-            required
-            class="w-4 h-4 accent-blue-500 cursor-pointer"
-          />
-          <label for="terms" class="text-sm text-gray-700 cursor-pointer"
-            >I agree to the <a
-              href="#terms"
-              class="text-blue-800 font-semibold hover:text-blue-700 cursor-pointer underline"
-              >Terms of Service</a
-            > and <a
-              href="#privacy"
-              class="text-blue-800 font-semibold hover:text-blue-700 cursor-pointer underline"
-              >Privacy Policy</a
-            ></label
-          >
-        </div>
+                <div class="flex items-start gap-2">
+                    <input
+                        type="checkbox"
+                        id="terms"
+                        name="terms"
+                        required
+                        class="w-4 h-4 accent-blue-500 cursor-pointer"
+                    />
+                    <label
+                        for="terms"
+                        class="text-sm text-gray-700 cursor-pointer"
+                        >I agree to the <a
+                            href="#terms"
+                            class="text-blue-800 font-semibold hover:text-blue-700 cursor-pointer underline"
+                            >Terms of Service</a
+                        > and <a
+                            href="#privacy"
+                            class="text-blue-800 font-semibold hover:text-blue-700 cursor-pointer underline"
+                            >Privacy Policy</a
+                        ></label
+                    >
+                </div>
 
         <button
           type="submit"
@@ -333,11 +330,13 @@ if (!token) {
           >
         </button>
 
-        <div class="flex items-center my-4">
-          <hr class="flex-grow border-gray-300" />
-          <span class="mx-2 text-gray-400 text-sm">or sign up with</span>
-          <hr class="flex-grow border-gray-300" />
-        </div>
+                <div class="flex items-center my-4">
+                    <hr class="flex-grow border-gray-300" />
+                    <span class="mx-2 text-gray-400 text-sm"
+                        >or sign up with</span
+                    >
+                    <hr class="flex-grow border-gray-300" />
+                </div>
 
         <div class="grid grid-cols-2 gap-3">
           <button
@@ -386,17 +385,17 @@ if (!token) {
           </button>
         </div>
 
-        <p class="text-center text-sm text-gray-500 mt-4">
-          Already have an account? <a
-            href="/login"
-            class="text-blue-800 font-semibold hover:text-blue-700 cursor-pointer"
-            >Sign in</a
-          >
-        </p>
-      </form>
-    </div>
-  </main>
-  <Footer />
+                <p class="text-center text-sm text-gray-500 mt-4">
+                    Already have an account? <a
+                        href="/login"
+                        class="text-blue-800 font-semibold hover:text-blue-700 cursor-pointer"
+                        >Sign in</a
+                    >
+                </p>
+            </form>
+        </div>
+    </main>
+    <Footer />
 </Layout>
 
 <style>
