@@ -55,14 +55,18 @@ export const githubPassport = passport.use(
     scope: ["user", "email"],
   }, async (accessToken, refreshToken, profile, done) => {
     try {
+      if (!profile.emails || !profile.emails[0] || !profile.emails[0].value) {
+        return done(new Error("Email not provided by GitHub"), null);
+      }
+      const email = profile.emails[0].value;
       let user = await prisma.user.findUnique({
-        where: { email: profile.emails[0].value },
+        where: { email },
       });
 
       if (!user) {
         user = await prisma.user.create({
           data: {
-            email: profile.emails[0].value,
+            email,
             provider: "GITHUB",
             providerId: profile.id,
             profilePicture: profile.photos[0]?.value || null,
