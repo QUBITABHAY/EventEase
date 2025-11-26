@@ -4,6 +4,7 @@ import {
   localLoginService,
   completeProfileService,
   verifyOtpService,
+  forgotPasswordService
 } from "./authServices.js";
 
 export const verifyOtp = async (req, res) => {
@@ -205,6 +206,23 @@ export const logout = (req, res) => {
     return res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
     console.error("Logout error:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const result = await forgotPasswordService(email);
+
+    if (result.status !== 200) {
+      return res.status(result.status).json({ message: result.message });
+    }
+
+    return res.status(200).json({ message: result.message });
+  } catch (error) {
+    console.error("Forgot password controller error:", error);
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
