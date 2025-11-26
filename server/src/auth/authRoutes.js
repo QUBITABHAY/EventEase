@@ -1,5 +1,5 @@
 import { Router } from "express";
-import passport, { githubPassport, googlePassport } from "./passport.config.js";
+import { githubPassport, googlePassport } from "./passport.config.js";
 import {
   localSignup,
   localLogin,
