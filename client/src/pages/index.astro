@@ -23,3 +23,26 @@ import Footer from "../components/Footer.astro";
     </main>
     <Footer />
 </Layout>
+
+<script>
+    import { API_BASE_URL } from "../config.js";
+
+    async function checkAuth() {
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/user/me`, {
+                credentials: "include",
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                if (data.success) {
+                    window.location.href = "/exploreEvents";
+                }
+            }
+        } catch (error) {
+            console.error("Error checking auth status:", error);
+        }
+    }
+
+    checkAuth();
+</script>

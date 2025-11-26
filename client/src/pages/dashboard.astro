@@ -187,7 +187,7 @@ import Footer from "../components/Footer.astro";
                             alt="User"
                             class="w-10 h-10 rounded-full object-cover"
                         />
-                        <div class="flex flex-col hidden sm:flex">
+                        <div class="flex-col hidden sm:flex">
                             <span
                                 class="font-semibold text-[15px] text-gray-800"
                                 id="userName">Loading...</span
@@ -512,10 +512,12 @@ import Footer from "../components/Footer.astro";
 </style>
 
 <script>
+    import { API_BASE_URL } from "../config.js";
+
     // Fetch user data
     async function fetchUserData() {
         try {
-            const response = await fetch("http://localhost:3000/api/user/me", {
+            const response = await fetch(`${API_BASE_URL}/api/user/me`, {
                 credentials: "include",
             });
 
@@ -528,9 +530,10 @@ import Footer from "../components/Footer.astro";
                     if (userNameEl)
                         userNameEl.textContent = `${data.data.firstName} ${data.data.lastName}`;
                     if (userRoleEl) userRoleEl.textContent = data.data.role;
+                } else {
+                    window.location.href = "/login";
                 }
             } else {
-                // Redirect to login if not authenticated
                 window.location.href = "/login";
             }
         } catch (error) {
@@ -544,7 +547,7 @@ import Footer from "../components/Footer.astro";
         ?.addEventListener("click", async () => {
             try {
                 const response = await fetch(
-                    "http://localhost:3000/api/auth/logout",
+                    `${API_BASE_URL}/api/auth/logout`,
                     {
                         method: "POST",
                         credentials: "include",
