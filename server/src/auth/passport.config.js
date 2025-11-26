@@ -90,4 +90,4 @@ export const githubPassport = passport.use(
       return done(error, null);
     }
   })
-)
+);
