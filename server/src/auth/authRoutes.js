@@ -36,4 +36,6 @@ authRoutes.get(
 
 authRoutes.get("/failure", oauthFailure);
 
+authRoutes.post("/forgot-password", forgotPassword);
+
 export default authRoutes;

@@ -177,3 +177,37 @@ export const localLoginService = async (data) => {
     return { status: 500, message: "Internal Server Error" };
   }
 };
+
+export const forgotPasswordService = async (email) => {
+  try {
+    const user = await prisma.user.findUnique({ where: { email } });
+
+    if (!user) {
+      return { status: 404, message: "User not found" };
+    }
+
+    const otp = otpGenerator();
+
+    await redis.set(
+      `otp:${email}`,
+      JSON.stringify({
+        otp,
+      }),
+      "EX",
+      600,
+    );
+
+    const subject = "EventEase - OTP Verification";
+    const text = `Your OTP for EventEase password reset is: ${otp}`;
+
+    await sendEmail(email, subject, text);
+
+    return {
+      status: 200,
+      message: "OTP sent. Please verify to reset password.",
+    };
+  } catch (error) {
+    console.error("Forgot password service error:", error);
+    return { status: 500, message: "Internal Server Error" };
+  }
+};
