@@ -1,5 +1,5 @@
 import { Router } from "express";
-import passport from "./passport.config.js";
+import passport, { githubPassport, googlePassport } from "./passport.config.js";
 import {
   localSignup,
   localLogin,
@@ -8,6 +8,7 @@ import {
   oauthFailure,
   logout,
   verifyOtp,
+  forgotPassword,
 } from "./authController.js";
 import {
   localSignupValidation,
@@ -23,16 +24,19 @@ authRoutes.post("/local/verify-otp", verifyOtp);
 authRoutes.post("/local/login", localLoginValidation, localLogin);
 authRoutes.post("/local/complete-profile", isAuthenticatedTemp, completeProfileValidation, completeProfile);
 authRoutes.post("/logout", logout);
-authRoutes.get("/google", passport.authenticate("google", { session: false }));
+authRoutes.get("/google", googlePassport.authenticate("google", { session: false }));
 
 authRoutes.get(
   "/google/callback",
-  passport.authenticate("google", {
+  googlePassport.authenticate("google", {
     session: false,
     failureRedirect: "/api/auth/failure",
   }),
   oauthCallback,
 );
+
+authRoutes.get("/github", githubPassport.authenticate("github", { session: false }));
+authRoutes.get("/github/callback", githubPassport.authenticate("github", { session: false }), oauthCallback);
 
 authRoutes.get("/failure", oauthFailure);
 
