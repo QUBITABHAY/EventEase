@@ -1966,31 +1966,13 @@ import Layout from "../layouts/Layout.astro";
           if (pageId === 'registrations') fetchRegistrations();
         }
 
-        function showSlide(step: number) {
-            slides.forEach((slide, index) => {
-                const htmlSlide = slide as HTMLElement;
-                if (index + 1 === step) {
-                    htmlSlide.classList.add("active");
-                    htmlSlide.style.display = "block";
-                    htmlSlide.style.opacity = "0";
-                    setTimeout(() => {
-                        htmlSlide.style.transition = "opacity 0.3s ease-in";
-                        htmlSlide.style.opacity = "1";
-                    }, 10);
-                } else {
-                    htmlSlide.classList.remove("active");
-                    htmlSlide.style.display = "none";
-                }
-            });
-            updateProgress();
-
-            // Focus on input
-            const activeSlide = document.querySelector(
-                ".question-slide.active",
-            );
-            const input = activeSlide?.querySelector("input, textarea");
-            if (input) (input as HTMLElement).focus();
+        // Close sidebar on mobile
+        if (window.innerWidth < 1024) {
+          sidebar?.classList.add('-translate-x-full');
+          sidebarOverlay?.classList.add('hidden');
         }
+      });
+    });
 
     // --- Data Fetching Logic ---
 
@@ -2265,6 +2247,8 @@ import Layout from "../layouts/Layout.astro";
             e.preventDefault();
             nextStep();
         }
+      }
+    });
 
     document.querySelectorAll('.category-option').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -2272,6 +2256,12 @@ import Layout from "../layouts/Layout.astro";
           b.classList.remove('border-purple-600', 'bg-purple-50');
           b.classList.add('border-gray-300');
         });
+        btn.classList.add('border-purple-600', 'bg-purple-50');
+        btn.classList.remove('border-gray-300');
+        const val = (btn as HTMLElement).dataset.value;
+        (document.getElementById('eventCategory') as HTMLInputElement).value = val || '';
+      });
+    });
 
     document.querySelectorAll('.event-type-option').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -2279,6 +2269,12 @@ import Layout from "../layouts/Layout.astro";
           b.classList.remove('border-purple-600', 'bg-purple-50');
           b.classList.add('border-gray-300');
         });
+        btn.classList.add('border-purple-600', 'bg-purple-50');
+        btn.classList.remove('border-gray-300');
+        const val = (btn as HTMLElement).dataset.value;
+        (document.getElementById('eventType') as HTMLInputElement).value = val || '';
+      });
+    });
 
     // Initial Load
     showSlide(1);
