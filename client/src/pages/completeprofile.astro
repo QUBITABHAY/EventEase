@@ -333,14 +333,15 @@ import Footer from "../components/Footer.astro";
     <Footer />
 </Layout>
 <script>
+    import { API_BASE_URL } from "../config.js";
+
     document.addEventListener("DOMContentLoaded", () => {
         const form = document.getElementById("multiStepForm");
         const steps = document.querySelectorAll(".form-step");
         const progressCircles = document.querySelectorAll("[data-progress]");
         const progressLines = document.querySelectorAll("[data-line]");
 
-        const COMPLETE_PROFILE_URL =
-            "http://localhost:3000/api/auth/local/complete-profile";
+        const COMPLETE_PROFILE_URL = `${API_BASE_URL}/api/auth/local/complete-profile`;
         let currentStep = 0;
 
         const updateProgressLine = (stepIndex) => {
@@ -404,17 +405,14 @@ import Footer from "../components/Footer.astro";
         };
 
         document.getElementById("nextStep1").onclick = () => {
-            // Validate step 0 (Personal Info) and move to step 1 (Contact)
             if (validateStep(0)) showStep(1);
         };
         document.getElementById("nextStep2").onclick = () => {
-            // Validate step 1 (Contact) and move to step 2 (Account Type)
             if (validateStep(1)) showStep(2);
         };
         document.getElementById("prevStep2").onclick = () => showStep(0);
         document.getElementById("prevStep3").onclick = () => showStep(1);
 
-        // --- FINAL FORM SUBMISSION HANDLER (UNCHANGED) ---
 
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -464,7 +462,6 @@ import Footer from "../components/Footer.astro";
             }
         });
 
-        // Initialize state (must be called after functions are defined)
         showStep(currentStep);
     });
 </script>

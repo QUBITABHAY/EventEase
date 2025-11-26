@@ -401,6 +401,8 @@ import EventCalendar from "../components/EventCalendar.astro";
 </Layout>
 
 <script>
+  import { API_BASE_URL } from "../config.js";
+
   document.addEventListener('DOMContentLoaded', () => {
     // ... (existing sidebar logic) ...
     const sidebar = document.getElementById('sidebar');
@@ -461,7 +463,7 @@ import EventCalendar from "../components/EventCalendar.astro";
     // 1. Fetch User Profile
     async function fetchUserProfile() {
         try {
-            const res = await fetch('http://localhost:3000/api/user/me', { credentials: 'include' });
+            const res = await fetch(`${API_BASE_URL}/api/user/me`, { credentials: 'include' });
             if (res.ok) {
                 const { data } = await res.json();
                 // Populate Profile Form
@@ -499,7 +501,7 @@ import EventCalendar from "../components/EventCalendar.astro";
         // Wait, the form has email input.
         
         try {
-            const res = await fetch('http://localhost:3000/api/user/update', {
+            const res = await fetch(`${API_BASE_URL}/api/user/update`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
@@ -524,7 +526,7 @@ import EventCalendar from "../components/EventCalendar.astro";
         grid.innerHTML = '<div class="col-span-full text-center py-10 text-gray-500">Loading events...</div>';
 
         try {
-            const res = await fetch('http://localhost:3000/api/events');
+            const res = await fetch(`${API_BASE_URL}/api/events`);
             const { data } = await res.json();
             
             if (data.length === 0) {
@@ -568,7 +570,7 @@ import EventCalendar from "../components/EventCalendar.astro";
     // 4. Open Event Modal
     (window as any).openEventModal = async (id) => {
         try {
-            const res = await fetch(`http://localhost:3000/api/events/${id}`);
+            const res = await fetch(`${API_BASE_URL}/api/events/${id}`);
             const { data } = await res.json();
             
             const modal = document.getElementById('eventModal') as HTMLDialogElement;
@@ -594,7 +596,7 @@ import EventCalendar from "../components/EventCalendar.astro";
     // 5. Register for Event
     async function registerForEvent(id) {
         try {
-            const res = await fetch(`http://localhost:3000/api/events/${id}/register`, {
+            const res = await fetch(`${API_BASE_URL}/api/events/${id}/register`, {
                 method: 'POST',
                 credentials: 'include'
             });
@@ -618,7 +620,7 @@ import EventCalendar from "../components/EventCalendar.astro";
         if (!list) return;
         
         try {
-            const res = await fetch('http://localhost:3000/api/events/my/registered', { credentials: 'include' });
+            const res = await fetch(`${API_BASE_URL}/api/events/my/registered`, { credentials: 'include' });
             const { data } = await res.json();
 
             if (data.length === 0) {
