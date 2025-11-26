@@ -36,7 +36,7 @@ authRoutes.get(
 );
 
 authRoutes.get("/github", githubPassport.authenticate("github", { session: false }));
-authRoutes.get("/github/callback", githubPassport.authenticate("github", { session: false }), oauthCallback);
+authRoutes.get("/github/callback", githubPassport.authenticate("github", { session: false, failureRedirect: "/api/auth/failure" }), oauthCallback);
 
 authRoutes.get("/failure", oauthFailure);
 
