@@ -234,3 +234,50 @@ import { API_BASE_URL } from "../config.js";
     animation-delay: 5s;
   }
 </style>
+
+<script>
+  const loginForm = document.getElementById("loginForm");
+  const API_URL = "http://localhost:3000/api/auth/local/login";
+
+  loginForm?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+        credentials: "include", // CRITICAL: Ensures the server can SET the cookie
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        // ACTION: Check ONLY for the requiresProfile flag
+        if (result.requiresProfile) {
+          // Backend has set the temporary cookie securely. Redirect cleanly.
+          window.location.href = "/completeprofile";
+          return;
+        }
+
+        // Full Login Success
+        const userRole = result.user.role;
+        if (userRole === "ORGANIZER" || userRole === "BOTH") {
+          window.location.href = "/organiser";
+        } else {
+          window.location.href = "/userdashboard";
+        }
+      } else {
+        alert(result.message || "Login failed");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("An error occurred during login. Please try again.");
+    }
+  });
+</script>
