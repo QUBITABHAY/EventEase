@@ -91,3 +91,5 @@ export const githubPassport = passport.use(
     }
   })
 );
+
+export default passport;
