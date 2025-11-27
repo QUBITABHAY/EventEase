@@ -90,11 +90,12 @@ if (!event && !error) {
                         </p>
                     </div>
 
-                    <a
-                        href="/register"
-                        class="inline-block bg-blue-600 text-white font-semibold rounded-lg px-6 py-3 mt-6 hover:bg-blue-700 transition-colors"
-                        id="joinEventBtn">Join Event</a
-                    >
+
+                    <button
+                        class="inline-block bg-blue-600 text-white font-semibold rounded-lg px-6 py-3 mt-6 hover:bg-blue-700 transition-colors cursor-pointer border-0 disabled:opacity-50 disabled:cursor-not-allowed"
+                        id="joinEventBtn"
+                        data-event-id={event.id}>Join Event</button>
+                    
                 </div>
 
                 <!-- Sidebar -->
@@ -170,4 +171,88 @@ if (!event && !error) {
         </div>
     )}
     <Footer />
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const joinBtn = document.getElementById('joinEventBtn') as HTMLButtonElement;
+            
+            if (joinBtn) {
+                const eventId = parseInt(joinBtn.dataset.eventId || '0');
+                
+                // Check registration status on page load
+                async function checkRegistrationStatus() {
+                    try {
+                        const response = await fetch(`http://localhost:3000/api/registration/check/${eventId}`, {
+                            credentials: 'include'
+                        });
+                        
+                        if (response.ok) {
+                            const result = await response.json();
+                            if (result.isRegistered) {
+                                // User is already registered
+                                joinBtn.textContent = '✓ Registration Successful!';
+                                joinBtn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                                joinBtn.classList.add('bg-green-600');
+                                joinBtn.disabled = true;
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Error checking registration:', error);
+                    }
+                }
+                
+                // Check on load (only if user is logged in)
+                checkRegistrationStatus();
+                
+                joinBtn.addEventListener('click', async function() {
+                    const eventId = parseInt(this.dataset.eventId || '0');
+                    
+                    if (!eventId) {
+                        alert('Invalid event');
+                        return;
+                    }
+
+                    // Disable button during request
+                    joinBtn.disabled = true;
+                    const originalText = joinBtn.textContent;
+                    joinBtn.textContent = 'Registering...';
+
+                    try {
+                        const response = await fetch('http://localhost:3000/api/registration/register', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            credentials: 'include', // Important: sends cookies
+                            body: JSON.stringify({ eventId })
+                        });
+
+                        const result = await response.json();
+
+                        if (response.ok) {
+                            joinBtn.textContent = '✓ Registration Successful!';
+                            joinBtn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                            joinBtn.classList.add('bg-green-600');
+                            // Keep disabled
+                        } else {
+                            // Handle errors
+                            if (response.status === 401) {
+                                alert('Please login to register for this event');
+                                window.location.href = '/login';
+                            } else {
+                                alert(result.message || 'Registration failed');
+                                joinBtn.disabled = false;
+                                joinBtn.textContent = originalText;
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Registration error:', error);
+                        alert('An error occurred. Please try again.');
+                        joinBtn.disabled = false;
+                        joinBtn.textContent = originalText;
+                    }
+                });
+            }
+        });
+    </script>
 </Layout>

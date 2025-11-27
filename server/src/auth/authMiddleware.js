@@ -84,3 +84,36 @@ export const isAuthenticatedTemp = (req, res, next) => {
     });
   }
 };
+
+export const isAuthenticated = (req, res, next) => {
+  const token = req.cookies.token;
+
+  if (!token) {
+    return res.status(401).json({
+      message: "Authentication failed. No token provided.",
+    });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    if (!decoded.id) {
+      return res.status(403).json({
+        message: "Access denied. Invalid token.",
+      });
+    }
+
+    req.userId = decoded.id;
+
+    console.log(`Authenticated User ID: ${decoded.id}`);
+    next();
+  } catch (error) {
+    console.error("JWT Verification failed:", error.message);
+    res.clearCookie("token", { path: "/" });
+
+    return res.status(401).json({
+      message: "Invalid or expired token.",
+      details: error.name,
+    });
+  }
+};
