@@ -10,8 +10,9 @@
   },
   "dependencies": {
     "@astrojs/node": "^9.5.1",
-    "@astrojs/vercel": "^9.0.2",
+    "@astrojs/vercel": "^8.0.4",
     "astro": "^5.14.1",
+    "axios": "^1.13.2",
     "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
