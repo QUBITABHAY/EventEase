@@ -2,6 +2,14 @@
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
+
+// Server-side redirect check
+const cookie = Astro.request.headers.get("cookie") || "";
+const hasToken = cookie.includes("token=");
+
+if (!hasToken) {
+  return Astro.redirect("/login");
+}
 ---
 
 <Layout title="CompleteProfile - EventEase">
@@ -306,15 +314,29 @@ import Footer from "../components/Footer.astro";
 
   <Footer />
 </Layout>
+
+<!-- Toast Notification Container -->
+<div id="toast-container" class="fixed top-4 right-4 z-50 flex flex-col gap-2">
+</div>
+
 <!-- Rest of your template remains the same -->
 
-<script client:load>
-  const API_BASE_URL = "http://localhost:3000";
+<script>
+  import api from "../lib/api";
+  import { checkAuth } from "../lib/auth";
+
+  // Check auth immediately
+  (async () => {
+    const user = await checkAuth();
+    if (!user) {
+      window.location.href = "/login";
+    }
+  })();
+
   const form = document.getElementById("multiStepForm");
   const steps = document.querySelectorAll(".form-step");
   const progressCircles = document.querySelectorAll("[data-progress]");
   const progressLines = document.querySelectorAll("[data-line]");
-  const COMPLETE_PROFILE_URL = `${API_BASE_URL}/api/auth/local/complete-profile`;
   let currentStep = 0;
 
   // Initialize the form
@@ -397,42 +419,65 @@ import Footer from "../components/Footer.astro";
     return isValid;
   }
 
+  // Toast notification function
+  function showToast(message: string, type: "success" | "error" = "success") {
+    const container = document.getElementById("toast-container");
+    if (!container) return;
+
+    const toast = document.createElement("div");
+    toast.className = `p-4 rounded-none border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transform transition-all duration-300 ${
+      type === "success" ? "bg-green-500 text-white" : "bg-red-500 text-white"
+    } font-bold`;
+    toast.textContent = message;
+
+    container.appendChild(toast);
+
+    setTimeout(() => {
+      toast.style.opacity = "0";
+      toast.style.transform = "translateX(400px)";
+      setTimeout(() => toast.remove(), 300);
+    }, 3000);
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
 
     if (!validateStep(2)) {
-      alert("Please complete all required fields");
+      showToast("Please complete all required fields", "error");
       return;
     }
 
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
+    console.log("Submitting profile data:", data);
+
     try {
-      const response = await fetch(COMPLETE_PROFILE_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...data,
-          role: data.role?.toUpperCase() || "USER",
-        }),
-        credentials: "include",
+      const response = await api.post("/api/auth/local/complete-profile", {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        phone: data.phone || "",
+        role: (data.role as string)?.toUpperCase() || "USER",
       });
 
-      const result = await response.json();
+      const result = response.data;
+      console.log("Complete profile response:", result);
 
-      if (response.ok) {
+      showToast(result.message || "Profile completed successfully!", "success");
+
+      setTimeout(() => {
         const redirectUrl =
           result.user?.role === "ORGANIZER" || result.user?.role === "BOTH"
             ? "/organiser"
-            : "/userdashboard";
+            : "/dashboard";
+        console.log("Redirecting to:", redirectUrl);
         window.location.href = redirectUrl;
-      } else {
-        alert(result.message || "Profile completion failed");
-      }
+      }, 1500);
     } catch (error) {
-      console.error("Error:", error);
-      alert("An error occurred. Please try again.");
+      console.error("Complete profile error:", error);
+      const message =
+        error.response?.data?.message || "An error occurred. Please try again.";
+      showToast(message, "error");
     }
   }
 

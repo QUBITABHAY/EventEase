@@ -6,10 +6,6 @@ export const registerForEvent = async (req, res) => {
         const userId = req.userId; // Set by isAuthenticated middleware
         const { eventId } = req.body;
 
-        if (!eventId) {
-            return res.status(400).json({ message: "Event ID is required" });
-        }
-
         // Check if event exists
         const event = await prisma.event.findUnique({
             where: { id: eventId },
@@ -104,6 +100,32 @@ export const checkRegistrationStatus = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+export const getMyRegistrations = async (req, res) => {
+    try {
+        const userId = req.userId;
+
+        const registrations = await prisma.registration.findMany({
+            where: {
+                userId: userId,
+            },
+            include: {
+                event: true,
+            },
+            orderBy: {
+                createdAt: 'desc'
+            }
+        });
+
+        return res.status(200).json({
+            status: 200,
+            data: registrations,
+        });
+    } catch (error) {
+        console.error("Error fetching my registrations:", error);
         return res.status(500).json({ message: "Internal Server Error" });
     }
 };

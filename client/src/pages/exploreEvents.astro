@@ -2,16 +2,19 @@
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
+import api from "../lib/api";
 
-import { API_BASE_URL } from "../config.js";
+const cookie = Astro.request.headers.get("cookie") || "";
+const hasToken = cookie.includes("token=");
+
+if (!hasToken) {
+    return Astro.redirect("/login");
+}
 
 let events: any[] = [];
 try {
-    const response = await fetch(`${API_BASE_URL}/api/event`);
-    if (response.ok) {
-        const data = await response.json();
-        events = data.events || [];
-    }
+    const response = await api.get("/api/event");
+    events = response.data.events || [];
 } catch (error) {
     console.error("Failed to fetch events:", error);
 }
@@ -263,7 +266,16 @@ try {
 
     <!-- Client-side filtering & sorting -->
     <script>
-        (() => {
+        import api from "../lib/api";
+        import { checkAuth } from "../lib/auth";
+
+        (async () => {
+            const user = await checkAuth();
+            if (!user) {
+                window.location.href = "/login";
+                return;
+            }
+
             // helper
             const q = (sel, root = document) => root.querySelector(sel);
             const qa = (sel, root = document) =>
@@ -426,15 +438,12 @@ try {
                     if (!eventId) continue;
 
                     try {
-                        const response = await fetch(
-                            `http://localhost:3000/api/registration/check/${eventId}`,
-                            {
-                                credentials: "include",
-                            },
+                        const response = await api.get(
+                            `/api/registration/check/${eventId}`,
                         );
 
-                        if (response.ok) {
-                            const result = await response.json();
+                        if (response.status === 200) {
+                            const result = response.data;
                             if (result.isRegistered) {
                                 // User is already registered
                                 button.textContent = "✓ Registered";
@@ -481,21 +490,14 @@ try {
                     button.textContent = "Registering...";
 
                     try {
-                        const response = await fetch(
-                            "http://localhost:3000/api/registration/register",
-                            {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                },
-                                credentials: "include", // Important: sends cookies
-                                body: JSON.stringify({ eventId }),
-                            },
+                        const response = await api.post(
+                            "/api/registration/register",
+                            { eventId },
                         );
 
-                        const result = await response.json();
+                        const result = response.data;
 
-                        if (response.ok) {
+                        if (response.status === 200) {
                             button.textContent = "✓ Registered";
                             button.classList.remove(
                                 "border-gray-200",
@@ -509,19 +511,21 @@ try {
                             button.title = "Already registered for this event";
                             // Keep disabled
                         } else {
-                            // Handle errors
-                            if (response.status === 401) {
-                                alert("Please login to register for events");
-                                window.location.href = "/login";
-                            } else {
-                                alert(result.message || "Registration failed");
-                                button.disabled = false;
-                                button.textContent = originalText;
-                            }
+                            alert(result.message || "Registration failed");
+                            button.disabled = false;
+                            button.textContent = originalText;
                         }
                     } catch (error) {
                         console.error("Registration error:", error);
-                        alert("An error occurred. Please try again.");
+                        if (error.response && error.response.status === 401) {
+                            alert("Please login to register for events");
+                            window.location.href = "/login";
+                        } else {
+                            const message =
+                                error.response?.data?.message ||
+                                "An error occurred. Please try again.";
+                            alert(message);
+                        }
                         button.disabled = false;
                         button.textContent = originalText;
                     }

@@ -21,6 +21,13 @@ export const verifyOtp = async (req, res) => {
       { expiresIn: "30m" },
     );
 
+    res.cookie("token", tempToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 30 * 60 * 1000,
+    });
+
     return res.status(201).json({
       message: result.message,
       tempToken,
@@ -41,17 +48,10 @@ export const localSignup = async (req, res) => {
       return res.status(result.status).json({ message: result.message });
     }
 
-    const tempToken = jwt.sign(
-      { id: result.user.id, email: result.user.email, temp: true },
-      process.env.JWT_SECRET,
-      { expiresIn: "30m" },
-    );
-
+    // Signup only sends OTP, no token needed yet until verification
     return res.status(201).json({
       message: result.message,
-      tempToken,
-      userId: result.user.id,
-      requiresProfile: true,
+      userId: result.user?.id, // user might be null if just OTP sent
     });
   } catch (error) {
     console.error("Local signup controller error:", error);

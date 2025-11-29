@@ -1,5 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+const cookie = Astro.request.headers.get("cookie") || "";
+const hasToken = cookie.includes("token=");
+
+if (!hasToken) {
+    return Astro.redirect("/login");
+}
 ---
 
 <Layout title="Organiser Dashboard - EventEase">
@@ -2498,8 +2505,21 @@ import Layout from "../layouts/Layout.astro";
             </div>
 
             <script>
-                import { API_BASE_URL } from "../config.js";
-                document.addEventListener("DOMContentLoaded", () => {
+                import api from "../lib/api";
+                import { checkAuth, hasRole } from "../lib/auth";
+
+                document.addEventListener("DOMContentLoaded", async () => {
+                    // Client-side role verification
+                    const user = await checkAuth();
+                    if (!user) {
+                        window.location.href = "/login";
+                        return;
+                    }
+                    if (!hasRole(user, "ORGANIZER")) {
+                        window.location.href = "/dashboard";
+                        return;
+                    }
+
                     // --- Navigation Logic ---
                     const sidebar = document.getElementById("sidebar");
                     const sidebarOverlay =
@@ -2575,12 +2595,11 @@ import Layout from "../layouts/Layout.astro";
 
                     async function fetchStats() {
                         try {
-                            const res = await fetch(
-                                `${API_BASE_URL}/api/events/organizer/stats`,
-                                { credentials: "include" },
+                            const res = await api.get(
+                                "/api/events/organizer/stats",
                             );
-                            if (res.ok) {
-                                const { data } = await res.json();
+                            if (res.status === 200) {
+                                const { data } = res.data;
                                 document.getElementById(
                                     "statTotalEvents",
                                 )!.textContent = data.totalEvents;
@@ -2609,11 +2628,10 @@ import Layout from "../layouts/Layout.astro";
                         if (!tbody) return;
 
                         try {
-                            const res = await fetch(
-                                `${API_BASE_URL}/api/events/organizer/my-events`,
-                                { credentials: "include" },
+                            const res = await api.get(
+                                "/api/events/organizer/my-events",
                             );
-                            const { data } = await res.json();
+                            const { data } = res.data;
 
                             const renderRow = (event) => `
                 <tr class="hover:bg-gray-50 transition-colors">
@@ -2639,9 +2657,6 @@ import Layout from "../layouts/Layout.astro";
 
                             // Also update Recent Events table (first 5)
                             if (recentTbody) {
-                                // Recent events table has different columns: Name, Date, Registrations, Status, Actions
-                                // We'll simplify for now or fetch registrations count if needed.
-                                // For now, reusing similar structure but matching the header
                                 recentTbody.innerHTML = data
                                     .slice(0, 5)
                                     .map(
@@ -2672,14 +2687,8 @@ import Layout from "../layouts/Layout.astro";
                         )
                             return;
                         try {
-                            const res = await fetch(
-                                `${API_BASE_URL}/api/events/${id}`,
-                                {
-                                    method: "DELETE",
-                                    credentials: "include",
-                                },
-                            );
-                            if (res.ok) {
+                            const res = await api.delete(`/api/event/${id}`);
+                            if (res.status === 200) {
                                 alert("Event deleted");
                                 fetchMyEvents();
                                 fetchStats();
@@ -2688,6 +2697,10 @@ import Layout from "../layouts/Layout.astro";
                             }
                         } catch (e) {
                             console.error(e);
+                            const message =
+                                e.response?.data?.message ||
+                                "Error deleting event";
+                            alert(message);
                         }
                     };
 
@@ -2698,11 +2711,10 @@ import Layout from "../layouts/Layout.astro";
                         if (!tbody) return;
 
                         try {
-                            const res = await fetch(
-                                `${API_BASE_URL}/api/events/organizer/registrations`,
-                                { credentials: "include" },
+                            const res = await api.get(
+                                "/api/events/organizer/registrations",
                             );
-                            const { data } = await res.json();
+                            const { data } = res.data;
 
                             if (data.length === 0) {
                                 tbody.innerHTML =
@@ -2859,7 +2871,6 @@ import Layout from "../layouts/Layout.astro";
                                     "eventCategory",
                                 ) as HTMLInputElement
                             )?.value,
-                            // type: (document.getElementById('eventType') as HTMLInputElement)?.value, // Backend doesn't have type yet, but we can send it or ignore
                             date: (
                                 document.getElementById(
                                     "startDate",
@@ -2876,7 +2887,7 @@ import Layout from "../layouts/Layout.astro";
                                     document.getElementById(
                                         "startTime",
                                     ) as HTMLInputElement
-                                )?.value, // Combine for ISO
+                                )?.value,
                             endTime:
                                 (
                                     document.getElementById(
@@ -2894,7 +2905,6 @@ import Layout from "../layouts/Layout.astro";
                                     "venueName",
                                 ) as HTMLInputElement
                             )?.value,
-                            // address: (document.getElementById('venueAddress') as HTMLInputElement)?.value,
                             capacity: (
                                 document.getElementById(
                                     "maxAttendees",
@@ -2908,19 +2918,12 @@ import Layout from "../layouts/Layout.astro";
                         };
 
                         try {
-                            const res = await fetch(
-                                `${API_BASE_URL}/api/events`,
-                                {
-                                    method: "POST",
-                                    headers: {
-                                        "Content-Type": "application/json",
-                                    },
-                                    body: JSON.stringify(formData),
-                                    credentials: "include",
-                                },
+                            const res = await api.post(
+                                "/api/event/createEvent",
+                                formData,
                             );
 
-                            if (res.ok) {
+                            if (res.status === 200 || res.status === 201) {
                                 alert("Event created successfully!");
                                 const createPage =
                                     document.getElementById("create-page");
@@ -2936,12 +2939,14 @@ import Layout from "../layouts/Layout.astro";
                                     )
                                     ?.dispatchEvent(new Event("click"));
                             } else {
-                                const err = await res.json();
-                                alert("Failed to create event: " + err.message);
+                                alert("Failed to create event");
                             }
                         } catch (e) {
                             console.error(e);
-                            alert("Error creating event");
+                            const message =
+                                e.response?.data?.message ||
+                                "Error creating event";
+                            alert(message);
                         }
                     }
 

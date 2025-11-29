@@ -101,4 +101,5 @@ enum PaymentStatus {
 enum Provider {
   LOCAL
   GOOGLE
+  GITHUB
 }
