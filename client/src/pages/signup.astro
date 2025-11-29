@@ -188,9 +188,9 @@ import { API_BASE_URL } from "../config.js";
                 </div>
 
                 <div class="grid grid-cols-2 gap-3">
-                    <button
-                        type="button"
-                        class="flex items-center justify-center gap-2 py-3 px-4 border-2 border-black rounded-none bg-white font-bold text-sm transition-all duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] cursor-pointer uppercase tracking-wide"
+                    <a
+                        href={`${API_BASE_URL}/api/auth/google`}
+                        class="flex items-center justify-center gap-2 py-3 px-4 border-2 border-black rounded-none bg-white font-bold text-sm transition-all duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] cursor-pointer uppercase tracking-wide no-underline text-black"
                     >
                         <svg
                             class="w-5 h-5"
@@ -212,10 +212,10 @@ import { API_BASE_URL } from "../config.js";
                                 fill="#EA4335"></path>
                         </svg>
                         <span>Google</span>
-                    </button>
-                    <button
-                        type="button"
-                        class="flex items-center justify-center gap-2 py-3 px-4 border-2 border-black rounded-none bg-white font-bold text-sm transition-all duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] cursor-pointer uppercase tracking-wide"
+                    </a>
+                    <a
+                        href={`${API_BASE_URL}/api/auth/github`}
+                        class="flex items-center justify-center gap-2 py-3 px-4 border-2 border-black rounded-none bg-white font-bold text-sm transition-all duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] cursor-pointer uppercase tracking-wide no-underline text-black"
                     >
                         <svg
                             class="w-5 h-5"
@@ -228,7 +228,7 @@ import { API_BASE_URL } from "../config.js";
                             ></path>
                         </svg>
                         <span>GitHub</span>
-                    </button>
+                    </a>
                 </div>
             </form>
 
