@@ -55,15 +55,46 @@ export const getAllEventService = async (data) => {
     const limit = parseInt(data?.limit) || 10;
     const skip = (page - 1) * limit;
 
+    const { search, category, date, venue } = data;
+
+    const where = {};
+
+    if (search) {
+      where.OR = [
+        { title: { contains: search, mode: "insensitive" } },
+        { description: { contains: search, mode: "insensitive" } },
+      ];
+    }
+
+    if (category && category !== "Category") {
+      where.category = category;
+    }
+
+    if (venue && venue !== "Location") {
+      where.venue = venue;
+    }
+
+    if (date) {
+      const searchDate = new Date(date);
+      const nextDate = new Date(searchDate);
+      nextDate.setDate(searchDate.getDate() + 1);
+
+      where.date = {
+        gte: searchDate,
+        lt: nextDate,
+      };
+    }
+
     const [allEvent, totalCount] = await Promise.all([
       prisma.event.findMany({
+        where,
         skip,
         take: limit,
         orderBy: {
           createdAt: "desc",
         },
       }),
-      prisma.event.count(),
+      prisma.event.count({ where }),
     ]);
 
     const totalPages = Math.ceil(totalCount / limit);
@@ -136,6 +167,9 @@ export const getEventByIdService = async (publicId) => {
   try {
     const event = await prisma.event.findUnique({
       where: { publicId },
+      include: {
+        organizer: true,
+      },
     });
     if (!event) {
       return { status: 404, message: "Event not found" };

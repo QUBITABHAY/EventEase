@@ -213,6 +213,10 @@ import { API_BASE_URL } from "../config.js";
   <Footer />
 </Layout>
 
+<!-- Toast Notification Container -->
+<div id="toast-container" class="fixed top-4 right-4 z-50 flex flex-col gap-2">
+</div>
+
 <style>
   @keyframes float {
     0%,
@@ -236,48 +240,59 @@ import { API_BASE_URL } from "../config.js";
 </style>
 
 <script>
+  import api from "../lib/api";
+
+  function showToast(message: string, type: "success" | "error" = "success") {
+    const container = document.getElementById("toast-container");
+    if (!container) return;
+
+    const toast = document.createElement("div");
+    toast.className = `p-4 rounded-none border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transform transition-all duration-300 ${
+      type === "success" ? "bg-green-500 text-white" : "bg-red-500 text-white"
+    } font-bold`;
+    toast.textContent = message;
+
+    container.appendChild(toast);
+
+    setTimeout(() => {
+      toast.style.opacity = "0";
+      toast.style.transform = "translateX(400px)";
+      setTimeout(() => toast.remove(), 300);
+    }, 3000);
+  }
+
   const loginForm = document.getElementById("loginForm");
-  const API_URL = "http://localhost:3000/api/auth/local/login";
 
   loginForm?.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.target as HTMLFormElement);
     const data = Object.fromEntries(formData.entries());
 
     try {
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-        credentials: "include", // CRITICAL: Ensures the server can SET the cookie
-      });
+      const response = await api.post("/api/auth/local/login", data);
+      const result = response.data;
 
-      const result = await response.json();
-
-      if (response.ok) {
-        // ACTION: Check ONLY for the requiresProfile flag
-        if (result.requiresProfile) {
-          // Backend has set the temporary cookie securely. Redirect cleanly.
+      if (result.requiresProfile) {
+        showToast("Please complete your profile", "success");
+        setTimeout(() => {
           window.location.href = "/completeprofile";
-          return;
-        }
-
-        // Full Login Success
-        const userRole = result.user.role;
-        if (userRole === "ORGANIZER" || userRole === "BOTH") {
-          window.location.href = "/organiser";
-        } else {
-          window.location.href = "/userdashboard";
-        }
-      } else {
-        alert(result.message || "Login failed");
+        }, 1000);
+        return;
       }
+
+      const userRole = result.user.role;
+      showToast("Login successful! Redirecting...", "success");
+
+      setTimeout(() => {
+        window.location.href = "/dashboard";
+      }, 1000);
     } catch (error) {
       console.error("Login error:", error);
-      alert("An error occurred during login. Please try again.");
+      const message =
+        error.response?.data?.message ||
+        "An error occurred during login. Please try again.";
+      showToast(message, "error");
     }
   });
 </script>

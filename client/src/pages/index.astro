@@ -25,19 +25,14 @@ import Footer from "../components/Footer.astro";
 </Layout>
 
 <script>
-    import { API_BASE_URL } from "../config.js";
+    import api from "../lib/api";
 
     async function checkAuth() {
         try {
-            const response = await fetch(`${API_BASE_URL}/api/user/me`, {
-                credentials: "include",
-            });
+            const response = await api.get("/api/user/me");
 
-            if (response.ok) {
-                const data = await response.json();
-                if (data.success) {
-                    window.location.href = "/exploreEvents";
-                }
+            if (response.data.success) {
+                window.location.href = "/exploreEvents";
             }
         } catch (error) {
             console.error("Error checking auth status:", error);

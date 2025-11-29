@@ -1,11 +1,19 @@
 ---
 const currentPath = Astro.url.pathname;
+interface Props {
+    fluid?: boolean;
+    dashboard?: boolean;
+}
+const { fluid = false, dashboard = false } = Astro.props;
+const isFluid = fluid || dashboard;
 ---
 
 <nav
-    class="sticky top-0 z-50 w-full bg-white shadow-[0_4px_15px_rgba(0,0,0,0.06)] py-2"
+    class="sticky top-0 z-50 w-full bg-white shadow-[0_4px_15px_rgba(0,0,0,0.06)] py-2 border-b border-gray-200"
 >
-    <div class="navbar container mx-auto px-4 min-h-0">
+    <div
+        class={`navbar ${isFluid ? "w-full px-8" : "container mx-auto px-4"} min-h-0`}
+    >
         <div class="navbar-start w-auto lg:w-1/2">
             <div class="dropdown lg:hidden">
                 <label
@@ -28,81 +36,304 @@ const currentPath = Astro.url.pathname;
                         <a
                             href="#features"
                             class="block rounded-xl px-4 py-4 text-xl font-semibold tracking-wide text-gray-700 transition-all duration-250 hover:translate-x-2 hover:bg-blue-50 hover:text-blue-700"
-                            >Features</a>
+                            >Features</a
+                        >
                     </li>
                     <li>
                         <a
                             href="#faq"
                             class="block rounded-xl px-4 py-4 text-xl font-semibold tracking-wide text-gray-700 transition-all duration-250 hover:translate-x-2 hover:bg-blue-50 hover:text-blue-700"
-                            >FAQ</a>
+                            >FAQ</a
+                        >
                     </li>
                     <li>
                         <a
                             href="#contact"
                             class="block rounded-xl px-4 py-4 text-xl font-semibold tracking-wide text-gray-700 transition-all duration-250 hover:translate-x-2 hover:bg-blue-50 hover:text-blue-700"
-                            >Contact</a>
+                            >Contact</a
+                        >
                     </li>
-                    <li class="mt-2 border-t border-gray-200 pt-2">
+                    <li
+                        id="mobile-login-link"
+                        class="mt-2 border-t border-gray-200 pt-2"
+                    >
                         <a
                             href="/login"
                             class="block rounded-xl px-4 py-4 text-xl font-semibold tracking-wide text-gray-700 transition-all duration-250 hover:translate-x-2 hover:bg-blue-50 hover:text-blue-700"
                             >Login</a
                         >
                     </li>
-                    <li class="mt-auto">
+                    <li id="mobile-get-started-link" class="mt-auto">
                         <a
                             href="/register"
                             class="bg-black text-white hover:bg-gray-800 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-y-0.5 transition-all font-bold uppercase tracking-wide px-4 py-2"
                             >Get Started</a
                         >
                     </li>
+                    <li
+                        id="mobile-dashboard-link"
+                        class="hidden mt-2 border-t border-gray-200 pt-2"
+                    >
+                        <a
+                            href="/dashboard"
+                            class="block rounded-xl px-4 py-4 text-xl font-semibold tracking-wide text-gray-700 transition-all duration-250 hover:translate-x-2 hover:bg-blue-50 hover:text-blue-700"
+                            >Dashboard</a
+                        >
+                    </li>
+                    <li id="mobile-organizer-link" class="hidden">
+                        <a
+                            href="/organiser"
+                            class="block rounded-xl px-4 py-4 text-xl font-semibold tracking-wide text-gray-700 transition-all duration-250 hover:translate-x-2 hover:bg-blue-50 hover:text-blue-700"
+                            >Organizer Dashboard</a
+                        >
+                    </li>
+                    <li id="mobile-logout-link" class="hidden">
+                        <button
+                            id="mobile-logout-btn"
+                            class="block w-full text-left rounded-xl px-4 py-4 text-xl font-semibold tracking-wide text-red-600 transition-all duration-250 hover:translate-x-2 hover:bg-red-50"
+                            >Logout</button
+                        >
+                    </li>
                 </ul>
             </div>
-            <a
-                href="/"
-                class="ml-[-10px] mr-auto font-serif text-[40px] font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-blue-500 to-blue-800 transition-all duration-300 hover:scale-105 hover:drop-shadow-[0_0_12px_rgba(59,130,246,0.5)]"
-            >
-                EventEase
-            </a>
-        </div>
-
-        <div class="navbar-center hidden lg:flex">
-            <ul class="menu menu-horizontal gap-10 px-1">
-                <li>
+            {
+                !dashboard && (
                     <a
                         href="/"
-                        class={`rounded-lg px-3.5 py-2 text-base font-semibold text-gray-600 transition-colors duration-250 hover:bg-blue-50 hover:text-blue-600 ${currentPath === "/" ? "bg-blue-50 text-blue-600" : ""}`}
-                        >Home</a
+                        class="ml-[-10px] mr-auto font-serif text-[40px] font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-blue-500 to-blue-800 transition-all duration-300 hover:scale-105 hover:drop-shadow-[0_0_12px_rgba(59,130,246,0.5)]"
                     >
-                </li>
-                <li>
-                    <a
-                        href="#features"
-                        class="rounded-lg px-3.5 py-2 text-base font-semibold text-gray-600 transition-colors duration-250 hover:bg-blue-50 hover:text-blue-600"
-                        >Features</a>
-                </li>
-                <li>
-                    <a
-                        href="#faq"
-                        class="rounded-lg px-3.5 py-2 text-base font-semibold text-gray-600 transition-colors duration-250 hover:bg-blue-50 hover:text-blue-600"
-                        >FAQ</a>
-                </li>
-                <li>
-                    <a
-                        href="#contact"
-                        class="rounded-lg px-3.5 py-2 text-base font-semibold text-gray-600 transition-colors duration-250 hover:bg-blue-50 hover:text-blue-600"
-                        >Contact</a>
-                </li>
-            </ul>
+                        EventEase
+                    </a>
+                )
+            }
         </div>
-        <div class="navbar-end hidden gap-4 lg:flex w-auto lg:w-1/2">
+
+        {
+            !dashboard && (
+                <div class="navbar-center hidden lg:flex">
+                    <ul class="menu menu-horizontal gap-10 px-1">
+                        <li>
+                            <a
+                                href="/"
+                                class={`rounded-lg px-3.5 py-2 text-base font-semibold text-gray-600 transition-colors duration-250 hover:bg-blue-50 hover:text-blue-600 ${currentPath === "/" ? "bg-blue-50 text-blue-600" : ""}`}
+                            >
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="#features"
+                                class="rounded-lg px-3.5 py-2 text-base font-semibold text-gray-600 transition-colors duration-250 hover:bg-blue-50 hover:text-blue-600"
+                            >
+                                Features
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="#faq"
+                                class="rounded-lg px-3.5 py-2 text-base font-semibold text-gray-600 transition-colors duration-250 hover:bg-blue-50 hover:text-blue-600"
+                            >
+                                FAQ
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="#contact"
+                                class="rounded-lg px-3.5 py-2 text-base font-semibold text-gray-600 transition-colors duration-250 hover:bg-blue-50 hover:text-blue-600"
+                            >
+                                Contact
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            )
+        }
+        <div
+            id="auth-buttons-guest"
+            class="navbar-end hidden lg:flex gap-4 w-auto lg:w-1/2"
+        >
             <a
                 href="/login"
-                class="btn btn-ghost font-bold hover:bg-gray-100 rounded-none border-2 border-transparent hover:border-black uppercase tracking-wide">Login</a
+                class="btn btn-ghost font-bold hover:bg-gray-100 rounded-none border-2 border-transparent hover:border-black uppercase tracking-wide"
+                >Login</a
             >
-            <a href="/signup" class="btn bg-black text-white hover:bg-gray-800 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-y-0.5 transition-all font-bold uppercase tracking-wide rounded-none"
+            <a
+                href="/signup"
+                class="btn bg-black text-white hover:bg-gray-800 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-y-0.5 transition-all font-bold uppercase tracking-wide rounded-none"
                 >Get Started</a
             >
         </div>
+
+        <div
+            id="auth-buttons-authenticated"
+            class="navbar-end hidden gap-4 w-auto lg:w-1/2"
+        >
+            <div class="dropdown dropdown-end">
+                <label
+                    tabindex="0"
+                    class="btn btn-ghost flex items-center gap-2 font-bold hover:bg-gray-100 rounded-none border-2 border-transparent hover:border-black uppercase tracking-wide"
+                >
+                    <div class="avatar placeholder">
+                        <div
+                            class="bg-blue-600 text-white w-8 h-8 rounded-full"
+                        >
+                            <span class="text-xs" id="user-avatar-text">U</span>
+                        </div>
+                    </div>
+                    <span id="user-name-display">User</span>
+                </label>
+                <ul
+                    tabindex="0"
+                    class="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-white w-52 border-2 border-black"
+                >
+                    <li>
+                        <a href="/dashboard" class="font-bold hover:bg-blue-50">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-5 w-5"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                                ></path>
+                            </svg>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li id="organizer-link-item" class="hidden">
+                        <a href="/organiser" class="font-bold hover:bg-blue-50">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-5 w-5"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                                ></path>
+                            </svg>
+                            Organizer Dashboard
+                        </a>
+                    </li>
+                    <li class="border-t border-gray-200 mt-2 pt-2">
+                        <button
+                            id="logout-btn"
+                            class="font-bold hover:bg-red-50 text-red-600"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-5 w-5"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                                ></path>
+                            </svg>
+                            Logout
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </nav>
+
+<script>
+    import { checkAuth, logout, hasRole } from "../lib/auth";
+
+    async function initNavbar() {
+        const guestButtons = document.getElementById("auth-buttons-guest");
+        const authButtons = document.getElementById(
+            "auth-buttons-authenticated",
+        );
+        const logoutBtn = document.getElementById("logout-btn");
+        const userNameDisplay = document.getElementById("user-name-display");
+        const userAvatarText = document.getElementById("user-avatar-text");
+        const organizerLinkItem = document.getElementById(
+            "organizer-link-item",
+        );
+
+        const mobileLoginLink = document.getElementById("mobile-login-link");
+        const mobileGetStartedLink = document.getElementById(
+            "mobile-get-started-link",
+        );
+        const mobileDashboardLink = document.getElementById(
+            "mobile-dashboard-link",
+        );
+        const mobileOrganizerLink = document.getElementById(
+            "mobile-organizer-link",
+        );
+        const mobileLogoutLink = document.getElementById("mobile-logout-link");
+        const mobileLogoutBtn = document.getElementById("mobile-logout-btn");
+
+        try {
+            const user = await checkAuth();
+
+            if (user) {
+                guestButtons?.classList.remove("lg:flex");
+                authButtons?.classList.add("lg:flex");
+
+                mobileLoginLink?.classList.add("hidden");
+                mobileGetStartedLink?.classList.add("hidden");
+                mobileDashboardLink?.classList.remove("hidden");
+                mobileLogoutLink?.classList.remove("hidden");
+
+                if (userNameDisplay) {
+                    userNameDisplay.textContent =
+                        user.name || user.email.split("@")[0];
+                }
+                if (userAvatarText && user.name) {
+                    userAvatarText.textContent = user.name
+                        .charAt(0)
+                        .toUpperCase();
+                }
+
+                if (hasRole(user, "ORGANIZER")) {
+                    organizerLinkItem?.classList.remove("hidden");
+                    mobileOrganizerLink?.classList.remove("hidden");
+                }
+
+                const handleLogout = async (e) => {
+                    e.preventDefault();
+                    await logout();
+                };
+
+                logoutBtn?.addEventListener("click", handleLogout);
+                mobileLogoutBtn?.addEventListener("click", handleLogout);
+            } else {
+                guestButtons?.classList.add("lg:flex");
+                authButtons?.classList.remove("lg:flex");
+
+                mobileLoginLink?.classList.remove("hidden");
+                mobileGetStartedLink?.classList.remove("hidden");
+                mobileDashboardLink?.classList.add("hidden");
+                mobileOrganizerLink?.classList.add("hidden");
+                mobileLogoutLink?.classList.add("hidden");
+            }
+        } catch (error) {
+            console.error("Error initializing navbar:", error);
+            guestButtons?.classList.add("lg:flex");
+            authButtons?.classList.remove("lg:flex");
+        }
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initNavbar);
+    } else {
+        initNavbar();
+    }
+</script>

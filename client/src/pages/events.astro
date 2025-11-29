@@ -3,8 +3,7 @@ export const prerender = false;
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
-
-import { API_BASE_URL } from "../config.js";
+import api from "../lib/api";
 
 interface Event {
     id: string;
@@ -21,12 +20,8 @@ let events: Event[] = [];
 let error: string | null = null;
 
 try {
-    const response = await fetch(`${API_BASE_URL}/api/event/`);
-    if (!response.ok) {
-        throw new Error("Failed to fetch events");
-    }
-    const data = await response.json();
-    events = data.events || [];
+    const response = await api.get("/api/event/");
+    events = response.data.events || [];
     console.log(events);
 } catch (e) {
     console.error("Error fetching events:", e);

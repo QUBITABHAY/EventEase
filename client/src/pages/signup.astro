@@ -31,12 +31,7 @@ import { API_BASE_URL } from "../config.js";
                 </p>
             </div>
 
-            <form
-                id="signupForm"
-                action={`${API_BASE_URL}/api/user/register`}
-                method="POST"
-                class="space-y-6"
-            >
+            <form id="signupForm" class="space-y-6">
                 <div>
                     <label
                         for="email"
@@ -251,6 +246,9 @@ import { API_BASE_URL } from "../config.js";
     <Footer />
 </Layout>
 
+<div id="toast-container" class="fixed top-4 right-4 z-50 flex flex-col gap-2">
+</div>
+
 <style>
     @keyframes float {
         0%,
@@ -272,3 +270,87 @@ import { API_BASE_URL } from "../config.js";
         animation-delay: 5s;
     }
 </style>
+
+<script>
+    import api from "../lib/api";
+
+    console.log("Signup script loaded");
+
+    function showToast(message, type = "success") {
+        const container = document.getElementById("toast-container");
+        if (!container) return;
+
+        const toast = document.createElement("div");
+        toast.className = `p-4 rounded-none border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transform transition-all duration-300 ${
+            type === "success"
+                ? "bg-green-500 text-white"
+                : "bg-red-500 text-white"
+        } font-bold`;
+        toast.textContent = message;
+
+        container.appendChild(toast);
+
+        setTimeout(() => {
+            toast.style.opacity = "0";
+            toast.style.transform = "translateX(400px)";
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+
+    function initSignup() {
+        const signupForm = document.getElementById("signupForm");
+        console.log("Signup form:", signupForm);
+
+        if (!signupForm) {
+            console.error("Signup form not found!");
+            return;
+        }
+
+        signupForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            console.log("Form submitted");
+
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+
+            if (data.password !== data.confirmPassword) {
+                showToast("Passwords do not match!", "error");
+                return;
+            }
+
+            delete data.confirmPassword;
+            delete data.terms;
+
+            console.log("Sending signup request...", { email: data.email });
+
+            try {
+                const response = await api.post("/api/auth/local/signup", data);
+                const result = response.data;
+                console.log("Signup response:", response.status, result);
+
+                if (response.status === 200 || response.status === 201) {
+                    showToast(
+                        result.message ||
+                            "Signup successful! Please check your email for OTP.",
+                        "success",
+                    );
+                    setTimeout(() => {
+                        window.location.href = "/verify-otp";
+                    }, 1500);
+                }
+            } catch (error) {
+                console.error("Signup error:", error);
+                const message =
+                    error.response?.data?.message ||
+                    "An error occurred during signup. Please try again.";
+                showToast(message, "error");
+            }
+        });
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initSignup);
+    } else {
+        initSignup();
+    }
+</script>
