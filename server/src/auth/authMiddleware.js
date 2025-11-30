@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import prisma from "../DB/db.config.js";
 
 export const localSignupValidation = (req, res, next) => {
   if (!req.body) {
@@ -115,5 +116,30 @@ export const isAuthenticated = (req, res, next) => {
       message: "Invalid or expired token.",
       details: error.name,
     });
+  }
+};
+
+export const isOrganizer = async (req, res, next) => {
+  try {
+    const userId = req.userId;
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    console.log(`Checking Organizer Role for User ID: ${userId}, Role: ${user.role}`);
+
+    if (user.role !== "ORGANIZER" && user.role !== "BOTH") {
+      console.log("Access denied: Not an organizer");
+      return res.status(403).json({ message: "Access denied. Organizer role required." });
+    }
+
+    next();
+  } catch (error) {
+    console.error("Organizer check failed:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 };

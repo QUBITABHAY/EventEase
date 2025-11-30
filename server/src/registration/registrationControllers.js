@@ -8,7 +8,7 @@ export const registerForEvent = async (req, res) => {
 
         // Check if event exists
         const event = await prisma.event.findUnique({
-            where: { id: eventId },
+            where: { publicId: eventId },
         });
 
         if (!event) {
@@ -28,7 +28,7 @@ export const registerForEvent = async (req, res) => {
         const existingRegistration = await prisma.registration.findFirst({
             where: {
                 userId,
-                eventId,
+                eventId: event.id,
             },
         });
 
@@ -38,7 +38,7 @@ export const registerForEvent = async (req, res) => {
 
         // Check capacity
         const registrationCount = await prisma.registration.count({
-            where: { eventId },
+            where: { eventId: event.id },
         });
 
         if (registrationCount >= event.capacity) {
@@ -58,7 +58,7 @@ export const registerForEvent = async (req, res) => {
 
         const registrationData = {
             userId,
-            eventId,
+            eventId: event.id,
             ticketId,
             qrCodeUrl,
             paymentStatus,
@@ -87,10 +87,18 @@ export const checkRegistrationStatus = async (req, res) => {
             return res.status(400).json({ message: "Event ID is required" });
         }
 
+        const event = await prisma.event.findUnique({
+            where: { publicId: eventId },
+        });
+
+        if (!event) {
+            return res.status(404).json({ message: "Event not found" });
+        }
+
         const registration = await prisma.registration.findFirst({
             where: {
                 userId,
-                eventId: parseInt(eventId),
+                eventId: event.id,
             },
         });
 
@@ -114,6 +122,12 @@ export const getMyRegistrations = async (req, res) => {
             },
             include: {
                 event: true,
+                user: {
+                    select: {
+                        firstName: true,
+                        lastName: true
+                    }
+                }
             },
             orderBy: {
                 createdAt: 'desc'
@@ -126,6 +140,83 @@ export const getMyRegistrations = async (req, res) => {
         });
     } catch (error) {
         console.error("Error fetching my registrations:", error);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+export const verifyTicket = async (req, res) => {
+    try {
+        const { ticketId } = req.body;
+
+        if (!ticketId) {
+            return res.status(400).json({ message: "Ticket ID is required" });
+        }
+
+        const registration = await prisma.registration.findUnique({
+            where: { ticketId },
+            include: { user: true, event: true }
+        });
+
+        if (!registration) {
+            return res.status(404).json({ message: "Invalid Ticket ID" });
+        }
+
+        if (registration.checkedIn) {
+            return res.status(400).json({ message: "Ticket already used", registration });
+        }
+
+        const updatedRegistration = await prisma.registration.update({
+            where: { id: registration.id },
+            data: { checkedIn: true }
+        });
+
+        return res.status(200).json({
+            message: "Ticket verified successfully",
+            registration: updatedRegistration
+        });
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+export const getEventRegistrations = async (req, res) => {
+    try {
+        const { eventId } = req.params;
+
+        if (!eventId) {
+            return res.status(400).json({ message: "Event ID is required" });
+        }
+
+        const registrations = await prisma.registration.findMany({
+            where: {
+                eventId: parseInt(eventId)
+            },
+            include: {
+                user: {
+                    select: {
+                        id: true,
+                        firstName: true,
+                        lastName: true,
+                        email: true,
+                        profilePicture: true
+                    }
+                },
+                tickets: true
+            },
+            orderBy: {
+                createdAt: 'desc'
+            }
+        });
+
+        return res.status(200).json({
+            status: 200,
+            registrations
+        });
+
+    } catch (error) {
+        console.error("Error fetching event registrations:", error);
         return res.status(500).json({ message: "Internal Server Error" });
     }
 };

@@ -1,0 +1,104 @@
+<dialog id="ticketModal" class="modal">
+    <div
+        class="modal-box w-11/12 max-w-md bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-0 rounded-none"
+    >
+        <div class="bg-black text-white p-4 flex justify-between items-center">
+            <h3
+                class="font-black text-xl uppercase tracking-tight"
+                style="font-family: 'Space Grotesk', sans-serif;"
+            >
+                Event Ticket
+            </h3>
+            <form method="dialog">
+                <button
+                    class="btn btn-sm btn-circle btn-ghost text-white hover:bg-gray-800"
+                    >✕</button
+                >
+            </form>
+        </div>
+
+        <div class="p-6 text-center">
+            <div class="mb-6">
+                <h2
+                    id="ticketEventTitle"
+                    class="text-2xl font-black text-gray-900 uppercase tracking-tight mb-2 leading-tight"
+                >
+                    Event Title
+                </h2>
+                <p id="ticketEventDate" class="text-gray-600 font-bold">
+                    Date & Time
+                </p>
+                <p
+                    id="ticketEventVenue"
+                    class="text-sm text-gray-500 font-medium mt-1"
+                >
+                    Venue Location
+                </p>
+            </div>
+
+            <div
+                class="bg-gray-100 p-6 border-2 border-black inline-block mb-6 relative group"
+            >
+                <div
+                    class="absolute -top-3 -right-3 bg-blue-600 text-white text-xs font-black px-2 py-1 border-2 border-black transform rotate-12 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+                >
+                    ADMIT ONE
+                </div>
+                <img
+                    id="ticketQRCode"
+                    src=""
+                    alt="Ticket QR Code"
+                    class="w-48 h-48 object-contain mx-auto mix-blend-multiply"
+                />
+                <p class="mt-2 text-xs font-mono text-gray-500">
+                    Scan at entrance
+                </p>
+            </div>
+
+            <div
+                class="text-left border-t-2 border-dashed border-gray-300 pt-4"
+            >
+                <div class="flex justify-between mb-2">
+                    <span class="text-xs font-black text-gray-500 uppercase"
+                        >Attendee</span
+                    >
+                    <span
+                        id="ticketAttendeeName"
+                        class="text-sm font-bold text-gray-900">User Name</span
+                    >
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-xs font-black text-gray-500 uppercase"
+                        >Ticket ID</span
+                    >
+                    <span
+                        id="ticketIdDisplay"
+                        class="text-sm font-mono font-bold text-gray-900"
+                        >#123456</span
+                    >
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-xs font-black text-gray-500 uppercase"
+                        >Status</span
+                    >
+                    <span
+                        class="badge bg-green-500 text-white border-2 border-black font-bold rounded-none text-xs"
+                        >CONFIRMED</span
+                    >
+                </div>
+            </div>
+
+            <div class="mt-6">
+                <button
+                    class="btn btn-block bg-black text-white border-2 border-black hover:bg-gray-800 rounded-none font-black uppercase tracking-wider shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] transition-all"
+                    onclick="window.print()"
+                >
+                    Download / Print Ticket
+                </button>
+            </div>
+        </div>
+    </div>
+    <form method="dialog" class="modal-backdrop bg-black/50 backdrop-blur-sm">
+        <button>close</button>
+    </form>
+</dialog>

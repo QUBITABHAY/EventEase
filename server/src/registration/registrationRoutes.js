@@ -1,12 +1,14 @@
 import { Router } from "express";
-import { registerForEvent, checkRegistrationStatus, getMyRegistrations } from "./registrationControllers.js";
+import { registerForEvent, checkRegistrationStatus, getMyRegistrations, verifyTicket, getEventRegistrations } from "./registrationControllers.js";
 import { isAuthenticated } from "../auth/authMiddleware.js";
-import { validateRegistrationRequest, validateRegistrationStatusRequest } from "./registrationMiddleware.js";
+import { isOrganizer } from "../auth/authMiddleware.js";
 
 const registrationRoutes = Router();
 
-registrationRoutes.post("/register", isAuthenticated, validateRegistrationRequest, registerForEvent);
-registrationRoutes.get("/check/:eventId", isAuthenticated, validateRegistrationStatusRequest, checkRegistrationStatus);
-registrationRoutes.get("/my", isAuthenticated, getMyRegistrations);
+registrationRoutes.post("/register", isAuthenticated, registerForEvent);
+registrationRoutes.get("/status/:eventId", isAuthenticated, checkRegistrationStatus);
+registrationRoutes.get("/my-registrations", isAuthenticated, getMyRegistrations);
+registrationRoutes.post("/verify", isAuthenticated, isOrganizer, verifyTicket);
+registrationRoutes.get("/registrations/:eventId", isAuthenticated, isOrganizer, getEventRegistrations);
 
 export default registrationRoutes;

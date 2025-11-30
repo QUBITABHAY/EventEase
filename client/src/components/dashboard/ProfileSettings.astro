@@ -1,0 +1,65 @@
+<div
+    class="bg-white border-2 border-black p-8 max-w-2xl shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
+>
+    <form id="profileForm" class="space-y-6">
+        <div class="grid grid-cols-2 gap-6">
+            <div>
+                <label
+                    class="block text-sm font-black text-gray-900 mb-2 uppercase tracking-wide"
+                    >First Name</label
+                >
+                <input
+                    type="text"
+                    name="firstName"
+                    id="profileFirstName"
+                    class="input input-bordered w-full border-2 border-black focus:outline-none focus:ring-0 focus:border-blue-600 font-bold"
+                />
+            </div>
+            <div>
+                <label
+                    class="block text-sm font-black text-gray-900 mb-2 uppercase tracking-wide"
+                    >Last Name</label
+                >
+                <input
+                    type="text"
+                    name="lastName"
+                    id="profileLastName"
+                    class="input input-bordered w-full border-2 border-black focus:outline-none focus:ring-0 focus:border-blue-600 font-bold"
+                />
+            </div>
+        </div>
+        <div>
+            <label
+                class="block text-sm font-black text-gray-900 mb-2 uppercase tracking-wide"
+                >Email</label
+            >
+            <input
+                type="email"
+                name="email"
+                id="profileEmail"
+                class="input input-bordered w-full bg-gray-100 border-2 border-black font-bold text-gray-500"
+                readonly
+            />
+        </div>
+        <div>
+            <label
+                class="block text-sm font-black text-gray-900 mb-2 uppercase tracking-wide"
+                >Phone</label
+            >
+            <input
+                type="tel"
+                name="phone"
+                id="profilePhone"
+                class="input input-bordered w-full border-2 border-black focus:outline-none focus:ring-0 focus:border-blue-600 font-bold"
+            />
+        </div>
+
+        <div class="pt-4">
+            <button
+                type="submit"
+                class="btn btn-primary w-full border-2 border-black bg-blue-600 hover:bg-blue-700 text-white font-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all uppercase"
+                >Update Profile</button
+            >
+        </div>
+    </form>
+</div>
