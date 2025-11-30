@@ -1,4 +1,5 @@
 import { PrismaClient } from "../generated/prisma/index.js";
+import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
@@ -10,7 +11,7 @@ const usersData = [
         lastName: "Johnson",
         email: "alice@example.com",
         phone: "9876543210",
-        password: "hashed_password_1",
+        password: "password", // Will be hashed in the loop
         provider: "LOCAL",
         providerId: null,
         profilePicture: null,
@@ -24,7 +25,7 @@ const usersData = [
         lastName: "Smith",
         email: "bob@example.com",
         phone: "9123456780",
-        password: "hashed_password_2",
+        password: "password",
         provider: "GOOGLE",
         providerId: "google_123",
         profilePicture: "https://picsum.photos/200",
@@ -38,7 +39,7 @@ const usersData = [
         lastName: "Lee",
         email: "charlie@example.com",
         phone: "9000012345",
-        password: "hashed_password_3",
+        password: "password",
         provider: "LOCAL",
         providerId: null,
         profilePicture: null,
@@ -52,7 +53,7 @@ const usersData = [
         lastName: "Evans",
         email: "diana@example.com",
         phone: "9012345678",
-        password: "hashed_password_4",
+        password: "password",
         provider: "GOOGLE",
         providerId: "google_456",
         profilePicture: "https://picsum.photos/201",
@@ -66,7 +67,7 @@ const usersData = [
         lastName: "Williams",
         email: "ethan@example.com",
         phone: "9023456789",
-        password: "hashed_password_5",
+        password: "password",
         provider: "LOCAL",
         providerId: null,
         profilePicture: null,
@@ -184,10 +185,16 @@ async function main() {
     console.log("Seeding Users...");
     const createdUsers = [];
     for (const u of usersData) {
+        const hashedPassword = await bcrypt.hash(u.password, 10);
         const user = await prisma.user.upsert({
             where: { email: u.email },
-            update: {},
-            create: u,
+            update: {
+                password: hashedPassword, // Update password if user exists
+            },
+            create: {
+                ...u,
+                password: hashedPassword,
+            },
         });
         createdUsers.push(user);
     }

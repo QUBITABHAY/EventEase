@@ -6,21 +6,16 @@ import { getUserIdFromToken } from '../utils/jwtUtils.js';
 export const getUserReview = async (req, res) => {
   try {
     const { id: eventId } = req.params;
-    const { userId } = req.query;
+    const userId = getUserIdFromToken(req);
 
     if (!userId) {
-      return res.status(400).json({ message: "User ID is required" });
-    }
-
-    const numericUserId = parseInt(userId);
-    if (isNaN(numericUserId)) {
-      return res.status(400).json({ message: "Invalid User ID format" });
+      return res.status(401).json({ message: "Authentication required" });
     }
 
     const review = await prisma.review.findFirst({
       where: {
         eventId: parseInt(eventId),
-        userId: numericUserId
+        userId: parseInt(userId)
       },
       include: {
         user: {
@@ -44,10 +39,18 @@ export const getUserReview = async (req, res) => {
 export const getEventReviews = async (req, res) => {
   try {
     const { eventId } = req.params;
-    
+
+    const event = await prisma.event.findUnique({
+      where: { publicId: eventId }
+    });
+
+    if (!event) {
+      return res.status(404).json({ message: "Event not found" });
+    }
+
     const reviews = await prisma.review.findMany({
       where: {
-        eventId: parseInt(eventId),
+        eventId: event.id,
       },
       select: {
         id: true,
@@ -73,8 +76,8 @@ export const getEventReviews = async (req, res) => {
       ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
       : 0;
 
-    res.status(200).json({ 
-      reviews, 
+    res.status(200).json({
+      reviews,
       averageRating: parseFloat(averageRating.toFixed(1)),
       totalReviews: reviews.length
     });
@@ -97,47 +100,39 @@ export const saveReview = async (req, res) => {
   try {
     // 1. Validate event exists
     const event = await prisma.event.findUnique({
-      where: { id: parseInt(eventId) }
+      where: { publicId: eventId }
     });
 
     if (!event) {
-      return res.status(404).json({ 
-        message: "Event not found. Cannot submit review for non-existent event." 
+      return res.status(404).json({
+        message: "Event not found. Cannot submit review for non-existent event."
       });
     }
 
     // 2. Check if user is registered for the event (optional but recommended)
     const registration = await prisma.registration.findFirst({
       where: {
-        eventId: parseInt(eventId),
+        eventId: event.id,
         userId: parseInt(userId),
         paymentStatus: 'COMPLETED'
       }
     });
 
     if (!registration) {
-      return res.status(403).json({ 
-        message: "You must register and complete payment before reviewing this event." 
+      return res.status(403).json({
+        message: "You must register and complete payment before reviewing this event."
       });
     }
 
     // 3. Check for existing review
 
-    const existingReviewofUser = await prisma.review.find({
+    const existingReviewofUser = await prisma.review.findMany({
       where: {
         userId: parseInt(userId)
       },
     });
 
-    const existingReview = existingReviewofUser.find(review => review.eventId === parseInt(eventId));
-
-
-    // const existingReview = await prisma.review.findFirst({
-    //   where: {
-    //     eventId: parseInt(eventId),
-    //     userId: parseInt(userId)
-    //   },
-    // });
+    const existingReview = existingReviewofUser.find(review => review.eventId === event.id);
 
 
     if (existingReview) {
@@ -148,26 +143,26 @@ export const saveReview = async (req, res) => {
           feedback: feedback?.trim() || null,
         },
       });
-      
-      return res.status(200).json({ 
-        message: "Review updated successfully", 
-        review: updatedReview 
+
+      return res.status(200).json({
+        message: "Review updated successfully",
+        review: updatedReview
       });
     }
 
     // 4. Create new review
     const newReview = await prisma.review.create({
       data: {
-        eventId: parseInt(eventId),
+        eventId: event.id,
         userId: parseInt(userId),
         rating: parseInt(rating),
         feedback: feedback?.trim() || null,
       },
     });
 
-    res.status(201).json({ 
-      message: "Review submitted successfully", 
-      review: newReview 
+    res.status(201).json({
+      message: "Review submitted successfully",
+      review: newReview
     });
 
   } catch (error) {
@@ -177,15 +172,15 @@ export const saveReview = async (req, res) => {
       userId,
       stack: error.stack
     });
-    
+
     if (error.code === 'P2003') {
-      return res.status(400).json({ 
-        message: "Invalid event or user reference. Please check the event ID and try again." 
+      return res.status(400).json({
+        message: "Invalid event or user reference. Please check the event ID and try again."
       });
     }
-    
-    res.status(500).json({ 
-      message: "An error occurred while processing your review." 
+
+    res.status(500).json({
+      message: "An error occurred while processing your review."
     });
   }
 };
@@ -209,8 +204,8 @@ export const deleteReview = async (req, res) => {
     }
 
     if (review.userId !== parseInt(userId)) {
-      return res.status(403).json({ 
-        message: "You are not authorized to delete this review" 
+      return res.status(403).json({
+        message: "You are not authorized to delete this review"
       });
     }
 
@@ -221,8 +216,8 @@ export const deleteReview = async (req, res) => {
     res.status(200).json({ message: "Review deleted successfully" });
   } catch (error) {
     console.error("Error deleting review:", error);
-    res.status(500).json({ 
-      message: error.message || "An error occurred while deleting the review." 
+    res.status(500).json({
+      message: error.message || "An error occurred while deleting the review."
     });
   }
 };
