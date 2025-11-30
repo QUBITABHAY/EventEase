@@ -35,30 +35,49 @@ const faqs = [
 ];
 ---
 
-<section id="faq" class="py-20 md:py-28 bg-gray-50">
-  <div class="container mx-auto px-4">
-    <div class="text-center mb-14">
-      <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4 bg-linear-to-r from-blue-500 to-blue-800 bg-clip-text text-transparent" >
-        Questions? We've Got You Covered
-      </h2>
-      <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-        Here are answers to what people usually ask. Don't see your question?
-        Just reach out!
+<section id="faq" class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <span class="inline-block text-sm font-semibold text-black mb-3">FAQ</span>
+      <h2 class="text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+      <p class="text-lg text-gray-500 max-w-3xl mx-auto">
+        Here are answers to what people usually ask. Don't see your question? Just reach out!
       </p>
     </div>
-    <div class="max-w-3xl mx-auto space-y-4">
-      { faqs.map((faq, i) => (
-          <div class="collapse collapse-plus bg-white shadow-md hover:shadow-lg transition-all rounded-xl duration-300">
-            <input type="checkbox" />
-            <div class="collapse-title text-xl font-semibold text-gray-900">
-              {faq.question}
-            </div>
-            <div class="collapse-content leading-relaxed text-gray-700">
-              <p>{faq.answer}</p>
-            </div>
+    
+    <div class="max-w-4xl mx-auto space-y-4">
+      {faqs.map((faq, i) => (
+        <div class="group">
+          <input type="checkbox" id={`faq-${i}`} class="hidden peer" />
+          <label 
+            for={`faq-${i}`} 
+            class="flex items-center justify-between p-6 bg-white border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all duration-300 "
+          >
+            <h3 class="text-lg font-bold text-gray-900">{faq.question}</h3>
+            <svg 
+              class="w-5 h-5 text-gray-500 transition-transform duration-300 group-has-[input:checked]_:rotate-180" 
+              xmlns="http://www.w3.org/2000/svg" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </label>
+          <div class="hidden peer-checked:block bg-white border-2 border-t-0 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] px-6 pb-6 -mt-1">
+            <p class="text-gray-600">{faq.answer}</p>
           </div>
-        ))
-      }
+        </div>
+      ))}
+    </div>
+    
+    <div class="mt-12 text-center">
+      <a 
+        href="#contact" 
+        class="bg-black text-white hover:bg-gray-800 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-y-0.5 transition-all font-bold uppercase tracking-wide inline-block px-8 py-3"
+      >
+        Still Have Questions? Contact Us
+      </a>
     </div>
   </div>
 </section>
