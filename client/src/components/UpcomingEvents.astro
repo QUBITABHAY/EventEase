@@ -1,40 +1,92 @@
 ---
-import EventCard from './EventCard.astro';
-import api from '../lib/api';
+import EventCard from "./EventCard.astro";
+import { API_BASE_URL } from "../config";
+
+const token = Astro.cookies.get("token")?.value;
+const isLoggedIn = !!token;
 
 let events = [];
-try {
-    const response = await api.get("/api/event?limit=3");
-    events = response.data.events || [];
-} catch (error) {
-    console.error("Failed to fetch events:", error);
+let error = "";
+
+if (isLoggedIn) {
+    try {
+        const response = await fetch(
+            `${API_BASE_URL}/api/event?limit=3&upcoming=true`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            },
+        );
+        if (response.ok) {
+            const data = await response.json();
+            events = data.events || [];
+        } else {
+            console.error("Failed to fetch events:", response.status);
+            error = "Unable to load events.";
+        }
+    } catch (err) {
+        console.error("Error fetching events:", err);
+        error = "Unable to load events.";
+    }
 }
 ---
 
 <section class="py-16 bg-gradient-to-b from-white to-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
-            <h2 class="text-4xl font-bold text-gray-900 mb-4">Upcoming Events</h2>
-            <p class="text-lg text-gray-500 max-w-3xl mx-auto">Discover and register for exciting upcoming events</p>
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                Upcoming Events
+            </h2>
+            <p class="text-lg text-gray-500 max-w-3xl mx-auto">
+                Discover and register for exciting upcoming events
+            </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {events.length > 0 ? (
-                events.map((event) => (
-                    <EventCard event={event} />
-                ))
-            ) : (
-                <div class="col-span-3 text-center py-12">
-                    <p class="text-gray-500">No upcoming events at the moment. Check back soon!</p>
-                </div>
-            )}
+            {
+                isLoggedIn ? (
+                    events.length > 0 ? (
+                        events.map((event) => <EventCard event={event} />)
+                    ) : (
+                        <div class="col-span-3 text-center py-12">
+                            <p class="text-gray-500">
+                                {error ||
+                                    "No upcoming events at the moment. Check back soon!"}
+                            </p>
+                        </div>
+                    )
+                ) : (
+                    <div class="col-span-3 text-center py-12 bg-white border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-8">
+                        <h3 class="text-2xl font-bold mb-4">
+                            Join the Community
+                        </h3>
+                        <p class="text-gray-600 mb-6 text-lg">
+                            Sign in to explore all upcoming events, register for
+                            them, and connect with other attendees.
+                        </p>
+                        <div class="text-4xl mb-4">🔒</div>
+                    </div>
+                )
+            }
         </div>
 
         <div class="mt-12 text-center">
-            <a href="/exploreEvents" class="inline-flex items-center px-6 py-3 border-2 border-black bg-white text-black font-bold rounded-none hover:bg-black hover:text-white transition-all duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-                View All Events
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
+            <a
+                href={isLoggedIn ? "/exploreEvents" : "/login"}
+                class="inline-flex items-center px-6 py-3 border-2 border-black bg-white text-black font-bold rounded-none hover:bg-black hover:text-white transition-all duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+            >
+                {isLoggedIn ? "View All Events" : "Login to View Events"}
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 ml-2"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z"
+                        clip-rule="evenodd"></path>
                 </svg>
             </a>
         </div>

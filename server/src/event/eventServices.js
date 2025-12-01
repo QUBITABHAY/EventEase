@@ -55,7 +55,7 @@ export const getAllEventService = async (data) => {
     const limit = parseInt(data?.limit) || 10;
     const skip = (page - 1) * limit;
 
-    const { search, category, date, venue } = data;
+    const { search, category, date, venue, upcoming } = data;
 
     const where = {};
 
@@ -85,14 +85,18 @@ export const getAllEventService = async (data) => {
       };
     }
 
+    if (upcoming === 'true') {
+      where.startTime = {
+        gte: new Date(),
+      };
+    }
+
     const [allEvent, totalCount] = await Promise.all([
       prisma.event.findMany({
         where,
         skip,
         take: limit,
-        orderBy: {
-          createdAt: "desc",
-        },
+        orderBy: upcoming === 'true' ? { startTime: "asc" } : { createdAt: "desc" },
       }),
       prisma.event.count({ where }),
     ]);

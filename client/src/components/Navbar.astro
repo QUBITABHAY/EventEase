@@ -175,9 +175,12 @@ const isFluid = fluid || dashboard;
                 >
                     <div class="avatar placeholder">
                         <div
-                            class="bg-blue-600 text-white w-8 h-8 rounded-full"
+                            class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center"
                         >
-                            <span class="text-xs" id="user-avatar-text">U</span>
+                            <span
+                                class="text-lg font-bold"
+                                id="user-avatar-text">U</span
+                            >
                         </div>
                     </div>
                     <span id="user-name-display">User</span>
@@ -187,62 +190,80 @@ const isFluid = fluid || dashboard;
                     class="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-white w-52 border-2 border-black"
                 >
                     <li>
-                        <a href="/dashboard" class="font-bold hover:bg-blue-50">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-5 w-5"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
+                        <a
+                            href="/dashboard"
+                            class="font-bold hover:bg-blue-50 flex items-center gap-3 py-3"
+                        >
+                            <div
+                                class="bg-blue-100 p-1.5 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
                             >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                                ></path>
-                            </svg>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5 text-blue-700"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        stroke-linecap="square"
+                                        stroke-linejoin="miter"
+                                        stroke-width="2"
+                                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                                    ></path>
+                                </svg>
+                            </div>
                             Dashboard
                         </a>
                     </li>
                     <li id="organizer-link-item" class="hidden">
-                        <a href="/organiser" class="font-bold hover:bg-blue-50">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-5 w-5"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
+                        <a
+                            href="/organiser"
+                            class="font-bold hover:bg-purple-50 flex items-center gap-3 py-3"
+                        >
+                            <div
+                                class="bg-purple-100 p-1.5 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
                             >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                                ></path>
-                            </svg>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5 text-purple-700"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        stroke-linecap="square"
+                                        stroke-linejoin="miter"
+                                        stroke-width="2"
+                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                                    ></path>
+                                </svg>
+                            </div>
                             Organizer Dashboard
                         </a>
                     </li>
                     <li class="border-t border-gray-200 mt-2 pt-2">
                         <button
                             id="logout-btn"
-                            class="font-bold hover:bg-red-50 text-red-600"
+                            class="font-bold hover:bg-red-50 text-red-600 w-full text-left flex items-center gap-3 py-3"
                         >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-5 w-5"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
+                            <div
+                                class="bg-red-100 p-1.5 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
                             >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                                ></path>
-                            </svg>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5 text-red-700"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        stroke-linecap="square"
+                                        stroke-linejoin="miter"
+                                        stroke-width="2"
+                                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                                    ></path>
+                                </svg>
+                            </div>
                             Logout
                         </button>
                     </li>
@@ -292,14 +313,36 @@ const isFluid = fluid || dashboard;
                 mobileDashboardLink?.classList.remove("hidden");
                 mobileLogoutLink?.classList.remove("hidden");
 
+                // Display user's full name
                 if (userNameDisplay) {
-                    userNameDisplay.textContent =
-                        user.name || user.email.split("@")[0];
+                    const fullName =
+                        user.firstName && user.lastName
+                            ? `${user.firstName} ${user.lastName}`
+                            : user.firstName ||
+                              user.lastName ||
+                              user.email.split("@")[0];
+                    userNameDisplay.textContent = fullName;
                 }
-                if (userAvatarText && user.name) {
-                    userAvatarText.textContent = user.name
-                        .charAt(0)
-                        .toUpperCase();
+
+                // Create initials from first and last name
+                if (userAvatarText) {
+                    let initials = "";
+                    if (user.firstName && user.lastName) {
+                        // First letter of first name + first letter of last name
+                        initials =
+                            user.firstName.charAt(0).toUpperCase() +
+                            user.lastName.charAt(0).toUpperCase();
+                    } else if (user.firstName) {
+                        // If only first name, use first two letters
+                        initials = user.firstName.substring(0, 2).toUpperCase();
+                    } else if (user.lastName) {
+                        // If only last name, use first two letters
+                        initials = user.lastName.substring(0, 2).toUpperCase();
+                    } else {
+                        // Fallback to email
+                        initials = user.email.substring(0, 2).toUpperCase();
+                    }
+                    userAvatarText.textContent = initials;
                 }
 
                 if (hasRole(user, "ORGANIZER")) {
