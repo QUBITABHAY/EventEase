@@ -1,55 +1,80 @@
 ---
 const stats = [
     {
-        value: '10,000+',
-        label: 'Events Organized',
-        icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'
+        value: "10,000+",
+        label: "Events Organized",
+        icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z",
     },
     {
-        value: '50,000+',
-        label: 'Happy Attendees',
-        icon: 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z'
+        value: "50,000+",
+        label: "Happy Attendees",
+        icon: "M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z",
     },
     {
-        value: '100+',
-        label: 'Trusted Organizers',
-        'data-tip': 'Trusted event organizers',
-        icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4'
+        value: "100+",
+        label: "Trusted Organizers",
+        "data-tip": "Trusted event organizers",
+        icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4",
     },
     {
-        value: '95%',
-        label: 'Satisfaction Rate',
-        icon: 'M4.5 12.75l6 6 9-13.5'
-    }
+        value: "95%",
+        label: "Satisfaction Rate",
+        icon: "M4.5 12.75l6 6 9-13.5",
+    },
 ];
 ---
 
 <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-            <span class="inline-block text-sm font-semibold text-black mb-3">OUR IMPACT</span>
-            <h2 class="text-4xl font-bold text-gray-900 mb-4">By The Numbers</h2>
-            <p class="text-lg text-gray-500 max-w-3xl mx-auto">Join thousands of satisfied users and organizers who trust EventEase for their events</p>
+            <span class="inline-block text-sm font-semibold text-black mb-3"
+                >OUR IMPACT</span
+            >
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                By The Numbers
+            </h2>
+            <p class="text-lg text-gray-500 max-w-3xl mx-auto">
+                Join thousands of satisfied users and organizers who trust
+                EventEase for their events
+            </p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {stats.map((stat, index) => (
-                <div class="bg-white border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all duration-300 p-8 text-center">
-                    <div class="w-16 h-16 bg-black text-white rounded-full flex items-center justify-center mb-5 mx-auto">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={stat.icon} />
-                        </svg>
+            {
+                stats.map((stat, index) => (
+                    <div class="bg-white border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all duration-300 p-8 text-center">
+                        <div class="w-16 h-16 bg-black text-white rounded-full flex items-center justify-center mb-5 mx-auto">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-7 w-7"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d={stat.icon}
+                                />
+                            </svg>
+                        </div>
+                        <div class="text-4xl font-bold text-gray-900 mb-2">
+                            {stat.value}
+                        </div>
+                        <div class="text-gray-600 font-medium">
+                            {stat.label}
+                        </div>
                     </div>
-                    <div class="text-4xl font-bold text-gray-900 mb-2">
-                        {stat.value}
-                    </div>
-                    <div class="text-gray-600 font-medium">{stat.label}</div>
-                </div>
-            ))}
+                ))
+            }
         </div>
 
         <div class="mt-12 text-center">
-            <a href="/register" class="bg-black text-white hover:bg-gray-800 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-y-0.5 transition-all font-bold uppercase tracking-wide inline-block px-8 py-3 cursor-pointer">
+            <a
+                href="/signup"
+                class="bg-black text-white hover:bg-gray-800 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-y-0.5 transition-all font-bold uppercase tracking-wide inline-block px-8 py-3 cursor-pointer"
+            >
                 Join Us Today
             </a>
         </div>

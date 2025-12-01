@@ -159,8 +159,15 @@ export const oauthCallback = (req, res) => {
         { expiresIn: "30m" },
       );
 
+      res.cookie("token", tempToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        maxAge: 30 * 60 * 1000,
+      });
+
       return res.redirect(
-        `${process.env.CLIENT_URL || "http://localhost:4321"}/completeProfile?token=${tempToken}&userId=${user.id}`,
+        `${process.env.CLIENT_URL || "http://localhost:4321"}/completeprofile?token=${tempToken}&userId=${user.id}`,
       );
     }
 

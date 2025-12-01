@@ -3,10 +3,22 @@ import Layout from "../layouts/Layout.astro";
 import OrganiserSidebar from "../components/organiser/OrganiserSidebar.astro";
 import EventForm from "../components/organiser/EventForm.astro";
 
-const cookie = Astro.request.headers.get("cookie") || "";
-const hasToken = cookie.includes("token=");
+import jwt from "jsonwebtoken";
 
-if (!hasToken) {
+const cookie = Astro.request.headers.get("cookie") || "";
+const tokenMatch = cookie.match(/token=([^;]+)/);
+const token = tokenMatch ? tokenMatch[1] : null;
+
+if (!token) {
+    return Astro.redirect("/login");
+}
+
+try {
+    const decoded = jwt.decode(token);
+    if (!decoded || (decoded.role !== "ORGANIZER" && decoded.role !== "BOTH")) {
+        return Astro.redirect("/dashboard");
+    }
+} catch (error) {
     return Astro.redirect("/login");
 }
 ---
