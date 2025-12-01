@@ -1,4 +1,7 @@
 ---
+const token = Astro.cookies.get("token")?.value;
+const isLoggedIn = !!token;
+
 const steps = [
     {
         icon: "M12 6v6m0 0v6m0-6h6m-6 0H6",
@@ -39,12 +42,16 @@ const steps = [
                 simple steps to join amazing events near you.
             </p>
 
-            <a
-                href="/signup"
-                class="bg-black text-white hover:bg-gray-800 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-y-0.5 transition-all font-bold uppercase tracking-wide inline-block px-6 py-3 mb-12 cursor-pointer"
-            >
-                Get Started Now
-            </a>
+            {
+                !isLoggedIn && (
+                    <a
+                        href="/signup"
+                        class="bg-black text-white hover:bg-gray-800 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-y-0.5 transition-all font-bold uppercase tracking-wide inline-block px-6 py-3 mb-12 cursor-pointer"
+                    >
+                        Get Started Now
+                    </a>
+                )
+            }
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

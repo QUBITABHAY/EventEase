@@ -1,5 +1,6 @@
 ---
-
+const token = Astro.cookies.get("token")?.value;
+const isLoggedIn = !!token;
 ---
 
 <section
@@ -25,12 +26,23 @@
             <div
                 class="flex flex-col sm:flex-row gap-4 justify-center items-center"
             >
-                <a
-                    href="/signup"
-                    class="btn btn-lg bg-white text-blue-600 hover:bg-gray-50 border-2 border-black font-bold px-8 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] transition-all w-full sm:w-auto rounded-none uppercase tracking-wide"
-                >
-                    Get Started for Free
-                </a>
+                {
+                    isLoggedIn ? (
+                        <a
+                            href="/exploreEvents"
+                            class="btn btn-lg bg-white text-blue-600 hover:bg-gray-50 border-2 border-black font-bold px-8 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] transition-all w-full sm:w-auto rounded-none uppercase tracking-wide"
+                        >
+                            Let's Explore Events
+                        </a>
+                    ) : (
+                        <a
+                            href="/signup"
+                            class="btn btn-lg bg-white text-blue-600 hover:bg-gray-50 border-2 border-black font-bold px-8 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] transition-all w-full sm:w-auto rounded-none uppercase tracking-wide"
+                        >
+                            Get Started for Free
+                        </a>
+                    )
+                }
                 <a
                     href="#contact"
                     class="btn btn-lg btn-outline border-2 border-white text-white hover:bg-white/10 hover:border-white font-bold px-8 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] transition-all w-full sm:w-auto rounded-none uppercase tracking-wide"
