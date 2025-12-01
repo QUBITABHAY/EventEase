@@ -19,17 +19,7 @@ try {
     });
     if (response.ok) {
         const data = await response.json();
-        const allEvents = data.events || [];
-
-        // Deduplicate events by publicId
-        const seenIds = new Set();
-        events = allEvents.filter((event: any) => {
-            if (seenIds.has(event.publicId)) {
-                return false;
-            }
-            seenIds.add(event.publicId);
-            return true;
-        });
+        events = data.events || [];
     } else {
         console.error("Failed to fetch events:", response.status);
     }

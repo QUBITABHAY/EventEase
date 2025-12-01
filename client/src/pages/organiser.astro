@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import OrganiserSidebar from "../components/organiser/OrganiserSidebar.astro";
 import EventForm from "../components/organiser/EventForm.astro";
-
+import Navbar from "../components/Navbar.astro";
 import jwt from "jsonwebtoken";
 
 const cookie = Astro.request.headers.get("cookie") || "";
@@ -28,6 +28,7 @@ try {
         <OrganiserSidebar />
 
         <div class="flex-1 flex flex-col overflow-hidden">
+            <Navbar dashboard={true} />
             <header
                 class="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-4 lg:hidden"
             >
@@ -367,6 +368,25 @@ try {
         if (!user) {
             window.location.href = "/login";
             return;
+        }
+
+        const orgInitials = document.getElementById("org-sidebar-initials");
+        const orgName = document.getElementById("org-sidebar-name");
+        const orgEmail = document.getElementById("org-sidebar-email");
+
+        if (orgName) orgName.textContent = `${user.firstName} ${user.lastName}`;
+        if (orgEmail) orgEmail.textContent = user.email;
+        if (orgInitials) {
+            const initials =
+                `${user.firstName?.[0] || ""}${user.lastName?.[0] || ""}`.toUpperCase();
+            orgInitials.textContent = initials;
+        }
+
+        const userDashboardLink = document.getElementById("userDashboardLink");
+        if (userDashboardLink) {
+            if (user.role === "BOTH") {
+                userDashboardLink.classList.remove("hidden");
+            }
         }
 
         const createForm = document.getElementById(

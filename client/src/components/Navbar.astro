@@ -189,7 +189,7 @@ const isFluid = fluid || dashboard;
                     tabindex="0"
                     class="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-white w-52 border-2 border-black"
                 >
-                    <li>
+                    <li id="dashboard-link-item">
                         <a
                             href="/dashboard"
                             class="font-bold hover:bg-blue-50 flex items-center gap-3 py-3"
@@ -287,6 +287,9 @@ const isFluid = fluid || dashboard;
         const organizerLinkItem = document.getElementById(
             "organizer-link-item",
         );
+        const dashboardLinkItem = document.getElementById(
+            "dashboard-link-item",
+        );
 
         const mobileLoginLink = document.getElementById("mobile-login-link");
         const mobileGetStartedLink = document.getElementById(
@@ -348,6 +351,11 @@ const isFluid = fluid || dashboard;
                 if (hasRole(user, "ORGANIZER")) {
                     organizerLinkItem?.classList.remove("hidden");
                     mobileOrganizerLink?.classList.remove("hidden");
+
+                    if (user.role === "ORGANIZER") {
+                        dashboardLinkItem?.classList.add("hidden");
+                        mobileDashboardLink?.classList.add("hidden");
+                    }
                 }
 
                 const handleLogout = async (e) => {
