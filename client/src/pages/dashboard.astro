@@ -400,13 +400,17 @@ if (!hasToken) {
                             if (sidebarInitials)
                                 sidebarInitials.textContent = initials;
 
-                            if (
-                                data.role === "ORGANIZER" ||
-                                data.role === "BOTH"
-                            ) {
-                                document
-                                    .getElementById("organizerLink")
-                                    ?.classList.remove("hidden");
+                            const organizerLink =
+                                document.getElementById("organizerLink");
+                            if (organizerLink) {
+                                if (
+                                    data.role === "ORGANIZER" ||
+                                    data.role === "BOTH"
+                                ) {
+                                    organizerLink.classList.remove("hidden");
+                                } else {
+                                    organizerLink.classList.add("hidden");
+                                }
                             }
                         }
                     } catch (e) {
