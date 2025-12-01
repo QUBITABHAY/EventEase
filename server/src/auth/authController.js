@@ -7,6 +7,16 @@ import {
   forgotPasswordService
 } from "./authServices.js";
 
+const getCookieOptions = (maxAge) => {
+  const isProduction = process.env.NODE_ENV === "production";
+  return {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
+    maxAge,
+  };
+};
+
 export const verifyOtp = async (req, res) => {
   try {
     const result = await verifyOtpService(req.body);
@@ -21,12 +31,7 @@ export const verifyOtp = async (req, res) => {
       { expiresIn: "30m" },
     );
 
-    res.cookie("token", tempToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      maxAge: 30 * 60 * 1000,
-    });
+    res.cookie("token", tempToken, getCookieOptions(30 * 60 * 1000));
 
     return res.status(201).json({
       message: result.message,
@@ -76,12 +81,7 @@ export const localLogin = async (req, res) => {
         { expiresIn: "30m" },
       );
 
-      res.cookie("token", tempToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-        maxAge: 30 * 60 * 1000,
-      });
+      res.cookie("token", tempToken, getCookieOptions(30 * 60 * 1000));
 
       return res.status(200).json({
         message: result.message || "Profile incomplete. Redirecting to setup.",
@@ -100,12 +100,7 @@ export const localLogin = async (req, res) => {
       { expiresIn: process.env.JWT_EXPIRES_IN || "24h" },
     );
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      maxAge: 24 * 60 * 60 * 1000,
-    });
+    res.cookie("token", token, getCookieOptions(24 * 60 * 60 * 1000));
 
     return res.status(200).json({
       message: result.message,
@@ -131,12 +126,7 @@ export const completeProfile = async (req, res) => {
       { expiresIn: process.env.JWT_EXPIRES_IN || "24h" },
     );
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      maxAge: 24 * 60 * 60 * 1000,
-    });
+    res.cookie("token", token, getCookieOptions(24 * 60 * 60 * 1000));
 
     return res.status(200).json({
       message: result.message,
@@ -159,12 +149,7 @@ export const oauthCallback = (req, res) => {
         { expiresIn: "30m" },
       );
 
-      res.cookie("token", tempToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-        maxAge: 30 * 60 * 1000,
-      });
+      res.cookie("token", tempToken, getCookieOptions(30 * 60 * 1000));
 
       return res.redirect(
         `${process.env.CLIENT_URL || "http://localhost:4321"}/completeprofile?token=${tempToken}&userId=${user.id}`,
@@ -177,12 +162,7 @@ export const oauthCallback = (req, res) => {
       { expiresIn: process.env.JWT_EXPIRES_IN || "24h" },
     );
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      maxAge: 24 * 60 * 60 * 1000,
-    });
+    res.cookie("token", token, getCookieOptions(24 * 60 * 60 * 1000));
 
     res.redirect(
       `${process.env.CLIENT_URL || "http://localhost:4321"}/dashboard`,
@@ -203,10 +183,11 @@ export const oauthFailure = (req, res) => {
 
 export const logout = (req, res) => {
   try {
+    const isProduction = process.env.NODE_ENV === "production";
     res.clearCookie("token", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax",
       path: "/",
     });
 
