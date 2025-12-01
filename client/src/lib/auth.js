@@ -31,12 +31,12 @@ export async function getUser() {
 export async function logout() {
     try {
         await api.post('/api/auth/logout');
-        window.location.href = '/';
     } catch (error) {
         console.error('Logout failed:', error);
-        // Redirect to home anyway
-        window.location.href = '/';
     }
+    // Clear client-side cookie
+    document.cookie = 'token=; path=/; max-age=0; SameSite=Lax';
+    window.location.href = '/';
 }
 
 /**
