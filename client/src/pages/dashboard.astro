@@ -7,9 +7,12 @@ import TicketModal from "../components/dashboard/TicketModal.astro";
 import ProfileSettings from "../components/dashboard/ProfileSettings.astro";
 import ToastContainer from "../components/dashboard/ToastContainer.astro";
 
+const url = new URL(Astro.request.url);
+const tokenFromUrl = url.searchParams.get("token");
+
 // Server-side redirect check
 const cookie = Astro.request.headers.get("cookie") || "";
-const hasToken = cookie.includes("token=");
+const hasToken = cookie.includes("token=") || tokenFromUrl;
 
 if (!hasToken) {
     return Astro.redirect("/login");
@@ -281,6 +284,20 @@ if (!hasToken) {
                     ) => void;
                 }
             }
+
+            function handleOAuthToken() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const token = urlParams.get('token');
+                
+                if (token) {
+                    document.cookie = `token=${token}; path=/; max-age=${24 * 60 * 60}; SameSite=Lax`;
+                    
+                    const newUrl = window.location.pathname;
+                    window.history.replaceState({}, document.title, newUrl);
+                }
+            }
+
+            handleOAuthToken();
 
             document.addEventListener("DOMContentLoaded", async () => {
                 const user = await checkAuth();

@@ -105,6 +105,7 @@ export const localLogin = async (req, res) => {
     return res.status(200).json({
       message: result.message,
       user: result.user,
+      token,
     });
   } catch (error) {
     console.error("Local login controller error:", error);
@@ -131,6 +132,7 @@ export const completeProfile = async (req, res) => {
     return res.status(200).json({
       message: result.message,
       user: result.user,
+      token,
     });
   } catch (error) {
     console.error("Complete profile controller error:", error);
@@ -141,6 +143,7 @@ export const completeProfile = async (req, res) => {
 export const oauthCallback = (req, res) => {
   try {
     const user = req.user;
+    const clientUrl = process.env.CLIENT_URL || "http://localhost:4321";
 
     if (!user.isProfileComplete) {
       const tempToken = jwt.sign(
@@ -152,7 +155,7 @@ export const oauthCallback = (req, res) => {
       res.cookie("token", tempToken, getCookieOptions(30 * 60 * 1000));
 
       return res.redirect(
-        `${process.env.CLIENT_URL || "http://localhost:4321"}/completeprofile?token=${tempToken}&userId=${user.id}`,
+        `${clientUrl}/completeprofile?token=${tempToken}&userId=${user.id}`,
       );
     }
 
@@ -164,9 +167,7 @@ export const oauthCallback = (req, res) => {
 
     res.cookie("token", token, getCookieOptions(24 * 60 * 60 * 1000));
 
-    res.redirect(
-      `${process.env.CLIENT_URL || "http://localhost:4321"}/dashboard`,
-    );
+    res.redirect(`${clientUrl}/dashboard?token=${token}`);
   } catch (error) {
     console.error("OAuth Callback Error:", error);
     res.redirect(

@@ -3,9 +3,12 @@ import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 
+const url = new URL(Astro.request.url);
+const tokenFromUrl = url.searchParams.get("token");
+
 // Server-side redirect check
 const cookie = Astro.request.headers.get("cookie") || "";
-const hasToken = cookie.includes("token=");
+const hasToken = cookie.includes("token=") || tokenFromUrl;
 
 if (!hasToken) {
   return Astro.redirect("/login");
@@ -325,6 +328,21 @@ if (!hasToken) {
   import api from "../lib/api";
   import { checkAuth } from "../lib/auth";
 
+  function handleOAuthToken() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    
+    if (token) {
+      document.cookie = `token=${token}; path=/; max-age=${30 * 60}; SameSite=Lax`;
+      
+      const userId = urlParams.get('userId');
+      const newUrl = userId ? `${window.location.pathname}?userId=${userId}` : window.location.pathname;
+      window.history.replaceState({}, document.title, newUrl);
+    }
+  }
+
+  handleOAuthToken();
+
   // Check auth immediately
   (async () => {
     const user = await checkAuth();
@@ -439,6 +457,10 @@ if (!hasToken) {
     }, 3000);
   }
 
+  function storeToken(token: string, maxAge: number = 24 * 60 * 60) {
+    document.cookie = `token=${token}; path=/; max-age=${maxAge}; SameSite=Lax`;
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -462,6 +484,10 @@ if (!hasToken) {
 
       const result = response.data;
       console.log("Complete profile response:", result);
+
+      if (result.token) {
+        storeToken(result.token);
+      }
 
       showToast(result.message || "Profile completed successfully!", "success");
 

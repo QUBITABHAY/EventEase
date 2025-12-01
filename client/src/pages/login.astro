@@ -261,6 +261,10 @@ import { API_BASE_URL } from "../config.js";
     }, 3000);
   }
 
+  function storeToken(token: string, maxAge: number = 24 * 60 * 60) {
+    document.cookie = `token=${token}; path=/; max-age=${maxAge}; SameSite=Lax`;
+  }
+
   const loginForm = document.getElementById("loginForm");
 
   loginForm?.addEventListener("submit", async (e) => {
@@ -273,6 +277,10 @@ import { API_BASE_URL } from "../config.js";
       const response = await api.post("/api/auth/local/login", data);
       const result = response.data;
 
+      if (result.token) {
+        storeToken(result.token);
+      }
+
       if (result.requiresProfile) {
         showToast("Please complete your profile", "success");
         setTimeout(() => {
@@ -281,7 +289,6 @@ import { API_BASE_URL } from "../config.js";
         return;
       }
 
-      const userRole = result.user.role;
       showToast("Login successful! Redirecting...", "success");
 
       setTimeout(() => {
