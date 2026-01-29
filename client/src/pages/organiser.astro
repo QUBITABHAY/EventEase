@@ -417,7 +417,7 @@ try {
             ).toISOString();
 
             try {
-                const res = await api.post("/api/events/createEvent", data);
+                const res = await api.post("/api/events", data);
                 if (res.status === 201 || res.status === 200) {
                     alert("Event created successfully!");
                     createForm.reset();

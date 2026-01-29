@@ -11,7 +11,7 @@ let error = "";
 if (isLoggedIn) {
     try {
         const response = await fetch(
-            `${API_BASE_URL}/api/event?limit=3&upcoming=true`,
+            `${API_BASE_URL}/api/events?limit=3&upcoming=true`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
