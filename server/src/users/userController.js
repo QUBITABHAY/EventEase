@@ -4,21 +4,27 @@ import {
   getCurrentUserService,
   loginUserService,
   logoutUserService,
+  resetPasswordService,
   updateUserService,
 } from "./userServices.js";
 import jwt from "jsonwebtoken";
+import redis from "../DB/redis.config.js";
 
 export const createUser = async (req, res) => {
   try {
     const data = req.body;
 
-    const result = await createUserService(data)
+    const result = await createUserService(data);
 
     if (result?.status === 201) {
       const token = jwt.sign(
-        { id: result.user.id, email: result.user.email, role: result.user.role },
+        {
+          id: result.user.id,
+          email: result.user.email,
+          role: result.user.role,
+        },
         process.env.JWT_SECRET,
-        { expiresIn: process.env.JWT_EXPIRES_IN }
+        { expiresIn: process.env.JWT_EXPIRES_IN },
       );
 
       const cookieOptions = {
@@ -147,6 +153,41 @@ export const logoutUser = async (req, res) => {
   } catch (error) {
     return res
       .status(error?.status || 500)
+      .json({ message: error?.message || "Internal Server Error" });
+  }
+};
+
+export const resetPassword = async (req, res) => {
+  try {
+    const { email, otp, password } = req.body;
+
+    const storedData = await redis.get(`otp:${email}`);
+
+    if (!storedData) {
+      return res.status(400).json({ message: "OTP expired or invalid" });
+    }
+
+    const { otp: correctOtp } = JSON.parse(storedData);
+
+    if (otp !== correctOtp) {
+      return res.status(400).json({ message: "Invalid OTP" });
+    }
+
+    const result = await resetPasswordService({ email, password });
+
+    if (result?.status !== 200) {
+      return res
+        .status(result?.status || 500)
+        .json({ message: result?.message || "Failed to reset password" });
+    }
+
+    await redis.del(`otp:${email}`);
+
+    return res.status(200).json({ message: "Password reset successfully" });
+  } catch (error) {
+    console.error("Reset password error:", error);
+    return res
+      .status(500)
       .json({ message: error?.message || "Internal Server Error" });
   }
 };

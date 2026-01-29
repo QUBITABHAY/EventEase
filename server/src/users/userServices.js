@@ -98,7 +98,7 @@ export const getCurrentUserService = async (data) => {
 
     return {
       status: 200,
-      data: user
+      data: user,
     };
   } catch (error) {
     if (error.name === "JsonWebTokenError") {
@@ -154,7 +154,7 @@ export const updateUserService = async (data) => {
     return {
       status: 200,
       message: "User updated",
-      data: updatedUser
+      data: updatedUser,
     };
   } catch (error) {
     console.log(error);
@@ -200,6 +200,38 @@ export const deleteUserService = async (data) => {
 export const logoutUserService = async () => {
   try {
     return { status: 200, message: "Logged out successfully" };
+  } catch (error) {
+    console.log(error);
+    return { status: 500, message: "Internal Server Error" };
+  }
+};
+
+export const resetPasswordService = async (data) => {
+  try {
+    const { email, password } = data;
+
+    const checkDetail = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (!checkDetail) {
+      return { status: 401, message: "User not found" };
+    }
+
+    const hashpassword = await bcrypt.hash(password, 10);
+
+    const updatedUser = await prisma.user.update({
+      where: {
+        id: checkDetail.id,
+      },
+      data: {
+        password: hashpassword,
+      },
+    });
+
+    return { status: 200, message: "Password reset successfully" };
   } catch (error) {
     console.log(error);
     return { status: 500, message: "Internal Server Error" };

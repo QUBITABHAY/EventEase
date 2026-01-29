@@ -8,11 +8,11 @@ import ticketRoutes from "../ticket/ticketRoutes.js";
 
 const routes = Router();
 
-routes.use("/api/user", userRoutes);
-routes.use("/api/event", eventRoutes);
+routes.use("/api/users", userRoutes);
+routes.use("/api/events", eventRoutes);
 routes.use("/api/auth", authRoutes);
-routes.use("/api/registration", registrationRoutes);
-routes.use("/api/reviews", reviewRoutes)
+routes.use("/api/registrations", registrationRoutes);
+routes.use("/api/reviews", reviewRoutes);
 routes.use("/api/tickets", ticketRoutes);
 
 export default routes;

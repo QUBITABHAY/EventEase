@@ -14,7 +14,7 @@ const eventRoutes = Router();
 
 eventRoutes.get("/", getAllEvent);
 eventRoutes.get("/:id", getEventById);
-eventRoutes.post("/createEvent", createEventValidation, createEvent);
-eventRoutes.put("/updateEvent", updateEventValidation, updateEvent);
+eventRoutes.post("/", createEventValidation, createEvent);
+eventRoutes.put("/:id", updateEventValidation, updateEvent);
 
 export default eventRoutes;

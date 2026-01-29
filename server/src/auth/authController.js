@@ -4,7 +4,7 @@ import {
   localLoginService,
   completeProfileService,
   verifyOtpService,
-  forgotPasswordService
+  forgotPasswordService,
 } from "./authServices.js";
 
 const getCookieOptions = (maxAge) => {
@@ -53,10 +53,9 @@ export const localSignup = async (req, res) => {
       return res.status(result.status).json({ message: result.message });
     }
 
-    // Signup only sends OTP, no token needed yet until verification
     return res.status(201).json({
       message: result.message,
-      userId: result.user?.id, // user might be null if just OTP sent
+      userId: result.user?.id,
     });
   } catch (error) {
     console.error("Local signup controller error:", error);
