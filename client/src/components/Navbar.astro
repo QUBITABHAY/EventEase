@@ -100,7 +100,7 @@ const isFluid = fluid || dashboard;
                 !dashboard && (
                     <a
                         href="/"
-                        class="ml-[-10px] mr-auto font-serif text-[40px] font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-blue-500 to-blue-800 transition-all duration-300 hover:scale-105 hover:drop-shadow-[0_0_12px_rgba(59,130,246,0.5)]"
+                        class="ml-[-10px] mr-auto px-4 font-serif text-[40px] font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-blue-500 to-blue-800 transition-all duration-300 hover:scale-105 hover:drop-shadow-[0_0_12px_rgba(59,130,246,0.5)]"
                     >
                         EventEase
                     </a>
@@ -316,7 +316,6 @@ const isFluid = fluid || dashboard;
                 mobileDashboardLink?.classList.remove("hidden");
                 mobileLogoutLink?.classList.remove("hidden");
 
-                // Display user's full name
                 if (userNameDisplay) {
                     const fullName =
                         user.firstName && user.lastName
@@ -327,22 +326,17 @@ const isFluid = fluid || dashboard;
                     userNameDisplay.textContent = fullName;
                 }
 
-                // Create initials from first and last name
                 if (userAvatarText) {
                     let initials = "";
                     if (user.firstName && user.lastName) {
-                        // First letter of first name + first letter of last name
                         initials =
                             user.firstName.charAt(0).toUpperCase() +
                             user.lastName.charAt(0).toUpperCase();
                     } else if (user.firstName) {
-                        // If only first name, use first two letters
                         initials = user.firstName.substring(0, 2).toUpperCase();
                     } else if (user.lastName) {
-                        // If only last name, use first two letters
                         initials = user.lastName.substring(0, 2).toUpperCase();
                     } else {
-                        // Fallback to email
                         initials = user.email.substring(0, 2).toUpperCase();
                     }
                     userAvatarText.textContent = initials;
