@@ -85,7 +85,7 @@ export const getAllEventService = async (data) => {
       };
     }
 
-    if (upcoming === 'true') {
+    if (upcoming === "true") {
       where.startTime = {
         gte: new Date(),
       };
@@ -93,12 +93,25 @@ export const getAllEventService = async (data) => {
 
     const [allEvent, totalCount] = await Promise.all([
       prisma.event.findMany({
-        where,
+        where: {
+          ...where,
+          date: {
+            gte: new Date(Date.now()),
+          },
+        },
         skip,
         take: limit,
-        orderBy: upcoming === 'true' ? { startTime: "asc" } : { createdAt: "desc" },
+        orderBy:
+          upcoming === "true" ? { startTime: "asc" } : { createdAt: "desc" },
       }),
-      prisma.event.count({ where }),
+      prisma.event.count({
+        where: {
+          ...where,
+          date: {
+            gte: new Date(Date.now()),
+          },
+        },
+      }),
     ]);
 
     const totalPages = Math.ceil(totalCount / limit);
