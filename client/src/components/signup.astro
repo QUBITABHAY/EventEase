@@ -1,0 +1,147 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import { API_BASE_URL } from "../config";
+---
+
+<Layout title="Sign Up - EventEase">
+    <Navbar />
+    <main
+        class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4"
+    >
+        <div class="max-w-md mx-auto">
+            <div
+                class="bg-white rounded-lg shadow-lg p-8 border-2 border-black"
+            >
+                <h1 class="text-3xl font-bold text-center mb-6">
+                    Create Account
+                </h1>
+
+                <form id="signupForm" class="space-y-4">
+                    <div>
+                        <label
+                            for="name"
+                            class="block text-sm font-medium text-gray-700 mb-1"
+                        >
+                            Full Name
+                        </label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-purple-500 focus:outline-none"
+                            placeholder="John Doe"
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label
+                            for="email"
+                            class="block text-sm font-medium text-gray-700 mb-1"
+                        >
+                            Email
+                        </label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-purple-500 focus:outline-none"
+                            placeholder="name@company.com"
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label
+                            for="password"
+                            class="block text-sm font-medium text-gray-700 mb-1"
+                        >
+                            Password
+                        </label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-purple-500 focus:outline-none"
+                            placeholder="••••••••"
+                            required
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg transition"
+                    >
+                        Sign Up
+                    </button>
+
+                    <div class="text-center mt-4">
+                        <p class="text-sm text-gray-600">
+                            Already have an account?
+                            <a
+                                href="/login"
+                                class="text-purple-600 hover:text-purple-700 font-medium"
+                            >
+                                Sign in
+                            </a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    <Footer />
+</Layout>
+
+<!-- Toast Container -->
+<div id="toast-container" class="fixed top-4 right-4 z-50"></div>
+
+<script>
+    import api from "../lib/api";
+
+    function showToast(message: string, type: "success" | "error" = "success") {
+        const container = document.getElementById("toast-container");
+        if (!container) return;
+
+        const toast = document.createElement("div");
+        toast.className = `p-4 rounded-lg shadow-lg ${
+            type === "success" ? "bg-green-500" : "bg-red-500"
+        } text-white font-medium`;
+        toast.textContent = message;
+
+        container.appendChild(toast);
+
+        setTimeout(() => {
+            toast.style.opacity = "0";
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+
+    const signupForm = document.getElementById("signupForm");
+
+    signupForm?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(e.target as HTMLFormElement);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+            const response = await api.post("/api/auth/local/signup", data);
+
+            if (response.status === 201) {
+                showToast("Account created! Redirecting...", "success");
+                setTimeout(() => {
+                    window.location.href = "/login";
+                }, 1500);
+            }
+        } catch (error) {
+            console.error("Signup error:", error);
+            const message =
+                error.response?.data?.message ||
+                "Signup failed. Please try again.";
+            showToast(message, "error");
+        }
+    });
+</script>
