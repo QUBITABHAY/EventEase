@@ -14,14 +14,10 @@ export const getCurrentUserValidation = (req, res, next) => {
 };
 
 export const updateUserValidation = (req, res, next) => {
-  const { email, newRole, newPassword } = req.body;
+  const { email } = req.body;
 
   if (!email) {
     return res.status(400).json({ message: "Email is required" });
-  }
-
-  if (!newRole && !newPassword) {
-    return res.status(400).json({ message: "New role or password is required" });
   }
 
   next();
