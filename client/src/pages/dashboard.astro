@@ -1,6 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Navbar from "../components/Navbar.astro";
 import UserSidebar from "../components/dashboard/UserSidebar.astro";
 import EventModal from "../components/dashboard/EventModal.astro";
 import TicketModal from "../components/dashboard/TicketModal.astro";
@@ -24,7 +23,6 @@ if (!hasToken) {
         <UserSidebar />
 
         <div class="flex-1 flex flex-col overflow-hidden">
-            <Navbar dashboard={true} />
 
             <main class="flex-1 overflow-y-auto p-8 bg-gray-50">
                 <div class="mb-6 lg:hidden">
@@ -369,7 +367,7 @@ if (!hasToken) {
 
                 async function fetchUserProfile() {
                     try {
-                        const res = await api.get("/api/user/me");
+                        const res = await api.get("/api/users/me");
                         if (res.status === 200) {
                             const { data } = res.data;
                             const firstNameInput = document.getElementById(
@@ -442,7 +440,7 @@ if (!hasToken) {
                     const data = Object.fromEntries(formData.entries());
 
                     try {
-                        const res = await api.put("/api/user/update", data);
+                        const res = await api.put("/api/users/me", data);
                         if (res.status === 200) {
                             showToast(
                                 "Profile updated successfully!",
@@ -461,7 +459,7 @@ if (!hasToken) {
                 async function fetchRegisteredEventIds() {
                     try {
                         const res = await api.get(
-                            "/api/registration/my-registrations",
+                            "/api/registrations/my-registrations",
                         );
                         const { data } = res.data;
                         registeredEventIds = new Set(
@@ -480,7 +478,7 @@ if (!hasToken) {
 
                     try {
                         const query = new URLSearchParams(params).toString();
-                        const res = await api.get(`/api/event/?${query}`);
+                        const res = await api.get(`/api/events/?${query}`);
                         const { events } = res.data;
 
                         if (events.length === 0) {
@@ -570,7 +568,7 @@ if (!hasToken) {
 
                 (window as any).openEventModal = async (id) => {
                     try {
-                        const res = await api.get(`/api/event/${id}`);
+                        const res = await api.get(`/api/events/${id}`);
                         const { event: data } = res.data;
 
                         const modal = document.getElementById(
@@ -677,7 +675,7 @@ if (!hasToken) {
                 async function registerForEvent(id) {
                     try {
                         const res = await api.post(
-                            "/api/registration/register",
+                            "/api/registrations/register",
                             {
                                 eventId: id,
                             },
@@ -714,7 +712,7 @@ if (!hasToken) {
 
                     try {
                         const res = await api.get(
-                            "/api/registration/my-registrations",
+                            "/api/registrations/my-registrations",
                         );
                         const { data } = res.data;
 
@@ -766,7 +764,7 @@ if (!hasToken) {
 
                     try {
                         const res = await api.get(
-                            "/api/registration/my-registrations",
+                            "/api/registrations/my-registrations",
                         );
                         const { data } = res.data;
 
@@ -785,17 +783,17 @@ if (!hasToken) {
                             .map(
                                 (reg: any) => `
                 <div class="card bg-gray-100 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-none opacity-80 hover:opacity-100 transition-all">
-                    <div class="card-body">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h3 class="font-black text-lg text-gray-900 uppercase tracking-tight line-clamp-1">${reg.event.title}</h3>
+                    <div class="card-body p-4 sm:p-6">
+                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
+                            <div class="flex-1 min-w-0">
+                                <h3 class="font-black text-base sm:text-lg text-gray-900 uppercase tracking-tight line-clamp-2">${reg.event.title}</h3>
                                 <p class="text-sm text-gray-600 font-bold mt-1">${new Date(reg.event.date).toLocaleDateString()}</p>
                             </div>
-                            <span class="badge bg-gray-500 text-white text-xs font-black border-2 border-black rounded-none uppercase tracking-wide">COMPLETED</span>
+                            <span class="badge bg-gray-500 text-white text-xs font-black border-2 border-black rounded-none uppercase tracking-wide shrink-0 self-start">${reg.paymentStatus || 'COMPLETED'}</span>
                         </div>
-                        <div class="mt-4 pt-4 border-t-2 border-gray-200 flex justify-between items-center">
-                            <div class="text-xs text-gray-500 font-mono font-bold">ID: ${reg.ticketId}</div>
-                            <div class="flex gap-2">
+                        <div class="mt-4 pt-4 border-t-2 border-gray-200 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
+                            <div class="text-xs text-gray-500 font-mono font-bold truncate">ID: ${reg.ticketId}</div>
+                            <div class="flex flex-wrap gap-2">
                                 <button class="btn btn-ghost btn-xs text-gray-600 font-bold hover:bg-gray-100 rounded-none uppercase" onclick="openTicketModal('${reg.ticketId}', '${reg.event.title}', '${reg.event.date}', '${reg.event.venue}', '${reg.qrCodeUrl}', '${reg.user.firstName} ${reg.user.lastName}')">View Ticket</button>
                                 <button class="btn btn-ghost btn-xs text-blue-600 font-bold hover:bg-blue-50 rounded-none uppercase" onclick="openEventModal('${reg.event.publicId}')">View Details</button>
                             </div>

@@ -120,7 +120,6 @@ import Footer from "../components/Footer.astro";
 <script>
     import api from "../lib/api";
 
-    // Toast notification function
     function showToast(message: string, type: "success" | "error" = "success") {
         const container = document.getElementById("toast-container");
         if (!container) return;
@@ -194,13 +193,11 @@ import Footer from "../components/Footer.astro";
         });
     }
 
-    // Ensure DOM is loaded before attaching event listeners
     if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", initOtpVerification);
     } else {
         initOtpVerification();
     }
 
-    // Make showToast globally available
     (window as any).showToast = showToast;
 </script>

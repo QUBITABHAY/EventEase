@@ -2,7 +2,6 @@
 import Layout from "../layouts/Layout.astro";
 import OrganiserSidebar from "../components/organiser/OrganiserSidebar.astro";
 import EventForm from "../components/organiser/EventForm.astro";
-import Navbar from "../components/Navbar.astro";
 import jwt from "jsonwebtoken";
 
 const cookie = Astro.request.headers.get("cookie") || "";
@@ -28,7 +27,6 @@ try {
         <OrganiserSidebar />
 
         <div class="flex-1 flex flex-col overflow-hidden">
-            <Navbar dashboard={true} />
             <header
                 class="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-4 lg:hidden"
             >
@@ -642,7 +640,7 @@ try {
 
                 try {
                     const res = await api.get(
-                        `/api/registration/registrations/${eventId}`,
+                        `/api/registrations/registrations/${eventId}`,
                     );
                     const registrations = res.data.registrations || [];
 
