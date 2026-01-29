@@ -36,7 +36,7 @@ export const createUser = async (req, res) => {
       };
 
       res.cookie("token", token, cookieOptions);
-      return res.redirect("http://localhost:4321/register");
+      return res.redirect(`${process.env.CLIENT_URL}/register`);
     }
 
     return res
@@ -75,7 +75,7 @@ export const loginUser = async (req, res) => {
       };
 
       res.cookie("token", token, cookieOptions);
-      return res.redirect("http://localhost:4321/dashboard");
+      return res.redirect(`${process.env.CLIENT_URL}/dashboard`);
     }
 
     return res
