@@ -89,6 +89,10 @@ export const getAllEventService = async (data) => {
       where.startTime = {
         gte: new Date(),
       };
+    } else if (upcoming === "false") {
+      where.startTime = {
+        lt: new Date(),
+      };
     }
 
     const [allEvent, totalCount] = await Promise.all([
@@ -99,7 +103,11 @@ export const getAllEventService = async (data) => {
         skip,
         take: limit,
         orderBy:
-          upcoming === "true" ? { startTime: "asc" } : { createdAt: "desc" },
+          upcoming === "true"
+            ? { startTime: "asc" }
+            : upcoming === "false"
+              ? { startTime: "desc" }
+              : { createdAt: "desc" },
       }),
       prisma.event.count({
         where: {

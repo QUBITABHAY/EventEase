@@ -378,6 +378,7 @@ if (!hasToken) {
                             if (pageId === "past") fetchPastEvents();
                             if (pageId === "calendar") {
                                 fetchEvents({ upcoming: 'true' });
+                                fetchCalendarEvents();
                             }
                         }
 
@@ -631,6 +632,109 @@ if (!hasToken) {
                           loadMoreBtn?.classList.remove("hidden");
                           loadingText?.classList.add("hidden");
                         }
+                    }
+
+                }
+
+                async function fetchMyEvents() {
+                    const grid = document.getElementById("myEventsList");
+                    if (!grid) return;
+                    
+                    grid.innerHTML = '<div class="col-span-full text-center py-16 bg-white border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"><p class="text-gray-900 text-lg font-bold uppercase tracking-wider" style="font-family: \'Poppins\', sans-serif;">Loading your events...</p></div>';
+
+                    try {
+                        const res = await api.get("/api/registrations/my-registrations");
+                        const { data } = res.data; 
+
+                        if (data.length === 0) {
+                            grid.innerHTML = '<div class="col-span-full text-center py-16 bg-white border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"><p class="text-gray-500 text-lg font-bold uppercase tracking-wide" style="font-family: \'Poppins\', sans-serif;">You haven\'t registered for any events yet.</p></div>';
+                            return;
+                        }
+
+                        grid.innerHTML = data.map(reg => {
+                            const event = reg.event;
+                            return `
+                                <div class="card bg-white border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all hover:-translate-y-1 overflow-hidden rounded-none">
+                                  <figure class="h-48 bg-gray-200 relative border-b-2 border-black">
+                                    <img src="${event.posterUrl || "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80"}" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" />
+                                    <div class="absolute top-4 right-4">
+                                        <span class="badge bg-white text-black border-2 border-black font-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] uppercase tracking-wider rounded-none">${event.category}</span>
+                                    </div>
+                                  </figure>
+                                  <div class="card-body p-6">
+                                    <h2 class="card-title text-xl font-black text-gray-900 mb-2 line-clamp-1 uppercase tracking-tight">${event.title}</h2>
+                                    <div class="space-y-2 text-sm text-gray-700 mb-6 font-medium">
+                                      <div class="flex items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                                        ${new Date(event.date).toLocaleDateString('en-IN')}
+                                      </div>
+                                      <div class="flex items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                                        ${event.venue}
+                                      </div>
+                                    </div>
+                                    <div class="card-actions justify-end mt-auto pt-4 border-t-2 border-gray-100">
+                                      <button class="btn btn-sm btn-primary bg-black text-white hover:bg-gray-800 font-bold border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,0.5)] rounded-none uppercase tracking-wide w-full" 
+                                        onclick="openTicketModal('${reg.ticketId}', '${event.title.replace(/'/g, "\\'")}', '${event.date}', '${event.venue.replace(/'/g, "\\'")}', '${reg.qrCodeUrl}', '${reg.user.firstName} ${reg.user.lastName}')">
+                                        View Ticket
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                            `;
+                        }).join("");
+
+                    } catch (e) {
+                         console.error(e);
+                         grid.innerHTML = '<div class="col-span-full text-center py-10 text-red-500">Failed to load your events.</div>';
+                    }
+                }
+
+                async function fetchPastEvents() {
+                    const grid = document.getElementById("pastEventsList");
+                    if (!grid) return;
+
+                    grid.innerHTML = '<div class="col-span-full text-center py-16 bg-white border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"><p class="text-gray-500 text-lg font-bold uppercase tracking-wide" style="font-family: \'Poppins\', sans-serif;">Loading past events...</p></div>';
+
+                    try {
+                        const res = await api.get("/api/events/?upcoming=false");
+                        const { events } = res.data;
+
+                        if (events.length === 0) {
+                             grid.innerHTML = '<div class="col-span-full text-center py-16 bg-white border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"><p class="text-gray-500 text-lg font-bold uppercase tracking-wide" style="font-family: \'Poppins\', sans-serif;">No past events found.</p></div>';
+                             return;
+                        }
+
+                        grid.innerHTML = events.map(event => {
+                             return `
+                                <div class="card bg-gray-50 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-none opacity-75 hover:opacity-100 transition-opacity">
+                                  <figure class="h-48 bg-gray-200 relative border-b-2 border-black filter grayscale">
+                                    <img src="${event.posterUrl || "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80"}" class="w-full h-full object-cover" />
+                                    <div class="absolute top-4 right-4">
+                                        <span class="badge bg-gray-200 text-gray-600 border-2 border-black font-black uppercase tracking-wider rounded-none">Ended</span>
+                                    </div>
+                                  </figure>
+                                  <div class="card-body p-6">
+                                    <h2 class="card-title text-xl font-black text-gray-700 mb-2 line-clamp-1 uppercase tracking-tight">${event.title}</h2>
+                                    <div class="space-y-2 text-sm text-gray-600 mb-6 font-medium">
+                                      <div class="flex items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                                        ${new Date(event.date).toLocaleDateString('en-IN')}
+                                      </div>
+                                    </div>
+                                    <div class="card-actions justify-end mt-auto pt-4 border-t-2 border-gray-200">
+                                      <button class="btn btn-sm btn-ghost border-2 border-black rounded-none uppercase tracking-wide w-full" disabled>
+                                        Event Ended
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                            `;
+                        }).join("");
+
+                    } catch(e) {
+                        console.error(e);
+                         grid.innerHTML = '<div class="col-span-full text-center py-10 text-red-500">Failed to load past events.</div>';
                     }
                 }
 
