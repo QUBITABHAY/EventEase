@@ -5,6 +5,7 @@ import EventModal from "../components/dashboard/EventModal.astro";
 import TicketModal from "../components/dashboard/TicketModal.astro";
 import ProfileSettings from "../components/dashboard/ProfileSettings.astro";
 import ToastContainer from "../components/dashboard/ToastContainer.astro";
+import EventCalendar from "../components/EventCalendar.astro";
 
 const url = new URL(Astro.request.url);
 const tokenFromUrl = url.searchParams.get("token");
@@ -165,22 +166,15 @@ if (!hasToken) {
                         </div>
                     </div>
                 </div>
-                <div id="calendar-page" class="page-content hidden">
+                <div id="calendar-page" class="page-content hidden h-full pb-20">
                     <h1
                         class="text-4xl font-black text-gray-900 mb-8 tracking-tight"
                         style="font-family: 'Poppins', sans-serif;"
                     >
                         Event Calendar
                     </h1>
-                    <div
-                        class="text-center py-16 bg-white border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
-                    >
-                        <p
-                            class="text-gray-500 text-lg font-bold uppercase tracking-wide"
-                            style="font-family: 'Poppins', sans-serif;"
-                        >
-                            Calendar view coming soon
-                        </p>
+                    <div class="h-[800px]">
+                        <EventCalendar />
                     </div>
                 </div>
                 <div id="past-page" class="page-content hidden">
@@ -280,6 +274,7 @@ if (!hasToken) {
                         qrCodeUrl: string,
                         attendeeName: string,
                     ) => void;
+                    updateCalendarEvents: (events: any[]) => void;
                 }
             }
 
@@ -353,9 +348,10 @@ if (!hasToken) {
                                 currentPageBreadcrumb.textContent = pageTitle;
                             }
 
-                            if (pageId === "discover") fetchEvents();
+                            if (pageId === "discover") fetchEvents({ upcoming: 'true' });
                             if (pageId === "myevents") fetchMyEvents();
                             if (pageId === "past") fetchPastEvents();
+                            if (pageId === "calendar") fetchEvents();
                         }
 
                         if (window.innerWidth < 1024) {
@@ -480,6 +476,8 @@ if (!hasToken) {
                         const query = new URLSearchParams(params).toString();
                         const res = await api.get(`/api/events/?${query}`);
                         const { events } = res.data;
+
+
 
                         if (events.length === 0) {
                             grid.innerHTML =
@@ -868,12 +866,25 @@ if (!hasToken) {
                     if (date) params.date = date;
                     if (venue && venue !== "Location") params.venue = venue;
 
-                    fetchEvents(params);
+                    fetchEvents({ ...params, upcoming: 'true' });
                 });
 
                 fetchUserProfile();
                 await fetchRegisteredEventIds();
-                fetchEvents();
+                fetchEvents({ upcoming: 'true' });
+                fetchCalendarEvents();
+
+                async function fetchCalendarEvents() {
+                    try {
+                        const res = await api.get("/api/events/?limit=1000");
+                        const { events } = res.data;
+                        if (window.updateCalendarEvents) {
+                            window.updateCalendarEvents(events);
+                        }
+                    } catch (e) {
+                        console.error("Failed to fetch calendar events", e);
+                    }
+                }
 
                 window.openTicketModal = function (
                     ticketId,

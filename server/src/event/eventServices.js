@@ -95,9 +95,6 @@ export const getAllEventService = async (data) => {
       prisma.event.findMany({
         where: {
           ...where,
-          date: {
-            gte: new Date(Date.now()),
-          },
         },
         skip,
         take: limit,
@@ -107,9 +104,6 @@ export const getAllEventService = async (data) => {
       prisma.event.count({
         where: {
           ...where,
-          date: {
-            gte: new Date(Date.now()),
-          },
         },
       }),
     ]);
