@@ -22,8 +22,8 @@ export const createEvent = async (req, res) => {
 
 export const getAllEvent = async (req, res) => {
   try {
-    const { page, limit, search, category, date, venue } = req.query;
-    const result = await getAllEventService({ page, limit, search, category, date, venue });
+    const data = req.query;
+    const result = await getAllEventService(data);
 
     return res.status(result?.status || 500).json({
       events: result?.events || [],

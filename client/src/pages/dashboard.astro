@@ -141,6 +141,16 @@ if (!hasToken) {
                             Loading events...
                         </div>
                     </div>
+
+                    <div id="loadMoreContainer" class="text-center mt-12 hidden">
+                        <button
+                            id="loadMoreBtn"
+                            class="btn btn-primary border-2 border-black bg-white text-black hover:bg-black hover:text-white font-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all uppercase tracking-wide px-8"
+                        >
+                            Load More Events
+                        </button>
+                        <p id="loadingText" class="hidden text-gray-500 font-bold mt-2">Loading...</p>
+                    </div>
                 </div>
 
                 <div id="myevents-page" class="page-content hidden">
@@ -300,6 +310,11 @@ if (!hasToken) {
                 }
 
                 let registeredEventIds = new Set();
+                
+                let currentPage = 1;
+                const LIMIT = 6;
+                let currentParams = { upcoming: 'true' };
+                let isLoadingMore = false;
 
                 const sidebar = document.getElementById("sidebar");
                 const sidebarOverlay =
@@ -312,6 +327,10 @@ if (!hasToken) {
                 const pages = document.querySelectorAll(".page-content");
                 const currentPageBreadcrumb =
                     document.getElementById("currentPage");
+                
+                const loadMoreBtn = document.getElementById("loadMoreBtn");
+                const loadMoreContainer = document.getElementById("loadMoreContainer");
+                const loadingText = document.getElementById("loadingText");
 
                 toggleSidebar?.addEventListener("click", () => {
                     sidebar?.classList.remove("-translate-x-full");
@@ -326,6 +345,12 @@ if (!hasToken) {
                 sidebarOverlay?.addEventListener("click", () => {
                     sidebar?.classList.add("-translate-x-full");
                     sidebarOverlay?.classList.add("hidden");
+                });
+
+                loadMoreBtn?.addEventListener("click", () => {
+                    if (isLoadingMore) return;
+                    currentPage++;
+                    fetchEvents(null, true);
                 });
 
                 navLinks.forEach((link) => {
@@ -351,7 +376,9 @@ if (!hasToken) {
                             if (pageId === "discover") fetchEvents({ upcoming: 'true' });
                             if (pageId === "myevents") fetchMyEvents();
                             if (pageId === "past") fetchPastEvents();
-                            if (pageId === "calendar") fetchEvents();
+                            if (pageId === "calendar") {
+                                fetchEvents({ upcoming: 'true' });
+                            }
                         }
 
                         if (window.innerWidth < 1024) {
@@ -466,26 +493,55 @@ if (!hasToken) {
                     }
                 }
 
-                async function fetchEvents(params = {}) {
+                async function fetchEvents(newParams = null, append = false) {
                     const grid = document.getElementById("eventsGrid");
                     if (!grid) return;
-                    grid.innerHTML =
-                        '<div class="col-span-full text-center py-10 text-gray-500">Loading events...</div>';
+                    
+                    if (newParams) {
+                        currentPage = 1;
+                        currentParams = { ...newParams };
+                    }
+
+                    if (!currentParams.hasOwnProperty('upcoming')) {
+                        currentParams['upcoming'] = 'true';
+                    }
+
+                    if (!append) {
+                        grid.innerHTML = '<div class="col-span-full text-center py-10 text-gray-500">Loading events...</div>';
+                        loadMoreContainer?.classList.add("hidden");
+                    } else {
+                        isLoadingMore = true;
+                        loadMoreBtn?.classList.add("hidden");
+                        loadingText?.classList.remove("hidden");
+                    }
 
                     try {
-                        const query = new URLSearchParams(params).toString();
+                        const queryParams = { 
+                            ...currentParams, 
+                            page: currentPage.toString(), 
+                            limit: LIMIT.toString() 
+                        };
+                        const query = new URLSearchParams(queryParams).toString();
+                        
                         const res = await api.get(`/api/events/?${query}`);
-                        const { events } = res.data;
+                        const { events, pagination } = res.data;
 
+                        if (pagination && pagination.hasNextPage) {
+                            loadMoreContainer?.classList.remove("hidden");
+                            loadMoreBtn?.classList.remove("hidden");
+                            loadingText?.classList.add("hidden");
+                        } else {
+                            loadMoreContainer?.classList.add("hidden");
+                            loadingText?.classList.add("hidden");
+                        }
 
-
-                        if (events.length === 0) {
+                        if (events.length === 0 && !append) {
                             grid.innerHTML =
                                 '<div class="col-span-full text-center py-10 text-gray-500">No upcoming events found.</div>';
                             return;
                         }
 
-                        grid.innerHTML = events
+                        const eventsHTML = events
                             .map((event) => {
                                 const isRegistered = registeredEventIds.has(
                                     event.publicId,
@@ -557,254 +613,24 @@ if (!hasToken) {
             `;
                             })
                             .join("");
+                        
+                        if (append) {
+                            grid.innerHTML += eventsHTML;
+                        } else {
+                            grid.innerHTML = eventsHTML;
+                        }
+
                     } catch (e) {
                         console.error(e);
                         grid.innerHTML =
                             '<div class="col-span-full text-center py-10 text-red-500">Failed to load events.</div>';
-                    }
-                }
-
-                (window as any).openEventModal = async (id) => {
-                    try {
-                        const res = await api.get(`/api/events/${id}`);
-                        const { event: data } = res.data;
-
-                        const modal = document.getElementById(
-                            "eventModal",
-                        ) as HTMLDialogElement;
-                        document.getElementById("modalTitle")!.textContent =
-                            data.title;
-                        document.getElementById("modalCategory")!.textContent =
-                            data.category;
-                        document.getElementById(
-                            "modalDescription",
-                        )!.textContent = data.description;
-                        document.getElementById(
-                            "modalLongDescription",
-                        )!.textContent = data.longDescription || "";
-                        document.getElementById("modalDate")!.textContent =
-                            new Date(data.date).toLocaleDateString('en-IN');
-                        document.getElementById("modalTime")!.textContent =
-                            new Date(data.startTime).toLocaleTimeString('en-IN', {
-                                hour: "2-digit",
-                                minute: "2-digit",
-                            });
-                        document.getElementById("modalVenue")!.textContent =
-                            data.venue;
-                        document.getElementById("modalPrice")!.textContent =
-                            data.price > 0 ? `₹${data.price}` : "Free";
-                        document.getElementById("modalOrganizer")!.textContent =
-                            `${data.organizer.firstName} ${data.organizer.lastName}`;
-                        (
-                            document.getElementById(
-                                "modalImage",
-                            ) as HTMLImageElement
-                        ).src =
-                            data.posterUrl ||
-                            "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80";
-
-                        const registerBtn =
-                            document.getElementById("registerBtn");
-                        const fullPageBtn = document.getElementById(
-                            "fullPageBtn",
-                        ) as HTMLAnchorElement;
-                        if (fullPageBtn) fullPageBtn.href = `/events/${id}`;
-
-                        const isRegistered = registeredEventIds.has(id);
-
-                        if (isRegistered) {
-                            registerBtn!.textContent = "Registered";
-                            registerBtn!.classList.remove(
-                                "bg-black",
-                                "hover:bg-gray-800",
-                            );
-                            registerBtn!.classList.add(
-                                "bg-green-600",
-                                "hover:bg-green-700",
-                                "cursor-not-allowed",
-                            );
-                            (registerBtn as HTMLButtonElement).disabled = true;
-                            registerBtn!.onclick = null;
-                        } else {
-                            registerBtn!.textContent = "Register Now";
-                            registerBtn!.classList.remove(
-                                "bg-green-600",
-                                "hover:bg-green-700",
-                                "cursor-not-allowed",
-                            );
-                            registerBtn!.classList.add(
-                                "bg-black",
-                                "hover:bg-gray-800",
-                            );
-                            (registerBtn as HTMLButtonElement).disabled = false;
-                            registerBtn!.onclick = () => registerForEvent(id);
+                        loadMoreContainer?.classList.add("hidden");
+                    } finally {
+                        isLoadingMore = false;
+                        if(append && !document.getElementById("loadMoreBtn")?.classList.contains("hidden")) {
+                          loadMoreBtn?.classList.remove("hidden");
+                          loadingText?.classList.add("hidden");
                         }
-
-                        modal.showModal();
-                    } catch (e) {
-                        console.error(e);
-                    }
-                };
-
-                function showToast(message, type = "success") {
-                    const container =
-                        document.getElementById("toast-container");
-                    if (!container) return;
-
-                    const toast = document.createElement("div");
-                    const bgColor =
-                        type === "success" ? "bg-green-600" : "bg-red-600";
-                    toast.className = `${bgColor} text-white px-6 py-4 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] font-bold flex items-center gap-3 min-w-[300px] toast-enter`;
-
-                    toast.innerHTML = `
-                        <span class="flex-1">${message}</span>
-                        <button class="hover:text-gray-200" onclick="this.parentElement.remove()">✕</button>
-                    `;
-
-                    container.appendChild(toast);
-
-                    setTimeout(() => {
-                        toast.classList.remove("toast-enter");
-                        toast.classList.add("toast-exit");
-                        setTimeout(() => toast.remove(), 300);
-                    }, 3000);
-                }
-
-                async function registerForEvent(id) {
-                    try {
-                        const res = await api.post(
-                            "/api/registrations/register",
-                            {
-                                eventId: id,
-                            },
-                        );
-                        const result = res.data;
-                        if (res.status === 200 || res.status === 201) {
-                            showToast("Successfully registered!", "success");
-                            (
-                                document.getElementById(
-                                    "eventModal",
-                                ) as HTMLDialogElement
-                            ).close();
-                            await fetchRegisteredEventIds();
-                            fetchMyEvents();
-                            fetchEvents();
-                        } else {
-                            showToast(
-                                result.message || "Registration failed",
-                                "error",
-                            );
-                        }
-                    } catch (e) {
-                        console.error(e);
-                        const message =
-                            e.response?.data?.message ||
-                            "Error registering for event";
-                        showToast(message, "error");
-                    }
-                }
-
-                async function fetchMyEvents() {
-                    const list = document.getElementById("myEventsList");
-                    if (!list) return;
-
-                    try {
-                        const res = await api.get(
-                            "/api/registrations/my-registrations",
-                        );
-                        const { data } = res.data;
-
-                        const now = new Date();
-                        const upcomingEvents = data.filter(
-                            (reg: any) => new Date(reg.event.date) >= now,
-                        );
-
-                        if (upcomingEvents.length === 0) {
-                            list.innerHTML =
-                                '<div class="col-span-full text-center py-16 bg-white border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"><p class="text-gray-500 text-lg font-bold uppercase tracking-wide">You have no upcoming events.</p></div>';
-                            return;
-                        }
-
-                        list.innerHTML = upcomingEvents
-                            .map(
-                                (reg: any) => `
-                <div class="card bg-white border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-none hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all hover:-translate-y-1">
-                    <div class="card-body">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h3 class="font-black text-lg text-gray-900 uppercase tracking-tight line-clamp-1">${reg.event.title}</h3>
-                                <p class="text-sm text-gray-600 font-bold mt-1">${new Date(reg.event.date).toLocaleDateString('en-IN')}</p>
-                            </div>
-                            <span class="badge ${reg.paymentStatus === "COMPLETED" ? "bg-green-500" : "bg-yellow-500"} text-white text-xs font-black border-2 border-black rounded-none uppercase tracking-wide">${reg.paymentStatus}</span>
-                        </div>
-                        <div class="mt-4 pt-4 border-t-2 border-gray-100 flex justify-between items-center">
-                            <div class="text-xs text-gray-500 font-mono font-bold">ID: ${reg.ticketId}</div>
-                            <div class="flex gap-2">
-                                <button class="btn btn-ghost btn-xs text-gray-600 font-bold hover:bg-gray-100 rounded-none uppercase" onclick="openTicketModal('${reg.ticketId}', '${reg.event.title}', '${reg.event.date}', '${reg.event.venue}', '${reg.qrCodeUrl}', '${reg.user.firstName} ${reg.user.lastName}')">View Ticket</button>
-                                <button class="btn btn-ghost btn-xs text-blue-600 font-bold hover:bg-blue-50 rounded-none uppercase" onclick="openEventModal('${reg.event.publicId}')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `,
-                            )
-                            .join("");
-                    } catch (e) {
-                        console.error(e);
-                        list.innerHTML =
-                            '<div class="col-span-full text-center py-16 bg-white border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"><p class="text-red-500 text-lg font-bold uppercase tracking-wide">Failed to load events.</p></div>';
-                    }
-                }
-
-                async function fetchPastEvents() {
-                    const list = document.getElementById("pastEventsList");
-                    if (!list) return;
-
-                    try {
-                        const res = await api.get(
-                            "/api/registrations/my-registrations",
-                        );
-                        const { data } = res.data;
-
-                        const now = new Date();
-                        const pastEvents = data.filter(
-                            (reg: any) => new Date(reg.event.date) < now,
-                        );
-
-                        if (pastEvents.length === 0) {
-                            list.innerHTML =
-                                '<div class="col-span-full text-center py-16 bg-white border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"><p class="text-gray-500 text-lg font-bold uppercase tracking-wide">You have no past events.</p></div>';
-                            return;
-                        }
-
-                        list.innerHTML = pastEvents
-                            .map(
-                                (reg: any) => `
-                <div class="card bg-gray-100 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-none opacity-80 hover:opacity-100 transition-all">
-                    <div class="card-body p-4 sm:p-6">
-                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
-                            <div class="flex-1 min-w-0">
-                                <h3 class="font-black text-base sm:text-lg text-gray-900 uppercase tracking-tight line-clamp-2">${reg.event.title}</h3>
-                                <p class="text-sm text-gray-600 font-bold mt-1">${new Date(reg.event.date).toLocaleDateString('en-IN')}</p>
-                            </div>
-                            <span class="badge bg-gray-500 text-white text-xs font-black border-2 border-black rounded-none uppercase tracking-wide shrink-0 self-start">${reg.paymentStatus || 'COMPLETED'}</span>
-                        </div>
-                        <div class="mt-4 pt-4 border-t-2 border-gray-200 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
-                            <div class="text-xs text-gray-500 font-mono font-bold truncate">ID: ${reg.ticketId}</div>
-                            <div class="flex flex-wrap gap-2">
-                                <button class="btn btn-ghost btn-xs text-gray-600 font-bold hover:bg-gray-100 rounded-none uppercase" onclick="openTicketModal('${reg.ticketId}', '${reg.event.title}', '${reg.event.date}', '${reg.event.venue}', '${reg.qrCodeUrl}', '${reg.user.firstName} ${reg.user.lastName}')">View Ticket</button>
-                                <button class="btn btn-ghost btn-xs text-blue-600 font-bold hover:bg-blue-50 rounded-none uppercase" onclick="openEventModal('${reg.event.publicId}')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `,
-                            )
-                            .join("");
-                    } catch (e) {
-                        console.error(e);
-                        list.innerHTML =
-                            '<div class="col-span-full text-center py-16 bg-white border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"><p class="text-red-500 text-lg font-bold uppercase tracking-wide">Failed to load past events.</p></div>';
                     }
                 }
 
@@ -833,7 +659,7 @@ if (!hasToken) {
                         );
                         eventsGrid?.classList.add("grid-cols-1");
                     }
-                    fetchEvents();
+                    fetchEvents(null);
                 };
 
                 const filterBtn = document.getElementById("filterBtn");
@@ -859,14 +685,14 @@ if (!hasToken) {
                         ) as HTMLSelectElement
                     ).value;
 
-                    const params: any = {};
+                    const params: any = { upcoming: 'true' };
                     if (search) params.search = search;
                     if (category && category !== "Category")
                         params.category = category;
                     if (date) params.date = date;
                     if (venue && venue !== "Location") params.venue = venue;
 
-                    fetchEvents({ ...params, upcoming: 'true' });
+                    fetchEvents(params);
                 });
 
                 fetchUserProfile();
